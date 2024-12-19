@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/19/u3ez9CtglaXyJNk.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/19/pwKVfMPCjUbX95v.jpg">
 <meta property="article:published_time" content="2024-12-19T02:57:54.000Z">
-<meta property="article:modified_time" content="2024-12-19T08:51:08.603Z">
+<meta property="article:modified_time" content="2024-12-19T08:55:35.934Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="符号执行">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          3.6k 字
         
       </span>
     
@@ -344,25 +344,49 @@
 <h4 id="步骤1：运行实际状态并收集约束"><a href="#步骤1：运行实际状态并收集约束" class="headerlink" title="步骤1：运行实际状态并收集约束"></a><strong>步骤1：运行实际状态并收集约束</strong></h4><ol>
 <li><p><strong>实际运行</strong>：</p>
 <ul>
-<li><pre><code class="hljs">x = 15
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs"><br>，执行路径为：<br><br></code></pre></td></tr></table></figure>
-if (15 &gt; 10) &#123;          // 条件成立
-    if (15 &lt; 20) &#123;      // 条件成立
-        return 1;
-    &#125;
-&#125;
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">   -</span> 结果：程序返回 <span class="hljs-code">`1`</span>，对应<span class="hljs-strong">**路径1**</span>。<br><br><span class="hljs-bullet">2.</span> <span class="hljs-strong">**符号化执行**</span>：<br><br><span class="hljs-bullet">   -</span> 符号化条件为：<br><br></code></pre></td></tr></table></figure>
-X &gt; 10  (路径1)
-X &lt; 20
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">   -</span> 将这些条件存入符号约束集。<br><br>------<br><br><span class="hljs-section">#### <span class="hljs-strong">**步骤2：生成新路径（约束取反）**</span></span><br><br><span class="hljs-bullet">1.</span> 从约束集中取反条件：<br><br><span class="hljs-bullet">   -</span> 原路径约束为 <span class="hljs-code">`X &gt; 10 &amp;&amp; X &lt; 20`</span>。<br><br><span class="hljs-bullet">   -</span> 取反约束为 <br><br></code></pre></td></tr></table></figure>
-!(X &gt; 10 &amp;&amp; X &lt; 20)
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs"><br>即：<br><br></code></pre></td></tr></table></figure>
-X &lt;= 10 || X &gt;= 20
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">2.</span> <span class="hljs-strong">**选择其中一条路径：`X &lt;= 10`**</span>。<br><br><span class="hljs-bullet">   -</span> 求解约束 <span class="hljs-code">`X &lt;= 10`</span>，求解器可能返回 <span class="hljs-code">`X = 5`</span>。<br><br>------<br><br><span class="hljs-section">#### <span class="hljs-strong">**步骤3：探索新路径**</span></span><br><br><span class="hljs-bullet">1.</span> 使用新值 <span class="hljs-code">`x = 5`</span> 实际运行：<br><br><span class="hljs-bullet">   -</span> <span class="hljs-code">```</span><br><span class="hljs-code">     x = 5</span><br></code></pre></td></tr></table></figure>
+<li><pre><code class="py">x = 15
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br>，执行路径为：<br><br>```<span class="hljs-function">py</span><br><span class="hljs-function"><span class="hljs-title">if</span> <span class="hljs-params">(<span class="hljs-number">15</span> &gt; <span class="hljs-number">10</span>)</span> </span>&#123;          <span class="hljs-comment">// 条件成立</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">15</span> &lt; <span class="hljs-number">20</span>) &#123;      <span class="hljs-comment">// 条件成立</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>结果：程序返回 <code>1</code>，对应<strong>路径1</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>符号化执行</strong>：</p>
+<ul>
+<li><p>符号化条件为：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs py">X &gt; <span class="hljs-number">10</span>  (路径<span class="hljs-number">1</span>)<br>X &lt; <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将这些条件存入符号约束集。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="步骤2：生成新路径（约束取反）"><a href="#步骤2：生成新路径（约束取反）" class="headerlink" title="步骤2：生成新路径（约束取反）"></a><strong>步骤2：生成新路径（约束取反）</strong></h4><ol>
+<li><p>从约束集中取反条件：</p>
+<ul>
+<li><p>原路径约束为 <code>X &gt; 10 &amp;&amp; X &lt; 20</code>。</p>
+</li>
+<li><p>取反约束为 </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">!(X &gt; <span class="hljs-number">10</span> &amp;&amp; X &lt; <span class="hljs-number">20</span>)<br></code></pre></td></tr></table></figure>
 
-，执行路径为：
-
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (<span class="hljs-number">5</span> &gt; <span class="hljs-number">10</span>) &#123;           <span class="hljs-comment">// 条件不成立</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>即：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">X &lt;= <span class="hljs-number">10</span> || X &gt;= <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>**选择其中一条路径：<code>X &lt;= 10</code>**。</p>
+<ul>
+<li>求解约束 <code>X &lt;= 10</code>，求解器可能返回 <code>X = 5</code>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="步骤3：探索新路径"><a href="#步骤3：探索新路径" class="headerlink" title="步骤3：探索新路径"></a><strong>步骤3：探索新路径</strong></h4><ol>
+<li><p>使用新值 <code>x = 5</code> 实际运行：</p>
+<ul>
+<li><pre><code class="py">x = 5
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><br>，执行路径为：<br><br>```<span class="hljs-function">py</span><br><span class="hljs-function"><span class="hljs-title">if</span> <span class="hljs-params">(<span class="hljs-number">5</span> &gt; <span class="hljs-number">10</span>)</span> </span>&#123;           <span class="hljs-comment">// 条件不成立</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 </code></pre>
 </li>
 <li><p>结果：程序返回 <code>3</code>，对应<strong>路径3</strong>。</p>
@@ -372,7 +396,7 @@ X &lt;= 10 || X &gt;= 20
 <li><p>收集符号化约束：</p>
 <ul>
 <li><p>符号化条件为：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">X</span> &lt;= <span class="hljs-number">10</span>  (路径<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">X &lt;= <span class="hljs-number">10</span>  (路径<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
@@ -387,10 +411,10 @@ X &lt;= 10 || X &gt;= 20
 </ul>
 </li>
 <li><p>合并取反条件：</p>
-<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">!(X &gt; <span class="hljs-number">10</span> &amp;&amp; X &lt; <span class="hljs-number">20</span>) &amp;&amp; !(X &lt;= <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">!(X &gt; <span class="hljs-number">10</span> &amp;&amp; X &lt; <span class="hljs-number">20</span>) &amp;&amp; !(X &lt;= <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>简化后为：</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">复制代码<br>X &gt;<span class="hljs-operator">=</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure></li>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">X &gt;= <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>**选择路径：<code>X &gt;= 20</code>**。</p>
@@ -400,44 +424,56 @@ X &lt;= 10 || X &gt;= 20
 </li>
 <li><p>使用新值 <code>x = 25</code> 实际运行：</p>
 <ul>
-<li><pre><code class="hljs">x = 25
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs"><br>，执行路径为：<br><br></code></pre></td></tr></table></figure>
-if (25 &gt; 10) &#123;          // 条件成立
-    if (25 &lt; 20) &#123;      // 条件不成立
-        return 2;
-    &#125;
-&#125;
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">   -</span> 结果：程序返回 <span class="hljs-code">`2`</span>，对应<span class="hljs-strong">**路径2**</span>。<br><br>------<br><br><span class="hljs-section">#### <span class="hljs-strong">**终止条件**</span></span><br><br>动态符号执行会重复上述过程：<br><br><span class="hljs-bullet">1.</span> 实际运行一个具体值。<br><span class="hljs-bullet">2.</span> 收集符号化约束。<br><span class="hljs-bullet">3.</span> 取反约束生成新路径。<br><span class="hljs-bullet">4.</span> 继续探索未覆盖的路径。<br><br>直到：<br><br><span class="hljs-bullet">-</span> <span class="hljs-strong">**所有路径都被探索**</span>：程序的逻辑分支全部覆盖。<br><span class="hljs-bullet">-</span> <span class="hljs-strong">**达到用户设定的限制**</span>：例如最大路径数量、最大求解时间等。<br><br><span class="hljs-section">## angr的不足</span><br><br><span class="hljs-section">### 未约束导致路径爆炸</span><br><br>在符号执行中，如果函数的输入变量或状态没有被有效约束（即没有设定足够的条件），Angr 等工具会把这些变量当作符号值进行推理和执行。而未约束的变量可能会导致两方面的问题：<br><br><span class="hljs-bullet">1.</span> <span class="hljs-strong">**不确定的输入**</span>： 如果输入没有约束（例如，函数的参数没有指定具体的值或者范围），那么每次执行到某个条件判断时，就会有多个可能的选择。例如，假设你有一个函数，其中某个参数 <span class="hljs-code">`x`</span> 的值没有明确的限制，那么在 <span class="hljs-code">`if`</span> 语句中对 <span class="hljs-code">`x`</span> 的判断就可能导致多个分支，每个分支都有不同的路径。<br><span class="hljs-bullet">2.</span> <span class="hljs-strong">**无限循环**</span>： 当未约束的变量影响到循环条件时，符号执行就无法准确预测循环何时结束，因为它并不知道循环的终止条件何时成立。例如，某个循环的退出条件可能是 <span class="hljs-code">`x == 0`</span>，但 <span class="hljs-code">`x`</span> 是一个未约束的符号变量，Angr 并不知道 <span class="hljs-code">`x`</span> 什么时候会变为 0。因此，符号执行引擎就可能会一直在这个循环中进行模拟，导致路径在循环内无限增长。<br><br>实例说明：<br><br></code></pre></td></tr></table></figure>
+<li><pre><code class="python">x = 25	
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br>，执行路径为：<br><br>```<span class="hljs-function">py</span><br><span class="hljs-function"><span class="hljs-title">if</span> <span class="hljs-params">(<span class="hljs-number">25</span> &gt; <span class="hljs-number">10</span>)</span> </span>&#123;          <span class="hljs-comment">// 条件成立</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">25</span> &lt; <span class="hljs-number">20</span>) &#123;      <span class="hljs-comment">// 条件不成立</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </code></pre>
+</li>
+<li><p>结果：程序返回 <code>2</code>，对应<strong>路径2</strong>。</p>
 </li>
 </ul>
 </li>
 </ol>
-<p>void foo(int x) {<br>    while (x &gt; 0) {<br>        x–;<br>    }<br>}</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>- 如果我们给定一个具体的值，例如 `x = <span class="hljs-number">10</span>`，程序会在 <span class="hljs-number">10</span> 次迭代后退出。<br>- 但是如果 `x` 是一个未约束的符号变量（例如，Angr 看到 `x` 是一个符号值），它就不能确定 `x` 会在什么时候达到 <span class="hljs-number">0</span>，或者是否有可能永远不为 <span class="hljs-number">0</span>。<br><br>在符号执行中，Angr 会尝试探索所有可能的路径。在这种情况下，由于 `x` 没有约束，符号执行引擎无法推断出 `x` 何时会变为 <span class="hljs-number">0</span>，因此它可能会认为该循环将永远执行下去，导致**路径爆炸**。<br><br>#### **路径爆炸与无限循环的关系**<br><br>路径爆炸指的是，随着未约束变量的增加，符号执行的路径数量呈指数级增长，导致无法有效地探索所有路径。无限循环是路径爆炸的一种特殊情况，通常发生在没有足够约束的情况下，符号执行无法判断循环是否终止，从而导致执行路径无法终止。<br><br>例如，当未约束的循环变量 `x` 不断变化，且影响循环的终止条件时，Angr 可能会不断生成新的路径，每个路径代表不同的 `x` 值和不同的循环迭代次数，最终导致路径数量迅速膨胀，系统无法有效处理这些路径，从而导致“卡死”。<br><br>实例说明：<br><br></code></pre></td></tr></table></figure>
-<p>int func(int x) {<br>    while (x &gt; 0) {<br>        x &#x3D; x - 1;<br>    }<br>    return x;<br>}</p>
-<pre><code class="hljs">
-如果 `x` 没有任何约束，Angr 会将其视为符号变量，可能会生成多条路径来探索 `x` 可能的值。每条路径都会尝试模拟 `x` 在每次循环中的变化，直到达到退出条件 `x &lt;= 0`。
+<hr>
+<h4 id="终止条件"><a href="#终止条件" class="headerlink" title="终止条件"></a><strong>终止条件</strong></h4><p>动态符号执行会重复上述过程：</p>
+<ol>
+<li>实际运行一个具体值。</li>
+<li>收集符号化约束。</li>
+<li>取反约束生成新路径。</li>
+<li>继续探索未覆盖的路径。</li>
+</ol>
+<p>直到：</p>
+<ul>
+<li><strong>所有路径都被探索</strong>：程序的逻辑分支全部覆盖。</li>
+<li><strong>达到用户设定的限制</strong>：例如最大路径数量、最大求解时间等。</li>
+</ul>
+<h2 id="angr的不足"><a href="#angr的不足" class="headerlink" title="angr的不足"></a>angr的不足</h2><h3 id="未约束导致路径爆炸"><a href="#未约束导致路径爆炸" class="headerlink" title="未约束导致路径爆炸"></a>未约束导致路径爆炸</h3><p>在符号执行中，如果函数的输入变量或状态没有被有效约束（即没有设定足够的条件），Angr 等工具会把这些变量当作符号值进行推理和执行。而未约束的变量可能会导致两方面的问题：</p>
+<ol>
+<li><strong>不确定的输入</strong>： 如果输入没有约束（例如，函数的参数没有指定具体的值或者范围），那么每次执行到某个条件判断时，就会有多个可能的选择。例如，假设你有一个函数，其中某个参数 <code>x</code> 的值没有明确的限制，那么在 <code>if</code> 语句中对 <code>x</code> 的判断就可能导致多个分支，每个分支都有不同的路径。</li>
+<li><strong>无限循环</strong>： 当未约束的变量影响到循环条件时，符号执行就无法准确预测循环何时结束，因为它并不知道循环的终止条件何时成立。例如，某个循环的退出条件可能是 <code>x == 0</code>，但 <code>x</code> 是一个未约束的符号变量，Angr 并不知道 <code>x</code> 什么时候会变为 0。因此，符号执行引擎就可能会一直在这个循环中进行模拟，导致路径在循环内无限增长。</li>
+</ol>
+<p>实例说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">void foo(<span class="hljs-built_in">int</span> x) &#123;<br>    <span class="hljs-keyword">while</span> (x &gt; <span class="hljs-number">0</span>) &#123;<br>        x--;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-- 在符号执行的过程中，Angr 会对每次 `x = x - 1` 做出决策，并生成新的路径。
-- 如果没有足够的约束（例如，限制 `x` 的值或设置循环的最大迭代次数），Angr 可能会生成大量的路径来模拟不同的 `x` 值和循环次数，导致路径数目激增，甚至无法终止。
+<ul>
+<li>如果我们给定一个具体的值，例如 <code>x = 10</code>，程序会在 10 次迭代后退出。</li>
+<li>但是如果 <code>x</code> 是一个未约束的符号变量（例如，Angr 看到 <code>x</code> 是一个符号值），它就不能确定 <code>x</code> 会在什么时候达到 0，或者是否有可能永远不为 0。</li>
+</ul>
+<p>在符号执行中，Angr 会尝试探索所有可能的路径。在这种情况下，由于 <code>x</code> 没有约束，符号执行引擎无法推断出 <code>x</code> 何时会变为 0，因此它可能会认为该循环将永远执行下去，导致<strong>路径爆炸</strong>。</p>
+<h4 id="路径爆炸与无限循环的关系"><a href="#路径爆炸与无限循环的关系" class="headerlink" title="路径爆炸与无限循环的关系"></a><strong>路径爆炸与无限循环的关系</strong></h4><p>路径爆炸指的是，随着未约束变量的增加，符号执行的路径数量呈指数级增长，导致无法有效地探索所有路径。无限循环是路径爆炸的一种特殊情况，通常发生在没有足够约束的情况下，符号执行无法判断循环是否终止，从而导致执行路径无法终止。</p>
+<p>例如，当未约束的循环变量 <code>x</code> 不断变化，且影响循环的终止条件时，Angr 可能会不断生成新的路径，每个路径代表不同的 <code>x</code> 值和不同的循环迭代次数，最终导致路径数量迅速膨胀，系统无法有效处理这些路径，从而导致“卡死”。</p>
+<p>实例说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">int</span> func(<span class="hljs-built_in">int</span> x) &#123;<br>    <span class="hljs-keyword">while</span> (x &gt; <span class="hljs-number">0</span>) &#123;<br>        x = x - <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> x;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-### 误报
-
-事实上angr是基于符号执行来遍历程序的所有路径，它是否能遍历所有路径其实取决于其约束求解引擎是否强大，这里采用的是z3
-当它能明确发现这个条件是无法满足的时候就不会走向这个路径，我们可以称之为虚假控制流。
-但是如果程序本身的逻辑中存在一个条件是非常难以满足的，或者说超出了约束求解引擎的能力，那么则有可能到达不了这个路径，就会被误标记为虚假的控制流，实际中是很少出现的。
-
-# 参考博客
-
-[动若脱兔:深入浅出angr--初步理解符号执行以及angr架构 - 0xJDchen - 博客园](https://www.cnblogs.com/0xJDchen/p/9291335.html)
-
-[利用angr去除混淆的优势，不足与实践 - 吾爱破解 - 52pojie.cn](https://www.52pojie.cn/thread-1484714-1-1.html)
-
-[angr_ctf——从0学习angr（一）：angr简介与核心概念 - Uiharu - 博客园](https://www.cnblogs.com/level5uiharu/p/16925991.html)
-
-[angr - CTF Wiki](https://ctf-wiki.org/reverse/tools/simulate-execution/angr/)
-</code></pre>
+<p>如果 <code>x</code> 没有任何约束，Angr 会将其视为符号变量，可能会生成多条路径来探索 <code>x</code> 可能的值。每条路径都会尝试模拟 <code>x</code> 在每次循环中的变化，直到达到退出条件 <code>x &lt;= 0</code>。</p>
+<ul>
+<li>在符号执行的过程中，Angr 会对每次 <code>x = x - 1</code> 做出决策，并生成新的路径。</li>
+<li>如果没有足够的约束（例如，限制 <code>x</code> 的值或设置循环的最大迭代次数），Angr 可能会生成大量的路径来模拟不同的 <code>x</code> 值和循环次数，导致路径数目激增，甚至无法终止。</li>
+</ul>
+<h3 id="误报"><a href="#误报" class="headerlink" title="误报"></a>误报</h3><p>事实上angr是基于符号执行来遍历程序的所有路径，它是否能遍历所有路径其实取决于其约束求解引擎是否强大，这里采用的是z3<br>当它能明确发现这个条件是无法满足的时候就不会走向这个路径，我们可以称之为虚假控制流。<br>但是如果程序本身的逻辑中存在一个条件是非常难以满足的，或者说超出了约束求解引擎的能力，那么则有可能到达不了这个路径，就会被误标记为虚假的控制流，实际中是很少出现的。</p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0xJDchen/p/9291335.html">动若脱兔:深入浅出angr–初步理解符号执行以及angr架构 - 0xJDchen - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1484714-1-1.html">利用angr去除混淆的优势，不足与实践 - 吾爱破解 - 52pojie.cn</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/level5uiharu/p/16925991.html">angr_ctf——从0学习angr（一）：angr简介与核心概念 - Uiharu - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/reverse/tools/simulate-execution/angr/">angr - CTF Wiki</a></p>
 
                 
               </div>
