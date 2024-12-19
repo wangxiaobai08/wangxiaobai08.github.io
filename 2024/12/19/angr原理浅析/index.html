@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/19/u3ez9CtglaXyJNk.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/19/pwKVfMPCjUbX95v.jpg">
 <meta property="article:published_time" content="2024-12-19T02:57:54.000Z">
-<meta property="article:modified_time" content="2024-12-19T09:02:46.172Z">
+<meta property="article:modified_time" content="2024-12-19T09:05:55.083Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="符号执行">
 <meta name="twitter:card" content="summary_large_image">
@@ -343,10 +343,7 @@
 <hr>
 <h4 id="步骤1：运行实际状态并收集约束"><a href="#步骤1：运行实际状态并收集约束" class="headerlink" title="步骤1：运行实际状态并收集约束"></a><strong>步骤1：运行实际状态并收集约束</strong></h4><ol>
 <li><p><strong>实际运行</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">x = <span class="hljs-number">15</span><br></code></pre></td></tr></table></figure>
-
-<p>执行路径为：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">if</span> (<span class="hljs-number">15</span> &gt; <span class="hljs-number">10</span>) &#123;          // 条件成立<br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">15</span> &lt; <span class="hljs-number">20</span>) &#123;      // 条件成立<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs py">x = <span class="hljs-number">15</span><br><span class="hljs-comment">#执行路径为：</span><br><span class="hljs-keyword">if</span> (<span class="hljs-number">15</span> &gt; <span class="hljs-number">10</span>) &#123;          // 条件成立<br>    <span class="hljs-keyword">if</span> (<span class="hljs-number">15</span> &lt; <span class="hljs-number">20</span>) &#123;      // 条件成立<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>结果：程序返回 <code>1</code>，对应<strong>路径1</strong>。</p>
 </li>
@@ -374,10 +371,7 @@
 <hr>
 <h4 id="步骤3：探索新路径"><a href="#步骤3：探索新路径" class="headerlink" title="步骤3：探索新路径"></a><strong>步骤3：探索新路径</strong></h4><ol>
 <li><p>使用新值 <code>x = 5</code> 实际运行：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">x = <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
-
-<p>执行路径为：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">if</span> (<span class="hljs-number">5</span> &gt; <span class="hljs-number">10</span>) &#123;           // 条件不成立<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs py">x = <span class="hljs-number">5</span><br><span class="hljs-comment">#执行路径为：</span><br><span class="hljs-keyword">if</span> (<span class="hljs-number">5</span> &gt; <span class="hljs-number">10</span>) &#123;           // 条件不成立<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>结果：程序返回 <code>3</code>，对应<strong>路径3</strong>。</p>
 </li>
