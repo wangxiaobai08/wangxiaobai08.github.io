@@ -234,7 +234,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/12/19/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" target="_self">
         <div>
-          没有内存抽象的年代管理方式：程序直接访问和操作的都是物理内存，内存的管理也非常简单，除去操作系统所用的内存之外，？，全部给用户程序使用，想怎么折腾都行，只要别超出最大的容量。比如当执行如下指令时：mov reg,1000 带来的问题：使得操作系统中存在多进程变得完全不可能，因为如果是多进程的话，由于直接操作物理内存地址，当一个进程给内存地址1000赋值后，另一个进程也同样给内存地址赋值，那么第二个
+          没有内存抽象的年代管理方式：程序直接访问和操作的都是物理内存，内存的管理也非常简单，除去操作系统所用的内存之外，全部给用户程序使用，想怎么折腾都行，只要别超出最大的容量。比如当执行如下指令时：mov reg,1000 带来的问题：使得操作系统中存在多进程变得完全不可能，因为如果是多进程的话，由于直接操作物理内存地址，当一个进程给内存地址1000赋值后，另一个进程也同样给内存地址赋值，那么第二个进程
         </div>
       </a>
 
@@ -369,6 +369,74 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/12/19/angr%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" target="_self">
+          angr原理浅析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/19/angr%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" target="_self">
+        <div>
+          Z3约束条件约束条件（Constraints） 是对问题求解空间的限制或规定，它规定了哪些解是允许的，哪些解是不允许的。在数学、计算机科学、逻辑学等领域，约束条件通常用于描述某个问题的限制条件，目的是让我们能够从所有可能的解中筛选出符合特定规则或要求的解。 在数学中，约束条件通常是一些方程或不等式，定义了一个问题的解集。例如，约束条件 x + y ≤ 10 就表示在求解时，变量 x 和 y 的和不
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-12-19 10:57" pubdate>
+              2024-12-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/angr/" class="category-chain-item">angr</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C/">#符号执行</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/12/19/%E5%88%9D%E8%AF%86JVM/" target="_self">
           初识JVM
         </a>
@@ -437,15 +505,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/12/19/angr%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" target="_self">
-          angr原理浅析
+        <a href="/2024/10/08/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
+          内存管理
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/19/angr%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/10/08/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
         <div>
-          Z3约束条件约束条件（Constraints） 是对问题求解空间的限制或规定，它规定了哪些解是允许的，哪些解是不允许的。在数学、计算机科学、逻辑学等领域，约束条件通常用于描述某个问题的限制条件，目的是让我们能够从所有可能的解中筛选出符合特定规则或要求的解。 在数学中，约束条件通常是一些方程或不等式，定义了一个问题的解集。例如，约束条件 x + y ≤ 10 就表示在求解时，变量 x 和 y 的和不
+          android整体架构图 可以看出android系统是基于底层linux构建的。也正因如此，android系统启动的起点在linux启动后的用户空间的第一个进程init，进程号为1.当bootloader启动后，启动kernel，kernel启动完后，在用户空间启动init进程。 倘若再往上走就是linux启动过程，具体可自行百度linux启动流程。  1.引导加载程序（Bootloader）启动
         </div>
       </a>
 
@@ -453,8 +521,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-19 10:57" pubdate>
-              2024-12-19
+            <time datetime="2024-10-08 11:00" pubdate>
+              2024-10-08
             </time>
           </div>
         
@@ -469,12 +537,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
+  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">源码阅读</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/angr/" class="category-chain-item">angr</a>
+  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Android/" class="category-chain-item">Android</a>
   
   
 
@@ -491,7 +559,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C/">#符号执行</a>
+              <a href="/tags/Andorid%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">#Andorid源码阅读</a>
             
           </div>
         
