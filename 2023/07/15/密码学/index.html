@@ -19,7 +19,7 @@
     <meta name="description" content="本文旨在提供对密码学体系框架的了解，建立相对完善知识体系，对一些细节并没有事无巨细的进行阐述，如有纰漏错误，请多指正。  整体框架 简化版：  对称密码算法 机密性是指向无权访问数据者隐藏真实数据，而加密可以实现这一目标。发明密码学的初衷就是加密，加密也是早期的密码学家最关心的技术，他们经常会问自己：“如何才能向观察者隐藏我们的对话内容？”  对称加密算法是一种加密方法，使用相同的密钥进行数据的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="密码学体系框架">
-<meta property="og:url" content="http://example.com/2023/07/15/%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E4%B9%8B%E5%AF%86%E7%A0%81%E5%AD%A6/index.html">
+<meta property="og:url" content="http://example.com/2023/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="本文旨在提供对密码学体系框架的了解，建立相对完善知识体系，对一些细节并没有事无巨细的进行阐述，如有纰漏错误，请多指正。  整体框架 简化版：  对称密码算法 机密性是指向无权访问数据者隐藏真实数据，而加密可以实现这一目标。发明密码学的初衷就是加密，加密也是早期的密码学家最关心的技术，他们经常会问自己：“如何才能向观察者隐藏我们的对话内容？”  对称加密算法是一种加密方法，使用相同的密钥进行数据的">
 <meta property="og:locale" content="zh_CN">
@@ -49,8 +49,8 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/jpeg/42436713/1724486420992-2478a513-48ca-428d-adc7-f9e620dbdc77.jpeg">
 <meta property="og:image" content="https://s2.loli.net/2024/12/22/cB6mPfT4FY8opqz.png">
 <meta property="og:image" content="https://s21.ax1x.com/2024/09/28/pA1VxQP.png">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20240928211112408.png">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20240928212930338.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/22/aUc9M5T7Avg46uq.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/22/FUx1TDnlH94KktQ.png">
 <meta property="og:image" content="https://s21.ax1x.com/2024/09/28/pA1Z9eS.png">
 <meta property="og:image" content="https://s21.ax1x.com/2024/09/28/pA1ZSL8.png">
 <meta property="og:image" content="https://s21.ax1x.com/2024/09/28/pA1eT4H.png">
@@ -77,7 +77,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/09/29/PH7kIDdAfOyKMSc.jpg">
 <meta property="og:image" content="https://s2.loli.net/2024/09/29/DafG4M9qZjzh1LC.png">
 <meta property="article:published_time" content="2023-07-15T01:18:02.000Z">
-<meta property="article:modified_time" content="2024-12-22T08:21:11.386Z">
+<meta property="article:modified_time" content="2024-12-22T08:26:04.006Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary_large_image">
@@ -538,7 +538,7 @@
 <li>验证算法：该算法以公钥、消息以及消息的签名为输入，输出验证结果（通过或不通过）。</li>
 </ul>
 <p>有时我们也将私钥称为签名密钥，将公钥称为验证密钥。上述3种算法的原理如图7.1所示。</p>
-<p><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20240928211112408.png" srcset="/img/loading.gif" lazyload alt="image-20240928211112408"></p>
+<p><img src="https://s2.loli.net/2024/12/22/aUc9M5T7Avg46uq.png" srcset="/img/loading.gif" lazyload alt="image-20240928211112408"></p>
 <p>那么为什么数字签名应用如此广泛呢？这是因为数字签名可以用于验证消息的来源以及完整性。</p>
 <ul>
 <li>来源：如果这个消息中包含某个人的签名，那么说明该消息源于这个人。</li>
@@ -547,7 +547,7 @@
 <h3 id="数字证书-公钥的数字签名"><a href="#数字证书-公钥的数字签名" class="headerlink" title="数字证书(公钥的数字签名)"></a>数字证书(公钥的数字签名)</h3><p>数字证书也称为身份证书和<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=222777750&content_type=Article&match_order=1&q=%E5%85%AC%E9%92%A5%E8%AF%81%E4%B9%A6&zhida_source=entity">公钥证书</a>，是一种利用公钥基础设施(PKI)并使个人和企业能够通过互联网安全地共享数据的电子密码。</p>
 <p>在信任可传递的假设下，数字签名将变得更加强大。简而言之，如果你相信我，而我相信Alice，那么你就可以相信Alice。信任的传递性使得系统中的信任关系得到极大地扩展。想象一下，假设我们信任某些权威机构及其验证密钥。那么，假设该权威机构对某些消息进行签名，比如Charles或者David的公钥信息等，我们就可以选择相信这个签名与消息的映射关系！这种映射称为公钥基础设施(Public Key Infrastructure，PKI)。例如，当我们尝试与Charles进行密钥交换，且他声称自己的公钥是3848时，可以通过检查我们信任的权威机构是否对类似“Charles的公钥是3848…”的消息进行签名来验证Charles的公钥的真实性。</p>
 <p>PKI在实践中的一个应用是Web PKI。浏览器每天都通过Web PKI对我们与网站的密钥交换过程进行认证。Web PKI可以简化如下（见图7.3）过程：当我们下载浏览器时，它附带了一些内置在浏览器中的验证密钥。此验证密钥与一个权威机构相关联，该机构负责对成千上万个网站的公钥进行签名，以便网络用户可以信任这些公钥，而不必知道权威机构的存在。而用户不能观察到的是，这些网站在获得它们公钥的签名之前，必须向权威机构证明它们确实拥有自己所声称的域名。（事实上，浏览器信任许多权威机构而不仅只有一个。）</p>
-<p><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20240928212930338.png" srcset="/img/loading.gif" lazyload alt="image-20240928212930338"></p>
+<p><img src="https://s2.loli.net/2024/12/22/FUx1TDnlH94KktQ.png" srcset="/img/loading.gif" lazyload alt="image-20240928212930338"></p>
 <h1 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a><strong>摘要算法</strong></h1><h2 id="密码原语-基础知识"><a href="#密码原语-基础知识" class="headerlink" title="密码原语(基础知识)"></a>密码原语(基础知识)</h2><p>哈希函数(Hash Function)，它可以给任何数据生成一个全局唯一的标识符。哈希函数在密码学中随处可见！非正式地说，哈希函数以任意值为输入，并输出一个唯一的字节串。给定相同的输入，哈希函数总是产生相同的字节串。这可能看起来没什么，但在密码学中，许多算法都是基于哈希函数构造的。哈希函数的输出通常被称为摘要(Digest)或哈希值(Hash)</p>
 <p>哈希函数的三种安全属性的表格及其简要介绍：</p>
 <table>
@@ -1017,7 +1017,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>密码学体系框架</div>
-      <div>http://example.com/2023/07/15/协议分析之密码学/</div>
+      <div>http://example.com/2023/07/15/密码学/</div>
     </div>
     <div class="license-meta">
       
