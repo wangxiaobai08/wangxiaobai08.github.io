@@ -86,6 +86,8 @@
       
       <category>基础知识</category>
       
+      <category>编程语言</category>
+      
       <category>Java</category>
       
     </categories>
@@ -200,6 +202,35 @@
     <tags>
       
       <tag>Reverse(android)</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>sql使用</title>
+    <link href="/2023/04/22/sql%E4%BD%BF%E7%94%A8/"/>
+    <url>/2023/04/22/sql%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>软件工程</category>
+      
+      <category>数据库</category>
+      
+      <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
       
     </tags>
     
