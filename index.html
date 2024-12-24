@@ -226,39 +226,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/12/22/android-linker%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5/" target="_self">
-          android_linker加载和链接
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/22/android-linker%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5/" target="_self">
-        <div>
-          Liner入口123static&#123;    System.loadLibrary(&quot;native-lib&quot;);&#125;  http://androidxref.com/9.0.0_r3/xref/libcore/ojluni/src/main/java/java/lang/System.java#1651  Runtime类是： 参数是： 这里的getRuntime
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-22 11:21" pubdate>
-              2024-12-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2024/12/19/unicorn%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" target="_self">
           unicorn原理浅析
         </a>
@@ -291,17 +258,17 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Reverse-android/" class="category-chain-item">Reverse(android)</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
   
   
     <span>></span>
     
-  <a href="/categories/Reverse-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
   
   
     <span>></span>
     
-  <a href="/categories/Reverse-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/unicorn/" class="category-chain-item">unicorn</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/unicorn/" class="category-chain-item">unicorn</a>
   
   
 
@@ -366,17 +333,17 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Reverse-android/" class="category-chain-item">Reverse(android)</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
   
   
     <span>></span>
     
-  <a href="/categories/Reverse-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/" class="category-chain-item">符号/模拟执行</a>
   
   
     <span>></span>
     
-  <a href="/categories/Reverse-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/angr/" class="category-chain-item">angr</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E7%AC%A6%E5%8F%B7-%E6%A8%A1%E6%8B%9F%E6%89%A7%E8%A1%8C/angr/" class="category-chain-item">angr</a>
   
   
 
@@ -484,13 +451,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/12/12/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
+        <a href="/2024/01/08/Android-linker%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5/" target="_self">
+          android_linker加载和链接
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/08/Android-linker%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5/" target="_self">
+        <div>
+          本文以android 9源码进行分析  命名空间(namespace机制)JAVA层调用SOAndroid 应用程序通过 System.loadLibrary() 或 Runtime.loadLibrary() 加载本地库。这些本地库通常是 .so 文件，它们包含了通过 JNI 与 Java 代码交互的本地方法。Android 的类加载机制和虚拟机（ART）会负责解析这些库，并将其加载到内存中。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-08 11:21" pubdate>
+              2024-01-08
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
           android系统启动流程
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/12/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" target="_self">
         <div>
           android整体架构图 可以看出android系统是基于底层linux构建的。也正因如此，android系统启动的起点在linux启动后的用户空间的第一个进程init，进程号为1.当bootloader启动后，启动kernel，kernel启动完后，在用户空间启动init进程。 倘若再往上走就是linux启动过程，具体可自行百度linux启动流程。  1.引导加载程序（Bootloader）启动
         </div>
@@ -500,8 +500,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-12 17:12" pubdate>
-              2024-12-12
+            <time datetime="2024-01-03 17:12" pubdate>
+              2024-01-03
             </time>
           </div>
         
@@ -721,13 +721,6 @@
   <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/" class="category-chain-item">爬虫框架</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6/scrapy/" class="category-chain-item">scrapy</a>
-  
-  
-
-  
 
   
 
@@ -788,12 +781,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Reverse-android/" class="category-chain-item">Reverse(android)</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
   
   
     <span>></span>
     
-  <a href="/categories/Reverse-android/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">文件格式/装载链接运行</a>
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">文件格式/装载链接运行</a>
   
   
 
@@ -824,15 +817,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/04/22/sql%E4%BD%BF%E7%94%A8/" target="_self">
-          sql使用
+        <a href="/2023/04/22/SQL%E8%AF%AD%E8%A8%80/" target="_self">
+          SQL
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/22/sql%E4%BD%BF%E7%94%A8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/22/SQL%E8%AF%AD%E8%A8%80/" target="_self">
         <div>
-          
+          一、SQL 概述1、什么是 SQLSQL（Structured Query Language，结构化查询语言）是一种用于管理关系型数据库的编程语言。它用于执行查询、插入、更新、删除等数据库操作。SQL 是标准化的语言，可以用于与不同的数据库系统（如 MySQL、PostgreSQL、SQL Server、Oracle 等）交互。 2、语法要求 大小写不敏感：SQL 关键字如 SELECT、FROM
         </div>
       </a>
 
@@ -856,20 +849,13 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="category-chain-item">软件工程</a>
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/" class="category-chain-item">Mysql</a>
-  
-  
-
   
 
   
