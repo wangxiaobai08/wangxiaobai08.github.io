@@ -24,7 +24,7 @@
 <meta property="og:description" content="DexFile在开始之前需要搞清楚目标才不至于在偌大的源码世界里迷失方向，既然是Dex文件加载流程，首先需要关心的即DEX文件结构在android源码中的封装调用形式： DexFile 是 Dalvik Executable (DEX) 文件的封装对象，代表了 Dalvik 虚拟机中可执行的 .dex 文件，内部包含类定义、方法、字段以及常量等信息。 DEX 文件的结构从文件头到各种表（如字符串表">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/4Ykev6nwpsd37P2.png">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20241227100031401.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/27/QLPaYJWRgM5lGNz.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/9DbcjU1TetnwZQd.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/4lZ6xOtkR35wbBa.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/sF84ENnGvzWhjak.png">
@@ -52,7 +52,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/WLAXUfQgpx5bis6.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/K6CiXIpOMwL5tSk.png">
 <meta property="article:published_time" content="2023-05-15T10:35:15.000Z">
-<meta property="article:modified_time" content="2024-12-27T02:49:29.311Z">
+<meta property="article:modified_time" content="2024-12-27T02:55:19.321Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
@@ -361,7 +361,7 @@
 <p>其中ART下，在 Android 5.0（Lollipop）到 Android 7.x（Nougat）之间，Android 并没有引入专门的 <code>InMemoryClassLoader</code> 类。这一期间，类加载机制主要是通过传统的 <code>ClassLoader</code> 以及 <code>DexClassLoader</code> 来加载本地或外部的 <code>.dex</code> 文件。</p>
 <p>而在Android 8.0以后新增InMemoryDexClassLoader类加载器，继承自BaseDexClassLoader，用于加载内存中的dex文件，大致流程和DexClassLoader是差不多的，最主要的区别还是在于InMemoryDexClassLoader过程中并没有生成oat文件</p>
 <p>故下ART下将根据版本再划分android(5-7)和android8及以上进行讨论。</p>
-<h1 id="Dalvik下Dex加载流程"><a href="#Dalvik下Dex加载流程" class="headerlink" title="Dalvik下Dex加载流程"></a>Dalvik下Dex加载流程</h1><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20241227100031401.png" srcset="/img/loading.gif" lazyload alt="image-20241227100031401" style="zoom:50%;" />
+<h1 id="Dalvik下Dex加载流程"><a href="#Dalvik下Dex加载流程" class="headerlink" title="Dalvik下Dex加载流程"></a>Dalvik下Dex加载流程</h1><img src="https://s2.loli.net/2024/12/27/QLPaYJWRgM5lGNz.png" srcset="/img/loading.gif" lazyload alt="image-20241227100031401" style="zoom:50%;" />
 
 <h2 id="DexClassLoader"><a href="#DexClassLoader" class="headerlink" title="DexClassLoader"></a>DexClassLoader</h2><p><img src="https://s2.loli.net/2024/10/22/9DbcjU1TetnwZQd.png" srcset="/img/loading.gif" lazyload alt="image-20241022193337296"></p>
 <h2 id="BaseDexClassLoader-java层"><a href="#BaseDexClassLoader-java层" class="headerlink" title="BaseDexClassLoader(java层)"></a>BaseDexClassLoader(java层)</h2><p><img src="https://s2.loli.net/2024/10/22/4lZ6xOtkR35wbBa.png" srcset="/img/loading.gif" lazyload alt="image-20241022193830981"></p>
@@ -631,9 +631,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/25/scrapy%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="scrapy基本使用">
+                      <a href="/2023/05/18/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" title="Android类加载流程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">scrapy基本使用</span>
+                        <span class="hidden-mobile">Android类加载流程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
