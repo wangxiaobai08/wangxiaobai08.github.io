@@ -484,15 +484,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/01/08/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/" target="_self">
-          android_linker加载和链接
+        <a href="/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/" target="_self">
+          So加载和链接(linker)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/08/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/" target="_self">
         <div>
-          本文以android 9源码进行分析  命名空间(namespace机制)JAVA层调用SOAndroid 应用程序通过 System.loadLibrary() 或 Runtime.loadLibrary() 加载本地库。这些本地库通常是 .so 文件，它们包含了通过 JNI 与 Java 代码交互的本地方法。Android 的类加载机制和虚拟机（ART）会负责解析这些库，并将其加载到内存中。
+          本文以android 9源码进行分析  命名空间(namespace机制)主要参考Android 8.0 - 基于命名空间的动态链接—— 隔离 Android 中应用程序和系统的本地库 - 张同光 - 博客园总结来说： 概念命名空间是为了在 Android 操作系统中管理动态链接库（so 库）的加载和共享，确保系统和应用程序的本地库（so 库）得到有效的隔离和管理。这项机制的核心目标是提高系统的
         </div>
       </a>
 
@@ -500,12 +500,47 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-08 11:21" pubdate>
-              2024-01-08
+            <time datetime="2024-05-25 11:21" pubdate>
+              2024-05-25
             </time>
           </div>
         
         
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">文件格式/装载链接运行</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android/">#逆向(android)</a>
+            
+          </div>
         
       </div>
     </article>
