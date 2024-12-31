@@ -49,7 +49,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/31/gbSTr9ncWOXNBml.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/31/jv2CGrHU1RXBadF.png">
 <meta property="article:published_time" content="2023-02-05T07:14:02.000Z">
-<meta property="article:modified_time" content="2024-12-31T03:51:01.177Z">
+<meta property="article:modified_time" content="2024-12-31T04:11:21.303Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="密码学">
 <meta name="twitter:card" content="summary_large_image">
@@ -663,7 +663,7 @@
 <blockquote>
 <p>找弱点，特征(规律)</p>
 </blockquote>
-<h1 id="AES-encrypt-1"><a href="#AES-encrypt-1" class="headerlink" title="AES_encrypt"></a>AES_encrypt</h1><p>再看：</p>
+<h2 id="AES-encrypt-1"><a href="#AES-encrypt-1" class="headerlink" title="AES_encrypt"></a>AES_encrypt</h2><p>再看：</p>
 <p><img src="https://s2.loli.net/2024/12/31/ufHeVrxXkd5AOqI.png" srcset="/img/loading.gif" lazyload alt="image-20241231100714269"></p>
 <p>其中1：表示将一众寄存器存储在栈上，用于保存当前函数调用所需的寄存器状态到栈中，确保它们在函数执行过程中不会被修改。</p>
 <p>2：在汇编中，<code>LDP</code> 指令是 <strong>加载一对寄存器</strong>，每对寄存器加载两个 32 位数据。比如：LDP W8, W9, [X0]这条指令从内存地址 <code>X0</code> 加载两个 32 位值到 <code>W8</code> 和 <code>W9</code> 寄存器。如果 <code>X0</code> 指向 <code>in</code>，那么这条指令就加载了 <code>in[0..3]</code> 到 <code>W8</code> 和 <code>in[4..7]</code> 到 <code>W9</code>。</p>
