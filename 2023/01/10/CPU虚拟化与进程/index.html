@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/05/29/WOejUv2nhb1Rqox.png">
 <meta property="og:image" content="https://s2.loli.net/2024/05/29/lKU72cAyIfePCkz.png">
 <meta property="article:published_time" content="2023-01-10T12:58:14.000Z">
-<meta property="article:modified_time" content="2024-12-22T10:49:43.526Z">
+<meta property="article:modified_time" content="2025-01-04T08:02:13.872Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.6k 字
+          11k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          81 分钟
+          91 分钟
         
       </span>
     
@@ -854,7 +854,257 @@
 </li>
 <li><strong>使用场景</strong>：适用于跨进程通信的简便场景。</li>
 </ul>
+<h1 id="处理机调度算法"><a href="#处理机调度算法" class="headerlink" title="处理机调度算法"></a>处理机调度算法</h1><h3 id="1-先来先服务算法-FCFS"><a href="#1-先来先服务算法-FCFS" class="headerlink" title="1. 先来先服务算法 (FCFS)"></a>1. 先来先服务算法 (FCFS)</h3><p>假设有 4 个进程，分别是 P1、P2、P3 和 P4，它们的到达时间和执行时间如下：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>到达时间</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>根据 FCFS 算法，按照进程到达顺序依次执行。</li>
+<li>进程 P1 到达时，CPU 空闲，因此 P1 开始执行，执行 4 个时间单位。</li>
+<li>进程 P2 到达时，P1 正在执行，P2 等待，直到 P1 执行完。</li>
+<li>进程 P2 执行 3 个时间单位。</li>
+<li>然后 P3 执行 5 个时间单位，最后 P4 执行 2 个时间单位。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">3</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
 
+<p><strong>等待时间</strong>：</p>
+<ul>
+<li>P1：等待时间 &#x3D; 0</li>
+<li>P2：等待时间 &#x3D; 4 - 1 &#x3D; 3</li>
+<li>P3：等待时间 &#x3D; 7 - 2 &#x3D; 5</li>
+<li>P4：等待时间 &#x3D; 12 - 3 &#x3D; 9</li>
+</ul>
+<p><strong>平均等待时间</strong>：</p>
+<p>平均等待时间&#x3D;0+3+5+94&#x3D;4.25\text{平均等待时间} &#x3D; \frac{0 + 3 + 5 + 9}{4} &#x3D; 4.25</p>
+<hr>
+<h3 id="2-短作业优先算法-SJF"><a href="#2-短作业优先算法-SJF" class="headerlink" title="2. 短作业优先算法 (SJF)"></a>2. 短作业优先算法 (SJF)</h3><h4 id="2-1-非抢占式短作业优先-Non-preemptive-SJF"><a href="#2-1-非抢占式短作业优先-Non-preemptive-SJF" class="headerlink" title="2.1 非抢占式短作业优先 (Non-preemptive SJF)"></a>2.1 非抢占式短作业优先 (Non-preemptive SJF)</h4><p>假设有相同的 4 个进程，它们的到达时间和执行时间如下：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>到达时间</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>P1 到达时，CPU 空闲，执行 4 个时间单位。</li>
+<li>到达时间顺序为 P1 → P2 → P3 → P4，但根据 SJF 算法，选择执行时间最短的进程。</li>
+<li>P2 执行，时间为 3，接着是 P4 执行，时间为 2，最后 P3 执行，时间为 5。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>等待时间</strong>：</p>
+<ul>
+<li>P1：等待时间 &#x3D; 0</li>
+<li>P2：等待时间 &#x3D; 4 - 1 &#x3D; 3</li>
+<li>P4：等待时间 &#x3D; 7 - 3 &#x3D; 4</li>
+<li>P3：等待时间 &#x3D; 9 - 2 &#x3D; 7</li>
+</ul>
+<p><strong>平均等待时间</strong>：</p>
+<p>平均等待时间&#x3D;0+3+4+74&#x3D;3.5\text{平均等待时间} &#x3D; \frac{0 + 3 + 4 + 7}{4} &#x3D; 3.5</p>
+<h4 id="2-2-抢占式短作业优先-Preemptive-SJF-SRTF"><a href="#2-2-抢占式短作业优先-Preemptive-SJF-SRTF" class="headerlink" title="2.2 抢占式短作业优先 (Preemptive SJF, SRTF)"></a>2.2 抢占式短作业优先 (Preemptive SJF, SRTF)</h4><p>假设 4 个进程的到达时间和执行时间如下：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>到达时间</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>P1 开始执行，但在 P2 到达时，P2 的执行时间（3）比 P1 剩余的时间（3）短，因此 P1 被抢占，P2 执行。</li>
+<li>P2 执行完后，P4 的执行时间为 2，比 P1 剩余的时间短，因此 P4 执行。</li>
+<li>然后，P1 和 P3 执行。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livescript">P1 <span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">0</span>-<span class="hljs-number">1</span>)</span> -&gt;</span> P2 <span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">1</span>-<span class="hljs-number">4</span>)</span> -&gt;</span> P4 <span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">4</span>-<span class="hljs-number">6</span>)</span> -&gt;</span> P1 <span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">6</span>-<span class="hljs-number">7</span>)</span> -&gt;</span> P3 (<span class="hljs-number">7</span>-<span class="hljs-number">12</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>等待时间</strong>：</p>
+<ul>
+<li>P1：等待时间 &#x3D; 6 - 0 - 4 &#x3D; 2</li>
+<li>P2：等待时间 &#x3D; 1 - 1 &#x3D; 0</li>
+<li>P3：等待时间 &#x3D; 7 - 2 &#x3D; 5</li>
+<li>P4：等待时间 &#x3D; 4 - 3 &#x3D; 1</li>
+</ul>
+<p><strong>平均等待时间</strong>：</p>
+<p>平均等待时间&#x3D;2+0+5+14&#x3D;2\text{平均等待时间} &#x3D; \frac{2 + 0 + 5 + 1}{4} &#x3D; 2</p>
+<hr>
+<h3 id="3-优先调度算法-PSA"><a href="#3-优先调度算法-PSA" class="headerlink" title="3. 优先调度算法 (PSA)"></a>3. 优先调度算法 (PSA)</h3><p>假设有 4 个进程，它们的到达时间和执行时间如下，同时每个进程也有一个优先级（数字越大优先级越高）：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>到达时间</th>
+<th>执行时间</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>0</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>P1 到达时，CPU 空闲，开始执行。</li>
+<li>P2 到达时，P1 正在执行，等待。</li>
+<li>P3 到达时，它的优先级最高（4），因此抢占 P1 执行。</li>
+<li>然后，P4 执行，最后 P1 和 P2 按顺序执行。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">3</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>等待时间</strong>：</p>
+<ul>
+<li>P1：等待时间 &#x3D; 6 - 0 - 4 &#x3D; 2</li>
+<li>P2：等待时间 &#x3D; 6 - 1 &#x3D; 5</li>
+<li>P3：等待时间 &#x3D; 0</li>
+<li>P4：等待时间 &#x3D; 4 - 3 &#x3D; 1</li>
+</ul>
+<p><strong>平均等待时间</strong>：</p>
+<p>平均等待时间&#x3D;2+5+0+14&#x3D;2\text{平均等待时间} &#x3D; \frac{2 + 5 + 0 + 1}{4} &#x3D; 2</p>
+<hr>
+<h3 id="4-高响应比优先调度算法-HRRN"><a href="#4-高响应比优先调度算法-HRRN" class="headerlink" title="4. 高响应比优先调度算法 (HRRN)"></a>4. 高响应比优先调度算法 (HRRN)</h3><p>假设有 4 个进程，它们的到达时间和执行时间如下：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>到达时间</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>初始时，所有进程的响应比可以通过公式 R&#x3D;Tw+TcTcR &#x3D; \frac{T_w + T_c}{T_c} 来计算（TwT_w 为等待时间，TcT_c 为执行时间）。</li>
+<li>开始时 P1 执行，因为它是第一个到达的。</li>
+<li>随后 P2 和 P4 会根据响应比来选择优先执行。</li>
+</ul>
+<p><strong>计算响应比</strong>：</p>
+<ul>
+<li>初始：P1 &#x3D; 1.0, P2 &#x3D; 2.33, P3 &#x3D; 1.4, P4 &#x3D; 2.5</li>
+<li>选择 P4 执行（响应比最大），接着选择 P2 和 P3。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>平均等待时间</strong>： HRRN 通过计算响应比动态调整选择执行的进程，避免了长作业饥饿的现象。</p>
+<hr>
+<p>通过这些例子，可以看出每种调度算法的特点和适用场景，理解它们如何影响进程的执行顺序及等待时间。</p>
+<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h1><h2 id="时间轮转调度算法"><a href="#时间轮转调度算法" class="headerlink" title="时间轮转调度算法"></a>时间轮转调度算法</h2><h2 id="优先级调度算法"><a href="#优先级调度算法" class="headerlink" title="优先级调度算法"></a>优先级调度算法</h2><h2 id="多队列调度算法"><a href="#多队列调度算法" class="headerlink" title="多队列调度算法"></a>多队列调度算法</h2><h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="死锁产生"><a href="#死锁产生" class="headerlink" title="死锁产生"></a>死锁产生</h2><h2 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h2><h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><h3 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h3><h2 id="死锁检测和解除"><a href="#死锁检测和解除" class="headerlink" title="死锁检测和解除"></a>死锁检测和解除</h2><h3 id="资源分配化简"><a href="#资源分配化简" class="headerlink" title="资源分配化简"></a>资源分配化简</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3>
                 
               </div>
             
