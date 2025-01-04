@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/21/3JgNmYFdju81Xfo.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/21/tNaVmgeKGuC5xdQ.png">
 <meta property="article:published_time" content="2023-01-20T07:26:14.000Z">
-<meta property="article:modified_time" content="2025-01-04T02:13:54.282Z">
+<meta property="article:modified_time" content="2025-01-04T03:13:46.257Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.3k 字
+          9.2k 字
         
       </span>
     
@@ -248,7 +248,7 @@
         
         
         
-          70 分钟
+          77 分钟
         
       </span>
     
@@ -405,7 +405,7 @@
 <li>在 Windows 中，驱动程序需实现 I&#x2F;O 请求包（IRP）的处理函数，响应 <code>IRP_MJ_READ</code> 和 <code>IRP_MJ_WRITE</code>。</li>
 </ul>
 <p><strong>这里特别关注的是存储设备，比如磁盘驱动器原理和一系列调度算法</strong>，这里不多介绍，自行百度</p>
-<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p>在解决了与设备通信与驱动后，在诸如存储设备（如硬盘、SSD、USB 等），我们不得不面临如何像管理内存那样<strong>组织、存储、管理和检索数据</strong>。就拿磁盘为例：</p>
+<h1 id="文件和文件系统"><a href="#文件和文件系统" class="headerlink" title="文件和文件系统"></a>文件和文件系统</h1><p>在解决了与设备通信与驱动后，在诸如存储设备（如硬盘、SSD、USB 等），我们不得不面临如何像管理内存那样<strong>组织、存储、管理和检索数据</strong>。就拿磁盘为例：</p>
 <img src="https://s2.loli.net/2024/12/21/zKfeyVMhHrZuRUD.png" srcset="/img/loading.gif" lazyload alt="磁盘" style="zoom:50%;" />
 
 <p>如何对磁盘上的文件进行组织管理？—<strong>文件系统</strong>应运而生：它为存储设备（上的数据提供了一种结构化的方式，使用户和程序能够以文件和目录的形式高效地访问和管理数据。类比内存可以把每个文件都看作一个独立的地址空间</p>
@@ -444,17 +444,93 @@
 <p>第一个方面是文件系统的数据结构（data structure）。换言之，文件系统在磁盘上使用哪些类型的结构来组织其数据和元数据？</p>
 <p>文件系统的第二个方面是访问方法（access method）。如何将进程发出的调用，如open()、read()、write()等，映射到它的结构上？在执行特定系统调用期间读取哪些结构？改写哪些结构？所有这些步骤的执行效率如何？</p>
 </blockquote>
-<h3 id="文件系统的数据结构"><a href="#文件系统的数据结构" class="headerlink" title="文件系统的数据结构"></a>文件系统的数据结构</h3><p>这里以VSFS文件系统为例：</p>
+<h3 id="文件系统的数据结构"><a href="#文件系统的数据结构" class="headerlink" title="文件系统的数据结构"></a>文件系统的数据结构</h3><p>重点参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11847413.html#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95">操作系统——文件系统概述、文件逻辑地址、目录、物理地址 - 王陸 - 博客园</a></p>
+<blockquote>
+<p>用户角度的文件的逻辑结构：</p>
+<table>
+<thead>
+<tr>
+<th><strong>文件逻辑结构</strong></th>
+<th><strong>特点</strong></th>
+<th><strong>应用场景</strong></th>
+<th><strong>访问方式</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>顺序结构</strong></td>
+<td>数据按顺序存储，必须逐个读取</td>
+<td>日志文件、文本文件</td>
+<td>顺序访问</td>
+<td>文本文件，如 <code>.txt</code> 文件</td>
+</tr>
+<tr>
+<td><strong>层次结构</strong></td>
+<td>数据以树状结构组织，具有父子关系</td>
+<td>文件系统的目录结构</td>
+<td>随机访问树中的节点</td>
+<td>文件夹和文件的层级结构</td>
+</tr>
+<tr>
+<td><strong>索引结构</strong></td>
+<td>文件内容与索引表结合存储，支持快速定位数据</td>
+<td>数据库索引、文本搜索</td>
+<td>随机访问，通过索引定位</td>
+<td>数据库的索引文件</td>
+</tr>
+<tr>
+<td><strong>记录结构</strong></td>
+<td>文件由记录组成，每个记录包含多个字段</td>
+<td>数据库文件、表格文件</td>
+<td>随机访问，每次操作记录</td>
+<td>CSV 文件、数据库表</td>
+</tr>
+<tr>
+<td><strong>关系结构</strong></td>
+<td>数据以表格形式存储，支持关系查询</td>
+<td>关系型数据库</td>
+<td>SQL 查询语言随机访问</td>
+<td>MySQL 数据库表</td>
+</tr>
+<tr>
+<td><strong>文本文件</strong></td>
+<td>由字符组成，通常按行或字符组织</td>
+<td>配置文件、源代码、日志文件</td>
+<td>按行或字符操作</td>
+<td><code>.txt</code>、<code>.log</code> 文件</td>
+</tr>
+<tr>
+<td><strong>二进制文件</strong></td>
+<td>由二进制数据组成，不能直接读取为文本</td>
+<td>图像、音频、可执行文件</td>
+<td>通过特定软件操作</td>
+<td><code>.jpg</code>、<code>.mp3</code>、<code>.exe</code> 文件</td>
+</tr>
+<tr>
+<td><strong>目录文件</strong></td>
+<td>存储文件名、大小、存储位置等元数据</td>
+<td>文件系统中的目录管理</td>
+<td>随机访问文件元数据</td>
+<td>操作系统的文件目录结构</td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>这里以VSFS文件系统为例：</p>
 <p>1.将磁盘分成块（block）。简单的文件系统只使用一种块大小，这里正是这样做的。我们选择常用的4KB。因此，对构建文件系统的磁盘分区的看法很简单：一系列块，每块大小为4KB。在大小为N个4KB块的分区中，这些块的地址为从0到N−1。假设我们有一个非常小的磁盘，只有64块：</p>
 <img src="https://s2.loli.net/2024/12/21/ljZu613kvKyEf8p.png" srcset="/img/loading.gif" lazyload alt="1" style="zoom:50%;" />
 
 <blockquote>
-<p>文件的数据是要存储在硬盘上面的，数据在磁盘上的存放方式，就像程序在内存中存放的方式那样，有以下两种：</p>
+<p><strong>文件的逻辑结构(用户角度)：</strong></p>
+<p>具体参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11847413.html#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95">操作系统——文件系统概述、文件逻辑地址、目录、物理地址 - 王陸 - 博客园</a></p>
+<p><strong>外存的组织方式(物理结构)：</strong></p>
+<p>文件的数据是要存储在硬盘上面的，数据在磁盘上的存放方式，就像程序在内存中存放的方式那样，有以下两种</p>
 <ul>
 <li>连续空间存放方式</li>
 <li>非连续空间存放方式</li>
 </ul>
-<p>具体可参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34827674/article/details/107992414">一口气搞懂「文件系统」，就靠这 25 张图了-CSDN博客</a></p>
+<p>具体可参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34827674/article/details/107992414">一口气搞懂「文件系统」，就靠这 25 张图了-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouhengzhe/article/details/123320438">操作系统——文件系统_操作系统文件系统-CSDN博客</a></p>
 </blockquote>
 <p>2.文件系统必须记录每个文件的信息。该信息是元数据（metadata）的关键部分，并且记录诸如文件包含哪些数据块（在数据区域中）、文件的大小，其所有者和访问权限、访问和修改时间以及其他类似信息的事情。为了存储这些信息，文件系统通常有一个名为inode的结构</p>
 <img src="https://s2.loli.net/2024/12/21/zF2t6Nip9x7BdOJ.png" srcset="/img/loading.gif" lazyload alt="2" style="zoom:50%;" />
@@ -465,7 +541,8 @@
 <p>3.还需要某种方法来记录inode或数据块是空闲还是已分配。因此，这种分配结构（allocation structure）是所有文件系统中必需的部分。</p>
 <p><img src="https://s2.loli.net/2024/12/21/vSmqKkoWOUurcBz.png" srcset="/img/loading.gif" lazyload alt="image-20241221143107283"></p>
 <blockquote>
-<p>空闲空间管理，自行百度</p>
+<p>文件存储空间的管理</p>
+<p>具体参考，<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhouhengzhe/article/details/123320438">操作系统——文件系统_操作系统文件系统-CSDN博客</a></p>
 </blockquote>
 <p>4.还有一块。我们将它保留给超级块（superblock），在下图中用S表示。超级块包含关于该特定文件系统的信息，包括例如文件系统中有多少个inode和数据块（在这个例子中分别为80和56）、inode表的开始位置（块3）等等。它可能还包括一些幻数，来标识文件系统类型（在本例中为VSFS）。</p>
 <p><img src="https://s2.loli.net/2024/12/21/HnSauTVIk4Le3bM.png" srcset="/img/loading.gif" lazyload alt="image-20241221143143501"></p>
@@ -574,7 +651,9 @@
 <li><strong>挂载命令</strong>：系统管理员或用户使用挂载命令（在 Linux 中是 <code>mount</code>）指定要挂载的设备和目标目录。</li>
 <li><strong>文件系统关联</strong>：文件系统将设备上的文件系统结构与操作系统文件树中的指定目录进行连接。这使得设备上的文件能够通过目标目录路径访问。</li>
 </ol>
+<blockquote>
 <p>更具体的过程可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47763623/article/details/143710029">深入理解Linux文件系统的挂载过程_文件挂载-CSDN博客</a></p>
+</blockquote>
 <h5 id="挂载点的意义："><a href="#挂载点的意义：" class="headerlink" title="挂载点的意义："></a><strong>挂载点的意义：</strong></h5><p>挂载点是文件系统挂载的具体目录。在挂载完成后，存储设备的文件系统会表现得像是文件树的一部分，可以通过挂载点来访问设备上的数据。挂载点可以是任何空目录，而不仅仅是 <code>/mnt</code> 或 <code>/media</code>。</p>
 <h3 id="文件系统的访问方法"><a href="#文件系统的访问方法" class="headerlink" title="文件系统的访问方法"></a>文件系统的访问方法</h3><h4 id="从磁盘读取文件"><a href="#从磁盘读取文件" class="headerlink" title="从磁盘读取文件"></a>从磁盘读取文件</h4><table>
 <thead>
@@ -667,11 +746,15 @@
 <li>写入过程可能涉及数据缓存，以提高磁盘写入效率。</li>
 </ol>
 </blockquote>
-<h4 id="目录与文件"><a href="#目录与文件" class="headerlink" title="目录与文件"></a>目录与文件</h4><p>和普通文件不同的是，普通文件的块里面保存的是文件数据，而目录文件的块里面保存的是目录里面一项一项的文件信息。</p>
+<h3 id="目录与文件"><a href="#目录与文件" class="headerlink" title="目录与文件"></a>目录与文件</h3><p>和普通文件不同的是，普通文件的块里面保存的是文件数据，而目录文件的块里面保存的是目录里面一项一项的文件信息。</p>
 <p>在目录文件的块中，最简单的保存格式就是列表，就是一项一项地将目录下的文件信息（如文件名、文件 inode、文件类型等）列在表里。</p>
 <p>列表中每一项就代表该目录下的文件的文件名和对应的 inode，通过这个 inode，就可以找到真正的文件。</p>
 <p><img src="https://s2.loli.net/2024/12/21/2nDUmwNpIYa4yHP.png" srcset="/img/loading.gif" lazyload alt="目录"></p>
 <p>目录查询是通过在磁盘上反复搜索完成，需要不断地进行 I&#x2F;O 操作，开销较大。所以，为了减少 I&#x2F;O 操作，把当前使用的文件目录缓存在内存，以后要使用该文件时只要在内存中操作，从而降低了磁盘操作次数，提高了文件系统的访问速度。</p>
+<blockquote>
+<p>这里对文件目录更深入了解可以参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxuanBlog/p/12565601.html">简直不要太硬了！一文带你彻底理解文件系统 - 程序员cxuan - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11847413.html#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95">操作系统——文件系统概述、文件逻辑地址、目录、物理地址 - 王陸 - 博客园</a></p>
+</blockquote>
 <h4 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h4><p>有时候我们希望给某个文件取个别名，那么在 Linux 中可以通过硬链接（Hard Link） 和软链接（Symbolic Link） 的方式来实现，它们都是比较特殊的文件，但是实现方式也是不相同的。</p>
 <p>硬链接是多个目录项中的「索引节点」指向一个文件，也就是指向同一个 inode，但是 inode 是不可能跨越文件系统的，每个文件系统都有各自的 inode 数据结构和列表，所以硬链接是不可用于跨文件系统的。由于多个目录项都是指向一个 inode，那么只有删除文件的所有硬链接以及源文件时，系统才会彻底删除该文件。</p>
 <p><img src="https://s2.loli.net/2024/12/21/3JgNmYFdju81Xfo.png" srcset="/img/loading.gif" lazyload alt="硬链接"></p>
@@ -691,9 +774,23 @@
 </ul>
 </li>
 </ol>
+<h1 id="文件共享和文件保护"><a href="#文件共享和文件保护" class="headerlink" title="文件共享和文件保护"></a>文件共享和文件保护</h1><p>具体参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Qmilumilu/article/details/114558347">【操作系统】4.4文件管理（文件共享、文件保护、文件系统层次结构）_文件共享盘管理制度csdn-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/swadian2008/article/details/131695918">操作系统16：文件共享和文件保护_文件共享 操作系统-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45962068/article/details/120948304">文件管理之文件共享与文件保护_共享文件管理-CSDN博客</a></p>
+<h1 id="磁盘存储器的管理-文件的物理结构"><a href="#磁盘存储器的管理-文件的物理结构" class="headerlink" title="磁盘存储器的管理(文件的物理结构)"></a>磁盘存储器的管理(文件的物理结构)</h1><p>具体参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linfangnan/p/15139136.html">操作系统：磁盘的组织和空间管理 - 乌漆WhiteMoon - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://geekdaxue.co/read/7hao@juangou/vqt1u6qonc0gt8gz">计算机操作系统 - 第八章：磁盘存储器的管理 - 《计算机专业课笔记》 - 极客文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_50833438/article/details/115151317">【操作系统】第八章-磁盘存储器的管理_增量式索引组织方式-CSDN博客</a></p>
+<blockquote>
+<p>外存的组织方式，文件存储空间的管理</p>
+</blockquote>
 <h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/404423676">计算机组成原理笔记-IO接口与设备 - 知乎</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxuanBlog/p/12565601.html">简直不要太硬了！一文带你彻底理解文件系统 - 程序员cxuan - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cangqinglang/p/12170828.html">什么是挂载，Linux挂载如何实现详解 - 苍青浪 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11847413.html">操作系统——文件系统概述、文件逻辑地址、目录、物理地址 - 王陸 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/535265977">操作系统–文件和文件系统 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_67656158/article/details/144544055">【操作系统】一篇带你彻底搞定文件系统-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11847413.html#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95">操作系统——文件系统概述、文件逻辑地址、目录、物理地址 - 王陸 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/JinyuLi/p/17611239.html">复习笔记|第五章 文件系统《操作系统原理教程》 - LateSpring - 博客园</a></p>
 
                 
               </div>
