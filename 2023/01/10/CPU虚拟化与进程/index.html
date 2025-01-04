@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/05/29/WOejUv2nhb1Rqox.png">
 <meta property="og:image" content="https://s2.loli.net/2024/05/29/lKU72cAyIfePCkz.png">
 <meta property="article:published_time" content="2023-01-10T12:58:14.000Z">
-<meta property="article:modified_time" content="2025-01-04T08:02:13.872Z">
+<meta property="article:modified_time" content="2025-01-04T08:12:49.240Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          91 分钟
+          98 分钟
         
       </span>
     
@@ -902,8 +902,6 @@
 <li>P3：等待时间 &#x3D; 7 - 2 &#x3D; 5</li>
 <li>P4：等待时间 &#x3D; 12 - 3 &#x3D; 9</li>
 </ul>
-<p><strong>平均等待时间</strong>：</p>
-<p>平均等待时间&#x3D;0+3+5+94&#x3D;4.25\text{平均等待时间} &#x3D; \frac{0 + 3 + 5 + 9}{4} &#x3D; 4.25</p>
 <hr>
 <h3 id="2-短作业优先算法-SJF"><a href="#2-短作业优先算法-SJF" class="headerlink" title="2. 短作业优先算法 (SJF)"></a>2. 短作业优先算法 (SJF)</h3><h4 id="2-1-非抢占式短作业优先-Non-preemptive-SJF"><a href="#2-1-非抢占式短作业优先-Non-preemptive-SJF" class="headerlink" title="2.1 非抢占式短作业优先 (Non-preemptive SJF)"></a>2.1 非抢占式短作业优先 (Non-preemptive SJF)</h4><p>假设有相同的 4 个进程，它们的到达时间和执行时间如下：</p>
 <table>
@@ -951,8 +949,6 @@
 <li>P4：等待时间 &#x3D; 7 - 3 &#x3D; 4</li>
 <li>P3：等待时间 &#x3D; 9 - 2 &#x3D; 7</li>
 </ul>
-<p><strong>平均等待时间</strong>：</p>
-<p>平均等待时间&#x3D;0+3+4+74&#x3D;3.5\text{平均等待时间} &#x3D; \frac{0 + 3 + 4 + 7}{4} &#x3D; 3.5</p>
 <h4 id="2-2-抢占式短作业优先-Preemptive-SJF-SRTF"><a href="#2-2-抢占式短作业优先-Preemptive-SJF-SRTF" class="headerlink" title="2.2 抢占式短作业优先 (Preemptive SJF, SRTF)"></a>2.2 抢占式短作业优先 (Preemptive SJF, SRTF)</h4><p>假设 4 个进程的到达时间和执行时间如下：</p>
 <table>
 <thead>
@@ -999,8 +995,6 @@
 <li>P3：等待时间 &#x3D; 7 - 2 &#x3D; 5</li>
 <li>P4：等待时间 &#x3D; 4 - 3 &#x3D; 1</li>
 </ul>
-<p><strong>平均等待时间</strong>：</p>
-<p>平均等待时间&#x3D;2+0+5+14&#x3D;2\text{平均等待时间} &#x3D; \frac{2 + 0 + 5 + 1}{4} &#x3D; 2</p>
 <hr>
 <h3 id="3-优先调度算法-PSA"><a href="#3-优先调度算法-PSA" class="headerlink" title="3. 优先调度算法 (PSA)"></a>3. 优先调度算法 (PSA)</h3><p>假设有 4 个进程，它们的到达时间和执行时间如下，同时每个进程也有一个优先级（数字越大优先级越高）：</p>
 <table>
@@ -1054,10 +1048,7 @@
 <li>P3：等待时间 &#x3D; 0</li>
 <li>P4：等待时间 &#x3D; 4 - 3 &#x3D; 1</li>
 </ul>
-<p><strong>平均等待时间</strong>：</p>
-<p>平均等待时间&#x3D;2+5+0+14&#x3D;2\text{平均等待时间} &#x3D; \frac{2 + 5 + 0 + 1}{4} &#x3D; 2</p>
-<hr>
-<h3 id="4-高响应比优先调度算法-HRRN"><a href="#4-高响应比优先调度算法-HRRN" class="headerlink" title="4. 高响应比优先调度算法 (HRRN)"></a>4. 高响应比优先调度算法 (HRRN)</h3><p>假设有 4 个进程，它们的到达时间和执行时间如下：</p>
+<h3 id="优先调度算法-HRRN"><a href="#优先调度算法-HRRN" class="headerlink" title="优先调度算法 (HRRN)"></a>优先调度算法 (HRRN)</h3><p>假设有 4 个进程，它们的到达时间和执行时间如下：</p>
 <table>
 <thead>
 <tr>
@@ -1101,10 +1092,167 @@
 <p><strong>执行顺序</strong>：</p>
 <figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 
-<p><strong>平均等待时间</strong>： HRRN 通过计算响应比动态调整选择执行的进程，避免了长作业饥饿的现象。</p>
+<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h1><h3 id="1-时间轮转调度算法-Round-Robin-RR"><a href="#1-时间轮转调度算法-Round-Robin-RR" class="headerlink" title="1. 时间轮转调度算法 (Round Robin, RR)"></a>1. 时间轮转调度算法 (Round Robin, RR)</h3><p><strong>定义</strong>：<br> 时间轮转调度算法是最常用的抢占式调度算法，特别适用于时间共享系统。在 RR 算法中，每个进程被分配一个时间片（time quantum），当进程执行完一个时间片后，如果它仍未完成，则被挂起并移到队列末尾等待下一次调度。调度器按照进程的顺序轮流分配 CPU。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>每个进程的时间片相同，公平分配 CPU 时间。</li>
+<li>适用于时间共享系统，如多用户系统。</li>
+</ul>
+<p><strong>优缺点</strong>：</p>
+<ul>
+<li>优点：公平性较好，每个进程都能在有限时间内获得 CPU 时间。</li>
+<li>缺点：时间片的选择至关重要，过长可能导致效率低下，过短会导致过多的上下文切换。</li>
+</ul>
+<p><strong>示意图</strong>： 假设有 4 个进程 P1、P2、P3 和 P4，时间片大小为 2 单位时间，进程到达时间均为 0，执行时间如下：</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>5</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>P1 执行 2 单位时间，剩余 3 单位时间。</li>
+<li>P2 执行 2 单位时间，剩余 1 单位时间。</li>
+<li>P3 执行 2 单位时间，剩余 4 单位时间。</li>
+<li>P4 执行 2 单位时间，剩余 2 单位时间。</li>
+<li>回到 P1，执行 2 单位时间，剩余 1 单位时间。</li>
+<li>回到 P2，执行完毕，剩余 0 单位时间。</li>
+<li>然后继续其他进程执行。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livescript">P1<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">0</span>-<span class="hljs-number">2</span>)</span> -&gt;</span> P2<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">2</span>-<span class="hljs-number">4</span>)</span> -&gt;</span> P3<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">4</span>-<span class="hljs-number">6</span>)</span> -&gt;</span> P4<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">6</span>-<span class="hljs-number">8</span>)</span> -&gt;</span> P1<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">8</span>-<span class="hljs-number">10</span>)</span> -&gt;</span> P2<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">10</span>-<span class="hljs-number">11</span>)</span> -&gt;</span> P3<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">11</span>-<span class="hljs-number">13</span>)</span> -&gt;</span> P4<span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">13</span>-<span class="hljs-number">14</span>)</span> -&gt;</span> P3(<span class="hljs-number">14</span>-<span class="hljs-number">16</span>)<br></code></pre></td></tr></table></figure>
+
 <hr>
-<p>通过这些例子，可以看出每种调度算法的特点和适用场景，理解它们如何影响进程的执行顺序及等待时间。</p>
-<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h1><h2 id="时间轮转调度算法"><a href="#时间轮转调度算法" class="headerlink" title="时间轮转调度算法"></a>时间轮转调度算法</h2><h2 id="优先级调度算法"><a href="#优先级调度算法" class="headerlink" title="优先级调度算法"></a>优先级调度算法</h2><h2 id="多队列调度算法"><a href="#多队列调度算法" class="headerlink" title="多队列调度算法"></a>多队列调度算法</h2><h2 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2><h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="死锁产生"><a href="#死锁产生" class="headerlink" title="死锁产生"></a>死锁产生</h2><h2 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h2><h2 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h2><h3 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h3><h2 id="死锁检测和解除"><a href="#死锁检测和解除" class="headerlink" title="死锁检测和解除"></a>死锁检测和解除</h2><h3 id="资源分配化简"><a href="#资源分配化简" class="headerlink" title="资源分配化简"></a>资源分配化简</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<h3 id="2-多队列调度算法-Multilevel-Queue-Scheduling"><a href="#2-多队列调度算法-Multilevel-Queue-Scheduling" class="headerlink" title="2. 多队列调度算法 (Multilevel Queue Scheduling)"></a>2. 多队列调度算法 (Multilevel Queue Scheduling)</h3><p><strong>定义</strong>：<br> 多队列调度算法将进程划分为不同的队列，每个队列有不同的优先级。通常，高优先级队列执行时间短、交互性强的进程，低优先级队列执行长时间计算密集型的进程。调度器会根据进程的类型决定其所处的队列。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>每个队列有不同的调度算法（例如：高优先级队列使用 RR，低优先级队列使用 FCFS）。</li>
+<li>适用于需要将进程分配给不同类别的场景。</li>
+</ul>
+<p><strong>优缺点</strong>：</p>
+<ul>
+<li>优点：能有效区分不同类型的进程，保证响应时间。</li>
+<li>缺点：难以平衡各队列的负载，可能导致某些队列的过载或空闲。</li>
+</ul>
+<p><strong>示意图</strong>： 假设有两个队列，一个用于交互性进程，一个用于批处理进程。</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>队列</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>高</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>高</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>低</td>
+<td>6</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>低</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>高优先级队列（交互进程）使用轮转调度算法执行。</li>
+<li>低优先级队列（批处理进程）使用 FCFS 调度算法执行。</li>
+</ul>
+<p><strong>执行顺序</strong>：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tp"><span class="hljs-keyword">P</span><span class="hljs-number">1</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">2</span> (高优先级队列)<br><span class="hljs-keyword">P</span><span class="hljs-number">3</span> -&gt; <span class="hljs-keyword">P</span><span class="hljs-number">4</span> (低优先级队列)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-多级反馈队列调度算法-Multilevel-Feedback-Queue-Scheduling"><a href="#3-多级反馈队列调度算法-Multilevel-Feedback-Queue-Scheduling" class="headerlink" title="3. 多级反馈队列调度算法 (Multilevel Feedback Queue Scheduling)"></a>3. 多级反馈队列调度算法 (Multilevel Feedback Queue Scheduling)</h3><p><strong>定义</strong>：<br> 多级反馈队列调度算法是多队列调度的扩展，它允许进程根据其行为在不同的队列之间移动。当进程需要更多 CPU 时间时，它将被移动到较低优先级的队列；如果进程表现为短作业，它会被移到较高优先级的队列。这种算法结合了时间共享和优先级调度的优点。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>动态调整进程的队列优先级。</li>
+<li>适用于处理多种类型的进程（短作业、长作业、交互式进程等）。</li>
+</ul>
+<p><strong>优缺点</strong>：</p>
+<ul>
+<li>优点：能够根据进程的行为动态调整队列，避免了饥饿现象。</li>
+<li>缺点：算法较复杂，配置不当可能会导致不稳定性。</li>
+</ul>
+<p><strong>示意图</strong>： 假设有 3 个队列，分别对应不同的优先级和调度算法。</p>
+<table>
+<thead>
+<tr>
+<th>进程</th>
+<th>执行时间</th>
+<th>初始队列</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>3</td>
+<td>队列 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>6</td>
+<td>队列 2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>2</td>
+<td>队列 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>8</td>
+<td>队列 3</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<p><strong>执行过程</strong>：</p>
+<ul>
+<li>P1 和 P3 先进入队列 1，并使用 RR 调度。</li>
+<li>P2 进入队列 2，并使用 FCFS 调度。</li>
+<li>P4 进入队列 3，并使用 FCFS 调度。</li>
+<li>如果 P1 和 P3 仍未完成，它们会被转移到较低优先级队列。</li>
+</ul>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wkfvawl/p/11598647.html">操作系统——死锁的概念以及死锁处理策略 - 王陸 - 博客园</a></p>
+<p>资源分配化简</p>
+<p>具体参考：</p>
+<p>[<a target="_blank" rel="noopener" href="https://www.cnblogs.com/joiln/p/10253288.html">转]操作系统-资源分配图化简法 - 仔仔的棒棒糖 - 博客园</a></p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2201_75475240/article/details/137777008">【操作系统】7种进程调度算法，及其甘特图的绘制（练习markdown画图）_模拟操作系统进程调度相关算法代码图片-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1460903">《操作系统》—— 处理机调度算法-阿里云开发者社区</a></p>
+
                 
               </div>
             
