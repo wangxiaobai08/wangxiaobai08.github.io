@@ -338,6 +338,35 @@
   
   
   <entry>
+    <title>分布式锁</title>
+    <link href="/2023/06/20/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redis/"/>
+    <url>/2023/06/20/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redis/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://blog.csdn.net/asd051377305/article/details/108384490">Redis分布式锁-这一篇全了解(Redisson实现分布式锁完美方案)-CSDN博客</a></p><p><a href="https://www.cnblogs.com/song-a/p/18601170">Redis分布式锁 - Song-a - 博客园</a></p><p><a href="https://www.cnblogs.com/crazymakercircle/p/14731826.html">Redis分布式锁 （图解-秒懂-史上最全） - 疯狂创客圈 - 博客园</a></p><p><a href="https://www.cnblogs.com/wangyingshuo/p/14510524.html">Redis实现分布式锁的7种方案 - why414 - 博客园</a></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>基础知识</category>
+      
+      <category>数据库</category>
+      
+      <category>Redis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>独立功能</title>
     <link href="/2023/06/16/%E7%8B%AC%E7%AB%8B%E5%8A%9F%E8%83%BD-Redis/"/>
     <url>/2023/06/16/%E7%8B%AC%E7%AB%8B%E5%8A%9F%E8%83%BD-Redis/</url>
@@ -352,6 +381,35 @@
       <category>数据库</category>
       
       <category>Redis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>零碎知识点</title>
+    <link href="/2023/05/28/mysql%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+    <url>/2023/05/28/mysql%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/</url>
+    
+    <content type="html"><![CDATA[<h1 id="MVCC机制原理"><a href="#MVCC机制原理" class="headerlink" title="MVCC机制原理"></a>MVCC机制原理</h1><p><a href="https://cloud.tencent.com/developer/article/2184720">【MySQL】MVCC原理分析 + 源码解读 – 必须说透-腾讯云开发者社区-腾讯云</a></p><p><a href="https://juejin.cn/post/7066633257781035045">深入理解MySQL的MVCC原理介绍MySQL的MVCC实现初衷（为什么要有MVCC）、实现原理（是如何实现的）、MVC - 掘金</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>基础知识</category>
+      
+      <category>数据库</category>
+      
+      <category>Mysql</category>
       
     </categories>
     
@@ -549,6 +607,35 @@
       <category>数据库</category>
       
       <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据库</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基础知识</title>
+    <link href="/2023/05/02/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-Redis/"/>
+    <url>/2023/05/02/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-Redis/</url>
+    
+    <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="动态简单字符串"><a href="#动态简单字符串" class="headerlink" title="动态简单字符串"></a>动态简单字符串</h2><h3 id="SDS定义"><a href="#SDS定义" class="headerlink" title="SDS定义"></a>SDS定义</h3><p><img src="https://s2.loli.net/2025/01/08/P74I2eQMcAXvbFx.png" alt="image-20250108101459074"></p><p>SDS 不仅可以保存文本数据，还可以保存二进制数据</p><ul><li>因为 <code>SDS</code> 使用 <code>len</code> 属性的值而不是空字符来判断字符串是否结束，并且 SDS 的所有 API 都会以处理二进制的方式来处理 SDS 存放在 <code>buf[]</code> 数组里的数据；</li><li>所以 SDS 不光能存放文本数据，而且能保存图片、音频、视频、压缩文件这样的二进制数据；</li></ul><h3 id="常数复杂度获取字符串长度"><a href="#常数复杂度获取字符串长度" class="headerlink" title="常数复杂度获取字符串长度"></a>常数复杂度获取字符串长度</h3><p>SDS 获取字符串长度的时间复杂度是 O(1)</p><ul><li>因为 C 语言的字符串并不记录自身长度，所以获取长度的复杂度为 O(n)；</li><li>而 SDS 结构里用 <code>len</code> 属性记录了字符串长度，所以复杂度为 <code>O(1)</code>；</li></ul><h3 id="减少修改字符串时带来的内存重分配次数"><a href="#减少修改字符串时带来的内存重分配次数" class="headerlink" title="减少修改字符串时带来的内存重分配次数"></a>减少修改字符串时带来的内存重分配次数</h3><p><strong>减少内存重分配的策略</strong>：</p><ul><li><strong>逐步增长</strong>：每次增加字符串长度时，SDS会选择适度增加内存而非立即扩展至精确所需的大小。通过这种“宽松”的增长策略，避免了每次修改都进行内存重分配。</li><li><strong>空闲空间复用</strong>：当缩短字符串时（比如执行<code>SDS</code>的<code>del</code>操作），SDS会适当地释放多余的空间，而不是立即重分配内存，这样可以避免不必要的内存分配。</li></ul><p><img src="https://s2.loli.net/2025/01/08/7OjrIDkK125ZNYw.png" alt="image-20250108102200324"></p><p><img src="https://s2.loli.net/2025/01/08/QzcqNtF1ZgwJ3Io.png" alt="image-20250108102236926"></p><h3 id="杜绝缓冲区溢出"><a href="#杜绝缓冲区溢出" class="headerlink" title="杜绝缓冲区溢出"></a>杜绝缓冲区溢出</h3><p>Redis 的 SDS API 是安全的，拼接字符串不会造成缓冲区溢出</p><ul><li>因为 SDS 在拼接字符串之前会检查 SDS 空间是否满足要求，如果空间不够会自动扩容，所以不会导致缓冲区溢出的问题</li></ul><p><img src="https://s2.loli.net/2025/01/08/qZKYH2mak68sTie.png" alt="image-20250108102343775"></p><h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表的基本知识请参考之前文章：<a href="https://wangxiaobai08.github.io/2023/01/12/%E9%93%BE%E8%A1%A8/">链表 - The Peak Tower</a></p><h3 id="链表节点结构"><a href="#链表节点结构" class="headerlink" title="链表节点结构"></a>链表节点结构</h3><p><img src="https://s2.loli.net/2025/01/08/OrnBQJhKvtjVp3S.png" alt="image-20250108103200782"></p><h3 id="链表整体结构"><a href="#链表整体结构" class="headerlink" title="链表整体结构"></a>链表整体结构</h3><p><img src="https://s2.loli.net/2025/01/08/ZdspeMYvUmIboXl.png" alt="image-20250108103320907"></p><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><p><img src="https://s2.loli.net/2025/01/08/Mi6vglG9WNY8ReZ.png" alt="image-20250108103409751"></p><h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p><img src="https://s2.loli.net/2025/01/08/wDmJNq1CnFV8aer.png" alt="image-20250108103918249"></p><h3 id="哈希表节点"><a href="#哈希表节点" class="headerlink" title="哈希表节点"></a>哈希表节点</h3><p><img src="https://s2.loli.net/2025/01/08/qpE2uZV1ixYRrMj.png" alt="image-20250108104003217"></p><h3 id="字典实现"><a href="#字典实现" class="headerlink" title="字典实现"></a>字典实现</h3><p><img src="https://s2.loli.net/2025/01/08/otZE71fJMAOW5NH.png" alt="image-20250108104115162"></p><p><img src="https://s2.loli.net/2025/01/08/YAcCskLvFjTy9rQ.png" alt="image-20250108104130623"></p><h2 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h2><blockquote><p>参考：</p><p><a href="https://blog.csdn.net/lzhcoder/article/details/122539972">Redis 跳跃表的原理和实现_redis跳表原理-CSDN博客</a></p></blockquote><h2 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h2><blockquote><p>参考：</p><p><a href="https://blog.csdn.net/m0_51504545/article/details/117391204">Redis - ziplist (压缩列表) 图文详解-CSDN博客</a></p><p><a href="https://zhuanlan.zhihu.com/p/375414918">redis 压缩列表ziplist、quicklist - 知乎</a></p></blockquote><h2 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h2><blockquote><p>参考：</p><p><a href="https://www.cnblogs.com/hunternet/p/11268067.html">Redis数据结构——整数集合 - 随心所于 - 博客园</a></p></blockquote><h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><blockquote><p>参考：</p><p><a href="https://blog.csdn.net/chenssy/article/details/118280266">【死磕 Redis】—– Redis 数据结构：对象（RedisObject）-CSDN博客</a></p><p><a href="https://www.cnblogs.com/wind-snow/p/11172832.html">Redis 学习笔记（篇五）：对象（RedisObject） - 风中抚雪 - 博客园</a></p><p><a href="https://zhuanlan.zhihu.com/p/389165715">Redis进阶 - 数据结构：对象机制详解，一文深入底层分析 - 知乎</a></p><p><a href="https://cloud.tencent.com/developer/article/2447041">深入浅出Redis（一）：对象与数据结构-腾讯云开发者社区-腾讯云</a></p></blockquote><h1 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h1><blockquote><p>参考<a href="https://noob.holic-x.com/md/rebirth/2.%E6%95%B0%E6%8D%AE%E5%BA%93/2.Redis/2.Redis-%E5%9F%BA%E7%A1%80%E7%AF%87-02-%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.html">Redis-基础篇-②线程模型 | 一人の境</a></p></blockquote><h1 id="过期删除策略和内存淘汰策略"><a href="#过期删除策略和内存淘汰策略" class="headerlink" title="过期删除策略和内存淘汰策略"></a>过期删除策略和内存淘汰策略</h1><blockquote><p>参考<a href="https://noob.holic-x.com/md/rebirth/2.%E6%95%B0%E6%8D%AE%E5%BA%93/2.Redis/2.Redis-%E5%9F%BA%E7%A1%80%E7%AF%87-03-%E8%BF%87%E6%9C%9F%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5%E5%92%8C%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5.html#_1-%E8%BF%87%E6%9C%9F%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5">Redis-基础篇-③过期删除策略和内存淘汰策略 | 一人の境</a></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>基础知识</category>
+      
+      <category>数据库</category>
+      
+      <category>Redis</category>
       
     </categories>
     
