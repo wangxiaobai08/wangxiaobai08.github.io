@@ -16,18 +16,18 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="回答答  在内存管理 - The Peak Tower中主要讨论了离散分配式的管理方式，本篇是对内存管理的历史补充即：连续分配管理方式 什么是连续分配管理方式？连续分配存储管理方式（又称为连续分配内存管理）是一种内存管理策略，在这种方式下，操作系统将内存划分为一块或多块连续的区域，每个区域分配给一个作业或进程。每个进程在内存中占据一块连续的内存区域，操作系统通过管理这些区域来实现内存的分配和回收。">
+    <meta name="description" content="在内存管理 - The Peak Tower中主要讨论了离散分配式的管理方式，本篇是对内存管理的历史补充即：连续分配管理方式 什么是连续分配管理方式？连续分配存储管理方式（又称为连续分配内存管理）是一种内存管理策略，在这种方式下，操作系统将内存划分为一块或多块连续的区域，每个区域分配给一个作业或进程。每个进程在内存中占据一块连续的内存区域，操作系统通过管理这些区域来实现内存的分配和回收。 这种方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内存管理【补充】">
 <meta property="og:url" content="http://example.com/2023/01/15/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E3%80%90%E8%A1%A5%E5%85%85%E3%80%91/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="回答答  在内存管理 - The Peak Tower中主要讨论了离散分配式的管理方式，本篇是对内存管理的历史补充即：连续分配管理方式 什么是连续分配管理方式？连续分配存储管理方式（又称为连续分配内存管理）是一种内存管理策略，在这种方式下，操作系统将内存划分为一块或多块连续的区域，每个区域分配给一个作业或进程。每个进程在内存中占据一块连续的内存区域，操作系统通过管理这些区域来实现内存的分配和回收。">
+<meta property="og:description" content="在内存管理 - The Peak Tower中主要讨论了离散分配式的管理方式，本篇是对内存管理的历史补充即：连续分配管理方式 什么是连续分配管理方式？连续分配存储管理方式（又称为连续分配内存管理）是一种内存管理策略，在这种方式下，操作系统将内存划分为一块或多块连续的区域，每个区域分配给一个作业或进程。每个进程在内存中占据一块连续的内存区域，操作系统通过管理这些区域来实现内存的分配和回收。 这种方">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/01/03/sL7HSReaKdnUDmv.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/03/Qmyu4g5hX8tKv1d.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/03/mHYIw6SrqZs8z1o.png">
 <meta property="article:published_time" content="2023-01-15T01:58:14.000Z">
-<meta property="article:modified_time" content="2025-01-04T02:15:20.751Z">
+<meta property="article:modified_time" content="2025-01-08T01:28:08.749Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
@@ -277,8 +277,7 @@
             
               <div class="markdown-body">
                 
-                <p>回答答</p>
-<hr>
+                <hr>
 <p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/10/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/#%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1-%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4">内存管理 - The Peak Tower</a>中主要讨论了离散分配式的管理方式，本篇是对内存管理的历史补充即：<strong>连续分配管理方式</strong></p>
 <h1 id="什么是连续分配管理方式？"><a href="#什么是连续分配管理方式？" class="headerlink" title="什么是连续分配管理方式？"></a>什么是连续分配管理方式？</h1><p>连续分配存储管理方式（又称为连续分配内存管理）是一种内存管理策略，在这种方式下，操作系统将内存划分为一块或多块连续的区域，每个区域分配给一个作业或进程。每个进程在内存中占据一块连续的内存区域，操作系统通过管理这些区域来实现内存的分配和回收。</p>
 <p>这种方式下，内存分配时，程序必须占用一段连续的内存空间，不允许在程序的内存空间中有空隙（即连续分配）。进程的起始地址和大小在内存中是已知的，通常通过基地址和长度来表示。</p>
