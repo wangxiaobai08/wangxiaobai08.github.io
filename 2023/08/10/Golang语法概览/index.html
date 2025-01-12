@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/27/rvOaeF317VlDwTL.png">
 <meta property="article:published_time" content="2023-08-10T01:12:18.000Z">
-<meta property="article:modified_time" content="2025-01-08T01:31:43.393Z">
+<meta property="article:modified_time" content="2025-01-08T09:06:06.416Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="基础知识">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          11k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          86 分钟
+          94 分钟
         
       </span>
     
@@ -394,6 +394,72 @@
 <li>**<code>gods</code>**（GoDS）：一个包含常见数据结构的包，如链表、堆、树、图、集合等。</li>
 <li>**<code>go-datastructures</code>**：提供高级数据结构，如红黑树、跳表、堆等。</li>
 </ul>
+<h1 id="常见API"><a href="#常见API" class="headerlink" title="常见API"></a>常见API</h1><table>
+<thead>
+<tr>
+<th>操作&#x2F;函数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>make([]T, len, cap)</code></strong></td>
+<td>创建一个切片并初始化，<code>len</code> 是切片的长度，<code>cap</code> 是容量。</td>
+<td><code>s := make([]int, 5)</code> 创建长度为 5 的切片，容量为 5。 <code>s := make([]int, 5, 10)</code> 创建长度为 5，容量为 10 的切片。</td>
+</tr>
+<tr>
+<td><strong><code>len(s)</code></strong></td>
+<td>获取切片的长度，即切片中元素的个数。</td>
+<td><code>s := []int&#123;1, 2, 3&#125;</code> <code>fmt.Println(len(s))</code> 输出 <code>3</code>。</td>
+</tr>
+<tr>
+<td><strong><code>cap(s)</code></strong></td>
+<td>获取切片的容量，即切片底层数组的长度。</td>
+<td><code>s := make([]int, 5, 10)</code> <code>fmt.Println(cap(s))</code> 输出 <code>10</code>。</td>
+</tr>
+<tr>
+<td><strong><code>append(s, elems...)</code></strong></td>
+<td>向切片添加元素，如果容量不足则会自动扩展切片的容量。</td>
+<td><code>s := []int&#123;1, 2&#125;</code> <code>s = append(s, 3, 4)</code> 输出 <code>s = [1, 2, 3, 4]</code>。</td>
+</tr>
+<tr>
+<td><strong><code>copy(dest, src)</code></strong></td>
+<td>将 <code>src</code> 切片的内容复制到 <code>dest</code> 切片，返回实际复制的元素个数。</td>
+<td><code>s1 := []int&#123;1, 2, 3&#125;</code> <code>s2 := make([]int, 3)</code> <code>n := copy(s2, s1)</code> 输出 <code>n = 3</code>，<code>s2 = [1, 2, 3]</code>。</td>
+</tr>
+<tr>
+<td><strong><code>s[start:end]</code></strong></td>
+<td>切片操作，返回一个从索引 <code>start</code> 到 <code>end-1</code> 的切片。</td>
+<td><code>s := []int&#123;1, 2, 3, 4, 5&#125;</code> <code>fmt.Println(s[1:4])</code> 输出 <code>[2, 3, 4]</code>。</td>
+</tr>
+<tr>
+<td><strong><code>s[:end]</code></strong></td>
+<td>切片操作，返回一个从索引 <code>0</code> 到 <code>end-1</code> 的切片。</td>
+<td><code>s := []int&#123;1, 2, 3, 4, 5&#125;</code> <code>fmt.Println(s[:3])</code> 输出 <code>[1, 2, 3]</code>。</td>
+</tr>
+<tr>
+<td><strong><code>s[start:]</code></strong></td>
+<td>切片操作，返回一个从 <code>start</code> 到切片末尾的切片。</td>
+<td><code>s := []int&#123;1, 2, 3, 4, 5&#125;</code> <code>fmt.Println(s[2:])</code> 输出 <code>[3, 4, 5]</code>。</td>
+</tr>
+<tr>
+<td><strong><code>var s []T</code></strong></td>
+<td>声明一个空切片，未指定长度和容量。</td>
+<td><code>var s []int</code> 声明一个空的整数切片。</td>
+</tr>
+<tr>
+<td><strong><code>s = make([]int, 0)</code></strong></td>
+<td>创建一个长度为 0 的切片。</td>
+<td><code>s := make([]int, 0)</code> 创建一个空的整数切片。</td>
+</tr>
+<tr>
+<td><strong>删除元素</strong></td>
+<td>使用 <code>append</code> 删除切片中的元素。</td>
+<td><code>s := []int&#123;1, 2, 3, 4&#125;</code> <code>s = append(s[:i], s[i+1:]...)</code> 删除索引 <code>i</code> 的元素。</td>
+</tr>
+</tbody></table>
+<p><code>[][]int</code> 是一个二维切片的类型声明，没有实际分配内存。</p>
+<p><code>make([][]int)</code> 创建了一个切片类型，并为外层切片分配了内存，但每一行（子切片）默认是 <code>nil</code>，需要进一步初始化。</p>
 <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><p>Go 语言在 <strong>1.18</strong> 版本中引入了 <strong>泛型（Generics）</strong>，这使得开发者能够编写类型安全的代码，同时避免了重复的类型声明。泛型允许函数、方法、类型和数据结构在不同类型之间进行抽象，提升代码的复用性和灵活性。与 C++ 或 Java 的泛型相比，Go 的泛型相对简单，并通过类型参数实现。</p>
 <h3 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1. 基本语法"></a>1. <strong>基本语法</strong></h3><p>泛型的核心在于 **类型参数。通过类型参数，可以定义支持不同类型的函数、结构体、接口等。</p>
 <h4 id="1-1-函数泛型"><a href="#1-1-函数泛型" class="headerlink" title="1.1 函数泛型"></a>1.1 函数泛型</h4><p>Go 中可以通过 <code>type</code> 参数来创建一个可以接受任意类型的函数。</p>
@@ -740,6 +806,11 @@
 <ul>
 <li><code>os.Stat</code> 返回一个 <code>os.FileInfo</code> 对象，其中包含文件的元数据（如大小、权限、修改时间等）。</li>
 </ul>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// diameterOfBinaryTree 函数，返回二叉树的直径</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">diameterOfBinaryTree</span><span class="hljs-params">(root *TreeNode)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">var</span> ans <span class="hljs-type">int</span> <span class="hljs-comment">// 存储最大直径</span><br>    <span class="hljs-keyword">var</span> depth <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(*TreeNode)</span></span> <span class="hljs-type">int</span> <span class="hljs-comment">// 声明 depth 函数</span><br>    depth = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(rt *TreeNode)</span></span> <span class="hljs-type">int</span> &#123;<br>        <span class="hljs-keyword">if</span> rt == <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        &#125;<br>        L := depth(rt.Left)   <span class="hljs-comment">// 左子树的深度</span><br>        R := depth(rt.Right)  <span class="hljs-comment">// 右子树的深度</span><br>        ans = max(ans, L+R)   <span class="hljs-comment">// 更新最大直径</span><br>        <span class="hljs-keyword">return</span> max(L, R) + <span class="hljs-number">1</span>  <span class="hljs-comment">// 返回当前节点为根的子树的深度</span><br>    &#125;<br><br>    depth(root)  <br>    <span class="hljs-keyword">return</span> ans   <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>函数是第一类公民</strong>： 在 Go 中，函数是“第一类公民”，这意味着函数可以像其他类型的变量一样进行赋值、传递和调用。因此，可以将一个匿名函数赋值给一个函数类型的变量（如 <code>depth</code>）。</p>
+<p><strong>匿名函数（闭包）</strong>：比如 <code>depth</code> 是一个匿名函数（没有名字的函数），它作为一个闭包可以访问外部的 <code>ans</code> 变量。闭包是指一个函数和它的环境（外部变量）绑定在一起。在这里，<code>depth</code> 函数能够访问 <code>ans</code> 变量并且递归调用自己。</p>
+<p><strong>函数变量的定义与赋值</strong>： 首先声明了一个函数变量 <code>depth</code>，并定义了它的类型：<code>func(*TreeNode) int</code>，表示它是一个接受 <code>*TreeNode</code> 类型参数并返回 <code>int</code> 的函数。然后你通过 <code>depth = func(rt *TreeNode) int &#123; ... &#125;</code> 来将一个匿名函数赋值给这个变量。赋值后，<code>depth</code> 就成为了一个可用的函数，你可以像调用普通函数一样调用它。</p>
 
                 
               </div>
