@@ -1336,6 +1336,33 @@
   
   
   <entry>
+    <title>pandas使用</title>
+    <link href="/2022/10/01/Pandas%E4%BD%BF%E7%94%A8/"/>
+    <url>/2022/10/01/Pandas%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://pandas.ac.cn/docs/reference/index.html#api">API 参考 — pandas 2.2.1 文档 - pandas 数据分析库</a></p><p><a href="https://pandas.woshinlper.com/docs/getting_started/">快速入门 - Pandas 中文文档</a></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据采集处理</category>
+      
+      <category>数据清洗与入库</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数据采集处理</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Scrapy初步使用</title>
     <link href="/2022/09/26/Scrapy%E4%BD%BF%E7%94%A8/"/>
     <url>/2022/09/26/Scrapy%E4%BD%BF%E7%94%A8/</url>
