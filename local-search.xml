@@ -62,6 +62,60 @@
   
   
   <entry>
+    <title>gin的基本使用</title>
+    <link href="/2024/07/28/gin%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+    <url>/2024/07/28/gin%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p><a href="https://gin-gonic.cn/docs/">文档 | Gin Web 框架</a></p><p><a href="https://www.topgoer.com/gin%E6%A1%86%E6%9E%B6/">gin框架 · Go语言中文文档</a></p><p><a href="https://www.bookstack.cn/read/gin-docs-zh/7fb682d1ea734556.md">文档 - 《Gin Web 框架官方文档中文版》 - 书栈网 · BookStack</a></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>软件工程</category>
+      
+      <category>后端开发(Golang)</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>软件工程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>API规范(RestFul)</title>
+    <link href="/2024/07/25/Restful_API%E8%A7%84%E8%8C%83/"/>
+    <url>/2024/07/25/Restful_API%E8%A7%84%E8%8C%83/</url>
+    
+    <content type="html"><![CDATA[<h1 id="RPC风格"><a href="#RPC风格" class="headerlink" title="RPC风格"></a>RPC风格</h1><p>RPC 风格的 API 设计基于调用远程过程的思想，API 通常是针对特定动作进行设计，URI 中会带有操作名，而不是直接表示资源。</p><table><thead><tr><th>操作</th><th>HTTP 方法</th><th>资源 URI</th><th>描述</th></tr></thead><tbody><tr><td>创建用户</td><td>POST</td><td><code>/createUser</code></td><td>创建新用户</td></tr><tr><td>获取用户信息</td><td>GET</td><td><code>/getUser</code></td><td>获取指定用户信息</td></tr><tr><td>更新用户信息</td><td>POST</td><td><code>/updateUser</code></td><td>更新指定用户信息</td></tr><tr><td>删除用户</td><td>POST</td><td><code>/deleteUser</code></td><td>删除指定用户</td></tr></tbody></table><h2 id="多平台的接口设计"><a href="#多平台的接口设计" class="headerlink" title="多平台的接口设计"></a>多平台的接口设计</h2><table><thead><tr><th>功能</th><th>Web 端</th><th>iOS 端</th><th>Android 端</th><th>小程序端</th></tr></thead><tbody><tr><td>获取商品信息</td><td>GET &#x2F;getProductList</td><td>GET &#x2F;iOS&#x2F;getProducts</td><td>GET &#x2F;android&#x2F;productInfo</td><td>GET &#x2F;weapp&#x2F;product</td></tr><tr><td>获取购物车信息</td><td>POST &#x2F;fetchCartData</td><td>GET &#x2F;cartInfo</td><td>POST &#x2F;android&#x2F;getCart</td><td>POST &#x2F;weapp&#x2F;cart</td></tr><tr><td>用户登录</td><td>POST &#x2F;authenticate</td><td>POST &#x2F;iOS&#x2F;login</td><td>POST &#x2F;android&#x2F;login</td><td>POST &#x2F;weapp&#x2F;login</td></tr></tbody></table><p>可以看到同样的功能（如获取商品信息、获取购物车信息、用户登录）在不同平台上采用了不同的请求路径、HTTP 方法，导致接口设计不统一，开发人员在后端可能要实现多个几乎完全相同的接口，每次更新逻辑时，需要分别维护多个接口，容易导致版本不同步。</p><p>如果后端接口需要变更，比如添加分页功能，每个客户端都需要重新适配，增加了工作量。</p><blockquote><p>强制所有客户端都使用 <strong>相同的接口路径</strong> 和 <strong>一致的数据格式</strong></p></blockquote><p>如果所有客户端（如 Web、iOS、Android、小程序）都调用统一的接口路径（如 <code>/getProducts</code>），并返回相同的数据结构，例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /getProducts<br>响应：<br>&#123;<br>  <span class="hljs-string">&quot;products&quot;</span>: [<br>    &#123; <span class="hljs-string">&quot;id&quot;</span>: 1, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Product A&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: 100 &#125;,<br>    &#123; <span class="hljs-string">&quot;id&quot;</span>: 2, <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Product B&quot;</span>, <span class="hljs-string">&quot;price&quot;</span>: 200 &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure><p>假设系统需要扩展，比如为每个商品添加评论功能。如果你使用的是 <code>/getProducts</code> 的设计风格，可能会这样做：</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 获取商品评论</span><br><span class="hljs-built_in">GET</span> /getProductComments?<span class="hljs-attribute">productId</span>=1<br><span class="hljs-comment"># 添加商品评论</span><br>POST /addProductComment<br></code></pre></td></tr></table></figure><p>这种方式虽然能完成功能，但随着功能增加，接口路径会逐渐变得混乱。比如：</p><ul><li>需要分页时，可能变成 <code>/getProductComments?productId=1&amp;page=1&amp;pageSize=10</code>。</li><li>需要根据条件筛选评论时，路径可能变得更加复杂，如 <code>/getProductComments?productId=1&amp;rating=5&amp;page=1&amp;pageSize=10</code>。</li></ul><p><strong>所以一套结构清晰、符合标准、易于理解、扩展方便让大部分人都能够理解接受的接口风格就显得越来越重要，而RESTful风格的接口(RESTful API)刚好有以上特点，就逐渐被实践应用而变得流行起来。</strong></p><h1 id="RESTful-风格"><a href="#RESTful-风格" class="headerlink" title="RESTful 风格"></a>RESTful 风格</h1><blockquote><p><a href="https://www.cnblogs.com/bigsai/p/14099154.html">一文搞懂RESTful API - bigsai - 博客园</a></p><p><a href="https://www.ruanyifeng.com/blog/2011/09/restful.html">理解RESTful架构 - 阮一峰的网络日志</a></p></blockquote><p>在 RESTful 风格中，设计的是 <strong>资源</strong>，而非“操作”。例如，“商品”和“购物车”都是资源，它们有各自的 URI。操作（如获取、创建、更新、删除）通过 HTTP 方法（GET、POST、PUT、DELETE）来体现，而不是在 URI 中写明动作。</p><table><thead><tr><th>操作</th><th>HTTP 方法</th><th>资源 URI</th><th>描述</th></tr></thead><tbody><tr><td>创建用户</td><td>POST</td><td><code>/users</code></td><td>创建新用户</td></tr><tr><td>获取用户信息</td><td>GET</td><td><code>/users/&#123;id&#125;</code></td><td>获取指定用户信息</td></tr><tr><td>更新用户信息</td><td>PUT</td><td><code>/users/&#123;id&#125;</code></td><td>更新指定用户信息</td></tr><tr><td>删除用户</td><td>DELETE</td><td><code>/users/&#123;id&#125;</code></td><td>删除指定用户</td></tr></tbody></table><p>RESTful 风格下，可以自然地扩展路径以支持商品评论功能，同时保持路径逻辑清晰：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 获取商品的评论列表</span><br>GET /products/&#123;<span class="hljs-built_in">id</span>&#125;/comments<br><span class="hljs-comment"># 创建评论</span><br>POST /products/&#123;<span class="hljs-built_in">id</span>&#125;/comments<br><span class="hljs-comment"># 获取单条评论</span><br>GET /products/&#123;<span class="hljs-built_in">id</span>&#125;/comments/&#123;comment_id&#125;<br></code></pre></td></tr></table></figure><p><strong>RESTful 设计更容易支持多客户端和版本控制</strong></p><p>在RPC的方案中，如果未来需要对接口进行版本控制（如支持 v2 版本），通常需要修改接口路径：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /v2/getProducts<br></code></pre></td></tr></table></figure><p>但这种方式可能导致路径混乱（不同版本的接口路径结构不一致）。</p><p>RESTful 的方式：RESTful API 通常通过路径或标头来实现版本控制：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">GET /v1/products<br>GET /v2/products<br></code></pre></td></tr></table></figure><p><strong>优点</strong>：版本控制规则统一，所有资源的接口都可以直接扩展到新版本，而不需要为每个功能单独调整路径。</p><h2 id="REST架构特征和限制条件"><a href="#REST架构特征和限制条件" class="headerlink" title="REST架构特征和限制条件"></a>REST架构特征和限制条件</h2><h3 id="REST架构特征"><a href="#REST架构特征" class="headerlink" title="REST架构特征"></a>REST架构特征</h3><p><strong>以资源为基础</strong> ：资源可以是一个图片、音乐、一个XML格式、HTML格式或者JSON格式等网络上的一个实体，除了一些二进制的资源外普通的文本资源更多以JSON为载体、面向用户的一组数据(通常从数据库中查询而得到)。</p><p><strong>统一接口</strong>: 对资源的操作包括获取、创建、修改和删除，这些操作正好对应HTTP协议提供的GET、POST、PUT和DELETE方法。换言而知，使用RESTful风格的接口但从接口上你可能只能定位其资源，但是无法知晓它具体进行了什么操作，需要具体了解其发生了什么操作动作要从其HTTP请求方法类型上进行判断。具体的HTTP方法和方法含义如下：</p><ul><li>GET（SELECT）：从服务器取出资源（一项或多项）。</li><li>POST（CREATE）：在服务器新建一个资源。</li><li>PUT（UPDATE）：在服务器更新资源（客户端提供完整资源数据）。</li><li>PATCH（UPDATE）：在服务器更新资源（客户端提供需要修改的资源数据）。</li><li>DELETE（DELETE）：从服务器删除资源。</li></ul><p><strong>URI指向资源</strong>：URI &#x3D; Universal Resource Identifier 统一资源标志符，用来标识抽象或物理资源的一个紧凑字符串。URI包括URL和URN，在这里更多时候可能代指URL(统一资源定位符)。RESTful是面向资源的，每种资源可能由一个或多个URI对应，但一个URI只指向一种资源。</p><p><strong>无状态</strong>：服务器不能保存客户端的信息， 每一次从客户端发送的请求中，要包含所有必须的状态信息，会话信息由客户端保存， 服务器端根据这些状态信息来处理请求。 当客户端可以切换到一个新状态的时候发送请求信息， 当一个或者多个请求被发送之后, 客户端就处于一个状态变迁过程中。 每一个应用的状态描述可以被客户端用来初始化下一次的状态变迁。</p><h4 id="REST架构限制条件"><a href="#REST架构限制条件" class="headerlink" title="REST架构限制条件"></a>REST架构限制条件</h4><p>Fielding在论文中提出REST架构的6个<strong>限制条件</strong>，也可称为RESTful 6大原则， 标准的REST约束应满足以下6个原则：</p><ol><li><strong>客户端-服务端（Client-Server）</strong>: 这个更专注客户端和服务端的分离，服务端独立可更好服务于前端、安卓、IOS等客户端设备。</li><li><strong>无状态（Stateless）</strong>：服务端不保存客户端状态，客户端保存状态信息每次请求携带状态信息。</li><li><strong>可缓存性（Cacheability）</strong> ：服务端需回复是否可以缓存以让客户端甄别是否缓存提高效率。</li><li><strong>统一接口（Uniform Interface）</strong>：通过一定原则设计接口降低耦合，简化系统架构，这是RESTful设计的基本出发点。当然这个内容除了上述特点提到部分具体内容比较多详细了解可以参考这篇<a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">REST论文内容</a>。</li><li><strong>分层系统（Layered System）</strong>：客户端无法直接知道连接的到终端还是中间设备，分层允许你灵活的部署服务端项目。</li><li><strong>按需代码（Code-On-Demand，可选）</strong>：按需代码允许我们灵活的发送一些看似特殊的代码给客户端例如JavaScript代码。</li></ol><h2 id="Restful-API设计规范"><a href="#Restful-API设计规范" class="headerlink" title="Restful API设计规范"></a>Restful API设计规范</h2><p><a href="https://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html">RESTful API 最佳实践 - 阮一峰的网络日志</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>软件工程</category>
+      
+      <category>后端开发(Golang)</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>软件工程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>So加载和链接(linker)</title>
     <link href="/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/"/>
     <url>/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/</url>
