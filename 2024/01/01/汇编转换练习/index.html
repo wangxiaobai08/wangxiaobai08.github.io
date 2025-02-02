@@ -16,19 +16,19 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="MD5_Update结构一(1)汇编结构 反汇编结构 说明if语句中的&amp;&amp;(与)判断反应到汇编中是拆分成两个语句，还要注意嵌套if语句的跳转关系 结构二(2)汇编结构 反汇编结构 说明高级语言中的并列if关系对应在汇编中是阶梯型执行的。这或许于计算机组成的流水线顺序执行有关。">
+    <meta name="description" content="汇编语言ARM64   指令 功能说明 示例 结果    ADRP 计算标签的页面地址并将其加载到目标寄存器。 ADRP X9, #xmmword_FA210@PAGE 将 xmmword_FA210 所在页面的基地址加载到 X9 中      指令 功能说明 示例 结果    LDR 从内存地址加载数据到目标寄存器，常用于加载常量或者结构体的字段。 LDR Q1, [X9, #xmmword_F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编[arm64]转换练习">
 <meta property="og:url" content="http://example.com/2024/01/01/%E6%B1%87%E7%BC%96%E8%BD%AC%E6%8D%A2%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="MD5_Update结构一(1)汇编结构 反汇编结构 说明if语句中的&amp;&amp;(与)判断反应到汇编中是拆分成两个语句，还要注意嵌套if语句的跳转关系 结构二(2)汇编结构 反汇编结构 说明高级语言中的并列if关系对应在汇编中是阶梯型执行的。这或许于计算机组成的流水线顺序执行有关。">
+<meta property="og:description" content="汇编语言ARM64   指令 功能说明 示例 结果    ADRP 计算标签的页面地址并将其加载到目标寄存器。 ADRP X9, #xmmword_FA210@PAGE 将 xmmword_FA210 所在页面的基地址加载到 X9 中      指令 功能说明 示例 结果    LDR 从内存地址加载数据到目标寄存器，常用于加载常量或者结构体的字段。 LDR Q1, [X9, #xmmword_F">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/01/31/HxwBINPbArR3lpv.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/31/hsfLrauPlYFKAwE.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/31/JNz2cyxnufr89Qh.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/31/nVTCRyagbk17Avh.png">
 <meta property="article:published_time" content="2024-01-01T02:57:54.000Z">
-<meta property="article:modified_time" content="2025-01-31T02:41:24.354Z">
+<meta property="article:modified_time" content="2025-02-01T12:27:21.835Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          112 字
+          369 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -278,10 +278,44 @@
             
               <div class="markdown-body">
                 
-                <h1 id="MD5-Update"><a href="#MD5-Update" class="headerlink" title="MD5_Update"></a>MD5_Update</h1><h2 id="结构一-1"><a href="#结构一-1" class="headerlink" title="结构一(1)"></a>结构一(1)</h2><h3 id="汇编结构"><a href="#汇编结构" class="headerlink" title="汇编结构"></a>汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/HxwBINPbArR3lpv.png" srcset="/img/loading.gif" lazyload alt="image-20250131102249168"></p>
+                <h1 id="汇编语言"><a href="#汇编语言" class="headerlink" title="汇编语言"></a>汇编语言</h1><h3 id="ARM64"><a href="#ARM64" class="headerlink" title="ARM64"></a>ARM64</h3><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能说明</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ADRP</code></td>
+<td>计算标签的页面地址并将其加载到目标寄存器。</td>
+<td><code>ADRP X9, #xmmword_FA210@PAGE</code></td>
+<td>将 <code>xmmword_FA210</code> 所在页面的基地址加载到 <code>X9</code> 中</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能说明</th>
+<th>示例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LDR</code></td>
+<td>从内存地址加载数据到目标寄存器，常用于加载常量或者结构体的字段。</td>
+<td><code>LDR Q1, [X9, #xmmword_FA210@PAGEOFF]</code></td>
+<td>从 <code>X9 + xmmword_FA210@PAGEOFF</code> 处加载数据到 <code>Q1</code></td>
+</tr>
+</tbody></table>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="基本数据类型的表现形式"><a href="#基本数据类型的表现形式" class="headerlink" title="基本数据类型的表现形式"></a>基本数据类型的表现形式</h2><h2 id="流程控制语句的识别"><a href="#流程控制语句的识别" class="headerlink" title="流程控制语句的识别"></a>流程控制语句的识别</h2><h2 id="函数的工作原理"><a href="#函数的工作原理" class="headerlink" title="函数的工作原理"></a>函数的工作原理</h2><h2 id="变量在内存中的位置和访问方式"><a href="#变量在内存中的位置和访问方式" class="headerlink" title="变量在内存中的位置和访问方式"></a>变量在内存中的位置和访问方式</h2><h2 id="数组与指针的寻址"><a href="#数组与指针的寻址" class="headerlink" title="数组与指针的寻址"></a>数组与指针的寻址</h2><h2 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a>经验之谈</h2><p>1.数据凡是需要经过计算都需要取到寄存器中，其中必然涉及到<strong>存&#x2F;取</strong>两个状态</p>
+<p>2.逆向算法需先找到特征再看整体框架最后细节，由于编译器优化，汇编结构与高级语言可能不尽相同,切勿按图索骥，重点关注特征</p>
+<h1 id="练习一-MD5-Update"><a href="#练习一-MD5-Update" class="headerlink" title="练习一(MD5_Update)"></a>练习一(MD5_Update)</h1><h2 id="结构一-嵌套if"><a href="#结构一-嵌套if" class="headerlink" title="结构一(嵌套if)"></a>结构一(嵌套if)</h2><h3 id="汇编结构"><a href="#汇编结构" class="headerlink" title="汇编结构"></a>汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/HxwBINPbArR3lpv.png" srcset="/img/loading.gif" lazyload alt="image-20250131102249168"></p>
 <h3 id="反汇编结构"><a href="#反汇编结构" class="headerlink" title="反汇编结构"></a>反汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/hsfLrauPlYFKAwE.png" srcset="/img/loading.gif" lazyload alt="image-20250131102319295"></p>
 <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>if语句中的&amp;&amp;(与)判断反应到汇编中是拆分成两个语句，还要注意嵌套if语句的跳转关系</p>
-<h2 id="结构二-2"><a href="#结构二-2" class="headerlink" title="结构二(2)"></a>结构二(2)</h2><h3 id="汇编结构-1"><a href="#汇编结构-1" class="headerlink" title="汇编结构"></a>汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/JNz2cyxnufr89Qh.png" srcset="/img/loading.gif" lazyload alt="image-20250131103458318"></p>
+<h2 id="结构二-并列if"><a href="#结构二-并列if" class="headerlink" title="结构二(并列if)"></a>结构二(并列if)</h2><h3 id="汇编结构-1"><a href="#汇编结构-1" class="headerlink" title="汇编结构"></a>汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/JNz2cyxnufr89Qh.png" srcset="/img/loading.gif" lazyload alt="image-20250131103458318"></p>
 <h3 id="反汇编结构-1"><a href="#反汇编结构-1" class="headerlink" title="反汇编结构"></a>反汇编结构</h3><p><img src="https://s2.loli.net/2025/01/31/nVTCRyagbk17Avh.png" srcset="/img/loading.gif" lazyload alt="image-20250131103536840"></p>
 <h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>高级语言中的并列if关系对应在汇编中是阶梯型执行的。这或许于计算机组成的流水线顺序执行有关。</p>
 

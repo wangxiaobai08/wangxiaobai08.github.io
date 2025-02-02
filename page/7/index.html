@@ -491,6 +491,74 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/02/22/SHA1/" target="_self">
+          SHA1算法原理与逆向练习
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/22/SHA1/" target="_self">
+        <div>
+          原理部分在密码学体系框架 - The Peak Tower中已经简单解释过，本文着重观察openssl中的实现和逆向反汇编形式 Openssl中Sha1使用1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include &lt;stdio.h&gt;#includ
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-22 09:14" pubdate>
+              2023-02-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/" class="category-chain-item">密码学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/" class="category-chain-item">摘要算法</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">#密码学</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/02/20/%E7%89%A9%E7%90%86%E5%B1%82/" target="_self">
           物理层
         </a>
@@ -627,15 +695,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/02/10/Nginx%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%82%E5%B8%B8/" target="_self">
-          Nginx日志系统
+        <a href="/2023/02/18/RC4/" target="_self">
+          RC4算法原理与逆向练习
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/10/Nginx%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%82%E5%B8%B8/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/18/RC4/" target="_self">
         <div>
-          我眼里的日志系统：发生异常—-&gt;将异常信息写入日志文件——&gt;退出 Nginx实现的日志系统 专门的日志数据结构12345678910111213141516struct ngx_log_s &#123;    ngx_uint_t           log_level;            // 日志级别，用于控制日志的详细程度（例如，DEBUG、INFO、ERROR 等）
+          同样在前面的文章密码学体系框架 - The Peak Tower简单谈到了RC4算法，这里重点看一看Openssl中的算法实现和反汇编之后代码差异 RC4使用1234567891011121314151617181920212223242526272829#include &lt;stdio.h&gt;#include &lt;openssl/rc4.h&gt;int main() &#123;
         </div>
       </a>
 
@@ -643,144 +711,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-10 18:12" pubdate>
-              2023-02-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">源码阅读</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Nginx/" class="category-chain-item">Nginx</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Nginx/">#Nginx</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/02/10/%E9%93%BE%E8%B7%AF%E5%B1%82/" target="_self">
-          数据链路层
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/10/%E9%93%BE%E8%B7%AF%E5%B1%82/" target="_self">
-        <div>
-          早年在知乎发的文章，现转载到博客上  1.数据链路层就像上一节物理层所总结的那样，物理层通过各种传输介质（例如光纤、铜线等）实现了数据的物理传输。 而链路层处理的是相邻节点之间的数据传输问题，它利用物理层提供的物理介质提供了面向连接的通信，确保数据帧在相邻节点之间可靠传输。 想象一辆货车在运输货物的过程中，可以将其比作计算机网络中的数据传输过程。在这个类比中： 物理层就好比货车所使用的公路系统，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-10 13:36" pubdate>
-              2023-02-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/02/05/AES%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0/" target="_self">
-          AES算法原理与逆向练习
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/05/AES%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E9%80%86%E5%90%91%E7%BB%83%E4%B9%A0/" target="_self">
-        <div>
-          在密码学体系框架 - The Peak Tower简单介绍了AES的基本流程，这篇主要来了解一下AES的数学计算原理和openssl对其的实现逆向 有限域Galois Field（伽罗华域&#x2F;伽罗瓦域）是代数学中的一个重要概念，广泛应用于密码学、编码理论、误差修正和许多其他数学及工程领域。它的命名源于法国数学家 Évariste Galois，他在19世纪提出了代数方程的解法和域的相关理论
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-05 15:14" pubdate>
-              2023-02-05
+            <time datetime="2023-02-18 15:14" pubdate>
+              2023-02-18
             </time>
           </div>
         
@@ -801,6 +733,81 @@
     <span>></span>
     
   <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E5%AD%A6/" class="category-chain-item">对称密码学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E5%AD%A6/%E6%B5%81%E5%AF%86%E7%A0%81/" class="category-chain-item">流密码</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">#密码学</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/02/16/RSA/" target="_self">
+          RSA算法原理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/16/RSA/" target="_self">
+        <div>
+          在密码学体系框架 - The Peak Tower已经整体介绍过RSA算法了，其本身算法并不复杂，原理上只要理解了欧几里得算法就事半功倍了，这里就贴几个关于openssl中使用rsa和解析的文章： 使用OpenSSL进行RSA加密和解密（非对称）_openssl rsa-CSDN博客 实战篇-OpenSSL之RSA算法-加密与数字签名_openssl rsa签名-CSDN博客
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-16 15:14" pubdate>
+              2023-02-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/" class="category-chain-item">密码学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E5%AD%A6/" class="category-chain-item">非对称密码学</a>
   
   
 
@@ -831,15 +838,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/01/30/%E7%BD%91%E7%BB%9C%E5%B1%82/" target="_self">
-          网络层
+        <a href="/2023/02/10/MD5/" target="_self">
+          MD5算法原理与逆向练习
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/30/%E7%BD%91%E7%BB%9C%E5%B1%82/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/10/MD5/" target="_self">
         <div>
-          早年在知乎发的文章，现转载到博客上  网络层的作用？网络层的作用从表面上看极为简单，即将分组从一台发送主机移动到一台接收主机 为此，需要两种重要的网络层功能: 转发：当一个分组到达路由器的一条输入链路时，路由器必须将该分组移动到适 当的输出链路 例如，来自主机 Hl 到路由器 Rl 的一个分组，必须向在 H2 路径 上的下一台路由器转发。 路由选择 当分组从发送方流向接收方时，网络层必须决定这些
+          在前面的文章密码学体系框架 - The Peak Tower简单谈到了MD5的基本构成，本文将专注于分析OPenSSL中的md5实现和其逆向反汇编 数据填充和分块—MD5_Update() 这些操作更新了 MD5 上下文中的数据，主要是处理当前处理的字节长度和数据大小的累加。  这里检查了当前的数据块是否已经足够处理。如果当前块的大小还没有满（小于 64 字节），我们就将数据拷贝到当前的缓冲区，更
         </div>
       </a>
 
@@ -847,8 +854,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-30 16:51" pubdate>
-              2023-01-30
+            <time datetime="2023-02-10 22:14" pubdate>
+              2023-02-10
             </time>
           </div>
         
@@ -863,12 +870,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/" class="category-chain-item">密码学</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E6%91%98%E8%A6%81%E7%AE%97%E6%B3%95/" class="category-chain-item">摘要算法</a>
   
   
 
@@ -885,7 +892,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">#密码学</a>
             
           </div>
         
