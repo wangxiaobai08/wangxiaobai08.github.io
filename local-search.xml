@@ -661,6 +661,33 @@
   
   
   <entry>
+    <title>网站架构(前后端分离)演化</title>
+    <link href="/2024/08/10/%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96/"/>
+    <url>/2024/08/10/%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="大型网站架构演化发展历程"><a href="#大型网站架构演化发展历程" class="headerlink" title="大型网站架构演化发展历程"></a>大型网站架构演化发展历程</h1><p><a href="https://www.cnblogs.com/cxuanBlog/p/10943743.html">大型网站架构演化发展历程 - 程序员cxuan - 博客园</a></p><p><a href="https://weread.qq.com/web/reader/cc1326e05bcc52cc1669fc0kd3d322001ad3d9446802347">大型网站技术架构 - 1.2 大型网站架构演化发展历程 - 李智慧 - 微信读书</a></p><h1 id="Web前后端发展史整理"><a href="#Web前后端发展史整理" class="headerlink" title="Web前后端发展史整理"></a>Web前后端发展史整理</h1><p><a href="https://blog.csdn.net/low5252/article/details/109252875">前后端分离历史_前后端分离出现时间-CSDN博客</a></p><p><a href="https://developer.aliyun.com/article/1212295">聊聊前后端分离(历史、职责划分、未来发展)-阿里云开发者社区</a></p><p><a href="https://blog.csdn.net/weixin_43551812/article/details/104180093">Web前后端发展史整理_web后端技术发展背景-CSDN博客</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>软件工程</category>
+      
+      <category>分布式系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>软件工程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>分布式系统的理论基础(一)</title>
     <link href="/2024/08/03/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"/>
     <url>/2024/08/03/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/</url>
@@ -671,8 +698,6 @@
     <categories>
       
       <category>软件工程</category>
-      
-      <category>后端开发(Golang)</category>
       
       <category>分布式系统</category>
       

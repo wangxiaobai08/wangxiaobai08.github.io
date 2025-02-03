@@ -16,22 +16,22 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CAP 理论一文看懂｜分布式系统之CAP理论-腾讯云开发者社区-腾讯云 BASE理论分布式事务：BASE理论详细介绍及发展历史（Eric Brewer，Dan Pritchet）_base分布式事务-CSDN博客 Paxos 算法Paxos算法原理和过程解析_paxos的原理和机制是什么-CSDN博客 分布式系列文章——Paxos算法原理与推导 - lzslbd - 博客园 【超详细】分布式一致性">
+    <meta name="description" content="大型网站架构演化发展历程大型网站架构演化发展历程 - 程序员cxuan - 博客园 大型网站技术架构 - 1.2 大型网站架构演化发展历程 - 李智慧 - 微信读书 Web前后端发展史整理前后端分离历史_前后端分离出现时间-CSDN博客 聊聊前后端分离(历史、职责划分、未来发展)-阿里云开发者社区 Web前后端发展史整理_web后端技术发展背景-CSDN博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分布式系统的理论基础(一)">
-<meta property="og:url" content="http://example.com/2024/08/03/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:title" content="网站架构(前后端分离)演化">
+<meta property="og:url" content="http://example.com/2024/08/10/%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="CAP 理论一文看懂｜分布式系统之CAP理论-腾讯云开发者社区-腾讯云 BASE理论分布式事务：BASE理论详细介绍及发展历史（Eric Brewer，Dan Pritchet）_base分布式事务-CSDN博客 Paxos 算法Paxos算法原理和过程解析_paxos的原理和机制是什么-CSDN博客 分布式系列文章——Paxos算法原理与推导 - lzslbd - 博客园 【超详细】分布式一致性">
+<meta property="og:description" content="大型网站架构演化发展历程大型网站架构演化发展历程 - 程序员cxuan - 博客园 大型网站技术架构 - 1.2 大型网站架构演化发展历程 - 李智慧 - 微信读书 Web前后端发展史整理前后端分离历史_前后端分离出现时间-CSDN博客 聊聊前后端分离(历史、职责划分、未来发展)-阿里云开发者社区 Web前后端发展史整理_web后端技术发展背景-CSDN博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-03T04:12:18.000Z">
-<meta property="article:modified_time" content="2025-02-03T16:49:39.297Z">
+<meta property="article:published_time" content="2024-08-10T15:12:12.000Z">
+<meta property="article:modified_time" content="2025-02-03T16:59:18.948Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>分布式系统的理论基础(一) - The Peak Tower</title>
+  <title>网站架构(前后端分离)演化 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="分布式系统的理论基础(一)"></span>
+            <span id="subtitle" data-typed-text="网站架构(前后端分离)演化"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-03 12:12" pubdate>
-          2024年8月3日 中午
+        <time datetime="2024-08-10 23:12" pubdate>
+          2024年8月10日 晚上
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          252 字
+          133 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -268,24 +268,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">分布式系统的理论基础(一)</h1>
+            <h1 id="seo-header">网站架构(前后端分离)演化</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="CAP-理论"><a href="#CAP-理论" class="headerlink" title="CAP 理论"></a>CAP 理论</h1><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1860632">一文看懂｜分布式系统之CAP理论-腾讯云开发者社区-腾讯云</a></p>
-<h1 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ycsdn10/article/details/135828124">分布式事务：BASE理论详细介绍及发展历史（Eric Brewer，Dan Pritchet）_base分布式事务-CSDN博客</a></p>
-<h1 id="Paxos-算法"><a href="#Paxos-算法" class="headerlink" title="Paxos 算法"></a>Paxos 算法</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wolf_love666/article/details/92832811">Paxos算法原理和过程解析_paxos的原理和机制是什么-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linbingdong/p/6253479.html">分布式系列文章——Paxos算法原理与推导 - lzslbd - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1702057">【超详细】分布式一致性协议 - Paxos-腾讯云开发者社区-腾讯云</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cgli/p/17189953.html">图解分布式一致性Paxos算法原理 - 陈国利 - 博客园</a></p>
-<h1 id="Raft算法"><a href="#Raft算法" class="headerlink" title="Raft算法"></a>Raft算法</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xybaby/p/10124083.html">一文搞懂Raft算法 - xybaby - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/600147978">万字长文解析raft算法原理 - 知乎</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhousenshan/article/details/137998763">一文彻底搞懂Raft算法，看这篇就够了！！！-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32052223">Raft算法详解 - 知乎</a></p>
-<h1 id="Gossip协议"><a href="#Gossip协议" class="headerlink" title="Gossip协议"></a><strong>Gossip协议</strong></h1><p><a target="_blank" rel="noopener" href="https://ggwujun.github.io/blog-architect2/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E4%B8%8E%E7%AE%97%E6%B3%95%E5%AE%9E%E6%88%98/03.%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%AE%97%E6%B3%95%E7%AF%87/07/">11 | Gossip协议：流言蜚语，原来也可以实现一致性 - 大师兄</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/463455831">分布式一致性协议 Gossip 和 Redis 集群原理解析 - 知乎</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Chary/articles/15021729.html">图解Gossip：可能是最有趣的一致性协议 - CharyGao - 博客园</a></p>
+                <h1 id="大型网站架构演化发展历程"><a href="#大型网站架构演化发展历程" class="headerlink" title="大型网站架构演化发展历程"></a>大型网站架构演化发展历程</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxuanBlog/p/10943743.html">大型网站架构演化发展历程 - 程序员cxuan - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://weread.qq.com/web/reader/cc1326e05bcc52cc1669fc0kd3d322001ad3d9446802347">大型网站技术架构 - 1.2 大型网站架构演化发展历程 - 李智慧 - 微信读书</a></p>
+<h1 id="Web前后端发展史整理"><a href="#Web前后端发展史整理" class="headerlink" title="Web前后端发展史整理"></a>Web前后端发展史整理</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/low5252/article/details/109252875">前后端分离历史_前后端分离出现时间-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1212295">聊聊前后端分离(历史、职责划分、未来发展)-阿里云开发者社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43551812/article/details/104180093">Web前后端发展史整理_web后端技术发展背景-CSDN博客</a></p>
 
                 
               </div>
@@ -338,8 +330,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>分布式系统的理论基础(一)</div>
-      <div>http://example.com/2024/08/03/分布式系统的理论基础/</div>
+      <div>网站架构(前后端分离)演化</div>
+      <div>http://example.com/2024/08/10/网站架构演化/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +343,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月3日</div>
+          <div>2024年8月10日</div>
         </div>
       
       
@@ -383,9 +375,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/10/%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96/" title="网站架构(前后端分离)演化">
+                      <a href="/2024/09/16/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/" title="服务注册与发现(consul注册中心)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">网站架构(前后端分离)演化</span>
+                        <span class="hidden-mobile">服务注册与发现(consul注册中心)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -393,8 +385,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/28/gin%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="gin的基本使用">
-                        <span class="hidden-mobile">gin的基本使用</span>
+                      <a href="/2024/08/03/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/" title="分布式系统的理论基础(一)">
+                        <span class="hidden-mobile">分布式系统的理论基础(一)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
