@@ -23,6 +23,8 @@
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="DexFile在开始之前需要搞清楚目标才不至于在偌大的源码世界里迷失方向，既然是Dex文件加载流程，首先需要关心的即DEX文件结构在android源码中的封装调用形式： DexFile 是 Dalvik Executable (DEX) 文件的封装对象，代表了 Dalvik 虚拟机中可执行的 .dex 文件，内部包含类定义、方法、字段以及常量等信息。 DEX 文件的结构从文件头到各种表（如字符串表">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/02/26/8Pz3eWGCAJfT4mj.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/26/U4Nu9jacLv8RkI2.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/4Ykev6nwpsd37P2.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/27/QLPaYJWRgM5lGNz.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/9DbcjU1TetnwZQd.png">
@@ -52,11 +54,11 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/WLAXUfQgpx5bis6.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/K6CiXIpOMwL5tSk.png">
 <meta property="article:published_time" content="2023-05-15T10:35:15.000Z">
-<meta property="article:modified_time" content="2024-12-27T02:55:19.321Z">
+<meta property="article:modified_time" content="2025-02-26T07:21:45.270Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/26/4Ykev6nwpsd37P2.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/02/26/8Pz3eWGCAJfT4mj.png">
   
   
   
@@ -260,7 +262,7 @@
         
         
         
-          82 分钟
+          83 分钟
         
       </span>
     
@@ -305,7 +307,14 @@
                 <h1 id="DexFile"><a href="#DexFile" class="headerlink" title="DexFile"></a>DexFile</h1><p>在开始之前需要搞清楚目标才不至于在偌大的源码世界里迷失方向，既然是Dex文件加载流程，首先需要关心的即DEX文件结构在android源码中的封装调用形式：</p>
 <p><code>DexFile</code> 是 Dalvik Executable (DEX) 文件的封装对象，代表了 Dalvik 虚拟机中可执行的 <code>.dex</code> 文件，内部包含类定义、方法、字段以及常量等信息。</p>
 <p>DEX 文件的结构从文件头到各种表（如字符串表、类型表、方法表等）组成，每个表都通过偏移量进行索引。</p>
-<p><img src="https://s2.loli.net/2024/12/26/4Ykev6nwpsd37P2.png" srcset="/img/loading.gif" lazyload alt="image-20241226171718879"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/dalvik/libdex/DexFile.h#588">http://androidxref.com/9.0.0_r3/xref/dalvik/libdex/DexFile.h#588</a></p>
+</blockquote>
+<p><img src="https://s2.loli.net/2025/02/26/8Pz3eWGCAJfT4mj.png" srcset="/img/loading.gif" lazyload alt="DexFile结构体"></p>
+<p>其中注意Dex的文件头格式：</p>
+<p><img src="https://s2.loli.net/2025/02/26/U4Nu9jacLv8RkI2.png" srcset="/img/loading.gif" lazyload alt="DexOptHeader"></p>
+<p><code>DexFile</code>的构造函数。这个构造函数用于初始化一个<code>DexFile</code>对象</p>
+<p><img src="https://s2.loli.net/2024/12/26/4Ykev6nwpsd37P2.png" srcset="/img/loading.gif" lazyload alt="DexFile的构造函数"></p>
 <p>在接下来的源码阅读中，我们需要着重关注这个结构体。</p>
 <h1 id="ART和Dalvik"><a href="#ART和Dalvik" class="headerlink" title="ART和Dalvik"></a>ART和Dalvik</h1><p>总所周知：Dalvik 基本上在 Android 4.x 及之前的所有设备中运行，所有的 Android 应用都会在 Dalvik 虚拟机上运行。Android 5.0 之后，ART 成为默认虚拟机，但是它保持了与 Dalvik 的兼容性。大多数旧版 Dalvik 应用可以在 ART 中运行，但对于某些特定应用（尤其是依赖 Dalvik 特性的应用），可能需要额外的调整。</p>
 <table>
