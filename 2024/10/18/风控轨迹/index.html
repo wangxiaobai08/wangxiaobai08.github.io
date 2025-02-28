@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="第一次接触轨迹是在成功逆向数美滑块的过程中，由于数美对轨迹的检测强度并不高，当时从网上找来了一段简单的轨迹算法，稀里糊涂的通过了验证。  往后在逆向极验，网易易盾等产品时，发现大多数的验证码都要对鼠标滑动轨迹做一定的处理，所以本文就是现阶段，作为小白的一点点总结和学习。 何为轨迹浏览器中的验证码产品一般是如何检测用户的鼠标轨迹并进行处理校验的？  这里用易盾的轨迹生成位置为例，其中TraceDat">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250228141821403.png">
+<meta property="og:image" content="https://s2.loli.net/2025/02/28/DMXaW2Gm7APZ9LU.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/28/Ui9yBDqCpNg1jhl.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/28/NBcmZCq8eupfKrS.gif">
 <meta property="og:image" content="https://s2.loli.net/2025/02/28/BP5fZAKHaCQkwbL.png">
@@ -33,11 +33,11 @@
 <meta property="og:image" content="https://s2.loli.net/2025/02/28/4DzYtn1KOdJfGpa.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/28/uShLqJtmoxfyjkB.png">
 <meta property="article:published_time" content="2024-10-18T13:12:14.000Z">
-<meta property="article:modified_time" content="2025-02-28T08:21:35.258Z">
+<meta property="article:modified_time" content="2025-02-28T09:00:01.787Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="数据采集处理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250228141821403.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/02/28/DMXaW2Gm7APZ9LU.png">
   
   
   
@@ -284,7 +284,7 @@
               <div class="markdown-body">
                 
                 <p>第一次接触轨迹是在成功逆向数美滑块的过程中，由于数美对轨迹的检测强度并不高，当时从网上找来了一段简单的轨迹算法，稀里糊涂的通过了验证。</p>
-<p><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250228141821403.png" srcset="/img/loading.gif" lazyload alt="Js逆向数美成功请求"></p>
+<p><img src="https://s2.loli.net/2025/02/28/DMXaW2Gm7APZ9LU.png" srcset="/img/loading.gif" lazyload alt="Js逆向数美成功请求"></p>
 <p>往后在逆向极验，网易易盾等产品时，发现大多数的验证码都要对鼠标滑动轨迹做一定的处理，所以本文就是现阶段，作为小白的一点点总结和学习。</p>
 <h1 id="何为轨迹"><a href="#何为轨迹" class="headerlink" title="何为轨迹"></a>何为轨迹</h1><p><strong>浏览器中的验证码产品一般是如何检测用户的鼠标轨迹并进行处理校验的？</strong></p>
 <p><img src="https://s2.loli.net/2025/02/28/Ui9yBDqCpNg1jhl.png" srcset="/img/loading.gif" lazyload alt="轨迹生成"></p>
@@ -467,7 +467,6 @@
 <p><img src="https://s2.loli.net/2025/02/28/NBcmZCq8eupfKrS.gif" srcset="/img/loading.gif" lazyload alt="easing"></p>
 <p>看一下轨迹的一个波动曲线，在针对下图进行代码轨迹特征进行适配，来找到一个最为相似的进行编写。</p>
 <p><img src="https://s2.loli.net/2025/02/28/BP5fZAKHaCQkwbL.png" srcset="/img/loading.gif" lazyload alt="缓动函数"></p>
-<p>一个简答的demo:</p>
 <h2 id="贝塞尔曲线"><a href="#贝塞尔曲线" class="headerlink" title="贝塞尔曲线"></a>贝塞尔曲线</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><blockquote>
 <p>贝塞尔曲线是一种用数学公式定义的参数化曲线，广泛应用于计算机图形学、动画、矢量图形设计、字体渲染等领域。贝塞尔曲线的核心是通过少量参数（控制点）灵活地创建复杂的平滑曲线，同时提供精确的数学描述。</p>
 </blockquote>
