@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="异步请求技术–Ajax异步请求技术–Ajax(教你彻底学会Ajax，关键细节，原生Ajax，JQuery Ajax及其应用案例详解，最易懂最细的图文讲解！！！ 建议收藏！已经更新完毕)_js ajax 异步请求-CSDN博客 刷新整个页面的方式： 使用Ajax:  AJAX - JavaScript教程 - 廖雪峰的官方网站 如果仔细观察一个Form的提交，就会发现，一旦用户点击“Submit”按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步跟栈">
+<meta property="og:url" content="http://example.com/2024/06/18/%E5%BC%82%E6%AD%A5%E8%B7%9F%E6%A0%88/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="异步请求技术–Ajax异步请求技术–Ajax(教你彻底学会Ajax，关键细节，原生Ajax，JQuery Ajax及其应用案例详解，最易懂最细的图文讲解！！！ 建议收藏！已经更新完毕)_js ajax 异步请求-CSDN博客 刷新整个页面的方式： 使用Ajax:  AJAX - JavaScript教程 - 廖雪峰的官方网站 如果仔细观察一个Form的提交，就会发现，一旦用户点击“Submit”按">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/07/dkS1nTKryUibfv6.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/07/IsK2z7qv5GmpYNC.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/07/VamiTRxMdhy1Efz.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/07/hdrMw6gyLnDuAR8.png">
+<meta property="article:published_time" content="2024-06-18T04:10:14.000Z">
+<meta property="article:modified_time" content="2025-03-01T08:02:36.715Z">
+<meta property="article:author" content="Ling">
+<meta property="article:tag" content="数据采集处理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/07/dkS1nTKryUibfv6.png">
+  
+  
+  
+  <title>异步跟栈 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="异步跟栈"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-18 12:10" pubdate>
+          2024年6月18日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">异步跟栈</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="异步请求技术–Ajax"><a href="#异步请求技术–Ajax" class="headerlink" title="异步请求技术–Ajax"></a>异步请求技术–Ajax</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_74301606/article/details/140318223">异步请求技术–Ajax(教你彻底学会Ajax，关键细节，原生Ajax，JQuery Ajax及其应用案例详解，最易懂最细的图文讲解！！！ 建议收藏！已经更新完毕)_js ajax 异步请求-CSDN博客</a></p>
+<p>刷新整个页面的方式：<br><img src="https://s2.loli.net/2024/12/07/dkS1nTKryUibfv6.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p>使用Ajax:</p>
+<p><img src="https://s2.loli.net/2024/12/07/IsK2z7qv5GmpYNC.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/javascript/browser/ajax/index.html">AJAX - JavaScript教程 - 廖雪峰的官方网站</a></p>
+<p>如果仔细观察一个Form的提交，就会发现，一旦用户点击“Submit”按钮，表单开始提交，浏览器就会刷新页面，然后在新页面里告诉你操作是成功了还是失败了。如果不幸由于网络太慢或者其他原因，就会得到一个404页面。</p>
+<p>这就是Web的运作原理：一次HTTP请求对应一个页面。</p>
+<p>如果要让用户留在当前页面中，同时发出新的HTTP请求，就必须用JavaScript发送这个新请求，接收到数据后，再用JavaScript更新页面，这样一来，用户就感觉自己仍然停留在当前页面，但是数据却可以不断地更新。在现代浏览器上写AJAX主要依靠<code>XMLHttpRequest</code>对象，如果不考虑早期浏览器的兼容性问题，现代浏览器还提供了原生支持的Fetch API，以<a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/javascript/browser/promise/index.html">Promise</a>方式提供。</p>
+<p>JQuery操作Ajax:</p>
+<p><img src="https://s2.loli.net/2024/12/07/VamiTRxMdhy1Efz.png" srcset="/img/loading.gif" lazyload alt="image-20241207204421005"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianguyihao/p/8485028.html">使用Ajax发送http请求（get&amp;post请求） - 千古壹号 - 博客园</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Ajax 发送 get 请求<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;发送get_ajax请求&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&#x27;btnAjax&#x27;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-comment">// 绑定点击事件</span></span><br><span class="language-javascript">    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;#btnAjax&#x27;</span>).<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-comment">// 发送ajax 请求 需要 五步</span></span><br><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// （1）创建异步对象</span></span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> ajaxObj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();</span><br><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// （2）设置请求的参数。包括：请求的方法、请求的url。</span></span><br><span class="language-javascript">        ajaxObj.<span class="hljs-title function_">open</span>(<span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-string">&#x27;02-ajax.php&#x27;</span>);</span><br><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">// （3）发送请求</span></span><br><span class="language-javascript">        ajaxObj.<span class="hljs-title function_">send</span>();</span><br><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-comment">//（4）注册事件。 onreadystatechange事件，状态改变时就会调用。</span></span><br><span class="language-javascript">        <span class="hljs-comment">//如果要在数据完整请求回来的时候才调用，我们需要手动写一些判断的逻辑。</span></span><br><span class="language-javascript">        ajaxObj.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-comment">// 为了保证 数据 完整返回，我们一般会判断 两个值</span></span><br><span class="language-javascript">            <span class="hljs-keyword">if</span> (ajaxObj.<span class="hljs-property">readyState</span> == <span class="hljs-number">4</span> &amp;&amp; ajaxObj.<span class="hljs-property">status</span> == <span class="hljs-number">200</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-comment">// 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的</span></span><br><span class="language-javascript">                <span class="hljs-comment">// 5.在注册的事件中 获取 返回的 内容 并修改页面的显示</span></span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;数据返回成功&#x27;</span>);</span><br><span class="language-javascript"></span><br><span class="language-javascript">                <span class="hljs-comment">// 数据是保存在 异步对象的 属性中</span></span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(ajaxObj.<span class="hljs-property">responseText</span>);</span><br><span class="language-javascript"></span><br><span class="language-javascript">                <span class="hljs-comment">// 修改页面的显示</span></span><br><span class="language-javascript">                <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;h1&#x27;</span>).<span class="hljs-property">innerHTML</span> = ajaxObj.<span class="hljs-property">responseText</span>;</span><br><span class="language-javascript">            &#125;</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/web-learn/p/15334323.html">大白话透彻讲解 Promise 的使用，读完你就懂了 - 前端人 - 博客园</a></p>
+<p>对于 ajax 网络请求就没有这么简单了，可能有多个网络请求是关联的，先执行某个请求返回结果后，第一个返回结果作为第二个请求的参数，调用第二个网络请求。如此，如果业务复杂，网络请求太多时，回调也很多，容易出现回调地狱。所以 Promise 出现了，专门解决异步回调地狱问题。</p>
+<p>通俗地讲，Promise 就像一个容器，里面存放着未来才会结束，返回结果的容器，返回的结果只需要在出口处接收就好了。从语法上讲，Promise 是一个对象，从它可以获取异步操作的消息。</p>
+<p><a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/javascript/browser/promise/index.html">Promise - JavaScript教程 - 廖雪峰的官方网站</a></p>
+<p>可见Promise最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript">                                   ┌──────────────────┐<br>                           then    │<span class="hljs-title function_">on_resolve</span>(<span class="hljs-params">data</span>) &#123;│<br>                       ┌──────────▶│    <span class="hljs-comment">// TODO       │</span><br>                       │           │&#125;                 │<br>┌────────────────────────┐         └──────────────────┘<br>│   <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">async</span>)   │<br>└────────────────────────┘         ┌──────────────────┐<br>             │         │           │<span class="hljs-title function_">on_reject</span>(<span class="hljs-params">data</span>) &#123; │<br>             │         └──────────▶│    <span class="hljs-comment">// TODO       │</span><br>      promise│             <span class="hljs-keyword">catch</span>   │&#125;                 │<br>             │                     └──────────────────┘<br>             ▼<br>┌────────────────────────┐<br>│<span class="hljs-title function_">async</span>(<span class="hljs-params">resolve, reject</span>) &#123;│<br>│    <span class="hljs-comment">// TODO             │</span><br>│&#125;                       │<br>└────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<p>Promise还可以做更多的事情，比如，有若干个异步任务，需要先做任务1，如果成功后再做任务2，任何任务失败则不再继续并执行错误处理函数。</p>
+<p>要串行执行这样的异步任务，不用Promise需要写一层一层的嵌套代码。有了Promise，我们只需要简单地写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">job1.<span class="hljs-title function_">then</span>(job2).<span class="hljs-title function_">then</span>(job3).<span class="hljs-title function_">catch</span>(handleError);<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>job1</code>、<code>job2</code>和<code>job3</code>都是Promise对象。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53669554/article/details/131598219">Promise详解大全：介绍、九个方法使用和区别、返回值详解_new promise 返回什么-CSDN博客</a></p>
+<p>具体使用</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/skuld-yi/p/14599594.html">前端 | JS Promise：axios 请求结果后面的 .then() 是什么意思？ - Skuld_yi - 博客园<img src="https://s2.loli.net/2024/12/07/hdrMw6gyLnDuAR8.png" srcset="/img/loading.gif" lazyload alt="5ALBgbaelwtNVWM"></a></p>
+<h1 id="async函数"><a href="#async函数" class="headerlink" title="async函数"></a>async函数</h1><p><a target="_blank" rel="noopener" href="https://liaoxuefeng.com/books/javascript/browser/async/index.html">async函数 - JavaScript教程 - 廖雪峰的官方网站</a></p>
+<p>我们说JavaScript异步操作需要通过Promise实现，一个Promise对象在操作网络时是异步的，等到返回后再调用回调函数，执行正确就调用<code>then()</code>，执行错误就调用<code>catch()</code>，虽然异步实现了，不会让用户感觉到页面“卡住”了，但是一堆<code>then()</code>、<code>catch()</code>写起来麻烦看起来也乱。</p>
+<p>有没有更简单的写法？</p>
+<p>可以用关键字<code>async</code>配合<code>await</code>调用Promise，实现异步操作</p>
+<p>用async定义异步函数，用await调用异步函数，写起来和同步代码差不多，但可读性大大提高。</p>
+<p>需要特别注意的是，<code>await</code>调用必须在async function中，不能在传统的同步代码中调用。</p>
+<p>在普通function中调用async function，不能使用await，但可以直接调用async function拿到Promise对象，后面加上<code>then()</code>和<code>catch()</code>就可以拿到结果或错误了</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45811256/article/details/123638582">理解异步函数async和await的用法_async await用法-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dyk11111/article/details/132243774">前端（十二）——深入理解和使用 async和await_前端await-CSDN博客</a></p>
+<p>什么是 async&#x2F;await？<br>async&#x2F;await 是基于 Promise 的一种语法糖，它提供了一种更优雅的方式来编写异步代码。通过使用 async 关键字声明一个异步函数，我们可以在其中使用 await 关键字等待 Promise 对象的解决（resolved）或拒绝（rejected），使得代码看起来更像是同步的方式进行编写和阅读。</p>
+<h1 id="JS逆向中异步栈跟踪"><a href="#JS逆向中异步栈跟踪" class="headerlink" title="JS逆向中异步栈跟踪"></a>JS逆向中异步栈跟踪</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chinagaobo/article/details/133157464">JS逆向中异步栈跟踪_js逆向跟栈技巧-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Tandy12356_/article/details/141647045">js逆向——异步栈分析(上)_js逆向怎么解决异步回调-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sanxiyyds/article/details/139300217">JS逆向异步跟栈学习——XHR断点-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011198232">JavaScript 异步、栈、事件循环、任务队列 - JS精读 - SegmentFault 思否</a></p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p><a target="_blank" rel="noopener" href="https://haowallpaper.com/">免费4K高清壁纸-电脑背景图片-Mac壁纸网站「哲风壁纸」</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/" class="category-chain-item">数据采集处理</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/Js%E9%80%86%E5%90%91/" class="category-chain-item">Js逆向</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/" class="print-no-link">#数据采集处理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>异步跟栈</div>
+      <div>http://example.com/2024/06/18/异步跟栈/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/22/%E8%A1%A5%E7%8E%AF%E5%A2%83/" title="补环境">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">补环境</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/15/js%E8%B0%83%E8%AF%95%E4%B8%8E%E5%8F%8D%E8%B0%83%E8%AF%95/" title="调试与反调试">
+                        <span class="hidden-mobile">调试与反调试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
