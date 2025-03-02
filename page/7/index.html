@@ -226,6 +226,74 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/01/08/Android-JNI%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" target="_self">
+          JNI机制分析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/08/Android-JNI%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" target="_self">
+        <div>
+          关于android中的Jni机制，在前面的文章中都或多或少介绍过。 比如在初识JVM - The Peak Tower我们谈到JNI的基本概念【JNI作为连接Java世界和C&#x2F;C++世界的桥梁】和调用大致过程还有java层调用的本地代码在本地C实现的函数命名规则, 在android系统启动流程 - The Peak Tower中谈到了Android系统在启动启动过程中，先启动Kernel
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-08 09:15" pubdate>
+              2024-01-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">源码阅读</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Android/" class="category-chain-item">Android</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Andorid%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">#Andorid源码阅读</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/01/08/APP%E4%BB%8E%E5%AE%89%E8%A3%85%E5%88%B0%E8%BF%90%E8%A1%8C%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/" target="_self">
           APP安装到启动流程大体概览
         </a>
@@ -370,7 +438,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/01/01/%E6%B1%87%E7%BC%96%E8%BD%AC%E6%8D%A2%E7%BB%83%E4%B9%A0/" target="_self">
         <div>
-          汇编语言ARM64   指令 功能说明 示例 结果    ADRP 计算标签的页面地址并将其加载到目标寄存器。 ADRP X9, #xmmword_FA210@PAGE 将 xmmword_FA210 所在页面的基地址加载到 X9 中      指令 功能说明 示例 结果    LDR 从内存地址加载数据到目标寄存器，常用于加载常量或者结构体的字段。 LDR Q1, [X9, #xmmword_F
+          总结1.数据凡是需要经过计算都需要取到寄存器中，其中必然涉及到存&#x2F;取两个状态 2.逆向算法需先找到特征再看整体框架最后细节，由于编译器优化，汇编结构与高级语言可能不尽相同,切勿按图索骥，重点关注特征  练习一(MD5_Update)结构一(嵌套if)汇编结构 反汇编结构 说明if语句中的&amp;&amp;(与)判断反应到汇编中是拆分成两个语句，还要注意嵌套if语句的跳转关系 结构二(
         </div>
       </a>
 
@@ -396,6 +464,13 @@
         
   <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%B1%87%E7%BC%96/" class="category-chain-item">架构与汇编</a>
+  
+  
+
   
 
       </span>
@@ -795,81 +870,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2023-06-25 16:12" pubdate>
               2023-06-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/" class="category-chain-item">Redis</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/06/21/%E6%8C%81%E4%B9%85%E5%8C%96-Redis/" target="_self">
-          持久化
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/21/%E6%8C%81%E4%B9%85%E5%8C%96-Redis/" target="_self">
-        <div>
-          前景导读 我们知道redis是一个内存数据库，它把所有的数据保存在内存中,正因如此，它的得到了极高的读写速度。但在计算机领域没有所谓的“白弹”，如果没有一定的机制，基于内存的redis也会因为内存的易失性，在宕机时发生数据丢失。或许如此redis经常被用作缓存。它是最常见的缓存系统之一，而不是存粹的数据库，所以我们需要探讨的是：如何把redis内存中的数据持久化？****这个所谓的机制到底是什么
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-21 09:12" pubdate>
-              2023-06-21
             </time>
           </div>
         
