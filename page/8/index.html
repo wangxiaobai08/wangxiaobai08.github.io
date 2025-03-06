@@ -226,6 +226,156 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/06/25/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98-Redis/" target="_self">
+          缓冲问题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/25/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98-Redis/" target="_self">
+        <div>
+          本想着自己写的，但这位前辈已经总结的很完善了，再谈就画蛇添足了 故本篇转载Redis-应用篇-①缓存并发问题 | 一人の境这篇文章  缓存应用场景用户的数据一般都是存储于数据库，数据库的数据是落在磁盘上的，磁盘的读写速度可以说是计算机里最慢的硬件了。  如果用户的请求都访问数据库的话，一旦请求数量上来，数据库很容易就奔溃。因此为了避免用户直接访问数据库，会选用 Redis 作为缓存层。因为 Re
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-25 16:12" pubdate>
+              2023-06-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/06/21/%E6%8C%81%E4%B9%85%E5%8C%96-Redis/" target="_self">
+          持久化
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/21/%E6%8C%81%E4%B9%85%E5%8C%96-Redis/" target="_self">
+        <div>
+          前景导读 我们知道redis是一个内存数据库，它把所有的数据保存在内存中,正因如此，它的得到了极高的读写速度。但在计算机领域没有所谓的“白弹”，如果没有一定的机制，基于内存的redis也会因为内存的易失性，在宕机时发生数据丢失。或许如此redis经常被用作缓存。它是最常见的缓存系统之一，而不是存粹的数据库，所以我们需要探讨的是：如何把redis内存中的数据持久化？****这个所谓的机制到底是什么
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-21 09:12" pubdate>
+              2023-06-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/06/20/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81-Redis/" target="_self">
           分布式锁
         </a>
@@ -526,6 +676,81 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/05/25/%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
+          壳实现的前置知识
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/25/%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
+        <div>
+          Java的反射机制 Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 Class 对象来实现的。当Java虚拟机（JVM）获得类的 Class 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。  可以把class文件想象
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-25 09:12" pubdate>
+              2023-05-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91-android/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" class="category-chain-item">壳的原理和实现</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android/">#逆向(android)</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/05/25/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" target="_self">
           查询优化
         </a>
@@ -731,222 +956,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/05/18/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
-          Android类加载流程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/18/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
-        <div>
-          在Dex加载流程 - The Peak Tower这篇文章中，详细探讨了dex的加载流程，而类加载的整个过程如下：    步骤 描述 相关技术&#x2F;组件    1. 编译与打包 将 .java 源代码编译成 .class 文件，然后使用 d8 或 dx 工具将其转换为 .dex 文件，并打包到 APK 中。 d8、dx、APK   2. 应用启动 当应用启动时，系统加载 .dex 文件，准备
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-18 19:39" pubdate>
-              2023-05-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91-android/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">文件格式/装载链接运行</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%80%86%E5%90%91-android/">#逆向(android)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/05/16/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%AE%97%E6%B3%95/" target="_self">
-          索引机制
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/16/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%AE%97%E6%B3%95/" target="_self">
-        <div>
-          索引的基本思想 索引是提升查询速度的一种数据结构，可以理解为类似书的目录。索引之所以能提升查询速度，在于它在插入时对数据进行了排序（显而易见，其缺点是影响插入或者更新的性能）。有效的设计并创建索引可以提升数据库系统的整体性能，但是也要考虑索引维护带来的成本消耗。    类别 内容    索引的作用 1. 提高查询速度，通过减少扫描的数据量，避免全表扫描。2. 加速排序和分组操作。3. 实现唯一性约
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-16 09:12" pubdate>
-              2023-05-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/" class="category-chain-item">Mysql</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/05/15/Dex%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
-          Dex加载流程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/15/Dex%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
-        <div>
-          DexFile在开始之前需要搞清楚目标才不至于在偌大的源码世界里迷失方向，既然是Dex文件加载流程，首先需要关心的即DEX文件结构在android源码中的封装调用形式： DexFile 是 Dalvik Executable (DEX) 文件的封装对象，代表了 Dalvik 虚拟机中可执行的 .dex 文件，内部包含类定义、方法、字段以及常量等信息。 DEX 文件的结构从文件头到各种表（如字符串表
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-15 18:35" pubdate>
-              2023-05-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%80%86%E5%90%91-android/" class="category-chain-item">逆向(android)</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91-android/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">文件格式/装载链接运行</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%80%86%E5%90%91-android/">#逆向(android)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/#board">14</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
