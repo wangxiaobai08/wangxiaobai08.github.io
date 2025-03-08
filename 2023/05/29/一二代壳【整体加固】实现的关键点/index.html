@@ -16,17 +16,13 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Java的反射机制 Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 Class 对象来实现的。当Java虚拟机（JVM）获得类的 Class 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。  可以把class文件想象成">
+    <meta name="description" content="一&#x2F;二代壳【整体加固】实现的关键点  接下来，简单介绍在脱壳程序中的几个关键步骤的意义和作用。  创建源程序的DexClassLoader实例替换LoadedApk中的mClassLoader。  源程序要依靠ClassLoader动态加载的，而ClassLoader存放了应用所需的类库当需要加载某些类时，就会开始双亲委托模式寻找，而父类加载器以及祖先加载器里面肯定是没有源程序所需要的类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="壳实现的前置知识">
-<meta property="og:url" content="http://example.com/2023/05/25/%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:title" content="一&#x2F;二代壳【整体加固】实现的关键点">
+<meta property="og:url" content="http://example.com/2023/05/29/%E4%B8%80%E4%BA%8C%E4%BB%A3%E5%A3%B3%E3%80%90%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E3%80%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%85%B3%E9%94%AE%E7%82%B9/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="Java的反射机制 Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 Class 对象来实现的。当Java虚拟机（JVM）获得类的 Class 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。  可以把class文件想象成">
+<meta property="og:description" content="一&#x2F;二代壳【整体加固】实现的关键点  接下来，简单介绍在脱壳程序中的几个关键步骤的意义和作用。  创建源程序的DexClassLoader实例替换LoadedApk中的mClassLoader。  源程序要依靠ClassLoader动态加载的，而ClassLoader存放了应用所需的类库当需要加载某些类时，就会开始双亲委托模式寻找，而父类加载器以及祖先加载器里面肯定是没有源程序所需要的类">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/10/04/k5KxmYnIX2MafDO.png">
-<meta property="og:image" content="https://s2.loli.net/2025/03/05/6MaLIQOE5XfeHnF.jpg">
-<meta property="og:image" content="https://s2.loli.net/2025/03/05/2h7Xzq9COdctsYU.png">
-<meta property="og:image" content="https://s2.loli.net/2024/10/04/b6zCfANcwi1gV5P.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/23/FQUYALmIptiHqCR.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/05/MxOyDd6i752nf3Y.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/05/uEHKOQVJB3GhYbc.png">
@@ -43,16 +39,16 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/06/AbyXmJk9SjauHsN.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/06/ptk75FNZ8hXybrn.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/06/bgIABJcHOUqWCSL.png">
-<meta property="article:published_time" content="2023-05-25T01:12:54.000Z">
-<meta property="article:modified_time" content="2025-03-06T10:04:36.967Z">
+<meta property="article:published_time" content="2023-05-29T03:36:54.000Z">
+<meta property="article:modified_time" content="2025-03-08T06:35:24.921Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/10/04/k5KxmYnIX2MafDO.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/23/FQUYALmIptiHqCR.png">
   
   
   
-  <title>壳实现的前置知识 - The Peak Tower</title>
+  <title>一/二代壳【整体加固】实现的关键点 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -218,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="壳实现的前置知识"></span>
+            <span id="subtitle" data-typed-text="一/二代壳【整体加固】实现的关键点"></span>
           
         </div>
 
@@ -229,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-25 09:12" pubdate>
-          2023年5月25日 上午
+        <time datetime="2023-05-29 11:36" pubdate>
+          2023年5月29日 中午
         </time>
       </span>
     
@@ -241,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          3.2k 字
         
       </span>
     
@@ -252,7 +248,7 @@
         
         
         
-          47 分钟
+          27 分钟
         
       </span>
     
@@ -289,257 +285,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">壳实现的前置知识</h1>
+            <h1 id="seo-header">一/二代壳【整体加固】实现的关键点</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Java的反射机制"><a href="#Java的反射机制" class="headerlink" title="Java的反射机制"></a>Java的反射机制</h1><p><img src="https://s2.loli.net/2024/10/04/k5KxmYnIX2MafDO.png" srcset="/img/loading.gif" lazyload alt="java反射"></p>
-<p>Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 <code>Class</code> 对象来实现的。当Java虚拟机（JVM）获得类的 <code>Class</code> 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。</p>
-<blockquote>
-<p>可以把class文件想象成类的结构化目录，该类的成员变量和函数等都被分门别类的存在class的不同局域位置。而多个不同的class又组成了一个class目录。并于通过查询该目录找到对应的类的所有信息</p>
-</blockquote>
-<p><img src="https://s2.loli.net/2025/03/05/6MaLIQOE5XfeHnF.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>在 Java 中，通常在编译时就需要知道类的具体类型，以便在代码中实例化对象。例如，以下代码在编译时就明确了要创建的类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Dog</span> <span class="hljs-variable">myDog</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>();  <span class="hljs-comment">// 编译时知道 myDog 是 Dog 类型</span><br>myDog.bark();           <span class="hljs-comment">// 调用 Dog 类的方法</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="常规实例化"><a href="#常规实例化" class="headerlink" title="常规实例化"></a><strong>常规实例化</strong></h2><p>想象你是一个图书馆管理员，编译时你知道所有书籍的名称和作者（例如，”Java 编程”）。当有人请求这本书时，你直接去书架上拿书。</p>
-<p>Java是一种先编译后运行的语言，这意味着在编译时，程序中所有对象的类型和结构都是固定的。然而，在某些情况下，程序可能需要在运行时动态地加载某些类。比如，在插件化架构中，应用程序可以根据用户的选择或需求动态加载不同的模块，而这些模块在编译时并不存在。</p>
-<p><strong>反射机制允许开发者在运行时获取类的 <code>Class</code> 对象后【在 Java 中，类的 <code>Class</code> 对象是反映 Java 类的内部结构和行为的特殊对象。每个 Java 类、接口和枚举类型在运行时都会由 JVM 创建一个对应的 <code>Class</code> 对象，这个 <code>Class</code> 对象包含了关于该类的所有信息，例如类的名称、父类、实现的接口、方法、字段、构造函数等。】，可以利用这个对象来获取该类的构造函数、方法和字段等信息。基于这些信息，可以创建该类的实例、调用其方法或访问其属性，而不需要在编译时硬编码类的名称。</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义动物接口</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span>;<br>&#125;<br><br><span class="hljs-comment">// Dog 类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Woof!&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// Cat 类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">speak</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Meow!&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 工厂类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AnimalFactory</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Animal <span class="hljs-title function_">createAnimal</span><span class="hljs-params">(String animalType)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 使用反射动态加载类</span><br>            Class&lt;?&gt; cls = Class.forName(animalType); <span class="hljs-comment">// animalType 是类的全名，比如 &quot;Dog&quot; 或 &quot;Cat&quot;</span><br>            <span class="hljs-keyword">return</span> (Animal) cls.getDeclaredConstructor().newInstance(); <span class="hljs-comment">// 创建实例</span><br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Animal</span> <span class="hljs-variable">myDog</span> <span class="hljs-operator">=</span> createAnimal(<span class="hljs-string">&quot;Dog&quot;</span>);  <span class="hljs-comment">// 动态创建 Dog 实例</span><br>        myDog.speak();                        <span class="hljs-comment">// 输出 &quot;Woof!&quot;</span><br><br>        <span class="hljs-type">Animal</span> <span class="hljs-variable">myCat</span> <span class="hljs-operator">=</span> createAnimal(<span class="hljs-string">&quot;Cat&quot;</span>);  <span class="hljs-comment">// 动态创建 Cat 实例</span><br>        myCat.speak();                        <span class="hljs-comment">// 输出 &quot;Meow!&quot;</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-<h2 id="反射实例化"><a href="#反射实例化" class="headerlink" title="反射实例化"></a><strong>反射实例化</strong></h2><p>现在，假设你有一个应用程序，它可以根据用户的请求动态获取书籍。用户可能输入书名，而你不知道这个书名是否在书架上。你通过输入的书名查找图书馆数据库（使用反射），并在运行时决定是否能够找到这本书。如果书存在，你可以将它拿出来；如果书不存在，你将会处理一个错误。</p>
-<p><img src="https://s2.loli.net/2025/03/05/2h7Xzq9COdctsYU.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="反射的优缺点"><a href="#反射的优缺点" class="headerlink" title="反射的优缺点"></a><strong>反射的优缺点</strong></h2><p>1、优点：</p>
-<p>（1）在运行时获得类的各种内容，进行反编译，对于Java这种先编译再运行的语言，能够让我们很方便的创建灵活的代码，这些代码可以在运行时装配，无需在组件之间进行源代码的链接，更加容易实现面向对象。</p>
-<p>2、缺点：</p>
-<p>（1）反射会消耗一定的系统资源，因此，如果不需要动态地创建一个对象，那么就不需要用反射；</p>
-<p>（2）反射调用方法时可以忽略权限检查，因此可能会破坏封装性而导致安全问题。</p>
-<h2 id="反射常用的方法"><a href="#反射常用的方法" class="headerlink" title="反射常用的方法"></a>反射常用的方法</h2><table>
-<thead>
-<tr>
-<th><strong>类别</strong></th>
-<th><strong>方法</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Class 类</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.forName(String className)</code></td>
-<td>根据类名获取 <code>Class</code> 对象。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getDeclaredFields()</code></td>
-<td>获取类中所有声明的字段（包括私有字段）。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getDeclaredMethods()</code></td>
-<td>获取类中所有声明的方法（包括私有方法）。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getDeclaredConstructors()</code></td>
-<td>获取类中所有声明的构造方法（包括私有构造方法）。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getField(String name)</code></td>
-<td>获取类中指定名称的公共字段。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getMethod(String name, Class&lt;?&gt;... parameterTypes)</code></td>
-<td>获取类中指定名称和参数类型的公共方法。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.getConstructor(Class&lt;?&gt;... parameterTypes)</code></td>
-<td>获取类中指定参数类型的公共构造方法。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Class.newInstance()</code></td>
-<td>通过默认构造方法创建类的实例（已弃用，推荐使用 <code>Constructor.newInstance</code>）。</td>
-</tr>
-<tr>
-<td><strong>Field 类</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><code>Field.getName()</code></td>
-<td>获取字段的名称。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Field.getType()</code></td>
-<td>获取字段的类型。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Field.get(Object obj)</code></td>
-<td>获取指定对象中该字段的值。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Field.set(Object obj, Object value)</code></td>
-<td>设置指定对象中该字段的值。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Field.setAccessible(boolean flag)</code></td>
-<td>设置字段的可访问性（即使字段是私有的）。</td>
-</tr>
-<tr>
-<td><strong>Method 类</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><code>Method.getName()</code></td>
-<td>获取方法的名称。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Method.getReturnType()</code></td>
-<td>获取方法的返回类型。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Method.getParameterTypes()</code></td>
-<td>获取方法的参数类型数组。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Method.invoke(Object obj, Object... args)</code></td>
-<td>调用指定对象的方法，并传入参数。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Method.setAccessible(boolean flag)</code></td>
-<td>设置方法的可访问性（即使方法是私有的）。</td>
-</tr>
-<tr>
-<td><strong>Constructor 类</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><code>Constructor.newInstance(Object... initargs)</code></td>
-<td>使用构造方法创建类的实例。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Constructor.getParameterTypes()</code></td>
-<td>获取构造方法的参数类型数组。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Constructor.setAccessible(boolean flag)</code></td>
-<td>设置构造方法的可访问性（即使构造方法是私有的）。</td>
-</tr>
-<tr>
-<td><strong>其他常用方法</strong></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td><code>Modifier.toString(int mod)</code></td>
-<td>将修饰符（如 <code>public</code>、<code>private</code>）转换为字符串。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Array.newInstance(Class&lt;?&gt; componentType, int length)</code></td>
-<td>创建指定类型和长度的数组。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Array.get(Object array, int index)</code></td>
-<td>获取数组中指定索引的元素。</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Array.set(Object array, int index, Object value)</code></td>
-<td>设置数组中指定索引的元素。</td>
-</tr>
-</tbody></table>
-<h1 id="类加载器-ClassLoader"><a href="#类加载器-ClassLoader" class="headerlink" title="类加载器 ClassLoader"></a>类加载器 ClassLoader</h1><p><img src="https://s2.loli.net/2024/10/04/b6zCfANcwi1gV5P.png" srcset="/img/loading.gif" lazyload alt="android类加载器"></p>
-<h2 id="主要-ClassLoader-类型"><a href="#主要-ClassLoader-类型" class="headerlink" title="主要 ClassLoader 类型"></a>主要 <code>ClassLoader</code> 类型</h2><table>
-<thead>
-<tr>
-<th><strong>类加载器</strong></th>
-<th><strong>描述</strong></th>
-<th><strong>加载内容</strong></th>
-<th><strong>访问权限</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>BootClassLoader</strong></td>
-<td>由 Java 实现的 <code>ClassLoader</code> 内部类，用于加载 Android Framework 层的类文件。</td>
-<td>Android Framework 层的 class 文件</td>
-<td>单例类，仅能在同一包中访问，应用程序无法直接调用。</td>
-</tr>
-<tr>
-<td><strong>PathClassLoader</strong></td>
-<td>用于加载 Android 应用程序的类。</td>
-<td>指定的 <code>.dex</code> 文件，以及 <code>.jar</code>、<code>.zip</code>、<code>.apk</code> 中的 <code>classes.dex</code></td>
-<td>供应用程序使用，常用于加载核心类。</td>
-</tr>
-<tr>
-<td><strong>DexClassLoader</strong></td>
-<td>用于动态加载 <code>.dex</code> 文件。</td>
-<td>指定的 <code>.dex</code> 文件以及 <code>.jar</code>、<code>.zip</code>、<code>.apk</code> 中的 <code>classes.dex</code></td>
-<td>适合插件或热更新场景，允许动态加载。</td>
-</tr>
-<tr>
-<td><strong>BaseDexClassLoader</strong></td>
-<td>所有 <code>ClassLoader</code> 的基类，提供一些基本的功能，如查找类、加载类等。</td>
-<td>类加载相关的基本功能</td>
-<td>不可直接实例化，通常用于其他类加载器的继承。</td>
-</tr>
-<tr>
-<td><strong>Custom ClassLoader</strong></td>
-<td>用户自定义的类加载器，可以根据需求实现特定的类加载逻辑。</td>
-<td>用户自定义的类加载逻辑</td>
-<td>根据实现情况，通常应用程序可以直接使用。</td>
-</tr>
-</tbody></table>
-<h1 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h1><p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2022/08/21/%E5%88%9D%E8%AF%86JVM/#Java%E5%A6%82%E4%BD%95%E8%A2%ABJVM%E6%89%80%E8%BF%90%E8%A1%8C%EF%BC%9F">初识JVM - The Peak Tower</a>中有对java的双亲委派模型做了一定的了解。</p>
-<p>本质上 Android 和传统的 JVM 是一样的，也需要 ClassLoader 将目标类加载到内存，类加载器之间也复合<strong>双亲委派模型</strong>。但是在 Android 中，ClassLoader的加载细节有略微的差别。在 Android 虚拟机里是无法直接运行 .class 文件，Android 中会将所有的 .class 文件转化为一个 .dex 文件。Android 将加载 .dex 文件的实现封装在 BaseDexClassLoader 中，一般我们使用它的两个子类：PathClassLoader 和 DexClassLoader。</p>
-<h2 id="dex加载运行整体步骤"><a href="#dex加载运行整体步骤" class="headerlink" title="dex加载运行整体步骤"></a>dex加载运行整体步骤</h2><h4 id="加载-classes-dex-文件"><a href="#加载-classes-dex-文件" class="headerlink" title="加载 classes.dex 文件"></a><strong>加载 <code>classes.dex</code> 文件</strong></h4><p>当应用程序启动时，系统会通过 <code>ClassLoader</code> 读取 APK 中的 <code>classes.dex</code> 文件。这个文件包含了应用的字节码。</p>
-<h4 id="初始化-DexClassLoader-或-PathClassLoader"><a href="#初始化-DexClassLoader-或-PathClassLoader" class="headerlink" title="初始化 DexClassLoader 或 PathClassLoader"></a><strong>初始化 <code>DexClassLoader</code> 或 <code>PathClassLoader</code></strong></h4><p>Android 提供了不同类型的 <code>ClassLoader</code>（如 <code>DexClassLoader</code> 和 <code>PathClassLoader</code>）用于加载 <code>.dex</code> 文件。这些加载器在初始化时会指向要加载的 <code>classes.dex</code> 文件的路径。</p>
-<h4 id="解析-dex-文件格式"><a href="#解析-dex-文件格式" class="headerlink" title="解析 .dex 文件格式"></a><strong>解析 <code>.dex</code> 文件格式</strong></h4><p><code>.dex</code> 文件的格式与 Java 的 <code>.class</code> 文件不同。它的结构包括：</p>
-<ul>
-<li><strong>魔数（Magic Number）</strong>：用于标识文件格式。</li>
-<li><strong>版本号</strong>：表示 <code>.dex</code> 文件的版本。</li>
-<li><strong>字符串表</strong>：存储字符串常量的索引。</li>
-<li><strong>类型表</strong>：存储类和接口的描述信息。</li>
-<li><strong>方法表</strong>：描述所有方法的信息。</li>
-<li><strong>字段表</strong>：描述所有字段的信息。</li>
-</ul>
-<h4 id="读取数据"><a href="#读取数据" class="headerlink" title="读取数据"></a><strong>读取数据</strong></h4><p><code>ClassLoader</code> 使用特定的解析器（如 <code>Dex</code> 类）读取 <code>.dex</code> 文件中的数据结构。通过索引和表的结构，<code>ClassLoader</code> 能够快速定位到每个类、字段和方法的描述。</p>
-<h4 id="查找和加载类"><a href="#查找和加载类" class="headerlink" title="查找和加载类"></a><strong>查找和加载类</strong></h4><p>当需要加载一个类时，<code>ClassLoader</code> 会：</p>
-<ul>
-<li><strong>查找字符串表</strong>，根据给定的类名找到类的索引。</li>
-<li><strong>解析类型表</strong>，获取类的具体描述，包括父类、实现的接口等信息。</li>
-<li><strong>解析方法表和字段表</strong>，获取类的方法和字段的详细信息。</li>
-</ul>
-<h4 id="检查已加载类"><a href="#检查已加载类" class="headerlink" title="检查已加载类"></a><strong>检查已加载类</strong></h4><p>在加载之前，<code>ClassLoader</code> 会先检查其缓存，以查看类是否已经加载（通过 <code>findLoadedClass()</code> 方法）。如果已加载，则直接返回该类；如果未加载，继续执行后续加载操作。</p>
-<h4 id="生成类对象"><a href="#生成类对象" class="headerlink" title="生成类对象"></a><strong>生成类对象</strong></h4><p>一旦找到类的信息，<code>ClassLoader</code> 会调用 <code>defineClass()</code> 方法将字节码转换为 Java 对象。此时，JVM 会为该类分配内存，并初始化它的静态变量。</p>
-<h4 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a><strong>字节码验证</strong></h4><p>在加载过程中，系统会进行字节码验证，以确保类的安全性和有效性，防止恶意代码的执行。</p>
-<h4 id="JIT-AOT-编译"><a href="#JIT-AOT-编译" class="headerlink" title="JIT&#x2F;AOT 编译"></a><strong>JIT&#x2F;AOT 编译</strong></h4><p>在 Dalvik 中，首次调用方法时会进行即时编译（JIT），将字节码编译为机器码。在 ART 中，应用安装时会将 <code>.dex</code> 文件的字节码编译为机器码（AOT），提高运行效率。</p>
-<h1 id="一-二代壳【整体加固】实现的关键点"><a href="#一-二代壳【整体加固】实现的关键点" class="headerlink" title="一&#x2F;二代壳【整体加固】实现的关键点"></a>一&#x2F;二代壳【整体加固】实现的关键点</h1><p><img src="https://s2.loli.net/2024/10/23/FQUYALmIptiHqCR.png" srcset="/img/loading.gif" lazyload></p>
+                <h1 id="一-二代壳【整体加固】实现的关键点"><a href="#一-二代壳【整体加固】实现的关键点" class="headerlink" title="一&#x2F;二代壳【整体加固】实现的关键点"></a>一&#x2F;二代壳【整体加固】实现的关键点</h1><p><img src="https://s2.loli.net/2024/10/23/FQUYALmIptiHqCR.png" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>接下来，简单介绍在脱壳程序中的几个关键步骤的意义和作用。</p>
 <ol>
@@ -550,9 +301,9 @@
 <li>创建源程序的Application实例替换壳程序的Application实例。</li>
 </ol>
 </blockquote>
-<h2 id="修正加载器"><a href="#修正加载器" class="headerlink" title="修正加载器"></a>修正加载器</h2><h3 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h3><h4 id="如何加载dex文件？"><a href="#如何加载dex文件？" class="headerlink" title="如何加载dex文件？"></a>如何加载<code>dex</code>文件？</h4><p>Android里边的<code>BaseDexClassLoader</code>可以实现在运行的时候加载在编译时未知的dex文件，经过此加载器的加载，ART虚拟机内存中会形成相应的数据结构，对应的dex文件也会由mmap映射到虚拟内存当中，通过此加载器的<code>loadClass(String className, boolean resolve)</code>方法就可以得到类的Class对象，从而可以使用该类。</p>
+<h2 id="落地加载"><a href="#落地加载" class="headerlink" title="落地加载"></a>落地加载</h2><h3 id="修正加载器"><a href="#修正加载器" class="headerlink" title="修正加载器"></a>修正加载器</h3><h4 id="简单分析"><a href="#简单分析" class="headerlink" title="简单分析"></a>简单分析</h4><h5 id="如何加载dex文件？"><a href="#如何加载dex文件？" class="headerlink" title="如何加载dex文件？"></a>如何加载<code>dex</code>文件？</h5><p>Android里边的<code>BaseDexClassLoader</code>可以实现在运行的时候加载在编译时未知的dex文件，经过此加载器的加载，ART虚拟机内存中会形成相应的数据结构，对应的dex文件也会由mmap映射到虚拟内存当中，通过此加载器的<code>loadClass(String className, boolean resolve)</code>方法就可以得到类的Class对象，从而可以使用该类。</p>
 <p>查看源码可以看到<code>PathClassLoader</code>是继承自<code>BaseDexClassLoader</code>的，而<code>PathClassLoader</code>还有另外两个兄弟: <code>InMemoryDexClassLoader</code>以及<code>DexClassLoader</code>，而壳程序很多都使用了这两个类加载器来加载解密后的dex文件。其中<code>InMemoryDexClassLoader</code>是Android8.0以后新增的类，可以实现所谓的”不落地加载”。</p>
-<h4 id="如何让修改加载之后的Application进入后续的加载流程？"><a href="#如何让修改加载之后的Application进入后续的加载流程？" class="headerlink" title="如何让修改加载之后的Application进入后续的加载流程？"></a>如何让修改加载之后的<code>Application</code>进入后续的加载流程？</h4><p>后续的加载流程指的就是<code>app</code>组件（比如<code>Activity</code>）的加载，而加载组件时，使用的是加载应用程序的<code>ClassLoader</code>。</p>
+<h5 id="如何让修改加载之后的Application进入后续的加载流程？"><a href="#如何让修改加载之后的Application进入后续的加载流程？" class="headerlink" title="如何让修改加载之后的Application进入后续的加载流程？"></a>如何让修改加载之后的<code>Application</code>进入后续的加载流程？</h5><p>后续的加载流程指的就是<code>app</code>组件（比如<code>Activity</code>）的加载，而加载组件时，使用的是加载应用程序的<code>ClassLoader</code>。</p>
 <p>如若不做任何处理，仅仅在<code>attachBaseContext</code>方法中使用上面讲的某个类加载器对dex加载，后续加载源程序的组件时会出现<code>ClassNotFoundException</code>的错误，为什么会这样？</p>
 <p>这是因为如果仅仅在<code>attachBaseContext</code>方法中使用类加载器加载<code>dex</code>，之后加载组件时使用的<code>ClassLoader</code>和我们使用的加载器不同，并且，加载组件的<code>ClassLoader</code>通过双亲委派模型发现没有人能加载组件类（因为组件类在我们的<code>dex</code>中），导致<code>ClassNotFoundException</code>。</p>
 <p>还记得<code>BaseDexClassLoader</code>吗，其有一个<code>DexPathList</code>，记录了已加载的<code>dex</code>文件路径。</p>
@@ -568,7 +319,7 @@
 <p><img src="https://s2.loli.net/2025/03/05/uEHKOQVJB3GhYbc.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
-<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>开门见山，先直接给出：</p>
+<h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4><p>开门见山，先直接给出：</p>
 <p><img src="https://s2.loli.net/2025/03/06/DmO3uVjBs9zYiMI.png" srcset="/img/loading.gif" lazyload></p>
 <p>再解释一下为什么怎么做：</p>
 <p>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/">frameworks</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/">base</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/">core</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/">java</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/">android</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/app/">app</a>&#x2F;<a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/app/ActivityThread.java">ActivityThread.java</a>中的各个字段和方法，以便进行反射调用。</p>
@@ -593,13 +344,13 @@
 <p>关键代码：<strong>LoadedApk的创建</strong></p>
 <p><img src="https://s2.loli.net/2025/03/06/5BLsZkpDlbaorcW.png" srcset="/img/loading.gif" lazyload></p>
 <p>所以要从<code>mPackages</code>里面找<code>LoadedApk</code>，其也对应了前面字段中的解释。</p>
-<h2 id="修正并加载源Application"><a href="#修正并加载源Application" class="headerlink" title="修正并加载源Application"></a>修正并加载源Application</h2><h3 id="简单分析-1"><a href="#简单分析-1" class="headerlink" title="简单分析"></a>简单分析</h3><h4 id="为什么要替换Application？"><a href="#为什么要替换Application？" class="headerlink" title="为什么要替换Application？"></a>为什么要替换Application？</h4><p>因为Application做为整个应用的上下文，它的生命周期就是整个应用程序的生命周期，它还会与Activity、Service等组件有交互关系。对于壳程序和源程序，它们对应的Application实例不一定相同，为了维护应用的正常生命周期，所以需要进行替换。可以认为Application就代表着整个APP，Application都不同，那运行的App能是一样的吗？</p>
-<h4 id="为什么选择Application类作为脱壳代码执行的地方？"><a href="#为什么选择Application类作为脱壳代码执行的地方？" class="headerlink" title="为什么选择Application类作为脱壳代码执行的地方？"></a>为什么选择Application类作为脱壳代码执行的地方？</h4><p>因为Application是整个应用程序的入口点，它的创建早于任何一个Activity、Service的创建（<code>ContentProvider</code>例外），因此壳程序必须在Android系统启动组件之前运行，完成源程序的解密和动态加载，否则会使程序出现加载类失败的异常，所以选择这里作为脱壳代码执行的地方。</p>
+<h3 id="修正并加载源Application"><a href="#修正并加载源Application" class="headerlink" title="修正并加载源Application"></a>修正并加载源Application</h3><h4 id="简单分析-1"><a href="#简单分析-1" class="headerlink" title="简单分析"></a>简单分析</h4><h5 id="为什么要替换Application？"><a href="#为什么要替换Application？" class="headerlink" title="为什么要替换Application？"></a>为什么要替换Application？</h5><p>因为Application做为整个应用的上下文，它的生命周期就是整个应用程序的生命周期，它还会与Activity、Service等组件有交互关系。对于壳程序和源程序，它们对应的Application实例不一定相同，为了维护应用的正常生命周期，所以需要进行替换。可以认为Application就代表着整个APP，Application都不同，那运行的App能是一样的吗？</p>
+<h5 id="为什么选择Application类作为脱壳代码执行的地方？"><a href="#为什么选择Application类作为脱壳代码执行的地方？" class="headerlink" title="为什么选择Application类作为脱壳代码执行的地方？"></a>为什么选择Application类作为脱壳代码执行的地方？</h5><p>因为Application是整个应用程序的入口点，它的创建早于任何一个Activity、Service的创建（<code>ContentProvider</code>例外），因此壳程序必须在Android系统启动组件之前运行，完成源程序的解密和动态加载，否则会使程序出现加载类失败的异常，所以选择这里作为脱壳代码执行的地方。</p>
 <p><img src="https://s2.loli.net/2025/03/06/ChasvfqBkxLjldc.png" srcset="/img/loading.gif" lazyload></p>
 <p>其次，Application类的<code>attachBaseContext()</code>方法比<code>onCreate()</code>方法先执行。</p>
 <p><img src="https://s2.loli.net/2025/03/06/jRd1rbOeMIKGBHt.png" srcset="/img/loading.gif" lazyload></p>
 <p>全在<code>attachBaseContext()</code>方法或者全在<code>onCreate()</code>方法中执行都行的！但在<code>attachBaseContext()</code>方法执行会有缺陷，就是<code>ActivityThread</code>实例中的mInitialApplication又会被壳程序的Application替换掉。</p>
-<h4 id="怎么替换Application？"><a href="#怎么替换Application？" class="headerlink" title="怎么替换Application？"></a>怎么替换Application？</h4><blockquote>
+<h5 id="怎么替换Application？"><a href="#怎么替换Application？" class="headerlink" title="怎么替换Application？"></a>怎么替换Application？</h5><blockquote>
 <p>需要将壳程序的Application（也就是<code>mApplication</code>）从<code>ActivityThread</code>实例中的<code>mAllApplications</code>中删除。之后设置<code>LoadedApk</code>实例中的<code>mApplication</code>字段为null，这样才能调用<code>LoadedApk</code>类的<code>makeApplication()</code>方法创建源程序的Application实例（也是反射，需要获取到源Application类名，可以通过在壳程序的<code>ActivityManifest.xml</code>中使用<code>&lt;meta-data&gt;</code>标签填写并在代码中获取）。当然<code>ContentProvider</code>也会有Application实例，也是需要替换的。最后运行源程序的Application实例的<code>onCreate()</code>方法，这样源程序才开始它的运行生命周期。</p>
 </blockquote>
 <p>如果源程序也有自定义的<code>Application</code>，我们就需要重新<code>makeApplication</code>，进入到源程序的<code>Application</code>，保证程序的完整生命周期。</p>
@@ -619,10 +370,8 @@
 <p>ContentProvider<code>是</code>Android<code>系统中的一个组件，用于在不同的应用程序之间共享数据。需要修改</code>mProviderMap<code>中所有</code>ContentProvider<code>的</code>mContext<code>为新</code>app</p>
 <p>执行新app的<code>onCreate</code>方法</p>
 <p><img src="https://s2.loli.net/2025/03/06/bgIABJcHOUqWCSL.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="实现代码-1"><a href="#实现代码-1" class="headerlink" title="实现代码"></a>实现代码</h3><p>开门见山直接给出：</p>
+<h4 id="实现代码-1"><a href="#实现代码-1" class="headerlink" title="实现代码"></a>实现代码</h4><p>开门见山直接给出：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate();<br>        Log.i(TAG,<span class="hljs-string">&quot;进入onCreate方法&quot;</span>);<br><br>        <span class="hljs-comment">// 提取提前配置的ApplicationName，来引导到源程序的Application入口</span><br>        String applicationName=<span class="hljs-string">&quot;&quot;</span>;<br>        ApplicationInfo ai=<span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            ai=getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);<br>            <span class="hljs-keyword">if</span> (ai.metaData!=<span class="hljs-literal">null</span>)&#123;<br>                applicationName=ai.metaData.getString(<span class="hljs-string">&quot;ApplicationName&quot;</span>);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>        <span class="hljs-comment">// 将当前进程的mApplication设置为null</span><br>        Object activityThreadObj=RefinvokeMethod.invokeStaticMethod(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,<span class="hljs-string">&quot;currentActivityThread&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;&#125;,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;&#125;);<br>        Object mBoundApplication=RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,activityThreadObj,<span class="hljs-string">&quot;mBoundApplication&quot;</span>);<br>        Object info=RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread$AppBindData&quot;</span>,mBoundApplication,<span class="hljs-string">&quot;info&quot;</span>);<br>        RefinvokeMethod.setField(<span class="hljs-string">&quot;android.app.LoadedApk&quot;</span>,<span class="hljs-string">&quot;mApplication&quot;</span>,info,<span class="hljs-literal">null</span>);<br><br>        <span class="hljs-comment">// 从ActivityThread的mAllApplications中移除mInitialApplication</span><br>        Object mInitApplication=RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,activityThreadObj,<span class="hljs-string">&quot;mInitialApplication&quot;</span>);<br>        ArrayList&lt;Application&gt; mAllApplications= (ArrayList&lt;Application&gt;) RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,activityThreadObj,<span class="hljs-string">&quot;mAllApplications&quot;</span>);<br>        mAllApplications.remove(mInitApplication);<br><br>        <span class="hljs-comment">// 更新两处className</span><br>        ApplicationInfo mApplicationInfo= (ApplicationInfo) RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.LoadedApk&quot;</span>,info,<span class="hljs-string">&quot;mApplicationInfo&quot;</span>);<br>        ApplicationInfo appinfo= (ApplicationInfo) RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread$AppBindData&quot;</span>,mBoundApplication,<span class="hljs-string">&quot;appInfo&quot;</span>);<br>        mApplicationInfo.className=applicationName;<br>        appinfo.className=applicationName;<br><br>        <span class="hljs-comment">// 执行makeApplication(false,null)</span><br>        Application app= (Application) RefinvokeMethod.invokeMethod(<span class="hljs-string">&quot;android.app.LoadedApk&quot;</span>,<span class="hljs-string">&quot;makeApplication&quot;</span>,info,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<span class="hljs-type">boolean</span>.class, Instrumentation.class&#125;,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-literal">false</span>,<span class="hljs-literal">null</span>&#125;);<br><br>        <span class="hljs-comment">// 替换ActivityThread中mInitialApplication</span><br>        RefinvokeMethod.setField(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,<span class="hljs-string">&quot;mInitialApplication&quot;</span>,activityThreadObj,app);<br><br>        <span class="hljs-comment">// 更新ContentProvider</span><br>        ArrayMap mProviderMap= (ArrayMap) RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread&quot;</span>,activityThreadObj,<span class="hljs-string">&quot;mProviderMap&quot;</span>);<br>        Iterator iterator=mProviderMap.values().iterator();<br>        <span class="hljs-keyword">while</span> (iterator.hasNext())&#123;<br>            Object mProviderClientRecord=iterator.next();<br>            Object mLocalProvider=RefinvokeMethod.getField(<span class="hljs-string">&quot;android.app.ActivityThread$ProviderClientRecord&quot;</span>,mProviderClientRecord,<span class="hljs-string">&quot;mLocalProvider&quot;</span>);<br>            RefinvokeMethod.setField(<span class="hljs-string">&quot;android.content.ContentProvider&quot;</span>,<span class="hljs-string">&quot;mContext&quot;</span>,mLocalProvider,app);<br>        &#125;<br><br>        <span class="hljs-comment">// 执行新app的onCreate方法</span><br>        app.onCreate();<br>    &#125;<br></code></pre></td></tr></table></figure>
-
-
 
 <h2 id="工具类-反射获取RefinvokeMethod"><a href="#工具类-反射获取RefinvokeMethod" class="headerlink" title="工具类(反射获取RefinvokeMethod)"></a>工具类(反射获取RefinvokeMethod)</h2><blockquote>
 <p><em>通过 <strong>Java 反射机制</strong> 【在前面的文章已经讲解过了】动态调用类的方法和访问类的字段。</em></p>
@@ -631,6 +380,12 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.shell1;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RefinvokeMethod</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调用类的静态方法</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name  类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> method_name 方法名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> classes     方法的参数类型数组</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> objects     方法的参数值数组</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 方法的返回值，如果调用失败则返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">invokeStaticMethod</span><span class="hljs-params">(String class_name, String method_name, Class[] classes, Object[] objects)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定方法（方法名 + 参数类型）</span><br>            <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> aClass.getMethod(method_name, classes);<br>            <span class="hljs-comment">// 调用静态方法（null 表示静态方法）</span><br>            <span class="hljs-keyword">return</span> method.invoke(<span class="hljs-literal">null</span>, objects);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 调用失败返回 null</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 调用类的实例方法</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name  类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> method_name 方法名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> obj         调用方法的对象实例</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> classes     方法的参数类型数组</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> objects     方法的参数值数组</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 方法的返回值，如果调用失败则返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">invokeMethod</span><span class="hljs-params">(String class_name, String method_name, Object obj, Class[] classes, Object[] objects)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定方法（方法名 + 参数类型）</span><br>            <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> aClass.getMethod(method_name, classes);<br>            <span class="hljs-comment">// 调用实例方法（obj 表示调用方法的对象实例）</span><br>            <span class="hljs-keyword">return</span> method.invoke(obj, objects);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 调用失败返回 null</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取对象的实例字段的值</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name 类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> obj        对象实例</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> field_name 字段名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 字段的值，如果获取失败则返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getField</span><span class="hljs-params">(String class_name, Object obj, String field_name)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定字段（包括私有字段）</span><br>            <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> aClass.getDeclaredField(field_name);<br>            <span class="hljs-comment">// 设置字段可访问（即使是私有字段）</span><br>            field.setAccessible(<span class="hljs-literal">true</span>);<br>            <span class="hljs-comment">// 获取字段的值</span><br>            <span class="hljs-keyword">return</span> field.get(obj);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 获取失败返回 null</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取类的静态字段的值</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name 类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> field_name 字段名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 字段的值，如果获取失败则返回 null</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getStaticField</span><span class="hljs-params">(String class_name, String field_name)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定字段（包括私有字段）</span><br>            <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> aClass.getDeclaredField(field_name);<br>            <span class="hljs-comment">// 设置字段可访问（即使是私有字段）</span><br>            field.setAccessible(<span class="hljs-literal">true</span>);<br>            <span class="hljs-comment">// 获取静态字段的值（null 表示静态字段）</span><br>            <span class="hljs-keyword">return</span> field.get(<span class="hljs-literal">null</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 获取失败返回 null</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置对象的实例字段的值</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name 类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> field_name 字段名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> obj        对象实例</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value      要设置的值</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setField</span><span class="hljs-params">(String class_name, String field_name, Object obj, Object value)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定字段（包括私有字段）</span><br>            <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> aClass.getDeclaredField(field_name);<br>            <span class="hljs-comment">// 设置字段可访问（即使是私有字段）</span><br>            field.setAccessible(<span class="hljs-literal">true</span>);<br>            <span class="hljs-comment">// 设置字段的值</span><br>            field.set(obj, value);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 设置类的静态字段的值</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> class_name 类的全限定名（包括包名）</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> field_name 字段名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> value      要设置的值</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setStaticField</span><span class="hljs-params">(String class_name, String field_name, Object value)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 通过类名获取 Class 对象</span><br>            <span class="hljs-type">Class</span> <span class="hljs-variable">aClass</span> <span class="hljs-operator">=</span> Class.forName(class_name);<br>            <span class="hljs-comment">// 获取指定字段（包括私有字段）</span><br>            <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> aClass.getDeclaredField(field_name);<br>            <span class="hljs-comment">// 设置字段可访问（即使是私有字段）</span><br>            field.setAccessible(<span class="hljs-literal">true</span>);<br>            <span class="hljs-comment">// 设置静态字段的值（null 表示静态字段）</span><br>            field.set(<span class="hljs-literal">null</span>, value);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(); <span class="hljs-comment">// 打印异常信息</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h2 id="不落地加载"><a href="#不落地加载" class="headerlink" title="不落地加载"></a>不落地加载</h2><p>不使用文件系统作为中转站，而是直接将内存中的源APK字节码进行加载。在Android8即以上由于android系统提供了内存加载器InMemoryDexClassLoader实现难度不大，重点是android8以下面临类加载器的实现和内存dex加载实现。、</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/05/15/Dex%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/">Dex加载流程 - The Peak Tower</a></p>
+<p><a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/05/18/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/">Android类加载流程 - The Peak Tower</a></p>
+<p>均在前面的文章中有过介绍。具体实现见下章</p>
+</blockquote>
 <h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Joooook/p/18415261">安卓整体加壳（一代壳）原理及实践 - Joooook - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://gal2xy.github.io/2023/12/01/Android%E5%8A%A0%E5%9B%BA%E5%A3%B3/Android%E7%AC%AC%E4%B8%80%E4%BB%A3%E5%8A%A0%E5%9B%BA%E5%A3%B3%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/#3-1-%E6%BA%90%E7%A8%8B%E5%BA%8FAPK">Android第一代加固壳的原理及实现 —— 落地加载 - gla2xy’s blog</a></p>
 
@@ -692,8 +447,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>壳实现的前置知识</div>
-      <div>http://example.com/2023/05/25/壳实现的前置知识/</div>
+      <div>一/二代壳【整体加固】实现的关键点</div>
+      <div>http://example.com/2023/05/29/一二代壳【整体加固】实现的关键点/</div>
     </div>
     <div class="license-meta">
       
@@ -705,7 +460,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月25日</div>
+          <div>2023年5月29日</div>
         </div>
       
       
@@ -737,9 +492,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/25/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0Python%E8%AF%AD%E8%A8%80/" title="深入学习Python语言">
+                      <a href="/2023/06/05/%E4%B8%80%E4%BB%A3%E5%A3%B3%E5%AE%9E%E7%8E%B0/" title="第一代壳实现【DEX整体加固壳-落地加载】">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入学习Python语言</span>
+                        <span class="hidden-mobile">第一代壳实现【DEX整体加固壳-落地加载】</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -747,8 +502,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/25/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="查询优化">
-                        <span class="hidden-mobile">查询优化</span>
+                      <a href="/2023/05/28/mysql%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/" title="零碎知识点">
+                        <span class="hidden-mobile">零碎知识点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
