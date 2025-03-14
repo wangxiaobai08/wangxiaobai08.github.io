@@ -18,7 +18,7 @@
   
     <meta name="description" content="站在巨人的肩膀上： Android消息机制1-Handler(Java层) - Gityuan博客 | 袁辉辉的技术博客 Android消息机制3-Handler(实战) - Gityuan博客 | 袁辉辉的技术博客   先看一个普通的例子： 1234567891011121314151617181920212223242526protected void onCreate(Bundle sav">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Handler机制">
+<meta property="og:title" content="Handler原理">
 <meta property="og:url" content="http://example.com/2024/06/26/Handler/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="站在巨人的肩膀上： Android消息机制1-Handler(Java层) - Gityuan博客 | 袁辉辉的技术博客 Android消息机制3-Handler(实战) - Gityuan博客 | 袁辉辉的技术博客   先看一个普通的例子： 1234567891011121314151617181920212223242526protected void onCreate(Bundle sav">
@@ -26,8 +26,9 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/13/L5CiEXG1Mlet7Zo.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/13/ncpRTt6aBEZhN5e.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/13/4FMPVmwHZDjlyGB.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/14/RJfqbW5jXiu7Vcy.png">
 <meta property="article:published_time" content="2024-06-26T04:25:14.000Z">
-<meta property="article:modified_time" content="2025-03-13T13:25:47.302Z">
+<meta property="article:modified_time" content="2025-03-14T06:46:25.538Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="Andorid源码阅读">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +36,7 @@
   
   
   
-  <title>Handler机制 - The Peak Tower</title>
+  <title>Handler原理 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Handler机制"></span>
+            <span id="subtitle" data-typed-text="Handler原理"></span>
           
         </div>
 
@@ -224,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          6.5k 字
         
       </span>
     
@@ -235,7 +236,7 @@
         
         
         
-          39 分钟
+          54 分钟
         
       </span>
     
@@ -272,7 +273,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Handler机制</h1>
+            <h1 id="seo-header">Handler原理</h1>
             
             
               <div class="markdown-body">
@@ -308,6 +309,26 @@
 </li>
 </ol>
 <p><img src="https://s2.loli.net/2025/03/13/ncpRTt6aBEZhN5e.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="ThreadLocal的工作原理"><a href="#ThreadLocal的工作原理" class="headerlink" title="ThreadLocal的工作原理"></a>ThreadLocal的工作原理</h1><p><code>ThreadLocal</code> 是 Java 中用于实现线程本地存储的类，Android 中也继承了这一机制。它的主要作用是为每个线程提供一个独立的变量副本，使得每个线程可以独立地操作自己的变量，而不会影响其他线程中的变量。</p>
+<ul>
+<li><code>ThreadLocal</code> 为每个线程维护一个独立的变量副本。</li>
+<li>每个线程可以通过 <code>ThreadLocal</code> 的 <code>get()</code> 和 <code>set()</code> 方法访问和修改自己的变量副本。</li>
+<li>不同线程之间的变量副本是隔离的，互不干扰。</li>
+</ul>
+<p>当某些数据是以线程为作用域并且不同线程具有不同的数据副本的时候，就可以考虑采用ThreadLocal。比如对于Handler来说，它需要获取当前线程的Looper，很显然Looper的作用域就是线程并且不同线程具有不同的Looper，这个时候通过ThreadLocal就可以轻松实现Looper在线程中的存取。如果不采用ThreadLocal，那么系统就必须提供一个全局的哈希表供Handler查找指定线程的Looper，这样一来就必须提供一个类似于LooperManager的类了，但是系统并没有这么做而是选择了ThreadLocal，这就是ThreadLocal的好处。</p>
+<p>当不同线程访问同一个ThreadLocal的get方法，ThreadLocal内部会从各自的线程中取出一个数组，然后再从数组中根据当前ThreadLocal的索引去查找出对应的value值。很显然，不同线程中的数组是不同的，这就是为什么通过ThreadLocal可以在不同的线程中维护一套数据的副本并且彼此互不干扰。</p>
+<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><p><code>set()</code> 方法的作用是将线程本地变量存储到当前线程的 <code>ThreadLocalMap</code> 中。如果当前线程的 <code>ThreadLocalMap</code> 不存在，则会创建一个新的 <code>ThreadLocalMap</code>。通过 <code>ThreadLocalMap</code>，每个线程可以独立存储和管理自己的线程本地变量，实现了线程隔离。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">set</span><span class="hljs-params">(T value)</span> &#123;<br>    <span class="hljs-comment">// 获取当前线程对象</span><br>    <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> Thread.currentThread();<br><br>    <span class="hljs-comment">// 获取当前线程的 ThreadLocalMap</span><br>    <span class="hljs-comment">// ThreadLocalMap 是 ThreadLocal 的内部类，用于存储线程本地变量</span><br>    <span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> getMap(t);<br><br>    <span class="hljs-comment">// 如果当前线程的 ThreadLocalMap 已经存在</span><br>    <span class="hljs-keyword">if</span> (map != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-comment">// 将当前 ThreadLocal 对象和值存储到 ThreadLocalMap 中</span><br>        <span class="hljs-comment">// this 是当前的 ThreadLocal 对象，value 是要存储的线程本地变量</span><br>        map.set(<span class="hljs-built_in">this</span>, value);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// 如果当前线程的 ThreadLocalMap 不存在</span><br>        <span class="hljs-comment">// 则创建一个新的 ThreadLocalMap，并将当前 ThreadLocal 对象和值存储到其中</span><br>        createMap(t, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="createMap"><a href="#createMap" class="headerlink" title="createMap"></a>createMap</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">createMap</span><span class="hljs-params">(Thread t, T firstValue)</span> &#123;<br>    <span class="hljs-comment">// 为当前线程创建一个新的 ThreadLocalMap，并将初始值存储到其中</span><br>    t.threadLocals = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThreadLocalMap</span>(<span class="hljs-built_in">this</span>, firstValue);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="ThreadLocalMap"><a href="#ThreadLocalMap" class="headerlink" title="ThreadLocalMap"></a>ThreadLocalMap</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java">ThreadLocalMap(ThreadLocal&lt;?&gt; firstKey, Object firstValue) &#123;<br>    <span class="hljs-comment">// 初始化 Entry 数组，初始容量为 16</span><br>    table = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Entry</span>[INITIAL_CAPACITY];<br><br>    <span class="hljs-comment">// 计算第一个键的哈希值，并确定其在数组中的位置</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> firstKey.threadLocalHashCode &amp; (INITIAL_CAPACITY - <span class="hljs-number">1</span>);<br><br>    <span class="hljs-comment">// 创建一个新的 Entry 对象，并将其存储到数组中</span><br>    table[i] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Entry</span>(firstKey, firstValue);<br><br>    <span class="hljs-comment">// 设置当前大小为 1</span><br>    size = <span class="hljs-number">1</span>;<br><br>    <span class="hljs-comment">// 设置扩容阈值</span><br>    setThreshold(INITIAL_CAPACITY);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><p><code>get()</code> 方法的作用是获取当前线程的线程本地变量。如果当前线程的 <code>ThreadLocalMap</code> 不存在，或者当前 <code>ThreadLocal</code> 对象没有对应的值，则调用 <code>setInitialValue()</code> 方法初始化并返回默认值。通过 <code>ThreadLocalMap</code>，每个线程可以独立存储和管理自己的线程本地变量，实现了线程隔离。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> T <span class="hljs-title function_">get</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 获取当前线程对象</span><br>    <span class="hljs-type">Thread</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> Thread.currentThread();<br><br>    <span class="hljs-comment">// 获取当前线程的 ThreadLocalMap</span><br>    <span class="hljs-comment">// ThreadLocalMap 是 ThreadLocal 的内部类，用于存储线程本地变量</span><br>    <span class="hljs-type">ThreadLocalMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> getMap(t);<br><br>    <span class="hljs-comment">// 如果当前线程的 ThreadLocalMap 已经存在</span><br>    <span class="hljs-keyword">if</span> (map != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-comment">// 从 ThreadLocalMap 中获取当前 ThreadLocal 对象对应的 Entry</span><br>        <span class="hljs-comment">// Entry 是 ThreadLocalMap 的内部类，存储键值对（ThreadLocal 对象为键，线程本地变量为值）</span><br>        ThreadLocalMap.<span class="hljs-type">Entry</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> map.getEntry(<span class="hljs-built_in">this</span>);<br><br>        <span class="hljs-comment">// 如果 Entry 存在</span><br>        <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-comment">// 获取 Entry 中的值（线程本地变量）</span><br>            <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>            <span class="hljs-type">T</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> (T)e.value;<br><br>            <span class="hljs-comment">// 返回线程本地变量</span><br>            <span class="hljs-keyword">return</span> result;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 如果 ThreadLocalMap 不存在，或者当前 ThreadLocal 对象没有对应的值</span><br>    <span class="hljs-comment">// 调用 setInitialValue() 方法初始化并返回默认值</span><br>    <span class="hljs-keyword">return</span> setInitialValue();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>从ThreadLocal的set和get方法可以看出，它们所操作的对象都是当前线程的localValues对象的table数组，因此在不同线程中访问同一个ThreadLocal的set和get方法，它们对ThreadLocal所做的读&#x2F;写操作仅限于各自线程的内部</p>
+<p><code>ThreadLocal</code> 的另一个重要使用场景确实是 <strong>复杂逻辑下的对象传递</strong>，尤其是在多线程环境下，某些对象需要在线程内部全局共享，但又不能影响其他线程。通过 <code>ThreadLocal</code>，可以避免通过函数参数传递对象的繁琐，也不需要依赖静态变量，从而让代码更加简洁和可维护。</p>
 <h1 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h1><p>每个消息用<code>Message</code>表示，<code>Message</code>主要包含以下内容：</p>
 <table>
 <thead>
@@ -555,6 +576,15 @@
 <ul>
 <li><code>ThreadLocal.set(T value)</code>：将value存储到当前线程的TLS区域</li>
 </ul>
+<h1 id="主线程的消息循环"><a href="#主线程的消息循环" class="headerlink" title="主线程的消息循环"></a>主线程的消息循环</h1><p>Android的主线程就是ActivityThread，主线程的入口方法为main，在main方法中系统会通过Looper.prepareMainLooper()来创建主线程的Looper以及MessageQueue，并通过Looper.loop()来开启主线程的消息循环。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/app/ActivityThread.java">Cross Reference: &#x2F;frameworks&#x2F;base&#x2F;core&#x2F;java&#x2F;android&#x2F;app&#x2F;ActivityThread.java</a></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    <span class="hljs-comment">// 开始追踪 &quot;ActivityThreadMain&quot; 事件，用于性能分析和调试</span><br>    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="hljs-string">&quot;ActivityThreadMain&quot;</span>);<br><br>    <span class="hljs-comment">// CloseGuard 默认是启用的，可能会产生大量日志。我们在这里禁用它，</span><br>    <span class="hljs-comment">// 但在调试版本中通过 StrictMode 选择性启用（使用 DropBox 而不是日志）。</span><br>    CloseGuard.setEnabled(<span class="hljs-literal">false</span>);<br><br>    <span class="hljs-comment">// 初始化当前用户的环境配置</span><br>    Environment.initForCurrentUser();<br><br>    <span class="hljs-comment">// 设置 libcore 中事件日志的报告器</span><br>    EventLogger.setReporter(<span class="hljs-keyword">new</span> <span class="hljs-title class_">EventLoggingReporter</span>());<br><br>    <span class="hljs-comment">// 确保 TrustedCertificateStore 在正确的位置查找 CA 证书</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-type">File</span> <span class="hljs-variable">configDir</span> <span class="hljs-operator">=</span> Environment.getUserConfigDirectory(UserHandle.myUserId());<br>    TrustedCertificateStore.setDefaultUserDirectory(configDir);<br><br>    <span class="hljs-comment">// 设置进程的 argv[0] 为 &quot;&lt;pre-initialized&gt;&quot;，通常用于标识进程的初始状态</span><br>    Process.setArgV0(<span class="hljs-string">&quot;&lt;pre-initialized&gt;&quot;</span>);<br><br>    <span class="hljs-comment">// 准备主线程的 Looper，Looper 是 Android 消息循环的核心组件</span><br>    Looper.prepareMainLooper();<br><br>    <span class="hljs-comment">// 从命令行参数中查找 PROC_START_SEQ_IDENT 的值（如果有的话）。</span><br>    <span class="hljs-comment">// 参数格式为 &quot;seq=114&quot;，用于标识进程启动的顺序。</span><br>    <span class="hljs-type">long</span> <span class="hljs-variable">startSeq</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (args != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> args.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; --i) &#123;<br>            <span class="hljs-keyword">if</span> (args[i] != <span class="hljs-literal">null</span> &amp;&amp; args[i].startsWith(PROC_START_SEQ_IDENT)) &#123;<br>                startSeq = Long.parseLong(<br>                        args[i].substring(PROC_START_SEQ_IDENT.length()));<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 创建 ActivityThread 实例，这是 Android 应用主线程的核心类</span><br>    <span class="hljs-type">ActivityThread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityThread</span>();<br><br>    <span class="hljs-comment">// 将 ActivityThread 附加到系统，false 表示不是系统进程</span><br>    thread.attach(<span class="hljs-literal">false</span>, startSeq);<br><br>    <span class="hljs-comment">// 如果主线程的 Handler 为空，则从 ActivityThread 中获取并设置</span><br>    <span class="hljs-keyword">if</span> (sMainThreadHandler == <span class="hljs-literal">null</span>) &#123;<br>        sMainThreadHandler = thread.getHandler();<br>    &#125;<br><br>    <span class="hljs-comment">// 如果为 false，则不启用消息日志记录（调试时可以使用）</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;<br>        Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">LogPrinter</span>(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-comment">// 结束 &quot;ActivityThreadMain&quot; 事件的追踪</span><br>    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);<br><br>    <span class="hljs-comment">// 启动主线程的消息循环，开始处理消息和事件</span><br>    Looper.loop();<br><br>    <span class="hljs-comment">// 如果 Looper 循环意外退出，抛出运行时异常</span><br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>主线程的消息循环开始了以后，ActivityThread还需要一个Handler来和消息队列进行交互，这个Handler就是ActivityThread.H，它内部定义了一组消息类型，主要包含了四大组件的启动和停止等过程。</p>
+<p><img src="https://s2.loli.net/2025/03/14/RJfqbW5jXiu7Vcy.png" srcset="/img/loading.gif" lazyload></p>
+<p>ActivityThread通过ApplicationThread和AMS进行进程间通信，AMS以进程间通信的方式完成ActivityThread的请求后会回调ApplicationThread中的Binder方法，然后ApplicationThread会向H发送消息，H收到消息后会将ApplicationThread中的逻辑切换到ActivityThread中去执行，即切换到主线程中去执行，这个过程就是主线程的消息循环模型。</p>
 
                 
               </div>
@@ -583,7 +613,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Android/Handler%E5%8E%9F%E7%90%86/" class="category-chain-item">Handler原理</a>
+  <a href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/Android/Handler%E6%9C%BA%E5%88%B6/" class="category-chain-item">Handler机制</a>
   
   
 
@@ -614,7 +644,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Handler机制</div>
+      <div>Handler原理</div>
       <div>http://example.com/2024/06/26/Handler/</div>
     </div>
     <div class="license-meta">
@@ -659,9 +689,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/25/Restful_API%E8%A7%84%E8%8C%83/" title="API规范(RestFul)">
+                      <a href="/2024/07/05/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程与线程池">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">API规范(RestFul)</span>
+                        <span class="hidden-mobile">线程与线程池</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
