@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/09/gcSn5fTbyLQxI8u.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/09/xqpm51rs9lJc6jf.png">
 <meta property="article:published_time" content="2024-01-01T02:55:54.000Z">
-<meta property="article:modified_time" content="2025-03-12T02:56:41.552Z">
+<meta property="article:modified_time" content="2025-03-14T10:13:08.372Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/09/aLKJGXZrVwDmAU8.png">
@@ -238,7 +238,7 @@
         
         
         
-          55 分钟
+          56 分钟
         
       </span>
     
@@ -299,6 +299,13 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">manifest</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">package</span>=<span class="hljs-string">&quot;com.example.activitytest&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">application</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:allowBackup</span>=<span class="hljs-string">&quot;true&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@mipmap/ic_launcher&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;@string/app_name&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:roundIcon</span>=<span class="hljs-string">&quot;@mipmap/ic_launcher_round&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:supportsRtl</span>=<span class="hljs-string">&quot;true&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:theme</span>=<span class="hljs-string">&quot;@style/AppTheme&quot;</span>&gt;</span><br><br>        <span class="hljs-comment">&lt;!-- 声明 MainActivity 为主 Activity --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">activity</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.MainActivity&quot;</span></span><br><span class="hljs-tag">            <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;This is MainActivity&quot;</span>&gt;</span>  <span class="hljs-comment">&lt;!-- 指定 Activity 中标题的内容 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">intent-filter</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 声明为主 Activity --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">action</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span><br>                <span class="hljs-comment">&lt;!-- 声明为启动器 Activity --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">category</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">intent-filter</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">activity</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">application</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">manifest</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <h1 id="使用intent在Activity穿梭"><a href="#使用intent在Activity穿梭" class="headerlink" title="使用intent在Activity穿梭"></a>使用intent在Activity穿梭</h1><p><strong>Intent</strong> 是 Android 中用于在组件（如 Activity、Service、BroadcastReceiver）之间传递消息和数据的对象。它是 Android 应用程序中实现组件通信的核心机制之一。Intent 可以用于启动 Activity、启动 Service、发送广播等。</p>
+<p>Intent 的主要作用包括：</p>
+<ol>
+<li><strong>启动 Activity</strong>：通过 Intent 启动一个新的 Activity 或跳转到已有的 Activity。</li>
+<li><strong>启动 Service</strong>：通过 Intent 启动或绑定一个 Service。</li>
+<li><strong>发送广播</strong>：通过 Intent 发送广播消息，通知系统或其他应用。</li>
+<li><strong>传递数据</strong>：在组件之间传递数据（如字符串、整数、对象等）</li>
+</ol>
 <p>启动Activity分为两种，显式调用和隐式调用。显式调用需要明确地指定被启动对象的组件信息，包括包名和类名，而隐式调用则不需要明确指定组件信息。原则上一个Intent不应该既是显式调用又是隐式调用，如果二者共存的话以显式调用为主。</p>
 <h3 id="显式调用-vs-隐式调用"><a href="#显式调用-vs-隐式调用" class="headerlink" title="显式调用 vs 隐式调用"></a><strong>显式调用 vs 隐式调用</strong></h3><table>
 <thead>
