@@ -18,8 +18,8 @@
   
     <meta name="description" content="Rocketmq简单介绍和使用RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。  官方文档： Go 客户端 | RocketMQ RocketMQ 快速上手体验  R">
 <meta property="og:type" content="article">
-<meta property="og:title" content="幂等性机制">
-<meta property="og:url" content="http://example.com/2024/09/25/%E5%B9%82%E7%AD%89%E6%80%A7%E6%9C%BA%E5%88%B6%E7%AD%89/index.html">
+<meta property="og:title" content="幂等性与延迟消息">
+<meta property="og:url" content="http://example.com/2024/09/25/%E5%B9%82%E7%AD%89%E4%B8%8E%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="Rocketmq简单介绍和使用RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。  官方文档： Go 客户端 | RocketMQ RocketMQ 快速上手体验  R">
 <meta property="og:locale" content="zh_CN">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/02/04/S2zOYPECidXB8FM.png">
 <meta property="og:image" content="https://ucc.alicdn.com/pic/developer-ecology/980d85723fe44d8b8516694c6a94b8f4.gif">
 <meta property="article:published_time" content="2024-09-25T01:12:18.000Z">
-<meta property="article:modified_time" content="2025-03-09T09:14:50.725Z">
+<meta property="article:modified_time" content="2025-03-20T08:21:06.981Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@
   
   
   
-  <title>幂等性机制 - The Peak Tower</title>
+  <title>幂等性与延迟消息 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="幂等性机制"></span>
+            <span id="subtitle" data-typed-text="幂等性与延迟消息"></span>
           
         </div>
 
@@ -273,7 +273,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">幂等性机制</h1>
+            <h1 id="seo-header">幂等性与延迟消息</h1>
             
             
               <div class="markdown-body">
@@ -285,52 +285,22 @@
 <p><a target="_blank" rel="noopener" href="https://rocketmq.io/course/baseLearn/rocketmq_learning-fast/?spm=5176.29160081.0.0.50a9608eMzBaoF">RocketMQ 快速上手体验</a></p>
 </blockquote>
 <h3 id="RocketMQ-的基本概念"><a href="#RocketMQ-的基本概念" class="headerlink" title="RocketMQ 的基本概念"></a><strong>RocketMQ 的基本概念</strong></h3><ol>
-<li><strong>Producer（生产者）</strong>：<ul>
-<li>生产者负责发送消息到 RocketMQ 服务端。生产者可以有多个，并且可以向指定的消息队列发送消息。</li>
-</ul>
-</li>
-<li><strong>Consumer（消费者）</strong>：<ul>
-<li>消费者负责从 RocketMQ 服务端接收并处理消息。消费者通过订阅消息队列进行消息消费，支持多种消费方式，如顺序消费和并发消费。</li>
-</ul>
-</li>
-<li><strong>Broker（消息中间件）</strong>：<ul>
-<li>RocketMQ 服务器端的核心组件，负责消息的存储、转发和管理。Broker 存储消息并负责消息的消费调度。它支持高可用、分布式存储。</li>
-</ul>
-</li>
-<li><strong>Message Queue（消息队列）</strong>：<ul>
-<li>消息队列是存储消息的逻辑概念，消息会根据特定的路由规则发送到不同的队列。每个消息队列可以对应一个或多个消费者进行消费。</li>
-</ul>
-</li>
-<li><strong>Topic（主题）</strong>：<ul>
-<li>主题是消息的分类标识。生产者发送消息到一个特定的主题，消费者通过订阅主题来接收消息。一个主题可以包含多个消息队列。</li>
-</ul>
-</li>
+<li><strong>Producer（生产者）</strong>：生产者负责发送消息到 RocketMQ 服务端。生产者可以有多个，并且可以向指定的消息队列发送消息。</li>
+<li><strong>Consumer（消费者）</strong>：消费者负责从 RocketMQ 服务端接收并处理消息。消费者通过订阅消息队列进行消息消费，支持多种消费方式，如顺序消费和并发消费。</li>
+<li><strong>Broker（消息中间件）</strong>：RocketMQ 服务器端的核心组件，负责消息的存储、转发和管理。Broker 存储消息并负责消息的消费调度。它支持高可用、分布式存储。</li>
+<li><strong>Message Queue（消息队列）</strong>：消息队列是存储消息的逻辑概念，消息会根据特定的路由规则发送到不同的队列。每个消息队列可以对应一个或多个消费者进行消费。</li>
+<li><strong>Topic（主题）</strong>：主题是消息的分类标识。生产者发送消息到一个特定的主题，消费者通过订阅主题来接收消息。一个主题可以包含多个消息队列。</li>
 </ol>
 <h3 id="RocketMQ-的工作流程"><a href="#RocketMQ-的工作流程" class="headerlink" title="RocketMQ 的工作流程"></a><strong>RocketMQ 的工作流程</strong></h3><ol>
-<li><p><strong>生产者（Producer）发送消息</strong>：</p>
-<ul>
-<li>生产者通过与 Broker 的通信，将消息发送到 RocketMQ 服务端。消息会被写入到相应的消息队列中。</li>
-</ul>
+<li><p><strong>生产者（Producer）发送消息</strong>：生产者通过与 Broker 的通信，将消息发送到 RocketMQ 服务端。消息会被写入到相应的消息队列中。</p>
 </li>
-<li><p><strong>Broker 存储消息</strong>：</p>
-<ul>
-<li>Broker 将收到的消息存储在磁盘中，并为每个消息分配一个唯一的消息 ID。消息被存储在特定的队列中。</li>
-</ul>
+<li><p><strong>Broker 存储消息</strong>：Broker 将收到的消息存储在磁盘中，并为每个消息分配一个唯一的消息 ID。消息被存储在特定的队列中。</p>
 </li>
-<li><p><strong>消费者（Consumer）订阅消息</strong>：</p>
-<ul>
-<li>消费者通过订阅特定的 Topic 或 Queue 来接收消息。消费者可以是多个，RocketMQ 支持多种消费模式（顺序消费、并发消费等）。</li>
-</ul>
+<li><p><strong>消费者（Consumer）订阅消息</strong>：消费者通过订阅特定的 Topic 或 Queue 来接收消息。消费者可以是多个，RocketMQ 支持多种消费模式（顺序消费、并发消费等）。</p>
 </li>
-<li><p><strong>消息消费</strong>：</p>
-<ul>
-<li>消费者从 Broker 获取消息并处理。处理完成后，消费者会向 Broker 发送消息消费的确认，确认消息已被成功消费。若没有确认，消息会重新投递给消费者。</li>
-</ul>
+<li><p><strong>消息消费</strong>：消费者从 Broker 获取消息并处理。处理完成后，消费者会向 Broker 发送消息消费的确认，确认消息已被成功消费。若没有确认，消息会重新投递给消费者。</p>
 </li>
-<li><p><strong>消息的可靠性保障</strong>：</p>
-<ul>
-<li>RocketMQ 采用同步和异步的方式进行消息确认，可以确保消息不会丢失。同时，消息在存储时也会进行磁盘持久化，防止服务器宕机导致消息丢失。</li>
-</ul>
+<li><p><strong>消息的可靠性保障</strong>：RocketMQ 采用同步和异步的方式进行消息确认，可以确保消息不会丢失。同时，消息在存储时也会进行磁盘持久化，防止服务器宕机导致消息丢失。</p>
 <p><img src="https://s2.loli.net/2025/02/04/f8GKhkvwPBIiqZo.png" srcset="/img/loading.gif" lazyload alt="eb2a803a826b45f6a034f39ff38d4f42"></p>
 </li>
 </ol>
@@ -380,7 +350,7 @@
 <td>AMQP 协议</td>
 </tr>
 </tbody></table>
-<h1 id="什么是幂等性"><a href="#什么是幂等性" class="headerlink" title="什么是幂等性?"></a>什么是幂等性?</h1><p>百度对 “幂等” 解释如下</p>
+<h1 id="幂等性"><a href="#幂等性" class="headerlink" title="幂等性"></a>幂等性</h1><p>百度对 “幂等” 解释如下</p>
 <blockquote>
 <p>设f为一由X映射至X的一元运算，则f为幂等的，当对于所有在X内的x，<br>f(f(x)) &#x3D; f(x).<br>特别的是，恒等函数一定是幂等的，且任一常数函数也都是幂等的。</p>
 </blockquote>
@@ -411,25 +381,25 @@
 <li>比如原因1，用户支付订单后，订单系统处理有点慢，这会让支付系统以为请求超时，这时支付系统会再次调用订单系统。这就会导致订单系统多次发送同一条支付消息。消息重试，网络异常，都会导致生产者多次发送同一条消息</li>
 <li>比如原因2，用户支付成功，订单系统和支付系统交互也没超时，顺利发送一条支付消息，这个时候优惠券系统也成功消费支付消息，这时发放了一张优惠券。但意外来了，这个时候优惠券系统崩了，但还没来得及提交消费进度offset到RocketMQ。因而重启优惠券系统后，又会重新消费一次支付消息，从而重复发放优惠券。</li>
 </ul>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>那么如何才能实现消息幂等呢？</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h3><p>那么如何才能实现消息幂等呢？</p>
 <p>首先要定义消息幂等的两要素：</p>
 <ol>
 <li>幂等令牌</li>
 <li>处理唯一性的确保</li>
 </ol>
 <p>必须保证存在幂等令牌的情况下保证业务处理结果的唯一性，才认为幂等实现是成功的。接下来分别解释这两个要素</p>
-<h3 id="幂等令牌"><a href="#幂等令牌" class="headerlink" title="幂等令牌"></a>幂等令牌</h3><p>幂等令牌是生产者和消费者两者中的既定协议，在业务中通常是具备唯一业务标识的字符串，如：订单号、流水号等。且一般由生产者端生成并传递给消费者端。</p>
-<h3 id="处理唯一性的确保"><a href="#处理唯一性的确保" class="headerlink" title="处理唯一性的确保"></a>处理唯一性的确保</h3><p>即服务端应当采用一定的策略保证同一个业务逻辑一定不会重复执行成功多次。如：使用支付宝进行支付，买一个产品支付多次只会成功一笔。</p>
+<h4 id="幂等令牌"><a href="#幂等令牌" class="headerlink" title="幂等令牌"></a>幂等令牌</h4><p>幂等令牌是生产者和消费者两者中的既定协议，在业务中通常是具备唯一业务标识的字符串，如：订单号、流水号等。且一般由生产者端生成并传递给消费者端。</p>
+<h4 id="处理唯一性的确保"><a href="#处理唯一性的确保" class="headerlink" title="处理唯一性的确保"></a>处理唯一性的确保</h4><p>即服务端应当采用一定的策略保证同一个业务逻辑一定不会重复执行成功多次。如：使用支付宝进行支付，买一个产品支付多次只会成功一笔。</p>
 <p>较为常用的方式是采用缓存去重并且通过对业务标识添加数据库的唯一索引实现幂等。</p>
 <p>具体的思路为：如支付场景下，支付的发起端生成了一个支付流水号，服务端处理该支付请求成功后，数据持久化成功。由于表中对支付流水添加了唯一索引，因此当重复支付时会因为唯一索引的存在报错 <strong>duplicate entry</strong>，服务端的业务逻辑捕获该异常并返回调用侧“重复支付”提示。这样就不会重复扣款。</p>
 <p>在上面场景的基础上，还可以引入Redis等缓存组件实现去重：当支付请求打到服务端，首先去缓存进行判断，根据key&#x3D;“支付流水号”去get存储的值，如果返回为空，表明是首次进行支付操作同时将当前的支付流水号作为key、value可以为任意字符串通过set(key,value,expireTime)存储在redis中。</p>
 <p>当重复的支付请求到来时，尝试进行get(支付流水号)操作，这个操作会命中缓存，因此我们可以认为该请求是重复的支付请求，服务端业务将重复支付的业务提示返回给请求方。</p>
 <p>由于我们一般都会在缓存使用过程中设置过期时间，缓存可能会失效从而导致请求穿透到持久化存储中（如：MySQL）。因此不能因为引入缓存而放弃使用唯一索引，将二者结合在一起是一个比较好的方案。</p>
-<h2 id="具体方案"><a href="#具体方案" class="headerlink" title="具体方案"></a>具体方案</h2><h3 id="业务状态机判断"><a href="#业务状态机判断" class="headerlink" title="业务状态机判断"></a><strong>业务状态机判断</strong></h3><p>举个例子，在电商系统中，有订单id，这个时候在优惠券系统每消费一条支付消息，同步插入一条订单数据，能插入成功，证明之前这个订单没被消费过，发送优惠券。插入失败，则证明这个订单之前已经被消费过了。不做任何操作即可。</p>
+<h3 id="具体方案"><a href="#具体方案" class="headerlink" title="具体方案"></a>具体方案</h3><h4 id="业务状态机判断"><a href="#业务状态机判断" class="headerlink" title="业务状态机判断"></a><strong>业务状态机判断</strong></h4><p>举个例子，在电商系统中，有订单id，这个时候在优惠券系统每消费一条支付消息，同步插入一条订单数据，能插入成功，证明之前这个订单没被消费过，发送优惠券。插入失败，则证明这个订单之前已经被消费过了。不做任何操作即可。</p>
 <p><img src="https://s2.loli.net/2025/02/04/S2zOYPECidXB8FM.png" srcset="/img/loading.gif" lazyload alt="image-20250204213554245"></p>
-<h3 id="Redis缓存法"><a href="#Redis缓存法" class="headerlink" title="Redis缓存法"></a>Redis缓存法</h3><p>在并发量特别高的订单系统中，支付消息会特别多，这个时候，如果用业务判断法，插入数据库，容易存在瓶颈。这个时候如果想要提高并发量，可以考虑使用Redis。Redis缓存订单id，如果这个订单id已经被消费过后，会存在Redis中。当这个订单id再次被消费时，就会被过滤，不操作。</p>
+<h4 id="Redis缓存法"><a href="#Redis缓存法" class="headerlink" title="Redis缓存法"></a>Redis缓存法</h4><p>在并发量特别高的订单系统中，支付消息会特别多，这个时候，如果用业务判断法，插入数据库，容易存在瓶颈。这个时候如果想要提高并发量，可以考虑使用Redis。Redis缓存订单id，如果这个订单id已经被消费过后，会存在Redis中。当这个订单id再次被消费时，就会被过滤，不操作。</p>
 <p>这也是一种幂等性的实现方法。但Redis容易丢数据，这也是需要考虑的。<img src="https://ucc.alicdn.com/pic/developer-ecology/980d85723fe44d8b8516694c6a94b8f4.gif" srcset="/img/loading.gif" lazyload alt="image.gif"></p>
-<h3 id="RocketMQ场景下"><a href="#RocketMQ场景下" class="headerlink" title="RocketMQ场景下"></a>RocketMQ场景下</h3><p>了解了两个要素及典型案例之后，回到消息消费的场景。</p>
+<h4 id="RocketMQ场景下"><a href="#RocketMQ场景下" class="headerlink" title="RocketMQ场景下"></a>RocketMQ场景下</h4><p>了解了两个要素及典型案例之后，回到消息消费的场景。</p>
 <p>作为一款高性能的消息中间件，RocketMQ能够保证消息不丢失但不保证消息不重复。如果在RocketMQ中实现消息去重实际也是可以的，但是考虑到高可用以及高性能的需求，如果做了服务端的消息去重，RocketMQ就需要对消息做额外的rehash、排序等操作，这会花费较大的时间和空间等资源代价，收益并不明显。RocketMQ考虑到正常情况下出现重复消息的概率其实是很小的，因此RocketMQ将消息幂等操作交给了业务方处理。</p>
 <p>实际上，上述问题的本质在于：网络调用本身存在不确定性，也就是既不成功也不失败的第三种状态，即所谓的 <strong>处理中</strong> 状态，因此会有重复的情况发生。这个问题是很多其他的MQ产品同样会遇到的，<strong>通常的方法就是要求消费方在消费消息时进行去重，也就是本文说的消费幂等性。</strong></p>
 <blockquote>
@@ -446,15 +416,15 @@
 
 <p>消费者通过getKeys()能够读取到生产者设置的幂等依据（如：订单号等），然后业务逻辑围绕该id进行幂等处理即可。</p>
 <p>如果觉得每次都需要在生产者侧setkey，在消费者侧getkey，有点繁琐。也可以将该幂等依据设置在消息协议中，消费者接收到消息后解析该id进行幂等操作也是可以的。只需要消息的生产者和消费者约定好如何解析id的协议即可。</p>
-<h4 id="消费端常见的幂等操作"><a href="#消费端常见的幂等操作" class="headerlink" title="消费端常见的幂等操作"></a>消费端常见的幂等操作</h4><h5 id="业务操作之前进行状态查询"><a href="#业务操作之前进行状态查询" class="headerlink" title="业务操作之前进行状态查询"></a>业务操作之前进行状态查询</h5><p>消费端开始执行业务操作时，通过幂等id首先进行业务状态的查询，如：修改订单状态环节，当订单状态为成功&#x2F;失败则不需要再进行处理。那么我们只需要在消费逻辑执行之前通过订单号进行订单状态查询，一旦获取到确定的订单状态则对消息进行提交，通知broker消息状态为：<strong>ConsumeConcurrentlyStatus.CONSUME_SUCCESS</strong> 。</p>
-<h5 id="业务操作前进行数据的检索"><a href="#业务操作前进行数据的检索" class="headerlink" title="业务操作前进行数据的检索"></a>业务操作前进行数据的检索</h5><p>逻辑和第一点相似，即消费之前进行数据的检索，如果能够通过业务唯一id查询到对应的数据则不需要进行再后续的业务逻辑。如：下单环节中，在消费者执行异步下单之前首先通过订单号查询订单是否已经存在，这里可以查库也可以查缓存。如果存在则直接返回消费成功，否则进行下单操作。</p>
+<h5 id="消费端常见的幂等操作"><a href="#消费端常见的幂等操作" class="headerlink" title="消费端常见的幂等操作"></a>消费端常见的幂等操作</h5><h6 id="业务操作之前进行状态查询"><a href="#业务操作之前进行状态查询" class="headerlink" title="业务操作之前进行状态查询"></a>业务操作之前进行状态查询</h6><p>消费端开始执行业务操作时，通过幂等id首先进行业务状态的查询，如：修改订单状态环节，当订单状态为成功&#x2F;失败则不需要再进行处理。那么我们只需要在消费逻辑执行之前通过订单号进行订单状态查询，一旦获取到确定的订单状态则对消息进行提交，通知broker消息状态为：<strong>ConsumeConcurrentlyStatus.CONSUME_SUCCESS</strong> 。</p>
+<h6 id="业务操作前进行数据的检索"><a href="#业务操作前进行数据的检索" class="headerlink" title="业务操作前进行数据的检索"></a>业务操作前进行数据的检索</h6><p>逻辑和第一点相似，即消费之前进行数据的检索，如果能够通过业务唯一id查询到对应的数据则不需要进行再后续的业务逻辑。如：下单环节中，在消费者执行异步下单之前首先通过订单号查询订单是否已经存在，这里可以查库也可以查缓存。如果存在则直接返回消费成功，否则进行下单操作。</p>
 <hr>
 <p>详细参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2371740">一文讲透消息队列RocketMQ实现消费幂等-腾讯云开发者社区-腾讯云</a></p>
 <blockquote>
 <p>不论怎样，请牢记一个原则：<strong>缓存是不可靠的，查询是不可靠的</strong> 。</p>
 <p>在高并发的场景下，一定要通过持久化存储的唯一索引以及引入锁机制作为共同保障数据准确性和完整性的最后一道防线！</p>
 </blockquote>
-
+<h1 id="延时消息"><a href="#延时消息" class="headerlink" title="延时消息"></a>延时消息</h1>
                 
               </div>
             
@@ -506,8 +476,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>幂等性机制</div>
-      <div>http://example.com/2024/09/25/幂等性机制等/</div>
+      <div>幂等性与延迟消息</div>
+      <div>http://example.com/2024/09/25/幂等与延迟消息/</div>
     </div>
     <div class="license-meta">
       
