@@ -31,9 +31,11 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/19/d5zDhfiOGAmrcqY.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/19/wXaGWoKE7AJ5OFk.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/19/NlnqtBUGSQ8g3fV.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/20/6OQmpiZ1jJEkuDt.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/19/qrJoe2XFdL6kQyv.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/20/mjIvtcY4gfR2DPE.png">
 <meta property="article:published_time" content="2023-06-20T10:12:18.000Z">
-<meta property="article:modified_time" content="2025-03-19T09:29:26.261Z">
+<meta property="article:modified_time" content="2025-03-20T09:56:06.390Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
@@ -230,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          4.1k 字
         
       </span>
     
@@ -241,7 +243,7 @@
         
         
         
-          22 分钟
+          34 分钟
         
       </span>
     
@@ -422,8 +424,104 @@
 <h1 id="带来的问题以及解决方法"><a href="#带来的问题以及解决方法" class="headerlink" title="带来的问题以及解决方法"></a>带来的问题以及解决方法</h1><blockquote>
 <p>即使使用了redis的原子指令，如果不加留意仍然会造成一定的错误。</p>
 </blockquote>
-<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><h3 id="过期时间与延长"><a href="#过期时间与延长" class="headerlink" title="过期时间与延长"></a>过期时间与延长</h3><h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><h2 id="集群环境下的问题"><a href="#集群环境下的问题" class="headerlink" title="集群环境下的问题"></a>集群环境下的问题</h2><p><img src="https://s2.loli.net/2025/03/19/qrJoe2XFdL6kQyv.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Redlock算法"><a href="#Redlock算法" class="headerlink" title="Redlock算法"></a>Redlock算法</h3><hr>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁通常发生在多个客户端同时竞争同一资源时。例如：</p>
+<ul>
+<li>客户端 A 获取了锁，但在释放锁之前崩溃(宕机)或执行时间过长。</li>
+<li>客户端 B 在等待锁时超时，但客户端 A 仍未释放锁，导致资源被永久占用。</li>
+</ul>
+<p><strong>解决方法</strong>：</p>
+<p><strong>设置合理的过期时间</strong>：在获取锁时，设置一个合理的过期时间（TTL），确保即使客户端崩溃，锁也会自动释放。</p>
+<ul>
+<li>例如：<code>SET lock_key value NX PX 30000</code>（设置 30 秒的过期时间）。</li>
+</ul>
+<blockquote>
+<p>如果过期时间到了，业务逻辑还未执行完成怎么办？</p>
+<ul>
+<li>锁被自动释放，其他客户端可以获取锁并操作共享资源，导致数据不一致。</li>
+<li>当前客户端继续执行业务逻辑，可能会覆盖其他客户端已经修改的数据。</li>
+</ul>
+<p>可以引入<strong>延长锁的过期时间</strong>，需要自己启动线程&#x2F;协程去完成延时服务</p>
+</blockquote>
+<p><strong>延长锁的过期时间</strong>：如果操作耗时较长，可以在锁即将过期时延长其过期时间。</p>
+<ul>
+<li><p>使用 Lua 脚本确保延长操作是原子的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">&quot;GET&quot;</span>, KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span><br>    <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">&quot;PEXPIRE&quot;</span>, KEYS[<span class="hljs-number">1</span>], ARGV[<span class="hljs-number">2</span>])<br><span class="hljs-keyword">else</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>避免长时间持有锁</strong>：尽量将锁的持有时间缩短，避免影响其他客户端的操作。</p>
+<h2 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h2><blockquote>
+<p>锁只能被持有该锁的用户释放，不能被其他用户删除</p>
+</blockquote>
+<p>redis在获取锁时，为每个客户端生成一个唯一标识符（如 UUID），并将其作为锁的值存储。在释放锁时，检查当前锁的值是否与客户端的唯一标识符匹配，只有匹配时才允许释放。Lua 脚本在 Redis 中是原子执行的，因此可以确保检查和删除锁的操作不会被其他客户端打断。</p>
+<ul>
+<li>在释放锁时，必须检查锁的值是否与客户端的唯一标识符匹配。使用 Lua 脚本确保检查和删除操作的原子性。</li>
+</ul>
+<h2 id="集群环境下的问题"><a href="#集群环境下的问题" class="headerlink" title="集群环境下的问题"></a>集群环境下的问题</h2><p>Redis 集群通过分片（Sharding）将数据分布到多个节点上，每个节点负责一部分数据。</p>
+<p><img src="https://s2.loli.net/2025/03/20/6OQmpiZ1jJEkuDt.png" srcset="/img/loading.gif" lazyload></p>
+<p>等服务选择Redis集群中的一个服务器上设置锁，而另一个服务请求了另一个服务器。此时不会出现问题，因为在正常情况下该值会被自动同步到从服务器上，但当主服务宕机后或者网络问题，没来的及同步，就会出现请求锁出现问题，另一个服务会进入共享资源。</p>
+<p><img src="https://s2.loli.net/2025/03/19/qrJoe2XFdL6kQyv.png" srcset="/img/loading.gif" lazyload></p>
+<p>在 Redis 集群中实现分布式锁时，可能会遇到以下问题：</p>
+<ul>
+<li>数据分片问题：锁的键可能分布在不同的节点上，导致锁操作需要跨节点通信。</li>
+<li>节点故障问题:如果持有锁的节点发生故障，锁可能会丢失或被错误释放。</li>
+<li>网络分区问题：在网络分区的情况下，可能会出现多个客户端同时持有锁的情况。</li>
+<li>锁的可见性问题：由于 Redis 集群的异步复制，锁的状态在不同节点之间可能存在延迟。</li>
+</ul>
+<h3 id="Redlock算法"><a href="#Redlock算法" class="headerlink" title="Redlock算法"></a>Redlock算法</h3><p><strong>Redlock 算法</strong> 是 Redis 官方推荐的一种分布式锁算法，由 Redis 作者 <strong>Salvatore Sanfilippo（Antirez）</strong> 提出。它旨在解决在分布式环境中实现高可用性和强一致性的分布式锁问题。Redlock 算法通过多个独立的 Redis 节点来实现锁的获取和释放，从而避免单点故障问题。</p>
+<p><strong>Redlock 算法的核心思想是：在多个独立的 Redis 节点上获取锁，只有在大多数节点上成功获取锁时，才认为锁获取成功。这样可以提高锁的可靠性，即使部分节点发生故障，锁仍然可以正常工作。</strong></p>
+<hr>
+<h4 id="算法实现步骤"><a href="#算法实现步骤" class="headerlink" title="算法实现步骤"></a><strong>算法实现步骤</strong></h4><h5 id="获取锁"><a href="#获取锁" class="headerlink" title="获取锁"></a><strong>获取锁</strong></h5><ol>
+<li><p><strong>生成唯一标识符</strong>：</p>
+<ul>
+<li>客户端生成一个唯一的标识符（如 UUID），用于标识锁的持有者。</li>
+</ul>
+</li>
+<li><p><strong>向多个 Redis 节点发送获取锁的请求</strong>：</p>
+<ul>
+<li>客户端依次向多个独立的 Redis 节点发送获取锁的请求。</li>
+<li>使用 <code>SET</code> 命令，并设置 <code>NX</code>（仅在键不存在时设置）和 <code>PX</code>（设置过期时间）。</li>
+<li>例如：<code>SET lock_key unique_value NX PX 30000</code>。</li>
+</ul>
+</li>
+<li><p><strong>计算获取锁的成功率</strong>：</p>
+<ul>
+<li>如果客户端在大多数节点（如 N&#x2F;2 + 1）上成功获取锁，则认为锁获取成功。并且锁没有过期</li>
+<li>锁的有效时间 &#x3D; 设置的过期时间 - 获取锁的耗时。</li>
+</ul>
+</li>
+<li><p><strong>处理获取锁失败的情况</strong>：</p>
+<ul>
+<li>如果客户端未能在大多数节点上获取锁，则向所有节点发送释放锁的请求。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h5 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a><strong>释放锁</strong></h5><ol>
+<li><p><strong>向所有 Redis 节点发送释放锁的请求</strong>：</p>
+<ul>
+<li>客户端依次向所有 Redis 节点发送释放锁的请求。</li>
+<li>使用 Lua 脚本确保释放操作的原子性：<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">&quot;GET&quot;</span>, KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span><br>    <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">&quot;DEL&quot;</span>, KEYS[<span class="hljs-number">1</span>])<br><span class="hljs-keyword">else</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>处理释放锁失败的情况</strong>：</p>
+<ul>
+<li>如果某个节点释放锁失败，可以记录日志或重试。</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2025/03/20/mjIvtcY4gfR2DPE.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="缺点与替代"><a href="#缺点与替代" class="headerlink" title="缺点与替代"></a>缺点与替代</h4><p><strong>但即使这样，Redlock 算法仍然存在一些缺点</strong>：</p>
+<ol>
+<li><strong>实现复杂</strong>：需要维护多个 Redis 节点，并处理节点故障、网络分区等问题。</li>
+<li><strong>性能开销</strong>：需要向多个节点发送请求，增加了网络通信的开销。</li>
+<li><strong>时钟漂移问题</strong>：如果 Redis 节点的系统时钟不一致，可能会导致锁的过期时间计算错误。导致key过早释放(需要添加影响因子并减去)</li>
+<li><strong>网络分区问题</strong>：在网络分区的情况下，可能会出现多个客户端同时持有锁的情况。</li>
+</ol>
+<p>如果觉得 Redlock 算法的实现复杂度较高，可以考虑以下替代方案：</p>
+<ol>
+<li><strong>使用 ZooKeeper 或 etcd</strong>：这些分布式协调服务提供了原生的分布式锁支持，适合对一致性要求极高的场景。</li>
+<li><strong>使用 Redisson</strong>：Redisson 是一个基于 Redis 的分布式锁框架，提供了 Redlock 算法的实现，并简化了使用方式。</li>
+</ol>
+<hr>
 <p>参考博客：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/asd051377305/article/details/108384490">Redis分布式锁-这一篇全了解(Redisson实现分布式锁完美方案)-CSDN博客</a></p>

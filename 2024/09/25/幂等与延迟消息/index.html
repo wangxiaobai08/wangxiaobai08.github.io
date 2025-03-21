@@ -16,19 +16,20 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Rocketmq简单介绍和使用RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。  官方文档： Go 客户端 | RocketMQ RocketMQ 快速上手体验  R">
+    <meta name="description" content="在前面分布式理论基础 - The Peak Tower谈到了在分布式系统中如何在网络等一系列不可预计的情况下尽量数据一致性，但尽管如此仍然在基于消息队列(MQ)的实现消息可靠性还有一些业务上的特殊情况需要处理。  用户下单时，可能会由于网络抖动或前端重复提交，导致同一个订单请求被多次发送。如果没有幂等性设计，可能会导致重复创建订单。  用户下单后未支付，库存被锁定但未扣减，需要在一定时间后释放库存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="幂等性与延迟消息">
 <meta property="og:url" content="http://example.com/2024/09/25/%E5%B9%82%E7%AD%89%E4%B8%8E%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="Rocketmq简单介绍和使用RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。  官方文档： Go 客户端 | RocketMQ RocketMQ 快速上手体验  R">
+<meta property="og:description" content="在前面分布式理论基础 - The Peak Tower谈到了在分布式系统中如何在网络等一系列不可预计的情况下尽量数据一致性，但尽管如此仍然在基于消息队列(MQ)的实现消息可靠性还有一些业务上的特殊情况需要处理。  用户下单时，可能会由于网络抖动或前端重复提交，导致同一个订单请求被多次发送。如果没有幂等性设计，可能会导致重复创建订单。  用户下单后未支付，库存被锁定但未扣减，需要在一定时间后释放库存">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/02/04/f8GKhkvwPBIiqZo.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/04/Cev5pGuf3MSD4Hb.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/04/S2zOYPECidXB8FM.png">
 <meta property="og:image" content="https://ucc.alicdn.com/pic/developer-ecology/980d85723fe44d8b8516694c6a94b8f4.gif">
+<meta property="og:image" content="https://s2.loli.net/2025/03/20/MXY5fbuSQKPdRzJ.png">
 <meta property="article:published_time" content="2024-09-25T01:12:18.000Z">
-<meta property="article:modified_time" content="2025-03-20T08:21:06.981Z">
+<meta property="article:modified_time" content="2025-03-20T09:22:11.681Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.7k 字
         
       </span>
     
@@ -236,7 +237,7 @@
         
         
         
-          34 分钟
+          40 分钟
         
       </span>
     
@@ -278,7 +279,39 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Rocketmq简单介绍和使用"><a href="#Rocketmq简单介绍和使用" class="headerlink" title="Rocketmq简单介绍和使用"></a>Rocketmq简单介绍和使用</h1><p>RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。</p>
+                <p>在前面<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/07/26/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/">分布式理论基础 - The Peak Tower</a>谈到了在分布式系统中如何在网络等一系列不可预计的情况下尽量数据一致性，但尽管如此仍然在基于消息队列(MQ)的实现消息可靠性还有一些业务上的特殊情况需要处理。</p>
+<ul>
+<li><p>用户下单时，可能会由于网络抖动或前端重复提交，导致同一个订单请求被多次发送。如果没有幂等性设计，可能会导致重复创建订单。</p>
+</li>
+<li><p>用户下单后未支付，库存被锁定但未扣减，需要在一定时间后释放库存。如果立即释放库存，可能会导致库存数据不一致。</p>
+</li>
+<li><p>在商城系统中，订单服务通过消息队列发送“扣减库存”消息，库存服务消费该消息并执行扣减操作。然而，如果库存不足，可能会导致以下问题：</p>
+<ol>
+<li><strong>消息消费失败</strong>：<ul>
+<li>库存服务无法扣减库存，导致消息消费失败。</li>
+<li>消息队列会重新投递消息，但库存仍然不足，导致消息一直无法被成功消费。</li>
+</ul>
+</li>
+<li><strong>数据不一致</strong>：<ul>
+<li>订单服务认为库存已扣减，但库存服务实际未扣减，导致数据不一致。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li><strong>库存超卖</strong>：通过分布式锁、乐观锁或预占库存解决。</li>
+<li><strong>库存数据不一致</strong>：通过可靠消息传递、幂等性设计或本地消息表解决。</li>
+<li><strong>库存回滚问题</strong>：通过 TCC 模式、补偿机制或延时任务解决。</li>
+<li><strong>库存热点问题</strong>：通过库存分片、缓存库存或限流降级解决。</li>
+<li><strong>库存更新延迟</strong>：通过实时库存同步、库存预占机制或前端库存校验解决。</li>
+<li><strong>库存负数问题</strong>：通过库存校验、数据库约束或分布式锁解决。</li>
+<li><strong>库存数据丢失</strong>：通过数据备份、日志记录或分布式存储解决。</li>
+<li><strong>库存数据不一致（跨系统）</strong>：通过分布式事务、最终一致性或数据同步解决。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h1 id="Rocketmq简单介绍和使用"><a href="#Rocketmq简单介绍和使用" class="headerlink" title="Rocketmq简单介绍和使用"></a>Rocketmq简单介绍和使用</h1><p>RocketMQ 是一个高性能、可靠、可扩展的分布式消息队列系统。它适用于高吞吐量、大并发、高可靠性的分布式系统，能够解决微服务架构中的异步消息、流量削峰、解耦等问题。凭借其易扩展性、可靠性、顺序消费等特性，RocketMQ 广泛应用于日志收集、实时数据流处理、异步消息通知等场景。</p>
 <blockquote>
 <p>官方文档：</p>
 <p><a target="_blank" rel="noopener" href="https://rocketmq.apache.org/zh/docs/sdk/05go/">Go 客户端 | RocketMQ</a></p>
@@ -424,7 +457,17 @@
 <p>不论怎样，请牢记一个原则：<strong>缓存是不可靠的，查询是不可靠的</strong> 。</p>
 <p>在高并发的场景下，一定要通过持久化存储的唯一索引以及引入锁机制作为共同保障数据准确性和完整性的最后一道防线！</p>
 </blockquote>
-<h1 id="延时消息"><a href="#延时消息" class="headerlink" title="延时消息"></a>延时消息</h1>
+<h1 id="延时消息"><a href="#延时消息" class="headerlink" title="延时消息"></a>延时消息</h1><blockquote>
+<p>详见：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/339459783">消息队列——延时消息应用解析及实践 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43270074/article/details/141028713">图解RocketMQ之如何实现定时延时消息_rocketmq延时消息-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1659393">一口气说出 6种 延时队列的实现方法，面试官也得服-腾讯云开发者社区-腾讯云</a></p>
+</blockquote>
+<p>RocketMQ 在 Broker 端为每个延迟级别维护一个单独的队列。</p>
+<p>消息发送时，指定延迟级别，消息会被存储在对应的延迟队列中。</p>
+<p>延迟时间到达后，消息会被转移到普通队列中，供消费者消费。</p>
+<h1 id="库存问题"><a href="#库存问题" class="headerlink" title="库存问题"></a>库存问题</h1><p><img src="https://s2.loli.net/2025/03/20/MXY5fbuSQKPdRzJ.png" srcset="/img/loading.gif" lazyload></p>
+
                 
               </div>
             

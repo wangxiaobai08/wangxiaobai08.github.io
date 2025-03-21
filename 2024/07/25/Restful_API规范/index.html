@@ -24,7 +24,7 @@
 <meta property="og:description" content="RPC风格RPC 风格的 API 设计基于调用远程过程的思想，API 通常是针对特定动作进行设计，URI 中会带有操作名，而不是直接表示资源。    操作 HTTP 方法 资源 URI 描述    创建用户 POST &#x2F;createUser 创建新用户   获取用户信息 GET &#x2F;getUser 获取指定用户信息   更新用户信息 POST &#x2F;updateUser 更新指定用户信息   删除用户">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-25T14:12:18.000Z">
-<meta property="article:modified_time" content="2025-03-09T09:16:46.937Z">
+<meta property="article:modified_time" content="2025-03-21T07:28:17.358Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary_large_image">
@@ -421,7 +421,7 @@
 <p><strong>无状态</strong>：服务器不能保存客户端的信息， 每一次从客户端发送的请求中，要包含所有必须的状态信息，会话信息由客户端保存， 服务器端根据这些状态信息来处理请求。 当客户端可以切换到一个新状态的时候发送请求信息， 当一个或者多个请求被发送之后, 客户端就处于一个状态变迁过程中。 每一个应用的状态描述可以被客户端用来初始化下一次的状态变迁。</p>
 <h4 id="REST架构限制条件"><a href="#REST架构限制条件" class="headerlink" title="REST架构限制条件"></a>REST架构限制条件</h4><p>Fielding在论文中提出REST架构的6个<strong>限制条件</strong>，也可称为RESTful 6大原则， 标准的REST约束应满足以下6个原则：</p>
 <ol>
-<li><strong>客户端-服务端（Client-Server）</strong>: 这个更专注客户端和服务端的分离，服务端独立可更好服务于前端、安卓、IOS等客户端设备。</li>
+<li><strong>客户端-服务端（Client-Server）</strong>: 这个更专注客户端和服务端的分离，服务端独立可更好服务于前端、软件安全, Android平台、IOS等客户端设备。</li>
 <li><strong>无状态（Stateless）</strong>：服务端不保存客户端状态，客户端保存状态信息每次请求携带状态信息。</li>
 <li><strong>可缓存性（Cacheability）</strong> ：服务端需回复是否可以缓存以让客户端甄别是否缓存提高效率。</li>
 <li><strong>统一接口（Uniform Interface）</strong>：通过一定原则设计接口降低耦合，简化系统架构，这是RESTful设计的基本出发点。当然这个内容除了上述特点提到部分具体内容比较多详细了解可以参考这篇<a target="_blank" rel="noopener" href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">REST论文内容</a>。</li>
