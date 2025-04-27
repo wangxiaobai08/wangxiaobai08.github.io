@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1234type scase struct &#123;	c    *hchan         &#x2F;&#x2F; 指向 channel 的指针，hchan 是 Go 中 channel 的内部实现结构	elem unsafe.Pointer &#x2F;&#x2F; 指向数据的指针，用于表示发送或接收的元素&#125;    1234case ir.OSELECT:	n :&#x3D; n.(*ir.SelectStmt)	walkS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="select机制">
+<meta property="og:url" content="http://example.com/2023/10/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/select/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="1234type scase struct &#123;	c    *hchan         &#x2F;&#x2F; 指向 channel 的指针，hchan 是 Go 中 channel 的内部实现结构	elem unsafe.Pointer &#x2F;&#x2F; 指向数据的指针，用于表示发送或接收的元素&#125;    1234case ir.OSELECT:	n :&#x3D; n.(*ir.SelectStmt)	walkS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/03/15/RwucnOitThpCXqQ.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/15/dSTghRpHC9FNMyK.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/15/HlFzZKyaDRSvPN5.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/15/dpaoHntVvNYCUch.png">
+<meta property="article:published_time" content="2023-10-12T08:53:18.000Z">
+<meta property="article:modified_time" content="2025-04-27T06:58:58.284Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2025/03/15/RwucnOitThpCXqQ.png">
+  
+  
+  
+  <title>select机制 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="select机制"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-12 16:53" pubdate>
+          2023年10月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">select机制</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://s2.loli.net/2025/03/15/RwucnOitThpCXqQ.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> scase <span class="hljs-keyword">struct</span> &#123;<br>	c    *hchan         <span class="hljs-comment">// 指向 channel 的指针，hchan 是 Go 中 channel 的内部实现结构</span><br>	elem unsafe.Pointer <span class="hljs-comment">// 指向数据的指针，用于表示发送或接收的元素</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">case</span> ir.OSELECT:<br>	n := n.(*ir.SelectStmt)<br>	walkSelect(n)<br>	<span class="hljs-keyword">return</span> n<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">walkSelect</span><span class="hljs-params">(sel *ir.SelectStmt)</span></span> &#123;<br>	<span class="hljs-comment">// 保存当前的位置信息，用于后续恢复</span><br>	lno := ir.SetPos(sel)<br><br>	<span class="hljs-comment">// 检查是否已经遍历过该 select 语句，避免重复遍历</span><br>	<span class="hljs-keyword">if</span> sel.Walked() &#123;<br>		base.Fatalf(<span class="hljs-string">&quot;double walkSelect&quot;</span>) <span class="hljs-comment">// 如果已经遍历过，直接报错</span><br>	&#125;<br>	sel.SetWalked(<span class="hljs-literal">true</span>) <span class="hljs-comment">// 标记该 select 语句为已遍历</span><br><br>	<span class="hljs-comment">// 获取 select 语句的初始化语句（init 语句）</span><br>	init := ir.TakeInit(sel)<br><br>	<span class="hljs-comment">// 遍历 select 语句中的所有 case 子句，并将其转换为初始化语句</span><br>	init = <span class="hljs-built_in">append</span>(init, walkSelectCases(sel.Cases)...)<br><br>	<span class="hljs-comment">// 清空 select 语句的 case 子句，因为它们已经被处理</span><br>	sel.Cases = <span class="hljs-literal">nil</span><br><br>	<span class="hljs-comment">// 将处理后的初始化语句赋值给 select 语句的 Compiled 字段</span><br>	sel.Compiled = init<br><br>	<span class="hljs-comment">// 遍历 Compiled 字段中的所有语句，进行进一步的处理</span><br>	walkStmtList(sel.Compiled)<br><br>	<span class="hljs-comment">// 恢复之前保存的位置信息</span><br>	base.Pos = lno<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="walkSelectCases"><a href="#walkSelectCases" class="headerlink" title="walkSelectCases"></a>walkSelectCases</h1><p><img src="https://s2.loli.net/2025/03/15/dSTghRpHC9FNMyK.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="编译器优化"><a href="#编译器优化" class="headerlink" title="编译器优化"></a>编译器优化</h2><p><img src="https://s2.loli.net/2025/03/15/HlFzZKyaDRSvPN5.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="没有case"><a href="#没有case" class="headerlink" title="没有case"></a><strong>没有case</strong></h3><p>当 <code>select</code> 语句中没有任何 <code>case</code>（即 <code>ncas == 0</code>）时，直接生成一个调用 <code>block</code> 函数的语句并返回。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> ncas == <span class="hljs-number">0</span> &#123;<br>	<span class="hljs-keyword">return</span> []ir.Node&#123;mkcallstmt(<span class="hljs-string">&quot;block&quot;</span>)&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>mkcallstmt</code> 是一个辅助函数，用于生成一个函数调用语句。<code>&quot;block&quot;</code> 是 Go 运行时中的一个函数，用于永久阻塞当前 goroutine。</p>
+<h3 id="只有一个非default的case"><a href="#只有一个非default的case" class="headerlink" title="只有一个非default的case"></a><strong>只有一个非default的case</strong></h3><p><code>select</code> 语句中只有一个 <code>case</code> 的情况（即 <code>ncas == 1</code>）。在这种情况下，<code>select</code> 语句的行为可以简化为直接执行该 <code>case</code> 的逻辑，而不需要复杂的 <code>select</code> 机制。如果唯一的 <code>case</code> 是 <code>default</code> 分支（即 <code>cas.Comm == nil</code>），则直接执行 <code>default</code> 分支的语句</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> ncas == <span class="hljs-number">1</span> &#123;<br>    cas := cases[<span class="hljs-number">0</span>] <span class="hljs-comment">// 获取唯一的 case</span><br>    ir.SetPos(cas)  <span class="hljs-comment">// 设置当前位置为 case 的位置</span><br><br>    l := cas.Init() <span class="hljs-comment">// 获取 case 的初始化语句</span><br><br>    <span class="hljs-keyword">if</span> cas.Comm != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果不是 default 分支</span><br>        n := cas.Comm <span class="hljs-comment">// 获取 case 的通信操作（发送或接收）</span><br>        l = <span class="hljs-built_in">append</span>(l, ir.TakeInit(n)...) <span class="hljs-comment">// 将通信操作的初始化语句加入列表</span><br><br>        <span class="hljs-keyword">switch</span> n.Op() &#123; <span class="hljs-comment">// 根据通信操作的类型处理</span><br>        <span class="hljs-keyword">default</span>:<br>            base.Fatalf(<span class="hljs-string">&quot;select %v&quot;</span>, n.Op()) <span class="hljs-comment">// 不支持的操作类型，报错</span><br><br>        <span class="hljs-keyword">case</span> ir.OSEND: <span class="hljs-comment">// 发送操作</span><br>            <span class="hljs-comment">// 已经处理完毕，无需额外操作</span><br><br>        <span class="hljs-keyword">case</span> ir.OSELRECV2: <span class="hljs-comment">// 接收操作（带两个返回值）</span><br>            r := n.(*ir.AssignListStmt) <span class="hljs-comment">// 转换为 AssignListStmt</span><br>            <span class="hljs-keyword">if</span> ir.IsBlank(r.Lhs[<span class="hljs-number">0</span>]) &amp;&amp; ir.IsBlank(r.Lhs[<span class="hljs-number">1</span>]) &#123; <span class="hljs-comment">// 如果两个返回值都是空白标识符</span><br>                n = r.Rhs[<span class="hljs-number">0</span>] <span class="hljs-comment">// 直接使用接收操作</span><br>                <span class="hljs-keyword">break</span><br>            &#125;<br>            r.SetOp(ir.OAS2RECV) <span class="hljs-comment">// 将操作类型设置为 OAS2RECV</span><br>        &#125;<br><br>        l = <span class="hljs-built_in">append</span>(l, n) <span class="hljs-comment">// 将通信操作加入语句列表</span><br>    &#125;<br><br>    l = <span class="hljs-built_in">append</span>(l, cas.Body...) <span class="hljs-comment">// 将 case 的主体语句加入列表</span><br>    l = <span class="hljs-built_in">append</span>(l, ir.NewBranchStmt(base.Pos, ir.OBREAK, <span class="hljs-literal">nil</span>)) <span class="hljs-comment">// 添加 break 语句</span><br>    <span class="hljs-keyword">return</span> l <span class="hljs-comment">// 返回生成的语句列表</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="selectnbrecv"><a href="#selectnbrecv" class="headerlink" title="selectnbrecv"></a>selectnbrecv</h5><p>当一个select里面只有一个 case，且这个case 是接收数据的操作的时候，select就会调用 <code>selectnbrecv</code> 函数来实现</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectnbrecv</span><span class="hljs-params">(elem unsafe.Pointer, c *hchan)</span></span> (selected <span class="hljs-type">bool</span>) &#123;<br>    selected, _ = chanrecv(c, elem, <span class="hljs-literal">false</span>)<br>    <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里就会发现 <code>selectnbrecv</code> 就是调用了 <code>chanrecv</code> 来实现，也就是我们上面解析的 <code>&lt;- c1</code> 是一样的，就相当于 select 退变 成单独的 <code>&lt;- c</code> 的表达了</p>
+<h5 id="selectnbsend"><a href="#selectnbsend" class="headerlink" title="selectnbsend"></a>selectnbsend</h5><p>同 <code>selectnbrecv</code> 一样，当select只有一个case，且这个case是发送数据到channel的，就会退变成 <code>c &lt;- 1</code> 的表达了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectnbsend</span><span class="hljs-params">(c *hchan, elem unsafe.Pointer)</span></span> (selected <span class="hljs-type">bool</span>) &#123;<br>    <span class="hljs-keyword">return</span> chansend(c, elem, <span class="hljs-literal">false</span>, getcallerpc())<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="一个channel的case-一个default的case"><a href="#一个channel的case-一个default的case" class="headerlink" title="一个channel的case +一个default的case"></a><strong>一个channel的case +一个default的case</strong></h3><p><code>select</code> 语句中只有两个 <code>case</code> 且其中一个为 <code>default</code> 分支的情况（即 <code>ncas == 2 &amp;&amp; dflt != nil</code>）。在这种情况下，<code>select</code> 语句的行为可以优化为一个 <code>if-else</code> 结构，而不是使用复杂的 <code>select</code> 机制。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> ncas == <span class="hljs-number">2</span> &amp;&amp; dflt != <span class="hljs-literal">nil</span> &#123;<br>    cas := cases[<span class="hljs-number">0</span>] <span class="hljs-comment">// 获取第一个 case</span><br>    <span class="hljs-keyword">if</span> cas == dflt &#123; <span class="hljs-comment">// 如果第一个 case 是 default 分支</span><br>        cas = cases[<span class="hljs-number">1</span>] <span class="hljs-comment">// 使用第二个 case</span><br>    &#125;<br><br>    n := cas.Comm <span class="hljs-comment">// 获取 case 的通信操作（发送或接收）</span><br>    ir.SetPos(n)  <span class="hljs-comment">// 设置当前位置为通信操作的位置</span><br><br>    r := ir.NewIfStmt(base.Pos, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>) <span class="hljs-comment">// 创建一个 if 语句</span><br>    r.SetInit(cas.Init()) <span class="hljs-comment">// 设置 if 语句的初始化语句为 case 的初始化语句</span><br><br>    <span class="hljs-keyword">var</span> cond ir.Node <span class="hljs-comment">// 定义条件表达式</span><br>    <span class="hljs-keyword">switch</span> n.Op() &#123; <span class="hljs-comment">// 根据通信操作的类型处理</span><br>    <span class="hljs-keyword">default</span>:<br>        base.Fatalf(<span class="hljs-string">&quot;select %v&quot;</span>, n.Op()) <span class="hljs-comment">// 不支持的操作类型，报错</span><br><br>    <span class="hljs-keyword">case</span> ir.OSEND: <span class="hljs-comment">// 发送操作</span><br>        <span class="hljs-comment">// if selectnbsend(c, v) &#123; body &#125; else &#123; default body &#125;</span><br>        n := n.(*ir.SendStmt) <span class="hljs-comment">// 转换为 SendStmt</span><br>        ch := n.Chan <span class="hljs-comment">// 获取 channel</span><br>        cond = mkcall1(chanfn(<span class="hljs-string">&quot;selectnbsend&quot;</span>, <span class="hljs-number">2</span>, ch.Type()), types.Types[types.TBOOL], r.PtrInit(), ch, n.Value) <span class="hljs-comment">// 生成 selectnbsend 调用</span><br><br>    <span class="hljs-keyword">case</span> ir.OSELRECV2: <span class="hljs-comment">// 接收操作（带两个返回值）</span><br>        n := n.(*ir.AssignListStmt) <span class="hljs-comment">// 转换为 AssignListStmt</span><br>        recv := n.Rhs[<span class="hljs-number">0</span>].(*ir.UnaryExpr) <span class="hljs-comment">// 获取接收操作</span><br>        ch := recv.X <span class="hljs-comment">// 获取 channel</span><br>        elem := n.Lhs[<span class="hljs-number">0</span>] <span class="hljs-comment">// 获取接收的元素</span><br>        <span class="hljs-keyword">if</span> ir.IsBlank(elem) &#123; <span class="hljs-comment">// 如果元素是空白标识符</span><br>            elem = typecheck.NodNil() <span class="hljs-comment">// 使用 nil</span><br>        &#125;<br>        cond = typecheck.TempAt(base.Pos, ir.CurFunc, types.Types[types.TBOOL]) <span class="hljs-comment">// 创建一个临时变量用于存储接收结果</span><br>        fn := chanfn(<span class="hljs-string">&quot;selectnbrecv&quot;</span>, <span class="hljs-number">2</span>, ch.Type()) <span class="hljs-comment">// 获取 selectnbrecv 函数</span><br>        call := mkcall1(fn, fn.Type().ResultsTuple(), r.PtrInit(), elem, ch) <span class="hljs-comment">// 生成 selectnbrecv 调用</span><br>        as := ir.NewAssignListStmt(r.Pos(), ir.OAS2, []ir.Node&#123;cond, n.Lhs[<span class="hljs-number">1</span>]&#125;, []ir.Node&#123;call&#125;) <span class="hljs-comment">// 生成赋值语句</span><br>        r.PtrInit().Append(typecheck.Stmt(as)) <span class="hljs-comment">// 将赋值语句加入 if 语句的初始化语句</span><br>    &#125;<br><br>    r.Cond = typecheck.Expr(cond) <span class="hljs-comment">// 设置 if 语句的条件</span><br>    r.Body = cas.Body <span class="hljs-comment">// 设置 if 语句的主体</span><br>    r.Else = <span class="hljs-built_in">append</span>(dflt.Init(), dflt.Body...) <span class="hljs-comment">// 设置 else 分支为 default 分支的语句</span><br>    <span class="hljs-keyword">return</span> []ir.Node&#123;r, ir.NewBranchStmt(base.Pos, ir.OBREAK, <span class="hljs-literal">nil</span>)&#125; <span class="hljs-comment">// 返回生成的 if 语句和 break 语句</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="多个-case"><a href="#多个-case" class="headerlink" title="多个 case"></a><strong>多个 case</strong></h3><blockquote>
+<p>基本流程：</p>
+<ol>
+<li>处理 <code>default</code> 分支。</li>
+<li>初始化 <code>select</code> 语句所需的数据结构。</li>
+<li>注册所有 <code>case</code>，设置 <code>select</code> 结构体的字段。</li>
+<li>生成 <code>runtime.selectgo</code> 调用，运行 <code>select</code>。</li>
+<li>根据 <code>chosen</code> 的值分发到对应的 <code>case</code>。</li>
+<li>返回生成的初始化语句列表。</li>
+</ol>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> dflt != <span class="hljs-literal">nil</span> &#123;<br>		ncas-- <span class="hljs-comment">// 如果存在 default 分支，减少 case 的数量</span><br>	&#125;<br>	casorder := <span class="hljs-built_in">make</span>([]*ir.CommClause, ncas) <span class="hljs-comment">// 创建一个切片，用于存储 case 的顺序</span><br>	nsends, nrecvs := <span class="hljs-number">0</span>, <span class="hljs-number">0</span> <span class="hljs-comment">// 初始化发送和接收的计数器</span><br><br>	<span class="hljs-keyword">var</span> init []ir.Node <span class="hljs-comment">// 初始化语句列表</span><br><br>	<span class="hljs-comment">// 生成 select 结构体</span><br>	base.Pos = sellineno <span class="hljs-comment">// 设置当前位置</span><br>	selv := typecheck.TempAt(base.Pos, ir.CurFunc, types.NewArray(scasetype(), <span class="hljs-type">int64</span>(ncas))) <span class="hljs-comment">// 创建一个临时变量，用于存储 select 的结构体</span><br>	init = <span class="hljs-built_in">append</span>(init, typecheck.Stmt(ir.NewAssignStmt(base.Pos, selv, <span class="hljs-literal">nil</span>))) <span class="hljs-comment">// 将 selv 的初始化语句加入 init 列表</span><br><br>	<span class="hljs-comment">// order 不需要初始化，runtime.selectgo 会负责处理</span><br>	order := typecheck.TempAt(base.Pos, ir.CurFunc, types.NewArray(types.Types[types.TUINT16], <span class="hljs-number">2</span>*<span class="hljs-type">int64</span>(ncas))) <span class="hljs-comment">// 创建一个临时变量，用于存储顺序信息</span><br><br>	<span class="hljs-keyword">var</span> pc0, pcs ir.Node<br>	<span class="hljs-keyword">if</span> base.Flag.Race &#123; <span class="hljs-comment">// 如果启用了竞态检测</span><br>		pcs = typecheck.TempAt(base.Pos, ir.CurFunc, types.NewArray(types.Types[types.TUINTPTR], <span class="hljs-type">int64</span>(ncas))) <span class="hljs-comment">// 创建一个临时变量，用于存储程序计数器</span><br>		pc0 = typecheck.Expr(typecheck.NodAddr(ir.NewIndexExpr(base.Pos, pcs, ir.NewInt(base.Pos, <span class="hljs-number">0</span>)))) <span class="hljs-comment">// 获取 pcs 的第一个元素的地址</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		pc0 = typecheck.NodNil() <span class="hljs-comment">// 否则设置为 nil</span><br>	&#125;<br><br>	<span class="hljs-comment">// 注册 case</span><br>	<span class="hljs-keyword">for</span> _, cas := <span class="hljs-keyword">range</span> cases &#123;<br>		ir.SetPos(cas) <span class="hljs-comment">// 设置当前位置为 case 的位置</span><br><br>		init = <span class="hljs-built_in">append</span>(init, ir.TakeInit(cas)...) <span class="hljs-comment">// 将 case 的初始化语句加入 init 列表</span><br><br>		n := cas.Comm<br>		<span class="hljs-keyword">if</span> n == <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果是 default 分支</span><br>			<span class="hljs-keyword">continue</span><br>		&#125;<br><br>		<span class="hljs-keyword">var</span> i <span class="hljs-type">int</span><br>		<span class="hljs-keyword">var</span> c, elem ir.Node<br>		<span class="hljs-keyword">switch</span> n.Op() &#123; <span class="hljs-comment">// 根据操作类型处理</span><br>		<span class="hljs-keyword">default</span>:<br>			base.Fatalf(<span class="hljs-string">&quot;select %v&quot;</span>, n.Op()) <span class="hljs-comment">// 不支持的操作类型，报错</span><br>		<span class="hljs-keyword">case</span> ir.OSEND: <span class="hljs-comment">// 发送操作</span><br>			n := n.(*ir.SendStmt)<br>			i = nsends<br>			nsends++<br>			c = n.Chan <span class="hljs-comment">// 获取 channel</span><br>			elem = n.Value <span class="hljs-comment">// 获取发送的值</span><br>		<span class="hljs-keyword">case</span> ir.OSELRECV2: <span class="hljs-comment">// 接收操作</span><br>			n := n.(*ir.AssignListStmt)<br>			nrecvs++<br>			i = ncas - nrecvs<br>			recv := n.Rhs[<span class="hljs-number">0</span>].(*ir.UnaryExpr)<br>			c = recv.X <span class="hljs-comment">// 获取 channel</span><br>			elem = n.Lhs[<span class="hljs-number">0</span>] <span class="hljs-comment">// 获取接收的变量</span><br>		&#125;<br><br>		casorder[i] = cas <span class="hljs-comment">// 将 case 加入 casorder 切片</span><br><br>		setField := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(f <span class="hljs-type">string</span>, val ir.Node)</span></span> &#123; <span class="hljs-comment">// 定义一个函数，用于设置字段</span><br>			r := ir.NewAssignStmt(base.Pos, ir.NewSelectorExpr(base.Pos, ir.ODOT, ir.NewIndexExpr(base.Pos, selv, ir.NewInt(base.Pos, <span class="hljs-type">int64</span>(i))), typecheck.Lookup(f)), val)<br>			init = <span class="hljs-built_in">append</span>(init, typecheck.Stmt(r)) <span class="hljs-comment">// 将赋值语句加入 init 列表</span><br>		&#125;<br><br>		c = typecheck.ConvNop(c, types.Types[types.TUNSAFEPTR]) <span class="hljs-comment">// 将 channel 转换为 unsafe.Pointer</span><br>		setField(<span class="hljs-string">&quot;c&quot;</span>, c) <span class="hljs-comment">// 设置 channel 字段</span><br>		<span class="hljs-keyword">if</span> !ir.IsBlank(elem) &#123; <span class="hljs-comment">// 如果元素不为空</span><br>			elem = typecheck.ConvNop(elem, types.Types[types.TUNSAFEPTR]) <span class="hljs-comment">// 将元素转换为 unsafe.Pointer</span><br>			setField(<span class="hljs-string">&quot;elem&quot;</span>, elem) <span class="hljs-comment">// 设置元素字段</span><br>		&#125;<br><br>		<span class="hljs-comment">// 处理竞态检测</span><br>		<span class="hljs-keyword">if</span> base.Flag.Race &#123;<br>			r := mkcallstmt(<span class="hljs-string">&quot;selectsetpc&quot;</span>, typecheck.NodAddr(ir.NewIndexExpr(base.Pos, pcs, ir.NewInt(base.Pos, <span class="hljs-type">int64</span>(i))))) <span class="hljs-comment">// 生成 selectsetpc 调用</span><br>			init = <span class="hljs-built_in">append</span>(init, r) <span class="hljs-comment">// 将调用加入 init 列表</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> nsends+nrecvs != ncas &#123; <span class="hljs-comment">// 检查计数是否正确</span><br>		base.Fatalf(<span class="hljs-string">&quot;walkSelectCases: miscount: %v + %v != %v&quot;</span>, nsends, nrecvs, ncas) <span class="hljs-comment">// 如果不正确，报错</span><br>	&#125;<br><br>	<span class="hljs-comment">// 运行 select</span><br>	base.Pos = sellineno <span class="hljs-comment">// 设置当前位置</span><br>	chosen := typecheck.TempAt(base.Pos, ir.CurFunc, types.Types[types.TINT]) <span class="hljs-comment">// 创建一个临时变量，用于存储被选中的 case 索引</span><br>	recvOK := typecheck.TempAt(base.Pos, ir.CurFunc, types.Types[types.TBOOL]) <span class="hljs-comment">// 创建一个临时变量，用于存储接收是否成功</span><br>	r := ir.NewAssignListStmt(base.Pos, ir.OAS2, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>) <span class="hljs-comment">// 创建一个赋值语句</span><br>	r.Lhs = []ir.Node&#123;chosen, recvOK&#125; <span class="hljs-comment">// 设置左值为 chosen 和 recvOK</span><br>	fn := typecheck.LookupRuntime(<span class="hljs-string">&quot;selectgo&quot;</span>) <span class="hljs-comment">// 获取 runtime.selectgo 函数</span><br>	<span class="hljs-keyword">var</span> fnInit ir.Nodes<br>	r.Rhs = []ir.Node&#123;mkcall1(fn, fn.Type().ResultsTuple(), &amp;fnInit, bytePtrToIndex(selv, <span class="hljs-number">0</span>), bytePtrToIndex(order, <span class="hljs-number">0</span>), pc0, ir.NewInt(base.Pos, <span class="hljs-type">int64</span>(nsends)), ir.NewInt(base.Pos, <span class="hljs-type">int64</span>(nrecvs)), ir.NewBool(base.Pos, dflt == <span class="hljs-literal">nil</span>))&#125; <span class="hljs-comment">// 设置右值为 selectgo 调用</span><br>	init = <span class="hljs-built_in">append</span>(init, fnInit...) <span class="hljs-comment">// 将 selectgo 的初始化语句加入 init 列表</span><br>	init = <span class="hljs-built_in">append</span>(init, typecheck.Stmt(r)) <span class="hljs-comment">// 将赋值语句加入 init 列表</span><br><br>	<span class="hljs-comment">// selv, order, 和 pcs（如果启用了竞态检测）在 selectgo 之后不再使用</span><br><br>	<span class="hljs-comment">// 分发 case</span><br>	dispatch := <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(cond ir.Node, cas *ir.CommClause)</span></span> &#123; <span class="hljs-comment">// 定义一个函数，用于分发 case</span><br>		<span class="hljs-keyword">var</span> list ir.Nodes<br><br>		<span class="hljs-keyword">if</span> n := cas.Comm; n != <span class="hljs-literal">nil</span> &amp;&amp; n.Op() == ir.OSELRECV2 &#123; <span class="hljs-comment">// 如果是接收操作</span><br>			n := n.(*ir.AssignListStmt)<br>			<span class="hljs-keyword">if</span> !ir.IsBlank(n.Lhs[<span class="hljs-number">1</span>]) &#123; <span class="hljs-comment">// 如果第二个返回值不为空</span><br>				x := ir.NewAssignStmt(base.Pos, n.Lhs[<span class="hljs-number">1</span>], recvOK) <span class="hljs-comment">// 生成赋值语句</span><br>				list.Append(typecheck.Stmt(x)) <span class="hljs-comment">// 将赋值语句加入列表</span><br>			&#125;<br>		&#125;<br><br>		list.Append(cas.Body.Take()...) <span class="hljs-comment">// 将 case 的主体语句加入列表</span><br>		list.Append(ir.NewBranchStmt(base.Pos, ir.OBREAK, <span class="hljs-literal">nil</span>)) <span class="hljs-comment">// 添加 break 语句</span><br><br>		<span class="hljs-keyword">var</span> r ir.Node<br>		<span class="hljs-keyword">if</span> cond != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果有条件</span><br>			cond = typecheck.Expr(cond) <span class="hljs-comment">// 类型检查条件</span><br>			cond = typecheck.DefaultLit(cond, <span class="hljs-literal">nil</span>) <span class="hljs-comment">// 默认字面量处理</span><br>			r = ir.NewIfStmt(base.Pos, cond, list, <span class="hljs-literal">nil</span>) <span class="hljs-comment">// 生成 if 语句</span><br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			r = ir.NewBlockStmt(base.Pos, list) <span class="hljs-comment">// 生成块语句</span><br>		&#125;<br><br>		init = <span class="hljs-built_in">append</span>(init, r) <span class="hljs-comment">// 将生成的语句加入 init 列表</span><br>	&#125;<br><br>	<span class="hljs-keyword">if</span> dflt != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果有 default 分支</span><br>		ir.SetPos(dflt) <span class="hljs-comment">// 设置当前位置</span><br>		dispatch(ir.NewBinaryExpr(base.Pos, ir.OLT, chosen, ir.NewInt(base.Pos, <span class="hljs-number">0</span>)), dflt) <span class="hljs-comment">// 分发 default 分支</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> i, cas := <span class="hljs-keyword">range</span> casorder &#123; <span class="hljs-comment">// 遍历所有 case</span><br>		ir.SetPos(cas) <span class="hljs-comment">// 设置当前位置</span><br>		<span class="hljs-keyword">if</span> i == <span class="hljs-built_in">len</span>(casorder)<span class="hljs-number">-1</span> &#123; <span class="hljs-comment">// 如果是最后一个 case</span><br>			dispatch(<span class="hljs-literal">nil</span>, cas) <span class="hljs-comment">// 分发最后一个 case</span><br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		dispatch(ir.NewBinaryExpr(base.Pos, ir.OEQ, chosen, ir.NewInt(base.Pos, <span class="hljs-type">int64</span>(i))), cas) <span class="hljs-comment">// 分发当前 case</span><br>	&#125;<br><br>	<span class="hljs-keyword">return</span> init <span class="hljs-comment">// 返回初始化语句列表</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="selectgo"><a href="#selectgo" class="headerlink" title="selectgo"></a>selectgo</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selectgo</span><span class="hljs-params">(cas0 *scase, order0 *<span class="hljs-type">uint16</span>, pc0 *<span class="hljs-type">uintptr</span>, nsends, nrecvs <span class="hljs-type">int</span>, block <span class="hljs-type">bool</span>)</span></span> (<span class="hljs-type">int</span>, <span class="hljs-type">bool</span>) &#123;<br>    ..............<br>	<span class="hljs-comment">// 将 cas0 和 order0 转换为切片，方便操作</span><br>	cas1 := (*[<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">16</span>]scase)(unsafe.Pointer(cas0)) <span class="hljs-comment">// 将 cas0 转换为 scase 数组</span><br>	order1 := (*[<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">17</span>]<span class="hljs-type">uint16</span>)(unsafe.Pointer(order0)) <span class="hljs-comment">// 将 order0 转换为 uint16 数组</span><br><br>	ncases := nsends + nrecvs <span class="hljs-comment">// 总 case 数量</span><br>	scases := cas1[:ncases:ncases] <span class="hljs-comment">// scases 是所有的 case</span><br>	pollorder := order1[:ncases:ncases] <span class="hljs-comment">// pollorder 是用于轮询的顺序</span><br>	lockorder := order1[ncases:][:ncases:ncases] <span class="hljs-comment">// lockorder 是用于加锁的顺序</span><br><br>	.......................<br><br>	<span class="hljs-comment">// 生成轮询顺序</span><br>	norder := <span class="hljs-number">0</span><br>	allSynctest := <span class="hljs-literal">true</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> scases &#123;<br>		cas := &amp;scases[i]<br><br>		<span class="hljs-comment">// 如果 case 的 channel 为空，则跳过</span><br>		<span class="hljs-keyword">if</span> cas.c == <span class="hljs-literal">nil</span> &#123;<br>			cas.elem = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 允许垃圾回收</span><br>			<span class="hljs-keyword">continue</span><br>		&#125;<br><br>		<span class="hljs-comment">// 检查是否是 synctest channel</span><br>		<span class="hljs-keyword">if</span> cas.c.synctest &#123;<br>			<span class="hljs-keyword">if</span> getg().syncGroup == <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-built_in">panic</span>(plainError(<span class="hljs-string">&quot;select on synctest channel from outside bubble&quot;</span>))<br>			&#125;<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			allSynctest = <span class="hljs-literal">false</span><br>		&#125;<br><br>		<span class="hljs-comment">// 如果 channel 有定时器，尝试运行</span><br>		<span class="hljs-keyword">if</span> cas.c.timer != <span class="hljs-literal">nil</span> &#123;<br>			cas.c.timer.maybeRunChan()<br>		&#125;<br><br>		<span class="hljs-comment">// 随机化轮询顺序</span><br>		j := cheaprandn(<span class="hljs-type">uint32</span>(norder + <span class="hljs-number">1</span>))<br>		pollorder[norder] = pollorder[j]<br>		pollorder[j] = <span class="hljs-type">uint16</span>(i)<br>		norder++<br>	&#125;<br>	pollorder = pollorder[:norder]<br>	lockorder = lockorder[:norder]<br><br>	<span class="hljs-comment">// 设置等待原因</span><br>	waitReason := waitReasonSelect<br>	<span class="hljs-keyword">if</span> gp.syncGroup != <span class="hljs-literal">nil</span> &amp;&amp; allSynctest &#123;<br>		waitReason = waitReasonSynctestSelect<br>	&#125;<br><br>	<span class="hljs-comment">// 按照 channel 地址排序，确定加锁顺序</span><br>	<span class="hljs-comment">// 使用堆排序，保证时间复杂度为 O(n log n)</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> lockorder &#123;<br>		j := i<br>		c := scases[pollorder[i]].c<br>		<span class="hljs-keyword">for</span> j &gt; <span class="hljs-number">0</span> &amp;&amp; scases[lockorder[(j<span class="hljs-number">-1</span>)/<span class="hljs-number">2</span>]].c.sortkey() &lt; c.sortkey() &#123;<br>			k := (j - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>			lockorder[j] = lockorder[k]<br>			j = k<br>		&#125;<br>		lockorder[j] = pollorder[i]<br>	&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(lockorder) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>		o := lockorder[i]<br>		c := scases[o].c<br>		lockorder[i] = lockorder[<span class="hljs-number">0</span>]<br>		j := <span class="hljs-number">0</span><br>		<span class="hljs-keyword">for</span> &#123;<br>			k := j*<span class="hljs-number">2</span> + <span class="hljs-number">1</span><br>			<span class="hljs-keyword">if</span> k &gt;= i &#123;<br>				<span class="hljs-keyword">break</span><br>			&#125;<br>			<span class="hljs-keyword">if</span> k+<span class="hljs-number">1</span> &lt; i &amp;&amp; scases[lockorder[k]].c.sortkey() &lt; scases[lockorder[k+<span class="hljs-number">1</span>]].c.sortkey() &#123;<br>				k++<br>			&#125;<br>			<span class="hljs-keyword">if</span> c.sortkey() &lt; scases[lockorder[k]].c.sortkey() &#123;<br>				lockorder[j] = lockorder[k]<br>				j = k<br>				<span class="hljs-keyword">continue</span><br>			&#125;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		lockorder[j] = o<br>	&#125;<br>    ........<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>轮询顺序 pollorder 是通过runtime.fastrandn 函数引入随机性；随机的轮询顺序可以避免 channel 的饥饿问题，保证公平性。加锁顺序 lockorder是按照 channel 的地址排序后确定的加锁顺序，这样能够避免死锁的发生。</p>
+<p><strong>加锁和解锁调用的是sellock()函数和elunlock()函数。</strong></p>
+<h3 id="sellock"><a href="#sellock" class="headerlink" title="sellock()"></a>sellock()</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sellock</span><span class="hljs-params">(scases []scase, lockorder []<span class="hljs-type">uint16</span>)</span></span> &#123;<br>	<span class="hljs-keyword">var</span> c *hchan <span class="hljs-comment">// 用于记录当前加锁的 channel</span><br>	<span class="hljs-keyword">for</span> _, o := <span class="hljs-keyword">range</span> lockorder &#123; <span class="hljs-comment">// 遍历加锁顺序</span><br>		c0 := scases[o].c <span class="hljs-comment">// 获取当前 case 的 channel</span><br>		<span class="hljs-keyword">if</span> c0 != c &#123; <span class="hljs-comment">// 如果当前 channel 与上一个加锁的 channel 不同</span><br>			c = c0 <span class="hljs-comment">// 更新当前 channel</span><br>			lock(&amp;c.lock) <span class="hljs-comment">// 加锁</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="elunlock"><a href="#elunlock" class="headerlink" title="elunlock()"></a>elunlock()</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">selunlock</span><span class="hljs-params">(scases []scase, lockorder []<span class="hljs-type">uint16</span>)</span></span> &#123;<br>	<span class="hljs-comment">// 必须非常小心，确保在解锁最后一个锁后不再访问 sel，</span><br>	<span class="hljs-comment">// 因为在最后一个锁解锁后，sel 可能会被立即释放。</span><br>	<span class="hljs-comment">// 考虑以下情况：</span><br>	<span class="hljs-comment">// 1. M1 在 runtime·selectgo() 中调用 runtime·park() 并传递 sel。</span><br>	<span class="hljs-comment">// 2. 一旦 runtime·park() 解锁了最后一个锁，另一个 M2 可能会使调用 select 的 G 再次变为可运行状态，并调度它执行。</span><br>	<span class="hljs-comment">// 3. 当 G 在另一个 M 上运行时，它会重新加锁并释放 sel。</span><br>	<span class="hljs-comment">// 4. 如果此时 M1 访问 sel，将会访问已释放的内存。</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-built_in">len</span>(lockorder) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123; <span class="hljs-comment">// 逆序遍历加锁顺序</span><br>		c := scases[lockorder[i]].c <span class="hljs-comment">// 获取当前 case 的 channel</span><br>		<span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">0</span> &amp;&amp; c == scases[lockorder[i<span class="hljs-number">-1</span>]].c &#123;<br>			<span class="hljs-keyword">continue</span> <span class="hljs-comment">// 如果当前 channel 与下一个 channel 相同，则跳过，等待下一次迭代解锁</span><br>		&#125;<br>		unlock(&amp;c.lock) <span class="hljs-comment">// 解锁</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="—categories-计算机基础-编程语言-Golang"><a href="#—categories-计算机基础-编程语言-Golang" class="headerlink" title="—categories:- [计算机基础, 编程语言, Golang]"></a>—categories:<br>- [计算机基础, 编程语言, Golang]</h2><p>接下来，是selectgo()函数的主处理逻辑，<strong>它会分三个阶段查找或等待某个channel准备就绪：</strong></p>
+<ol>
+<li>查找是否有可以立即收发的 <code>channel</code>。</li>
+<li>如果没有，将当前 goroutine 加入所有 <code>case</code> 的 <code>channel</code> 的等待队列并挂起。</li>
+<li>被唤醒后，找到被选中的 <code>case</code> 并执行相应的操作。</li>
+</ol>
+<blockquote>
+<p>需要说明的是，<strong>runtime.selectgo 函数会根据不同情况通过 goto 语句跳转到函数内部的不同标签执行相应的逻辑。</strong>其中包括：bufrecv：可以从channel缓冲区读取数据；bufsend：可以向channel缓冲区写入数据；recv：可以从休眠的发送方获取数据；send：可以向休眠的接收方发送数据；rclose：可以从关闭的 channel 读取 EOF；sclose：向关闭的 channel 发送数据；retc：结束调用并返回；</p>
+</blockquote>
+<h2 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h2><p>按照 <code>pollorder</code> 的顺序遍历所有 <code>case</code>，检查是否有 <code>channel</code> 可以立即执行发送或接收操作。</p>
+<ul>
+<li>如果某个 <code>channel</code> 的 <code>sendq</code> 或 <code>recvq</code> 上有等待的 goroutine，或者缓冲区有数据（接收）或空闲空间（发送），则立即执行相应的操作。</li>
+<li>如果找到可以立即执行的 <code>case</code>，跳转到对应的标签（如 <code>recv</code>、<code>send</code>、<code>bufrecv</code>、<code>bufsend</code>）进行处理。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// pass 1 - 检查是否有已经准备好的 channel 操作</span><br><span class="hljs-keyword">var</span> casi <span class="hljs-type">int</span> <span class="hljs-comment">// 当前 case 的索引</span><br><span class="hljs-keyword">var</span> cas *scase <span class="hljs-comment">// 当前 case</span><br><span class="hljs-keyword">var</span> caseSuccess <span class="hljs-type">bool</span> <span class="hljs-comment">// 当前 case 是否成功</span><br><span class="hljs-keyword">var</span> caseReleaseTime <span class="hljs-type">int64</span> = <span class="hljs-number">-1</span> <span class="hljs-comment">// case 释放时间（用于调试或性能分析）</span><br><span class="hljs-keyword">var</span> recvOK <span class="hljs-type">bool</span> <span class="hljs-comment">// 接收操作是否成功</span><br><br><span class="hljs-comment">// 遍历 pollorder 中的 case</span><br><span class="hljs-keyword">for</span> _, casei := <span class="hljs-keyword">range</span> pollorder &#123;<br>	casi = <span class="hljs-type">int</span>(casei) <span class="hljs-comment">// 获取当前 case 的索引</span><br>	cas = &amp;scases[casi] <span class="hljs-comment">// 获取当前 case</span><br>	c = cas.c <span class="hljs-comment">// 获取当前 case 的 channel</span><br><br>	<span class="hljs-keyword">if</span> casi &gt;= nsends &#123; <span class="hljs-comment">// 如果当前 case 是接收操作</span><br>		sg = c.sendq.dequeue() <span class="hljs-comment">// 从 channel 的发送队列中取出一个等待的 goroutine</span><br>		<span class="hljs-keyword">if</span> sg != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果有等待的发送者</span><br>			<span class="hljs-keyword">goto</span> recv <span class="hljs-comment">// 跳转到接收处理逻辑</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> c.qcount &gt; <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 如果 channel 的缓冲区有数据</span><br>			<span class="hljs-keyword">goto</span> bufrecv <span class="hljs-comment">// 跳转到缓冲区接收逻辑</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> c.closed != <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 如果 channel 已关闭</span><br>			<span class="hljs-keyword">goto</span> rclose <span class="hljs-comment">// 跳转到关闭 channel 的接收逻辑</span><br>		&#125;<br>	&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 如果当前 case 是发送操作</span><br>		<span class="hljs-keyword">if</span> raceenabled &#123; <span class="hljs-comment">// 如果启用了竞态检测</span><br>			racereadpc(c.raceaddr(), casePC(casi), chansendpc) <span class="hljs-comment">// 记录竞态检测信息</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> c.closed != <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 如果 channel 已关闭</span><br>			<span class="hljs-keyword">goto</span> sclose <span class="hljs-comment">// 跳转到关闭 channel 的发送逻辑</span><br>		&#125;<br>		sg = c.recvq.dequeue() <span class="hljs-comment">// 从 channel 的接收队列中取出一个等待的 goroutine</span><br>		<span class="hljs-keyword">if</span> sg != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果有等待的接收者</span><br>			<span class="hljs-keyword">goto</span> send <span class="hljs-comment">// 跳转到发送处理逻辑</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> c.qcount &lt; c.dataqsiz &#123; <span class="hljs-comment">// 如果 channel 的缓冲区未满</span><br>			<span class="hljs-keyword">goto</span> bufsend <span class="hljs-comment">// 跳转到缓冲区发送逻辑</span><br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 如果没有找到可以立即执行的 case，并且 select 是非阻塞的</span><br><span class="hljs-keyword">if</span> !block &#123;<br>	selunlock(scases, lockorder) <span class="hljs-comment">// 解锁所有 channel</span><br>	casi = <span class="hljs-number">-1</span> <span class="hljs-comment">// 设置 case 索引为 -1，表示没有 case 被执行</span><br>	<span class="hljs-keyword">goto</span> retc <span class="hljs-comment">// 跳转到返回逻辑</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h2><p>如果没有 <code>channel</code> 可以立即执行操作，将当前 goroutine 加入所有 <code>case</code> 对应的 <code>channel</code> 的发送队列（<code>sendq</code>）或接收队列（<code>recvq</code>），并挂起当前 goroutine，等待被唤醒。</p>
+<ul>
+<li>为每个 <code>case</code> 创建一个 <code>sudog</code>，并将其加入对应 <code>channel</code> 的等待队列。</li>
+<li>调用 <code>gopark</code> 挂起当前 goroutine，等待其他 goroutine 的唤醒。</li>
+</ul>
+<p><img src="https://s2.loli.net/2025/03/15/dpaoHntVvNYCUch.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">//pass 1 - 将当前goroutine根据需要挂在chan的sendq和recvq上</span><br><span class="hljs-comment">// 检查当前 goroutine 是否已经在等待</span><br><span class="hljs-keyword">if</span> gp.waiting != <span class="hljs-literal">nil</span> &#123;<br>	throw(<span class="hljs-string">&quot;gp.waiting != nil&quot;</span>) <span class="hljs-comment">// 如果已经在等待，抛出异常</span><br>&#125;<br><br><span class="hljs-comment">// 初始化等待队列</span><br>nextp = &amp;gp.waiting <span class="hljs-comment">// nextp 指向当前 goroutine 的 waiting 字段</span><br><br><span class="hljs-comment">// 遍历 lockorder 中的 case</span><br><span class="hljs-keyword">for</span> _, casei := <span class="hljs-keyword">range</span> lockorder &#123;<br>	casi = <span class="hljs-type">int</span>(casei) <span class="hljs-comment">// 获取当前 case 的索引</span><br>	cas = &amp;scases[casi] <span class="hljs-comment">// 获取当前 case</span><br>	c = cas.c <span class="hljs-comment">// 获取当前 case 的 channel</span><br><br>	<span class="hljs-comment">// 创建一个 sudog 结构体，表示当前 goroutine 的等待状态</span><br>	sg := acquireSudog()<br>	sg.g = gp <span class="hljs-comment">// 设置 sudog 的 goroutine 为当前 goroutine</span><br>	sg.isSelect = <span class="hljs-literal">true</span> <span class="hljs-comment">// 标记这是一个 select 操作</span><br>	sg.elem = cas.elem <span class="hljs-comment">// 设置 sudog 的元素为当前 case 的元素</span><br>	sg.releasetime = <span class="hljs-number">0</span> <span class="hljs-comment">// 初始化释放时间为 0</span><br>	<span class="hljs-keyword">if</span> t0 != <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 如果启用了阻塞分析</span><br>		sg.releasetime = <span class="hljs-number">-1</span> <span class="hljs-comment">// 设置释放时间为 -1，表示需要记录时间</span><br>	&#125;<br>	sg.c = c <span class="hljs-comment">// 设置 sudog 的 channel 为当前 case 的 channel</span><br><br>	<span class="hljs-comment">// 将 sudog 加入当前 goroutine 的等待队列</span><br>	*nextp = sg<br>	nextp = &amp;sg.waitlink<br><br>	<span class="hljs-comment">// 将 sudog 加入 channel 的等待队列</span><br>	<span class="hljs-keyword">if</span> casi &lt; nsends &#123; <span class="hljs-comment">// 如果当前 case 是发送操作</span><br>		c.sendq.enqueue(sg) <span class="hljs-comment">// 加入 channel 的发送队列</span><br>	&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 如果当前 case 是接收操作</span><br>		c.recvq.enqueue(sg) <span class="hljs-comment">// 加入 channel 的接收队列</span><br>	&#125;<br><br>	<span class="hljs-comment">// 如果 channel 有定时器，阻塞定时器</span><br>	<span class="hljs-keyword">if</span> c.timer != <span class="hljs-literal">nil</span> &#123;<br>		blockTimerChan(c)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 等待被唤醒</span><br>gp.param = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 重置 goroutine 的参数</span><br><br><span class="hljs-comment">// 通知尝试缩小栈的 goroutine，当前 goroutine 即将在 channel 上挂起</span><br>gp.parkingOnChan.Store(<span class="hljs-literal">true</span>)<br><br><span class="hljs-comment">// 挂起当前 goroutine</span><br>gopark(selparkcommit, <span class="hljs-literal">nil</span>, waitReason, traceBlockSelect, <span class="hljs-number">1</span>)<br><br><span class="hljs-comment">// 标记当前 goroutine 不再在 channel 上挂起</span><br>gp.activeStackChans = <span class="hljs-literal">false</span><br><br><span class="hljs-comment">// 重新加锁</span><br>sellock(scases, lockorder)<br><br><span class="hljs-comment">// 重置 selectDone 标志</span><br>gp.selectDone.Store(<span class="hljs-number">0</span>)<br><br><span class="hljs-comment">// 获取唤醒当前 goroutine 的 sudog</span><br>sg = (*sudog)(gp.param)<br>gp.param = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 重置 goroutine 的参数</span><br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">select</span> &#123;<br>    <span class="hljs-keyword">case</span> ch1 &lt;- <span class="hljs-number">1</span>:<br>        fmt.Println(<span class="hljs-string">&quot;Sent to ch1&quot;</span>)<br>    <span class="hljs-keyword">case</span> val := &lt;-ch2:<br>        fmt.Println(<span class="hljs-string">&quot;Received from ch2:&quot;</span>, val)<br>    &#125;<br>&#125;()<br></code></pre></td></tr></table></figure>
+
+<p><strong><code>sudog</code> 的作用</strong>：</p>
+<p><code>sudog</code> 是 Go 运行时中用于表示一个 goroutine 在某个 <code>channel</code> 上的等待状态的结构体。它包含以下关键字段：</p>
+<ul>
+<li><code>g</code>：绑定的 goroutine。</li>
+<li><code>c</code>：绑定的 <code>channel</code>。</li>
+<li><code>elem</code>：发送或接收的数据。</li>
+<li><code>isSelect</code>：标记是否与 <code>select</code> 语句相关。</li>
+<li><code>waitlink</code>：指向下一个 <code>sudog</code>，用于构建链表。</li>
+</ul>
+<p>在这个例子中，<code>select</code> 语句所在的 goroutine 就是前文的“当前 goroutine”。在第二阶段，<code>selectgo</code> 会为每个 <code>case</code> 创建一个 <code>sudog</code>，并将这些 <code>sudog</code> 加入对应 <code>channel</code> 的等待队列（<code>sendq</code> 或 <code>recvq</code>）。这些 <code>sudog</code> 都绑定到<strong>同一个 goroutine</strong>（即当前 goroutine），而不是为每个 <code>case</code> 创建一个新的 goroutine。【多路复用的体现】</p>
+<h2 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h2><p>当前 goroutine 被唤醒后，找到被选中的 <code>case</code>，并执行相应的操作。</p>
+<ul>
+<li>遍历所有 <code>case</code>，找到被选中的 <code>case</code>（即唤醒当前 goroutine 的 <code>channel</code>）。</li>
+<li>根据 <code>case</code> 的类型（发送或接收），执行相应的操作。</li>
+<li>清理未选中的 <code>case</code>，释放资源。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// pass 3 - 从未成功的 channel 中移除等待状态</span><br><span class="hljs-comment">// 否则它们会堆积在空闲的 channel 上</span><br><span class="hljs-comment">// 记录成功的 case（如果有）</span><br><span class="hljs-comment">// 我们按加锁顺序将 SudoGs 单链表连接起来</span><br>casi = <span class="hljs-number">-1</span> <span class="hljs-comment">// 初始化 case 索引为 -1</span><br>cas = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 初始化 case 为 nil</span><br>caseSuccess = <span class="hljs-literal">false</span> <span class="hljs-comment">// 初始化 case 成功标志为 false</span><br>sglist = gp.waiting <span class="hljs-comment">// 获取当前 goroutine 的等待队列</span><br><br><span class="hljs-comment">// 在从 gp.waiting 中移除之前，清除所有 elem</span><br><span class="hljs-keyword">for</span> sg1 := gp.waiting; sg1 != <span class="hljs-literal">nil</span>; sg1 = sg1.waitlink &#123;<br>	sg1.isSelect = <span class="hljs-literal">false</span> <span class="hljs-comment">// 标记 sudog 不是 select 操作</span><br>	sg1.elem = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 清除 sudog 的元素</span><br>	sg1.c = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 清除 sudog 的 channel</span><br>&#125;<br>gp.waiting = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 清空当前 goroutine 的等待队列</span><br><br><span class="hljs-comment">// 遍历 lockorder 中的 case</span><br><span class="hljs-keyword">for</span> _, casei := <span class="hljs-keyword">range</span> lockorder &#123;<br>	k = &amp;scases[casei] <span class="hljs-comment">// 获取当前 case</span><br>	<span class="hljs-keyword">if</span> k.c.timer != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果 channel 有定时器</span><br>		unblockTimerChan(k.c) <span class="hljs-comment">// 解除定时器的阻塞</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> sg == sglist &#123; <span class="hljs-comment">// 如果当前 sudog 是被选中的 sudog</span><br>		<span class="hljs-comment">// sg 已经被唤醒我们的 goroutine 移除</span><br>		casi = <span class="hljs-type">int</span>(casei) <span class="hljs-comment">// 记录被选中的 case 索引</span><br>		cas = k <span class="hljs-comment">// 记录被选中的 case</span><br>		caseSuccess = sglist.success <span class="hljs-comment">// 记录 case 是否成功</span><br>		<span class="hljs-keyword">if</span> sglist.releasetime &gt; <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 如果启用了阻塞分析</span><br>			caseReleaseTime = sglist.releasetime <span class="hljs-comment">// 记录释放时间</span><br>		&#125;<br>	&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 如果当前 sudog 不是被选中的 sudog</span><br>		c = k.c<br>		<span class="hljs-keyword">if</span> <span class="hljs-type">int</span>(casei) &lt; nsends &#123; <span class="hljs-comment">// 如果当前 case 是发送操作</span><br>			c.sendq.dequeueSudoG(sglist) <span class="hljs-comment">// 从 channel 的发送队列中移除 sudog</span><br>		&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 如果当前 case 是接收操作</span><br>			c.recvq.dequeueSudoG(sglist) <span class="hljs-comment">// 从 channel 的接收队列中移除 sudog</span><br>		&#125;<br>	&#125;<br>	sgnext = sglist.waitlink <span class="hljs-comment">// 获取下一个 sudog</span><br>	sglist.waitlink = <span class="hljs-literal">nil</span> <span class="hljs-comment">// 清除当前 sudog 的等待链接</span><br>	releaseSudog(sglist) <span class="hljs-comment">// 释放当前 sudog</span><br>	sglist = sgnext <span class="hljs-comment">// 移动到下一个 sudog</span><br>&#125;<br><br><span class="hljs-comment">// 如果没有找到被选中的 case，抛出异常</span><br><span class="hljs-keyword">if</span> cas == <span class="hljs-literal">nil</span> &#123;<br>	throw(<span class="hljs-string">&quot;selectgo: bad wakeup&quot;</span>)<br>&#125;<br><br>c = cas.c <span class="hljs-comment">// 获取被选中的 channel</span><br><br><span class="hljs-keyword">if</span> debugSelect &#123; <span class="hljs-comment">// 调试信息</span><br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;wait-return: cas0=&quot;</span>, cas0, <span class="hljs-string">&quot; c=&quot;</span>, c, <span class="hljs-string">&quot; cas=&quot;</span>, cas, <span class="hljs-string">&quot; send=&quot;</span>, casi &lt; nsends, <span class="hljs-string">&quot;\n&quot;</span>)<br>&#125;<br><br><span class="hljs-comment">// 处理被选中的 case</span><br><span class="hljs-keyword">if</span> casi &lt; nsends &#123; <span class="hljs-comment">// 如果被选中的 case 是发送操作</span><br>	<span class="hljs-keyword">if</span> !caseSuccess &#123; <span class="hljs-comment">// 如果发送失败</span><br>		<span class="hljs-keyword">goto</span> sclose <span class="hljs-comment">// 跳转到关闭 channel 的发送逻辑</span><br>	&#125;<br>&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 如果被选中的 case 是接收操作</span><br>	recvOK = caseSuccess <span class="hljs-comment">// 记录接收是否成功</span><br>&#125;<br><br><span class="hljs-comment">// 竞态检测</span><br><span class="hljs-keyword">if</span> raceenabled &#123;<br>	<span class="hljs-keyword">if</span> casi &lt; nsends &#123; <span class="hljs-comment">// 如果是发送操作</span><br>		raceReadObjectPC(c.elemtype, cas.elem, casePC(casi), chansendpc)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> cas.elem != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果是接收操作且元素不为空</span><br>		raceWriteObjectPC(c.elemtype, cas.elem, casePC(casi), chanrecvpc)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 内存清理</span><br><span class="hljs-keyword">if</span> msanenabled &#123;<br>	<span class="hljs-keyword">if</span> casi &lt; nsends &#123; <span class="hljs-comment">// 如果是发送操作</span><br>		msanread(cas.elem, c.elemtype.Size_)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> cas.elem != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果是接收操作且元素不为空</span><br>		msanwrite(cas.elem, c.elemtype.Size_)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 地址清理</span><br><span class="hljs-keyword">if</span> asanenabled &#123;<br>	<span class="hljs-keyword">if</span> casi &lt; nsends &#123; <span class="hljs-comment">// 如果是发送操作</span><br>		asanread(cas.elem, c.elemtype.Size_)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> cas.elem != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 如果是接收操作且元素不为空</span><br>		asanwrite(cas.elem, c.elemtype.Size_)<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 解锁所有 channel</span><br>selunlock(scases, lockorder)<br><br><span class="hljs-comment">// 跳转到返回逻辑</span><br><span class="hljs-keyword">goto</span> retc<br></code></pre></td></tr></table></figure>
+
+<p><strong>selectgo函数的执行分为四个步骤</strong>：首先，随机生成一个遍历case的轮询顺序 pollorder 并根据 channel 地址生成加锁顺序 lockorder，<strong>随机顺序能够避免channel饥饿，保证公平性，加锁顺序能够避免死锁和重复加锁</strong>；然后，根据 pollorder 的顺序查找 scases 是否有可以立即收发的channel，如果有则获取case索引进行处理；再次，如果pollorder顺序上没有可以直接处理的case，则将当前 goroutine 加入各 case 的 channel 对应的收发队列上并等待其他 goroutine 的唤醒；最后，当调度器唤醒当前 goroutine 时，会再次按照 lockorder 遍历所有的case，从中查找需要被处理的case索引进行读写处理，同时从所有case的发送接收队列中移除掉当前goroutine。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/" class="category-chain-item">Golang</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>select机制</div>
+      <div>http://example.com/2023/10/12/计算机基础/编程语言/Golang/select/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/goroutine%E4%B8%8EScheduler/" title="goroutine与Scheduler">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">goroutine与Scheduler</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rabbitmq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E3%80%90%E7%AC%AC%E4%B8%80%E5%A4%A9%E3%80%91/" title="rabbitmq使用">
+                        <span class="hidden-mobile">rabbitmq使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

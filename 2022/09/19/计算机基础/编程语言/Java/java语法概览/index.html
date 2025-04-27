@@ -1,0 +1,1361 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文仅是由于自己经常多语言开发，对于一些语言时常不用感到陌生或者使用中同其他语言用法混淆，故作此文，仅为自己提供一个java语言使用的知识体系。  数据类型在 Java 中，数据类型可以分为两大类：基本数据类型和 引用数据类型 1. 基本数据类型Java 的基本数据类型是由 Java 提供的基本类型，不是对象类型。它们的存储方式是直接的，不会存储指向其他对象的引用。    数据类型 大小 默认值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA语法概览">
+<meta property="og:url" content="http://example.com/2022/09/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Java/java%E8%AF%AD%E6%B3%95%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="本文仅是由于自己经常多语言开发，对于一些语言时常不用感到陌生或者使用中同其他语言用法混淆，故作此文，仅为自己提供一个java语言使用的知识体系。  数据类型在 Java 中，数据类型可以分为两大类：基本数据类型和 引用数据类型 1. 基本数据类型Java 的基本数据类型是由 Java 提供的基本类型，不是对象类型。它们的存储方式是直接的，不会存储指向其他对象的引用。    数据类型 大小 默认值">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/27/dtbHo15zarR9YAG.png">
+<meta property="article:published_time" content="2022-09-19T04:56:11.000Z">
+<meta property="article:modified_time" content="2025-04-27T06:58:58.290Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/27/dtbHo15zarR9YAG.png">
+  
+  
+  
+  <title>JAVA语法概览 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JAVA语法概览"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-19 12:56" pubdate>
+          2022年9月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          81 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">JAVA语法概览</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>本文仅是由于自己经常多语言开发，对于一些语言时常不用感到陌生或者使用中同其他语言用法混淆，故作此文，仅为自己提供一个java语言使用的知识体系。</p>
+</blockquote>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>在 Java 中，数据类型可以分为两大类：<strong>基本数据类型</strong>和 <strong>引用数据类型</strong></p>
+<h2 id="1-基本数据类型"><a href="#1-基本数据类型" class="headerlink" title="1. 基本数据类型"></a>1. <strong>基本数据类型</strong></h2><p>Java 的基本数据类型是由 Java 提供的基本类型，不是对象类型。它们的存储方式是直接的，不会存储指向其他对象的引用。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>大小</th>
+<th>默认值</th>
+<th>范围&#x2F;说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>byte</code></td>
+<td>1 byte</td>
+<td>0</td>
+<td>-128 到 127</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>2 bytes</td>
+<td>0</td>
+<td>-32,768 到 32,767</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>4 bytes</td>
+<td>0</td>
+<td>-2^31 到 2^31 - 1</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>8 bytes</td>
+<td>0L</td>
+<td>-2^63 到 2^63 - 1</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>4 bytes</td>
+<td>0.0f</td>
+<td>32 位单精度浮动数（可以表示较大的数值）</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>8 bytes</td>
+<td>0.0d</td>
+<td>64 位双精度浮动数（精度较高）</td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td>2 bytes</td>
+<td>‘\u0000’</td>
+<td>单一字符（0 到 65535，表示 Unicode 字符）</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td>1 byte</td>
+<td>false</td>
+<td>仅有两种值：<code>true</code> 或 <code>false</code></td>
+</tr>
+</tbody></table>
+<h2 id="2-引用数据类型"><a href="#2-引用数据类型" class="headerlink" title="2. 引用数据类型"></a>2. <strong>引用数据类型</strong></h2><p>引用数据类型是指通过引用来访问对象的类型。引用数据类型包括 <strong>类</strong>、<strong>接口</strong>、<strong>数组</strong> 等，它们的变量存储的是对实际数据对象的引用（地址），而不是数据本身。</p>
+<h3 id="常见引用数据类型"><a href="#常见引用数据类型" class="headerlink" title="常见引用数据类型"></a>常见引用数据类型</h3><ul>
+<li><strong>类</strong>（Class）：定义对象的蓝图（类），如 <code>String</code>, <code>Scanner</code>, <code>ArrayList</code> 等。</li>
+<li><strong>接口</strong>（Interface）：定义一组方法供实现类去实现。</li>
+<li><strong>数组</strong>（Array）：存储相同类型元素的集合。</li>
+</ul>
+<h3 id="基本数据类型和引用数据类型的区别"><a href="#基本数据类型和引用数据类型的区别" class="headerlink" title="基本数据类型和引用数据类型的区别"></a><strong>基本数据类型和引用数据类型的区别</strong></h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>基本数据类型</th>
+<th>引用数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存储方式</td>
+<td>直接存储值</td>
+<td>存储引用（地址）</td>
+</tr>
+<tr>
+<td>默认值</td>
+<td>每种类型有固定的默认值</td>
+<td>默认值是 <code>null</code></td>
+</tr>
+<tr>
+<td>内存分配</td>
+<td>栈内存（直接存储值）</td>
+<td>堆内存（存储对象）</td>
+</tr>
+<tr>
+<td>示例</td>
+<td><code>int</code>, <code>char</code>, <code>float</code>, <code>boolean</code></td>
+<td><code>String</code>, <code>Array</code>, <code>Class</code></td>
+</tr>
+</tbody></table>
+<h3 id="自动装箱与拆箱"><a href="#自动装箱与拆箱" class="headerlink" title="自动装箱与拆箱"></a><strong>自动装箱与拆箱</strong></h3><p>Java 提供了自动装箱和拆箱的机制，使得基本数据类型和它们的包装类（例如 <code>Integer</code>, <code>Character</code>, <code>Double</code> 等）之间能够相互转换。</p>
+<ul>
+<li><strong>自动装箱</strong>：将基本数据类型转换为对应的包装类对象（如 <code>int</code> 转为 <code>Integer</code>）。</li>
+<li><strong>拆箱</strong>：将包装类对象转换为基本数据类型（如 <code>Integer</code> 转为 <code>int</code>）。</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>Java 中没有 <code>struct</code> 这种数据类型。但是可以通过其他方式实现类似的功能，主要是通过 <strong>类（class）</strong> 和 <strong>对象</strong>。</p>
+<h4 id="1-使用类（class）"><a href="#1-使用类（class）" class="headerlink" title="1. 使用类（class）"></a>1. <strong>使用类（class）</strong></h4><p>在 Java 中，可以使用 <code>class</code> 来组织和封装数据。类可以包含不同类型的字段和方法，类似于 C&#x2F;C++ 中的 <code>struct</code>。不过，与 <code>struct</code> 不同的是，Java 的 <code>class</code> 还可以定义方法和行为。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> &#123;<br>    <span class="hljs-type">int</span> x;<br>    <span class="hljs-type">int</span> y;<br>    <br>    <span class="hljs-comment">// 构造方法</span><br>    Point(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y) &#123;<br>        <span class="hljs-built_in">this</span>.x = x;<br>        <span class="hljs-built_in">this</span>.y = y;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 方法可以在类中定义</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">print</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;x: &quot;</span> + x + <span class="hljs-string">&quot;, y: &quot;</span> + y);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Point</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>);<br>        p.print();  <span class="hljs-comment">// 输出: x: 10, y: 20</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>Point</code> 类类似于 C&#x2F;C++ 中的 <code>struct</code>，用于存储 <code>x</code> 和 <code>y</code> 两个字段。不同的是，Java 中的 <code>class</code> 可以有构造函数、方法、继承等特性，而 <code>struct</code> 只是一个简单的数据存储结构。</p>
+<h4 id="2-匿名类（仅存储数据，类似简单结构体）"><a href="#2-匿名类（仅存储数据，类似简单结构体）" class="headerlink" title="2. 匿名类（仅存储数据，类似简单结构体）"></a>2. <strong>匿名类</strong>（仅存储数据，类似简单结构体）</h4><p>Java 也允许使用匿名类来实现类似 <code>struct</code> 的效果，特别是当你需要一个只包含数据的简单对象时：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 使用匿名类表示一个简单的结构体</span><br>        <span class="hljs-type">Object</span> <span class="hljs-variable">point</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>() &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> <span class="hljs-number">20</span>;<br>        &#125;;<br>        <br>        System.out.println(<span class="hljs-string">&quot;x: &quot;</span> + point.x + <span class="hljs-string">&quot;, y: &quot;</span> + point.y);  <span class="hljs-comment">// x: 10, y: 20</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不过，这种方式在实际开发中并不常见，通常使用普通类来封装数据。</p>
+<h1 id="数据结构的封装"><a href="#数据结构的封装" class="headerlink" title="数据结构的封装"></a>数据结构的封装</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_67322837/article/details/124322953">Java集合框架最全详解(看这篇就够了)_java 集合框架-CSDN博客</a></p>
+<p>在 Java 中，类似于 C++ 的 STL（标准模板库），提供了一系列<strong>封装好的数据结构</strong>和<strong>算法</strong>，这包括像 <code>HashMap</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>HashSet</code> 等常见的容器类。Java 的集合框架提供了这些常用的数据结构的实现，它们都位于 <code>java.util</code> 包中。</p>
+<p><img src="https://s2.loli.net/2024/12/27/dtbHo15zarR9YAG.png" srcset="/img/loading.gif" lazyload alt="6dd69077f31574ee88c9ca2944178f2d"></p>
+<table>
+<thead>
+<tr>
+<th><strong>数据结构</strong></th>
+<th><strong>基本使用</strong></th>
+<th><strong>底层实现结构</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>ArrayList</code></strong></td>
+<td>存储元素并提供按索引访问，支持动态数组，允许重复元素。常用于需要频繁随机访问的场景。</td>
+<td>动态数组（<code>Object[]</code>）</td>
+</tr>
+<tr>
+<td><strong><code>LinkedList</code></strong></td>
+<td>实现 <code>List</code> 和 <code>Queue</code> 接口，用于存储元素的链表，支持插入和删除操作。</td>
+<td>双向链表（<code>Node</code> 对象，包含指向前后元素的指针）</td>
+</tr>
+<tr>
+<td><strong><code>HashMap</code></strong></td>
+<td>存储键值对映射，允许 <code>null</code> 键和值，元素无序，支持快速查找。</td>
+<td>哈希表（<code>Node[]</code> 数组，链式哈希冲突解决）</td>
+</tr>
+<tr>
+<td><strong><code>TreeMap</code></strong></td>
+<td>存储键值对映射，按键有序排列，支持 <code>Comparator</code> 定制排序。</td>
+<td>红黑树（<code>Red-Black Tree</code>）</td>
+</tr>
+<tr>
+<td><strong><code>HashSet</code></strong></td>
+<td>存储唯一的元素，允许 <code>null</code>，不保证元素顺序。</td>
+<td>哈希表（基于 <code>HashMap</code>）</td>
+</tr>
+<tr>
+<td><strong><code>LinkedHashSet</code></strong></td>
+<td>存储唯一的元素，保持插入顺序，允许 <code>null</code>。</td>
+<td>双向链表 + 哈希表（<code>HashMap</code> + 链表）</td>
+</tr>
+<tr>
+<td><strong><code>TreeSet</code></strong></td>
+<td>存储唯一的元素，按自然顺序排序，或根据提供的 <code>Comparator</code> 排序。</td>
+<td>红黑树（<code>Red-Black Tree</code>）</td>
+</tr>
+<tr>
+<td><strong><code>PriorityQueue</code></strong></td>
+<td>存储具有优先级的元素，按照优先级进行排序。</td>
+<td>堆（通常是二叉堆）</td>
+</tr>
+<tr>
+<td><strong><code>ArrayDeque</code></strong></td>
+<td>实现 <code>Deque</code> 接口，用作双端队列，支持在两端快速插入和删除元素。</td>
+<td>动态数组（<code>Object[]</code>）</td>
+</tr>
+<tr>
+<td><strong><code>LinkedList</code></strong></td>
+<td>实现 <code>Deque</code> 接口，用作双端队列，也可以作为栈或队列使用。</td>
+<td>双向链表（<code>Node</code> 对象）</td>
+</tr>
+<tr>
+<td><strong><code>Stack</code></strong></td>
+<td>提供先进后出的栈（LIFO）结构，通常用于递归、深度优先搜索等场景。</td>
+<td>数组或链表（继承自 <code>Vector</code>）</td>
+</tr>
+<tr>
+<td><strong><code>Vector</code></strong></td>
+<td>类似于 <code>ArrayList</code>，但它是线程安全的，适用于多线程场景。</td>
+<td>动态数组（<code>Object[]</code>）</td>
+</tr>
+<tr>
+<td><strong><code>EnumSet</code></strong></td>
+<td>用于枚举类型的集合，提供高效的实现，适用于枚举类型的存储和操作。</td>
+<td>位向量（<code>Bit vector</code>）</td>
+</tr>
+<tr>
+<td><strong><code>EnumMap</code></strong></td>
+<td>用于枚举键的映射，提供高效的 <code>Map</code> 实现。</td>
+<td>数组（<code>Enum[]</code>）</td>
+</tr>
+</tbody></table>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45395059/article/details/126006369">Java 中的泛型（两万字超全详解）_java 泛型-CSDN博客</a></p>
+<blockquote>
+<p><strong>泛型（Generics）</strong> 是一种允许在类、接口、方法定义时不指定具体数据类型，而是使用类型参数来表示的机制。泛型的主要目的是让代码更加灵活和类型安全，同时减少冗余的类型转换和增强代码的重用性。</p>
+</blockquote>
+<p>在 Java 中，泛型广泛应用于集合框架（如 <code>List&lt;T&gt;</code>、<code>Map&lt;K, V&gt;</code>）和其他类库，它允许开发者在编写代码时使用类型参数来替代具体类型，使得同一段代码可以处理不同类型的数据，而无需对每种类型编写重复的代码。</p>
+<h3 id="泛型的基本概念"><a href="#泛型的基本概念" class="headerlink" title="泛型的基本概念"></a>泛型的基本概念</h3><ol>
+<li><strong>类型参数化</strong>：通过泛型，代码可以在编译时绑定类型参数。开发者可以指定类型，在运行时通过传递不同的类型参数来实现相同的逻辑。</li>
+<li><strong>类型安全</strong>：泛型使得类型信息在编译时得到检查，从而避免了常见的类型转换错误，例如将 <code>Object</code> 类型转换为不兼容的类型。</li>
+</ol>
+<h3 id="泛型的基本语法"><a href="#泛型的基本语法" class="headerlink" title="泛型的基本语法"></a>泛型的基本语法</h3><p>在 Java 中，泛型通常用于以下三种情形：</p>
+<ol>
+<li><p><strong>泛型类</strong></p>
+<ul>
+<li>在类定义时，使用尖括号（<code>&lt;&gt;</code>）来声明类型参数。例如：<code>List&lt;T&gt;</code>、<code>Map&lt;K, V&gt;</code>。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span>&lt;T&gt; &#123;<br>    <span class="hljs-keyword">private</span> T value;<br><br>    <span class="hljs-keyword">public</span> T <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> value;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setValue</span><span class="hljs-params">(T value)</span> &#123;<br>        <span class="hljs-built_in">this</span>.value = value;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里，<code>T</code> 是类型参数，<code>Box&lt;T&gt;</code> 表示可以存储任意类型的数据（例如 <code>Box&lt;Integer&gt;</code>、<code>Box&lt;String&gt;</code>）。</p>
+</li>
+<li><p><strong>泛型方法</strong></p>
+<ul>
+<li>可以在方法的返回类型前面声明类型参数，以实现方法的泛型功能。例如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-keyword">void</span> <span class="hljs-title function_">printArray</span><span class="hljs-params">(T[] array)</span> &#123;<br>    <span class="hljs-keyword">for</span> (T element : array) &#123;<br>        System.out.println(element);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个方法可以接受任何类型的数组并打印数组内容。</p>
+</li>
+<li><p><strong>泛型接口</strong></p>
+<ul>
+<li>可以为接口声明泛型，从而使得接口的实现类可以根据具体类型进行选择。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparable</span>&lt;T&gt; &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(T other)</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="泛型的类型参数"><a href="#泛型的类型参数" class="headerlink" title="泛型的类型参数"></a>泛型的类型参数</h3><p>在 Java 中，泛型可以有多个类型参数，通常由一个或多个字母表示。常见的字母表示如下：</p>
+<ul>
+<li><code>T</code>（Type）：表示某种类型，通常用于类、接口或方法中。</li>
+<li><code>E</code>（Element）：表示集合中的元素类型。</li>
+<li><code>K</code>（Key）：表示 <code>Map</code> 中的键类型。</li>
+<li><code>V</code>（Value）：表示 <code>Map</code> 中的值类型。</li>
+<li><code>N</code>（Number）：表示数字类型。</li>
+<li><code>S</code>、<code>U</code>、<code>V</code> 等：通常用于表示多个不同的类型参数。</li>
+</ul>
+<h3 id="泛型的限制（泛型的通配符）"><a href="#泛型的限制（泛型的通配符）" class="headerlink" title="泛型的限制（泛型的通配符）"></a>泛型的限制（泛型的通配符）</h3><p>Java 泛型具有一些限制和特性，特别是“通配符”（Wildcard）机制，它允许在泛型中使用 <code>?</code> 来表示不指定具体类型。</p>
+<ol>
+<li><p>**<code>? extends T</code>**：表示类型为 <code>T</code> 或 <code>T</code> 的子类型。</p>
+<ul>
+<li>用于限定泛型只能是某个类型或其子类型的实例。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printNumbers</span><span class="hljs-params">(List&lt;? extends Number&gt; list)</span> &#123;<br>    <span class="hljs-keyword">for</span> (Number num : list) &#123;<br>        System.out.println(num);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>? super T</code>**：表示类型为 <code>T</code> 或 <code>T</code> 的父类型。</p>
+<ul>
+<li>用于限定泛型只能是某个类型或其父类型的实例。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addNumbers</span><span class="hljs-params">(List&lt;? <span class="hljs-built_in">super</span> Integer&gt; list)</span> &#123;<br>    list.add(<span class="hljs-number">10</span>);  <span class="hljs-comment">// 允许添加 Integer 类型或其父类型的数据</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="泛型与类型擦除"><a href="#泛型与类型擦除" class="headerlink" title="泛型与类型擦除"></a>泛型与类型擦除</h3><p>在 Java 中，泛型是通过<strong>类型擦除</strong>实现的。这意味着在运行时，所有泛型类型都会被替换为原始类型（通常是 <code>Object</code>）。因此，泛型类型的具体类型参数仅在编译时存在，运行时并不保留。例如，<code>List&lt;String&gt;</code> 和 <code>List&lt;Integer&gt;</code> 在运行时都被视为 <code>List</code>。</p>
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>在 Java 中，面向对象编程（OOP）是编程的一种范式，它基于四个核心概念：<strong>封装</strong>、<strong>继承</strong>、<strong>多态</strong> 和 <strong>抽象</strong>。当然这也是所有面对对象语言中的核心概念。笔者这里并不赘述仅仅聊聊java相较于其他语言(C++)的使用特点：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><strong>Java</strong></th>
+<th><strong>C++</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>类的定义</strong></td>
+<td>类通过 <code>class</code> 关键字定义。类可以包含构造方法、成员变量、成员方法等。</td>
+<td>类通过 <code>class</code> 或 <code>struct</code> 关键字定义。 <code>struct</code> 默认成员是 public，<code>class</code> 默认成员是 private。</td>
+</tr>
+<tr>
+<td><strong>继承</strong></td>
+<td>extends关键字,Java 支持单继承（一个类只能继承一个父类），但通过接口支持多重继承。</td>
+<td>C++ 支持多重继承（一个类可以继承多个父类）。</td>
+</tr>
+<tr>
+<td><strong>构造函数</strong></td>
+<td>Java 类中的构造函数没有返回值，且不能重载构造函数的类型；构造函数默认调用父类的构造函数（使用 <code>super()</code>）。</td>
+<td>C++ 类中的构造函数没有返回值，可以重载多个构造函数；构造函数不自动调用父类构造函数，需要显式调用 <code>base()</code>。</td>
+</tr>
+<tr>
+<td><strong>析构函数</strong></td>
+<td>Java 使用垃圾回收机制（GC）自动管理内存，不需要析构函数。</td>
+<td>C++ 中使用析构函数（<code>~ClassName()</code>）来释放内存或做清理工作。</td>
+</tr>
+<tr>
+<td><strong>多态</strong></td>
+<td>使用方法重载和方法重写实现多态。</td>
+<td>使用方法重载和方法重写实现多态。C++ 支持虚函数和纯虚函数。</td>
+</tr>
+<tr>
+<td><strong>接口</strong></td>
+<td>Java 中的接口用 <code>interface</code> 关键字定义，接口不能有具体的实现（除了默认方法）。一个类可以实现多个接口。</td>
+<td>C++ 没有接口的概念，可以通过纯虚类（abstract class）来模拟接口。一个类可以继承多个纯虚类，模拟多重继承。</td>
+</tr>
+<tr>
+<td><strong>抽象类</strong></td>
+<td>abstract关键字定义,Java 支持抽象类，抽象类不能实例化，必须由子类实现其中的抽象方法。</td>
+<td>C++ 支持抽象类，抽象类可以包含已实现的方法，但必须包含纯虚函数（<code>= 0</code>）来实现抽象行为。</td>
+</tr>
+<tr>
+<td><strong>访问修饰符</strong></td>
+<td>Java 提供 <code>public</code>、<code>private</code>、<code>protected</code> 和包级（默认）访问修饰符来控制成员的访问权限。</td>
+<td>C++ 提供 <code>public</code>、<code>private</code>、<code>protected</code> 访问修饰符，还可以使用友元（friend）机制来控制访问权限。</td>
+</tr>
+<tr>
+<td><strong>垃圾回收</strong></td>
+<td>Java 有自动垃圾回收机制（GC），程序员无需手动管理内存。</td>
+<td>C++ 没有垃圾回收机制，程序员必须手动管理内存（使用 <code>new</code> 和 <code>delete</code>）。</td>
+</tr>
+<tr>
+<td><strong>内存管理</strong></td>
+<td>Java 中的对象由 JVM 管理内存，使用自动垃圾回收。</td>
+<td>C++ 使用 <code>new</code> 和 <code>delete</code> 关键字显式分配和释放内存。</td>
+</tr>
+<tr>
+<td><strong>异常处理</strong></td>
+<td>Java 提供 <code>try-catch-finally</code> 机制，所有异常必须处理（Checked Exception 和 Unchecked Exception）。</td>
+<td>C++ 使用 <code>try-catch</code> 机制，但不像 Java 那样要求处理所有异常。</td>
+</tr>
+<tr>
+<td><strong>多线程支持</strong></td>
+<td>Java 提供内建的多线程支持，通过 <code>Thread</code> 类和 <code>Runnable</code> 接口进行多线程编程。</td>
+<td>C++ 本身没有内建的多线程支持，但通过外部库（如 pthreads 或 C++11 的 <code>&lt;thread&gt;</code>）来实现多线程。</td>
+</tr>
+<tr>
+<td><strong>平台依赖性</strong></td>
+<td>Java 是跨平台的（”Write Once, Run Anywhere”），通过 JVM 实现跨平台。</td>
+<td>C++ 是编译型语言，程序与平台绑定，必须针对不同操作系统编译。</td>
+</tr>
+<tr>
+<td><strong>模板（Templates）</strong></td>
+<td>Java 不支持模板，使用泛型（Generics）来实现类型安全的集合类等功能。</td>
+<td>C++ 支持模板（<code>template</code>）机制，允许在编译时生成特定类型的代码。</td>
+</tr>
+<tr>
+<td><strong>内存布局</strong></td>
+<td>Java 的内存由 JVM 管理，使用堆和栈来存储对象和局部变量。</td>
+<td>C++ 直接管理内存，使用堆、栈、全局静态变量等存储结构。</td>
+</tr>
+<tr>
+<td><strong>运算符重载</strong></td>
+<td>Java 不支持运算符重载。</td>
+<td>C++ 支持运算符重载，允许开发者为自定义类型重载常见运算符（如 <code>+</code>、<code>-</code>）。</td>
+</tr>
+<tr>
+<td><strong>命名空间</strong></td>
+<td>Java 使用包（<code>package</code>）来组织类和避免命名冲突。</td>
+<td>C++ 使用命名空间（<code>namespace</code>）来避免命名冲突。</td>
+</tr>
+</tbody></table>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>在 Java 中，<strong>接口（Interface）</strong> 是一种抽象类型，它定义了一组方法的签名（方法名称、参数、返回类型），但不提供方法的具体实现。接口是一种规范或合同，任何类实现该接口时，必须提供接口中定义的所有方法的实现。</p>
+<h3 id="接口的主要特点"><a href="#接口的主要特点" class="headerlink" title="接口的主要特点"></a>接口的主要特点</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>定义方法的签名</strong></td>
+<td>接口只定义方法的名称、参数类型和返回类型，不提供方法的具体实现。通过接口实现多态和抽象。</td>
+</tr>
+<tr>
+<td><strong>不能实例化</strong></td>
+<td>接口不能直接创建实例，因为它没有实现任何方法。必须由类通过 <code>implements</code> 关键字来实现接口，提供方法的具体实现。</td>
+</tr>
+<tr>
+<td><strong>支持多重继承</strong></td>
+<td>接口允许一个类实现多个接口，这解决了 Java 单继承的局限性。一个类可以继承多个接口的行为。</td>
+</tr>
+<tr>
+<td><strong>方法的默认实现</strong></td>
+<td>Java 8 引入了接口中的 <strong>默认方法</strong>（<code>default</code>），允许接口提供方法的默认实现，避免每个实现类都必须重复实现相同方法。</td>
+</tr>
+<tr>
+<td><strong>常量</strong></td>
+<td>接口可以包含常量，所有接口中的字段默认是 <code>public static final</code>（即公共、静态、常量）。无需显式声明，编译器会隐式添加。</td>
+</tr>
+<tr>
+<td><strong>静态方法</strong></td>
+<td>从 Java 8 开始，接口可以包含静态方法，这些方法只能通过接口名来调用，不能通过实现类调用。</td>
+</tr>
+<tr>
+<td><strong>多态和灵活的接口设计</strong></td>
+<td>接口常用于定义行为规范，具体的实现由不同的类来提供。接口支持多态，允许通过接口类型的引用来调用实现类的方法。可以实现不同类的统一行为。</td>
+</tr>
+</tbody></table>
+<h3 id="接口的语法"><a href="#接口的语法" class="headerlink" title="接口的语法"></a>接口的语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">InterfaceName</span> &#123;<br>    <span class="hljs-comment">// 常量（默认public static final）</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">CONSTANT</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br><br>    <span class="hljs-comment">// 抽象方法（默认public abstract）</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span>;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span>;<br>    <br>    <span class="hljs-comment">// 默认方法（从Java 8开始）</span><br>    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">defaultMethod</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;This is a default method.&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">// 静态方法（从Java 8开始）</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">staticMethod</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;This is a static method.&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a>接口的实现</h3><ul>
+<li><strong>实现接口的类</strong>：类通过 <code>implements</code> 关键字实现接口。</li>
+<li>类实现接口时，必须提供接口中所有方法的实现（除非该类是抽象类）。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">InterfaceName</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Method 1 implementation&quot;</span>);<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Method 2 implementation&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="接口与抽象类的区别"><a href="#接口与抽象类的区别" class="headerlink" title="接口与抽象类的区别"></a>接口与抽象类的区别</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th><strong>接口（Interface）</strong></th>
+<th><strong>抽象类（Abstract Class）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>方法</strong></td>
+<td>只能有抽象方法（Java 8 以后可以有默认方法和静态方法）</td>
+<td>可以有抽象方法和已实现的方法（Java 8 以后也可以有默认方法）</td>
+</tr>
+<tr>
+<td><strong>成员变量</strong></td>
+<td>默认是 <code>public static final</code>（常量）</td>
+<td>可以有实例变量，可以是任意访问修饰符</td>
+</tr>
+<tr>
+<td><strong>多重继承</strong></td>
+<td>支持多继承，一个类可以实现多个接口</td>
+<td>不支持多重继承，一个类只能继承一个抽象类</td>
+</tr>
+<tr>
+<td><strong>构造方法</strong></td>
+<td>没有构造方法</td>
+<td>可以有构造方法</td>
+</tr>
+<tr>
+<td><strong>访问修饰符</strong></td>
+<td>方法默认是 <code>public</code>，字段默认是 <code>public static final</code></td>
+<td>可以使用任意访问修饰符（<code>private</code>、<code>protected</code>、<code>public</code>）</td>
+</tr>
+<tr>
+<td><strong>是否可以实例化</strong></td>
+<td>不能实例化</td>
+<td>不能实例化</td>
+</tr>
+<tr>
+<td><strong>用途</strong></td>
+<td>用于定义类的行为规范，多个类可以实现相同的接口</td>
+<td>用于提供类的基本功能和共享代码，子类可以继承并扩展</td>
+</tr>
+</tbody></table>
+<h1 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h1><h3 id="1-线程（Thread）"><a href="#1-线程（Thread）" class="headerlink" title="1. 线程（Thread）"></a>1. <strong>线程（Thread）</strong></h3><p>Java 中的线程是程序执行的基本单位。每个线程都有一个执行路径，称为执行线程。</p>
+<h4 id="创建线程的方式："><a href="#创建线程的方式：" class="headerlink" title="创建线程的方式："></a>创建线程的方式：</h4><ol>
+<li><p><strong>继承 <code>Thread</code> 类</strong>：</p>
+<ul>
+<li>通过继承 <code>Thread</code> 类并重写其 <code>run()</code> 方法来创建线程。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Thread is running&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestThread</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">MyThread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyThread</span>();<br>        thread.start();  <span class="hljs-comment">// 启动线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>实现 <code>Runnable</code> 接口</strong>：</p>
+<ul>
+<li>通过实现 <code>Runnable</code> 接口并重写 <code>run()</code> 方法来创建线程。<code>Runnable</code> 是函数式接口，可以使用 Lambda 表达式。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Runnable is running&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRunnable</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MyRunnable</span>());<br>        thread.start();  <span class="hljs-comment">// 启动线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 Lambda 表达式（Java 8 及以上）</strong>：</p>
+<ul>
+<li>可以用 Lambda 表达式来简化 <code>Runnable</code> 接口的实现。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestLambda</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; System.out.println(<span class="hljs-string">&quot;Thread is running via Lambda&quot;</span>));<br>        thread.start();  <span class="hljs-comment">// 启动线程</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-线程池（Executor）"><a href="#2-线程池（Executor）" class="headerlink" title="2. 线程池（Executor）"></a>2. <strong>线程池（Executor）</strong></h3><p>线程池通过预创建一定数量的线程来管理线程的生命周期，避免频繁创建和销毁线程的开销。Java 提供了 <code>Executor</code> 框架来管理线程池。</p>
+<h4 id="常用线程池："><a href="#常用线程池：" class="headerlink" title="常用线程池："></a>常用线程池：</h4><ol>
+<li><p>**<code>ExecutorService</code>**：Java 提供了 <code>ExecutorService</code> 接口，用于管理线程池，并提供提交任务、关闭线程池等方法。</p>
+</li>
+<li><p><strong><code>Executors</code> 工厂类</strong>：通过 <code>Executors</code> 工厂类可以创建不同类型的线程池。</p>
+<ul>
+<li><strong>固定大小线程池</strong>：适用于并发量大且可预估的场景。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executor</span> <span class="hljs-operator">=</span> Executors.newFixedThreadPool(<span class="hljs-number">4</span>);<br>executor.submit(() -&gt; System.out.println(<span class="hljs-string">&quot;Task 1&quot;</span>));<br>executor.submit(() -&gt; System.out.println(<span class="hljs-string">&quot;Task 2&quot;</span>));<br>executor.shutdown();  <span class="hljs-comment">// 关闭线程池</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>单线程池</strong>：只有一个工作线程，适用于顺序执行任务的场景。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executor</span> <span class="hljs-operator">=</span> Executors.newSingleThreadExecutor();<br>executor.submit(() -&gt; System.out.println(<span class="hljs-string">&quot;Single Threaded Task&quot;</span>));<br>executor.shutdown();<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>缓存线程池</strong>：线程池根据需要创建新线程，适用于任务量动态变化的场景。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ExecutorService</span> <span class="hljs-variable">executor</span> <span class="hljs-operator">=</span> Executors.newCachedThreadPool();<br>executor.submit(() -&gt; System.out.println(<span class="hljs-string">&quot;Dynamic Thread Pool Task&quot;</span>));<br>executor.shutdown();<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-同步（Synchronization）"><a href="#3-同步（Synchronization）" class="headerlink" title="3. 同步（Synchronization）"></a>3. <strong>同步（Synchronization）</strong></h3><p>在并发编程中，多个线程可能会共享资源，导致数据不一致的情况。为了避免并发冲突，Java 提供了同步机制。</p>
+<h4 id="同步方法："><a href="#同步方法：" class="headerlink" title="同步方法："></a>同步方法：</h4><p>通过 <code>synchronized</code> 关键字，可以确保同一时刻只有一个线程能执行该方法，从而避免多个线程同时访问共享资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> &#123;<br>        count++;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="同步代码块："><a href="#同步代码块：" class="headerlink" title="同步代码块："></a>同步代码块：</h4><p>除了同步整个方法外，还可以使用 <code>synchronized</code> 关键字同步代码块，控制访问的代码范围。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>) &#123;<br>            count++;<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="锁（Lock）："><a href="#锁（Lock）：" class="headerlink" title="锁（Lock）："></a>锁（Lock）：</h4><p>Java 提供了 <code>Lock</code> 接口和相关类（如 <code>ReentrantLock</code>）来实现更细粒度的锁控制。与 <code>synchronized</code> 不同，<code>Lock</code> 提供了尝试获取锁、定时锁和公平锁等功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.concurrent.locks.Lock;<br><span class="hljs-keyword">import</span> java.util.concurrent.locks.ReentrantLock;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Lock</span> <span class="hljs-variable">lock</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReentrantLock</span>();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">increment</span><span class="hljs-params">()</span> &#123;<br>        lock.lock();  <span class="hljs-comment">// 获取锁</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            count++;<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            lock.unlock();  <span class="hljs-comment">// 释放锁</span><br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-线程通信（wait-notify）"><a href="#4-线程通信（wait-notify）" class="headerlink" title="4. 线程通信（wait&#x2F;notify）"></a>4. <strong>线程通信（wait&#x2F;notify）</strong></h3><p>线程之间的协调和通信是并发编程中的重要问题。Java 提供了 <code>Object</code> 类中的 <code>wait()</code>、<code>notify()</code> 和 <code>notifyAll()</code> 方法来实现线程间的通信。</p>
+<ul>
+<li>**<code>wait()</code>**：使当前线程进入等待状态，直到被唤醒。</li>
+<li>**<code>notify()</code>**：唤醒一个在该对象监视器上等待的线程。</li>
+<li>**<code>notifyAll()</code>**：唤醒所有在该对象监视器上等待的线程。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerConsumer</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">produce</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-keyword">while</span> (item &gt; <span class="hljs-number">0</span>) &#123;<br>            wait();  <span class="hljs-comment">// 如果已有产品，等待消费</span><br>        &#125;<br>        item++;<br>        System.out.println(<span class="hljs-string">&quot;Produced item: &quot;</span> + item);<br>        notify();  <span class="hljs-comment">// 通知消费者</span><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">consume</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-keyword">while</span> (item == <span class="hljs-number">0</span>) &#123;<br>            wait();  <span class="hljs-comment">// 如果没有产品，等待生产</span><br>        &#125;<br>        item--;<br>        System.out.println(<span class="hljs-string">&quot;Consumed item: &quot;</span> + item);<br>        notify();  <span class="hljs-comment">// 通知生产者</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-并发工具类（java-util-concurrent-包）"><a href="#5-并发工具类（java-util-concurrent-包）" class="headerlink" title="5. 并发工具类（java.util.concurrent 包）"></a>5. <strong>并发工具类（<code>java.util.concurrent</code> 包）</strong></h3><p>Java 提供了很多类来简化并发编程，减少开发者手动管理线程和锁的负担。</p>
+<h4 id="常用工具类："><a href="#常用工具类：" class="headerlink" title="常用工具类："></a>常用工具类：</h4><ul>
+<li><p>**<code>CountDownLatch</code>**：使一个或多个线程等待直到某个操作完成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">CountDownLatch</span> <span class="hljs-variable">latch</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CountDownLatch</span>(<span class="hljs-number">3</span>);<br>latch.countDown();  <span class="hljs-comment">// 计数器减1</span><br>latch.await();  <span class="hljs-comment">// 等待计数器为0</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>CyclicBarrier</code>**：用于同步多个线程，使其在某个点上等待其他线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">CyclicBarrier</span> <span class="hljs-variable">barrier</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CyclicBarrier</span>(<span class="hljs-number">3</span>, () -&gt; System.out.println(<span class="hljs-string">&quot;All threads are ready&quot;</span>));<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>Semaphore</code>**：控制同时访问某一资源的线程数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semaphore</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Semaphore</span>(<span class="hljs-number">3</span>);  <span class="hljs-comment">// 允许3个线程同时访问</span><br>semaphore.acquire();  <span class="hljs-comment">// 获取许可</span><br>semaphore.release();  <span class="hljs-comment">// 释放许可</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>ExecutorService</code>**：用于管理线程池并执行任务。</p>
+</li>
+<li><p>**<code>Future</code>**：表示异步计算的结果，可以在计算完成之前获取结果。</p>
+</li>
+<li><p>**<code>ReentrantLock</code>**：提供了比 <code>synchronized</code> 更灵活的锁机制。</p>
+</li>
+<li><p><strong><code>AtomicInteger</code>、<code>AtomicLong</code></strong> 等：提供原子性操作的类，适用于并发环境下的数值操作。</p>
+</li>
+</ul>
+<p>在 Java 中，<strong>进程</strong>的创建与管理通常是由操作系统来控制的，而 Java 本身是通过 <strong>线程</strong> 来实现并发和并行操作的。虽然 Java 提供了一些用于启动和管理外部进程的工具，但它并不像一些低级编程语言（如 C 或 C++）那样直接提供创建进程的功能。</p>
+<h3 id="Java-如何管理进程"><a href="#Java-如何管理进程" class="headerlink" title="Java 如何管理进程"></a>Java 如何管理进程</h3><p>虽然 Java 本身不提供像 <code>fork()</code> 或 <code>exec()</code> 这样的低级系统调用来直接创建进程，但 Java 可以通过以下方式启动和管理外部进程：</p>
+<h4 id="1-使用-ProcessBuilder-类"><a href="#1-使用-ProcessBuilder-类" class="headerlink" title="1. 使用 ProcessBuilder 类"></a>1. <strong>使用 <code>ProcessBuilder</code> 类</strong></h4><p>Java 提供了 <code>ProcessBuilder</code> 类来启动操作系统上的外部进程。通过 <code>ProcessBuilder</code>，你可以创建、启动、控制和管理进程。</p>
+<h4 id="2-使用-Runtime-getRuntime-exec-方法"><a href="#2-使用-Runtime-getRuntime-exec-方法" class="headerlink" title="2. 使用 Runtime.getRuntime().exec() 方法"></a>2. <strong>使用 <code>Runtime.getRuntime().exec()</code> 方法</strong></h4><p><code>Runtime.getRuntime().exec()</code> 方法也可以用来启动外部进程。它可以执行系统命令，启动程序，或运行脚本。</p>
+<h1 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h1><p>Java 的异常处理机制是基于 <strong>try-catch-finally</strong> 块的，旨在捕捉和处理程序运行过程中可能出现的错误。通过异常处理，程序可以在遇到错误时不直接崩溃，而是采取一些补救措施，从而提升程序的鲁棒性。</p>
+<h3 id="1-异常的分类"><a href="#1-异常的分类" class="headerlink" title="1. 异常的分类"></a>1. <strong>异常的分类</strong></h3><p>Java 中的异常分为两大类：</p>
+<ul>
+<li><strong>Checked Exceptions（已检查异常）</strong>：<ul>
+<li>这些异常是编译器强制要求必须处理的异常。通常发生在程序运行时，且不容易预见的错误。例如，文件操作、数据库连接、网络通信等可能出现的问题。</li>
+<li>Checked 异常必须要么通过 <code>try-catch</code> 块处理，要么通过 <code>throws</code> 关键字声明抛出。</li>
+<li>例子：<code>IOException</code>, <code>SQLException</code>, <code>ClassNotFoundException</code> 等。</li>
+</ul>
+</li>
+<li><strong>Unchecked Exceptions（未检查异常）</strong>：<ul>
+<li>这些异常是运行时异常，也叫 <strong>运行时异常</strong>。它们通常是程序逻辑错误或开发者的疏忽导致的错误，例如空指针引用、数组越界等。</li>
+<li>Unchecked 异常是继承自 <code>RuntimeException</code> 类的异常。它们不需要强制捕获，可以选择性地处理。</li>
+<li>例子：<code>NullPointerException</code>, <code>ArrayIndexOutOfBoundsException</code>, <code>ArithmeticException</code> 等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Java-异常处理的基本语法"><a href="#2-Java-异常处理的基本语法" class="headerlink" title="2. Java 异常处理的基本语法"></a>2. <strong>Java 异常处理的基本语法</strong></h3><h4 id="1-try-catch-finally-结构"><a href="#1-try-catch-finally-结构" class="headerlink" title="1) try-catch-finally 结构"></a>1) <strong>try-catch-finally 结构</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// 可能抛出异常的代码</span><br>&#125; <span class="hljs-keyword">catch</span> (ExceptionType1 e1) &#123;<br>    <span class="hljs-comment">// 处理 ExceptionType1 类型的异常</span><br>&#125; <span class="hljs-keyword">catch</span> (ExceptionType2 e2) &#123;<br>    <span class="hljs-comment">// 处理 ExceptionType2 类型的异常</span><br>&#125; <span class="hljs-keyword">finally</span> &#123;<br>    <span class="hljs-comment">// 不管是否发生异常，都会执行的代码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>try</code> 块</strong>：用于包装可能会抛出异常的代码。当 <code>try</code> 块中的代码抛出异常时，会立即跳转到相应的 <code>catch</code> 块。</li>
+<li><strong><code>catch</code> 块</strong>：用于捕获异常并进行处理。可以有多个 <code>catch</code> 块来捕获不同类型的异常。如果 <code>try</code> 中抛出异常，程序将跳转到第一个匹配的 <code>catch</code> 块进行处理。</li>
+<li><strong><code>finally</code> 块</strong>：不管是否发生异常，<code>finally</code> 块中的代码都会被执行。常用于释放资源（如文件流、数据库连接等）。如果没有 <code>catch</code> 块，<code>finally</code> 也会执行。</li>
+</ul>
+<h4 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExceptionExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span> / <span class="hljs-number">0</span>;  <span class="hljs-comment">// 会抛出 ArithmeticException</span><br>        &#125; <span class="hljs-keyword">catch</span> (ArithmeticException e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;Error: Division by zero&quot;</span>);<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;This will always run&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出：</strong></p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">Error: </span>Division by zero<br>This will always run<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-异常的传播与声明（throws）"><a href="#3-异常的传播与声明（throws）" class="headerlink" title="3. 异常的传播与声明（throws）"></a>3. <strong>异常的传播与声明（<code>throws</code>）</strong></h3><p>有些异常可能在方法内部无法处理，而需要将它们传递给调用该方法的地方。使用 <code>throws</code> 关键字来声明异常，使得方法的调用者可以决定如何处理这些异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">someMethod</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    <span class="hljs-comment">// 可能抛出 IOException 的代码</span><br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;File not found&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>throws</code> 后面列出的异常是指该方法可能抛出的异常类型。</li>
+<li>如果方法声明了 <code>throws</code>，调用该方法的代码必须处理该异常（使用 <code>try-catch</code>）或者将异常进一步声明传递。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestException</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            methodThatThrowsException();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;Caught exception: &quot;</span> + e.getMessage());<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">methodThatThrowsException</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;An IOException occurred&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-自定义异常"><a href="#4-自定义异常" class="headerlink" title="4. 自定义异常"></a>4. <strong>自定义异常</strong></h3><p>Java 允许开发者根据需求自定义异常类。自定义异常类通常继承自 <code>Exception</code> 类（如果是已检查异常）或者 <code>RuntimeException</code> 类（如果是未检查异常）。</p>
+<h4 id="自定义已检查异常："><a href="#自定义已检查异常：" class="headerlink" title="自定义已检查异常："></a>自定义已检查异常：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyCheckedException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Exception</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyCheckedException</span><span class="hljs-params">(String message)</span> &#123;<br>        <span class="hljs-built_in">super</span>(message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="自定义未检查异常："><a href="#自定义未检查异常：" class="headerlink" title="自定义未检查异常："></a>自定义未检查异常：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyUncheckedException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RuntimeException</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyUncheckedException</span><span class="hljs-params">(String message)</span> &#123;<br>        <span class="hljs-built_in">super</span>(message);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-异常的链式调用"><a href="#5-异常的链式调用" class="headerlink" title="5. 异常的链式调用"></a>5. <strong>异常的链式调用</strong></h3><p>Java 允许将异常作为参数传递给另一个异常，形成异常链。这样可以更详细地描述错误发生的原因。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ChainedException</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArithmeticException</span>(<span class="hljs-string">&quot;Arithmetic error&quot;</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (ArithmeticException e) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Exception</span>(<span class="hljs-string">&quot;New exception caused by ArithmeticException&quot;</span>, e);  <span class="hljs-comment">// 异常链</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;Caught Exception: &quot;</span> + e.getMessage());<br>            System.out.println(<span class="hljs-string">&quot;Cause: &quot;</span> + e.getCause());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>输出：</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Caught <span class="hljs-keyword">Exception</span>: <span class="hljs-built_in">New</span> <span class="hljs-keyword">exception</span> caused <span class="hljs-keyword">by</span> ArithmeticException<br>Cause: java.lang.ArithmeticException: Arithmetic error<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-常见的异常类"><a href="#6-常见的异常类" class="headerlink" title="6. 常见的异常类"></a>6. <strong>常见的异常类</strong></h3><table>
+<thead>
+<tr>
+<th>异常类型</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Exception</code></td>
+<td>所有异常的父类，用于已检查异常。</td>
+<td><code>IOException</code>, <code>SQLException</code>, <code>ClassNotFoundException</code></td>
+</tr>
+<tr>
+<td><code>RuntimeException</code></td>
+<td>运行时异常的父类，用于未检查异常。</td>
+<td><code>NullPointerException</code>, <code>ArithmeticException</code></td>
+</tr>
+<tr>
+<td><code>IOException</code></td>
+<td>输入输出异常，通常在文件操作、网络通信等中出现。</td>
+<td><code>FileNotFoundException</code>, <code>EOFException</code></td>
+</tr>
+<tr>
+<td><code>SQLException</code></td>
+<td>数据库操作异常。</td>
+<td><code>SQLSyntaxErrorException</code>, <code>SQLTimeoutException</code></td>
+</tr>
+<tr>
+<td><code>NullPointerException</code></td>
+<td>空指针异常，指向对象的引用为空。</td>
+<td><code>String str = null; str.length();</code></td>
+</tr>
+<tr>
+<td><code>ArithmeticException</code></td>
+<td>数学运算异常，通常用于除零等错误。</td>
+<td><code>int x = 1 / 0;</code></td>
+</tr>
+<tr>
+<td><code>ArrayIndexOutOfBoundsException</code></td>
+<td>数组下标越界异常。</td>
+<td><code>int[] arr = new int[3]; int x = arr[5];</code></td>
+</tr>
+</tbody></table>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p>在 Java 中，内存的分配和回收主要是由 <strong>JVM</strong>（Java 虚拟机）负责的，程序员无需手动释放内存。Java 提供了 <strong>垃圾回收机制</strong>（Garbage Collection，简称 GC），自动处理不再使用的对象的内存释放工作。因此，在 Java 中，开发者不需要像 C&#x2F;C++ 那样显式地调用 <code>free()</code> 或 <code>delete</code> 来释放内存。</p>
+<p>不过，尽管 JVM 自动进行垃圾回收，程序员仍然需要遵循一些编程规范和最佳实践，以避免内存泄漏和过多的垃圾回收，从而影响程序的性能。</p>
+<h3 id="1-自动垃圾回收机制"><a href="#1-自动垃圾回收机制" class="headerlink" title="1. 自动垃圾回收机制"></a>1. <strong>自动垃圾回收机制</strong></h3><p>Java 的垃圾回收机制会在程序运行过程中自动回收不再使用的对象。垃圾回收器通过以下几个步骤来处理内存：</p>
+<ul>
+<li><strong>标记（Marking）</strong>：垃圾回收器会标记所有仍然可以通过程序中的其他对象或变量引用到的对象。</li>
+<li><strong>清除（Sweeping）</strong>：回收器会删除没有被标记的对象，即那些不再被引用的对象，释放其占用的内存。</li>
+<li><strong>压缩（Compact）</strong>：有时，垃圾回收器会整理内存，压缩存活对象的内存，以减少内存碎片。</li>
+</ul>
+<h3 id="2-内存不需要手动释放"><a href="#2-内存不需要手动释放" class="headerlink" title="2. 内存不需要手动释放"></a>2. <strong>内存不需要手动释放</strong></h3><p>Java 中的内存释放完全由垃圾回收器控制，因此程序员不需要显式地释放内存。垃圾回收器会在以下情况下自动回收不再使用的对象：</p>
+<ul>
+<li>对象没有任何活动线程持有对它的引用。</li>
+<li>对象超出了作用域，或者显式地将其设置为 <code>null</code>。</li>
+</ul>
+<p>例如，如果一个对象不再被引用，它就成为垃圾回收器的候选对象，在合适的时间点，垃圾回收器会自动清理这些对象占用的内存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">java复制代码<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemoryExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 创建一个对象</span><br>        <span class="hljs-type">MyClass</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClass</span>();<br>        <br>        <span class="hljs-comment">// 让 obj 变量不再引用该对象</span><br>        obj = <span class="hljs-literal">null</span>;  <span class="hljs-comment">// 这里，obj 就不再引用 MyClass 对象，它将被垃圾回收器标记为可回收</span><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;<br>    <span class="hljs-comment">// 一个简单的类</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这一部分，篇幅较大以后有时间单独了解</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Liveor_Die/article/details/77895631">java内存管理（堆、栈、方法区）_java方法进栈内存分配-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/12510425657">Java 内存管理 “通关秘籍”：原理吃透，优化无忧，实战称王 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://javaguide.cn/java/jvm/memory-area.html">Java内存区域详解（重点） | JavaGuide</a></p>
+<h1 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h1><p>Java 的网络编程功能非常强大，它提供了丰富的 API 用于进行网络通信，支持 TCP、UDP、HTTP 等协议的客户端和服务端编程。Java 的 <code>java.net</code> 包是进行网络编程的核心库，涵盖了从低级别的套接字操作到高层次的 HTTP 请求等功能。</p>
+<h3 id="1-TCP-网络编程"><a href="#1-TCP-网络编程" class="headerlink" title="1. TCP 网络编程"></a>1. <strong>TCP 网络编程</strong></h3><p>Java 中的 TCP 网络编程主要依赖 <code>ServerSocket</code> 和 <code>Socket</code> 类来实现客户端和服务端之间的通信。</p>
+<h4 id="1-TCP-服务端"><a href="#1-TCP-服务端" class="headerlink" title="(1) TCP 服务端"></a>(1) <strong>TCP 服务端</strong></h4><p>服务端通过 <code>ServerSocket</code> 类来监听客户端连接，并通过 <code>accept()</code> 方法接受连接。</p>
+<h5 id="示例：TCP-服务端"><a href="#示例：TCP-服务端" class="headerlink" title="示例：TCP 服务端"></a>示例：TCP 服务端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TCPServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建一个ServerSocket监听在端口 8080</span><br>            <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(<span class="hljs-number">8080</span>);<br>            System.out.println(<span class="hljs-string">&quot;Server is listening on port 8080...&quot;</span>);<br>            <br>            <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>                <span class="hljs-comment">// 等待并接受客户端连接</span><br>                <span class="hljs-type">Socket</span> <span class="hljs-variable">clientSocket</span> <span class="hljs-operator">=</span> serverSocket.accept();<br>                System.out.println(<span class="hljs-string">&quot;Client connected: &quot;</span> + clientSocket.getInetAddress());<br><br>                <span class="hljs-comment">// 创建输入输出流</span><br>                <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(clientSocket.getInputStream()));<br>                <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(clientSocket.getOutputStream(), <span class="hljs-literal">true</span>);<br>                <br>                String message;<br>                <span class="hljs-keyword">while</span> ((message = in.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>                    System.out.println(<span class="hljs-string">&quot;Received from client: &quot;</span> + message);<br>                    out.println(<span class="hljs-string">&quot;Echo: &quot;</span> + message);  <span class="hljs-comment">// 将接收到的消息回传给客户端</span><br>                &#125;<br><br>                <span class="hljs-comment">// 关闭连接</span><br>                in.close();<br>                out.close();<br>                clientSocket.close();<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ServerSocket</code> 用于服务端监听某个端口。</li>
+<li><code>accept()</code> 方法阻塞，直到有客户端连接到该端口。</li>
+<li>客户端连接后，创建 <code>BufferedReader</code> 和 <code>PrintWriter</code> 用于数据的读写。</li>
+</ul>
+<h4 id="2-TCP-客户端"><a href="#2-TCP-客户端" class="headerlink" title="(2) TCP 客户端"></a>(2) <strong>TCP 客户端</strong></h4><p>客户端使用 <code>Socket</code> 类与服务端建立连接，之后可以向服务端发送请求，并读取返回的响应。</p>
+<h5 id="示例：TCP-客户端"><a href="#示例：TCP-客户端" class="headerlink" title="示例：TCP 客户端"></a>示例：TCP 客户端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TCPClient</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 连接到服务端（localhost:8080）</span><br>            <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">8080</span>);<br>            System.out.println(<span class="hljs-string">&quot;Connected to server&quot;</span>);<br><br>            <span class="hljs-comment">// 创建输入输出流</span><br>            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(socket.getInputStream()));<br>            <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(socket.getOutputStream(), <span class="hljs-literal">true</span>);<br><br>            <span class="hljs-comment">// 发送请求到服务端</span><br>            out.println(<span class="hljs-string">&quot;Hello, Server!&quot;</span>);<br>            <br>            <span class="hljs-comment">// 接收并打印服务端的响应</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> in.readLine();<br>            System.out.println(<span class="hljs-string">&quot;Received from server: &quot;</span> + response);<br><br>            <span class="hljs-comment">// 关闭连接</span><br>            in.close();<br>            out.close();<br>            socket.close();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Socket</code> 类用于客户端与服务端的连接，指定服务端的 IP 地址和端口号。</li>
+<li><code>PrintWriter</code> 用于向服务端发送数据，<code>BufferedReader</code> 用于读取服务端的响应。</li>
+</ul>
+<h3 id="2-UDP-网络编程"><a href="#2-UDP-网络编程" class="headerlink" title="2. UDP 网络编程"></a>2. <strong>UDP 网络编程</strong></h3><p>UDP 是一种无连接的协议，Java 提供了 <code>DatagramSocket</code> 和 <code>DatagramPacket</code> 类来进行 UDP 通信。</p>
+<h4 id="1-UDP-服务端"><a href="#1-UDP-服务端" class="headerlink" title="(1) UDP 服务端"></a>(1) <strong>UDP 服务端</strong></h4><p>UDP 服务端通过 <code>DatagramSocket</code> 监听指定端口，并通过 <code>DatagramPacket</code> 接收来自客户端的数据。</p>
+<h5 id="示例：UDP-服务端"><a href="#示例：UDP-服务端" class="headerlink" title="示例：UDP 服务端"></a>示例：UDP 服务端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UDPServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建一个DatagramSocket，监听端口 8080</span><br>            <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>(<span class="hljs-number">8080</span>);<br>            System.out.println(<span class="hljs-string">&quot;UDP Server is listening on port 8080...&quot;</span>);<br><br>            <span class="hljs-type">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span>];<br>            <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buffer, buffer.length);<br><br>            <span class="hljs-comment">// 接收客户端的数据</span><br>            <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>                socket.receive(packet);  <span class="hljs-comment">// 阻塞，直到接收到数据</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(packet.getData(), <span class="hljs-number">0</span>, packet.getLength());<br>                System.out.println(<span class="hljs-string">&quot;Received from client: &quot;</span> + message);<br><br>                <span class="hljs-comment">// 发送响应给客户端</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Echo: &quot;</span> + message;<br>                <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">responsePacket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(response.getBytes(),<br>                        response.length(), packet.getAddress(), packet.getPort());<br>                socket.send(responsePacket);  <span class="hljs-comment">// 发送响应</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>DatagramSocket</code> 用于接收和发送 UDP 数据包。</li>
+<li><code>DatagramPacket</code> 用于表示数据包，包含数据和目标地址。</li>
+<li><code>socket.receive(packet)</code> 用于接收数据包，<code>socket.send(packet)</code> 用于发送数据包。</li>
+</ul>
+<h4 id="2-UDP-客户端"><a href="#2-UDP-客户端" class="headerlink" title="(2) UDP 客户端"></a>(2) <strong>UDP 客户端</strong></h4><p>UDP 客户端通过 <code>DatagramSocket</code> 发送数据包，并等待服务端的响应。</p>
+<h5 id="示例：UDP-客户端"><a href="#示例：UDP-客户端" class="headerlink" title="示例：UDP 客户端"></a>示例：UDP 客户端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UDPClient</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 创建DatagramSocket</span><br>            <span class="hljs-type">DatagramSocket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramSocket</span>();<br>            <span class="hljs-type">InetAddress</span> <span class="hljs-variable">serverAddress</span> <span class="hljs-operator">=</span> InetAddress.getByName(<span class="hljs-string">&quot;localhost&quot;</span>);<br><br>            <span class="hljs-comment">// 发送数据到服务端</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, Server!&quot;</span>;<br>            <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">packet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(message.getBytes(), message.length(), serverAddress, <span class="hljs-number">8080</span>);<br>            socket.send(packet);<br>            System.out.println(<span class="hljs-string">&quot;Sent to server: &quot;</span> + message);<br><br>            <span class="hljs-comment">// 接收服务端响应</span><br>            <span class="hljs-type">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span>];<br>            <span class="hljs-type">DatagramPacket</span> <span class="hljs-variable">responsePacket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatagramPacket</span>(buffer, buffer.length);<br>            socket.receive(responsePacket);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(responsePacket.getData(), <span class="hljs-number">0</span>, responsePacket.getLength());<br>            System.out.println(<span class="hljs-string">&quot;Received from server: &quot;</span> + response);<br><br>            <span class="hljs-comment">// 关闭Socket</span><br>            socket.close();<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>DatagramSocket</code> 用于客户端发送和接收数据包。</li>
+<li><code>DatagramPacket</code> 用于发送和接收数据包，其中 <code>InetAddress</code> 表示目标地址。</li>
+</ul>
+<h3 id="3-HTTP-网络编程"><a href="#3-HTTP-网络编程" class="headerlink" title="3. HTTP 网络编程"></a>3. <strong>HTTP 网络编程</strong></h3><p>Java 提供了 <code>HttpURLConnection</code> 类来处理 HTTP 请求和响应，也可以使用更高层次的库如 <code>Apache HttpClient</code> 来简化操作。</p>
+<h4 id="1-HTTP-客户端"><a href="#1-HTTP-客户端" class="headerlink" title="(1) HTTP 客户端"></a>(1) <strong>HTTP 客户端</strong></h4><p>使用 <code>HttpURLConnection</code> 发送 HTTP 请求，读取响应。</p>
+<h5 id="示例：HTTP-客户端"><a href="#示例：HTTP-客户端" class="headerlink" title="示例：HTTP 客户端"></a>示例：HTTP 客户端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HTTPClient</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">URL</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://localhost:8080&quot;</span>);<br>            <span class="hljs-type">HttpURLConnection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> (HttpURLConnection) url.openConnection();<br>            connection.setRequestMethod(<span class="hljs-string">&quot;GET&quot;</span>);<br><br>            <span class="hljs-comment">// 读取服务器返回的响应</span><br>            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(connection.getInputStream()));<br>            String inputLine;<br>            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>            <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>                response.append(inputLine);<br>            &#125;<br>            in.close();<br><br>            <span class="hljs-comment">// 打印响应内容</span><br>            System.out.println(<span class="hljs-string">&quot;Response from server: &quot;</span> + response.toString());<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>HttpURLConnection</code> 类用于处理 HTTP 请求和响应。</li>
+<li>通过 <code>connection.getInputStream()</code> 获取响应内容，使用 <code>BufferedReader</code> 逐行读取。</li>
+</ul>
+<h4 id="2-HTTP-服务端"><a href="#2-HTTP-服务端" class="headerlink" title="(2) HTTP 服务端"></a>(2) <strong>HTTP 服务端</strong></h4><p>Java 中可以使用 <code>HttpServer</code> 来创建简单的 HTTP 服务端。<code>HttpServer</code> 是 Java 6 引入的，可以用于处理基本的 HTTP 请求。</p>
+<h5 id="示例：HTTP-服务端"><a href="#示例：HTTP-服务端" class="headerlink" title="示例：HTTP 服务端"></a>示例：HTTP 服务端</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.net.httpserver.*;<br><br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.net.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HTTPServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// 创建 HttpServer 实例，监听 8080 端口</span><br>        <span class="hljs-type">HttpServer</span> <span class="hljs-variable">server</span> <span class="hljs-operator">=</span> HttpServer.create(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InetSocketAddress</span>(<span class="hljs-number">8080</span>), <span class="hljs-number">0</span>);<br>        server.createContext(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpHandler</span>() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handle</span><span class="hljs-params">(HttpExchange exchange)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-type">String</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>                exchange.sendResponseHeaders(<span class="hljs-number">200</span>, response.getBytes().length);<br>                <span class="hljs-type">OutputStream</span> <span class="hljs-variable">os</span> <span class="hljs-operator">=</span> exchange.getResponseBody();<br>                os.write(response.getBytes());<br>                os.close();<br>            &#125;<br>        &#125;);<br><br>        System.out.println(<span class="hljs-string">&quot;HTTP Server is listening on port 8080...&quot;</span>);<br>        server.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>HttpServer.create</code> 创建一个 HTTP 服务端。</li>
+<li><code>createContext</code> 用于注册 URL 路径及对应的处理器。</li>
+<li>通过 <code>exchange.sendResponseHeaders</code> 发送响应头，通过 <code>exchange.getResponseBody()</code> 获取输出流写入响应数据。</li>
+</ul>
+<h1 id="文件流处理"><a href="#文件流处理" class="headerlink" title="文件流处理"></a>文件流处理</h1><p>Java 的文件流处理主要通过 <code>java.io</code> 包中的类来实现文件的读写操作。Java 支持多种文件操作方式，包括字节流和字符流，文件的输入输出流（I&#x2F;O）在实际编程中应用广泛。下面将介绍 Java 中常用的文件流操作。</p>
+<h3 id="1-字节流与字符流"><a href="#1-字节流与字符流" class="headerlink" title="1. 字节流与字符流"></a>1. <strong>字节流与字符流</strong></h3><ul>
+<li><strong>字节流</strong>：处理所有类型的 I&#x2F;O，包括图像、音频、视频等二进制文件。通过 <code>InputStream</code> 和 <code>OutputStream</code> 类及其子类来实现。</li>
+<li><strong>字符流</strong>：专门处理字符数据，适合读取文本文件。字符流使用 <code>Reader</code> 和 <code>Writer</code> 类及其子类。</li>
+</ul>
+<h3 id="2-字节流操作"><a href="#2-字节流操作" class="headerlink" title="2. 字节流操作"></a>2. <strong>字节流操作</strong></h3><h4 id="1-字节输入流"><a href="#1-字节输入流" class="headerlink" title="(1) 字节输入流"></a>(1) <strong>字节输入流</strong></h4><p>字节输入流用于读取文件中的字节数据，<code>FileInputStream</code> 是字节输入流的常用类。</p>
+<h5 id="示例：读取文件的字节内容"><a href="#示例：读取文件的字节内容" class="headerlink" title="示例：读取文件的字节内容"></a>示例：读取文件的字节内容</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileInputStreamExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fis</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            fis = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;example.txt&quot;</span>);<br><br>            <span class="hljs-type">int</span> byteData;<br>            <span class="hljs-keyword">while</span> ((byteData = fis.read()) != -<span class="hljs-number">1</span>) &#123;<br>                System.out.print((<span class="hljs-type">char</span>) byteData);  <span class="hljs-comment">// 将字节数据转换为字符并打印</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (fis != <span class="hljs-literal">null</span>) &#123;<br>                    fis.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FileInputStream</code> 用于从文件中读取字节数据。</li>
+<li><code>fis.read()</code> 读取一个字节的数据，直到文件结束返回 <code>-1</code>。</li>
+</ul>
+<h4 id="2-字节输出流"><a href="#2-字节输出流" class="headerlink" title="(2) 字节输出流"></a>(2) <strong>字节输出流</strong></h4><p>字节输出流用于向文件写入字节数据，<code>FileOutputStream</code> 是字节输出流的常用类。</p>
+<h5 id="示例：向文件写入字节内容"><a href="#示例：向文件写入字节内容" class="headerlink" title="示例：向文件写入字节内容"></a>示例：向文件写入字节内容</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileOutputStreamExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">FileOutputStream</span> <span class="hljs-variable">fos</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            fos = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;output.txt&quot;</span>);<br><br>            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>            fos.write(content.getBytes());  <span class="hljs-comment">// 将字符串转换为字节数组并写入文件</span><br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (fos != <span class="hljs-literal">null</span>) &#123;<br>                    fos.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FileOutputStream</code> 用于向文件写入字节数据。</li>
+<li><code>fos.write()</code> 将字节数据写入文件中。</li>
+</ul>
+<h3 id="3-字符流操作"><a href="#3-字符流操作" class="headerlink" title="3. 字符流操作"></a>3. <strong>字符流操作</strong></h3><p>字符流处理字符数据，适合读取和写入文本文件。字符流的基类是 <code>Reader</code> 和 <code>Writer</code>。</p>
+<h4 id="1-字符输入流"><a href="#1-字符输入流" class="headerlink" title="(1) 字符输入流"></a>(1) <strong>字符输入流</strong></h4><p>字符输入流用于读取文件中的字符数据，<code>FileReader</code> 是字符输入流的常用类。</p>
+<h5 id="示例：读取文件的字符内容"><a href="#示例：读取文件的字符内容" class="headerlink" title="示例：读取文件的字符内容"></a>示例：读取文件的字符内容</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileReaderExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;example.txt&quot;</span>);<br><br>            <span class="hljs-type">int</span> charData;<br>            <span class="hljs-keyword">while</span> ((charData = fr.read()) != -<span class="hljs-number">1</span>) &#123;<br>                System.out.print((<span class="hljs-type">char</span>) charData);  <span class="hljs-comment">// 打印字符数据</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (fr != <span class="hljs-literal">null</span>) &#123;<br>                    fr.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FileReader</code> 用于读取字符数据。</li>
+<li><code>fr.read()</code> 读取一个字符数据，直到文件结束返回 <code>-1</code>。</li>
+</ul>
+<h4 id="2-字符输出流"><a href="#2-字符输出流" class="headerlink" title="(2) 字符输出流"></a>(2) <strong>字符输出流</strong></h4><p>字符输出流用于向文件写入字符数据，<code>FileWriter</code> 是字符输出流的常用类。</p>
+<h5 id="示例：向文件写入字符内容"><a href="#示例：向文件写入字符内容" class="headerlink" title="示例：向文件写入字符内容"></a>示例：向文件写入字符内容</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileWriterExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">FileWriter</span> <span class="hljs-variable">fw</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            fw = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(<span class="hljs-string">&quot;output.txt&quot;</span>);<br><br>            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>            fw.write(content);  <span class="hljs-comment">// 将字符串写入文件</span><br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (fw != <span class="hljs-literal">null</span>) &#123;<br>                    fw.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FileWriter</code> 用于写入字符数据。</li>
+<li><code>fw.write()</code> 将字符数据写入文件中。</li>
+</ul>
+<h3 id="4-缓冲流操作"><a href="#4-缓冲流操作" class="headerlink" title="4. 缓冲流操作"></a>4. <strong>缓冲流操作</strong></h3><p>缓冲流提供了一个缓冲区来提高文件读写的效率。常见的缓冲流类有 <code>BufferedReader</code> 和 <code>BufferedWriter</code>，它们通常与字符流结合使用。</p>
+<h4 id="1-缓冲字符输入流"><a href="#1-缓冲字符输入流" class="headerlink" title="(1) 缓冲字符输入流"></a>(1) <strong>缓冲字符输入流</strong></h4><p><code>BufferedReader</code> 用于缓冲读取字符数据，可以高效地按行读取文本文件。</p>
+<h5 id="示例：使用-BufferedReader-按行读取文件"><a href="#示例：使用-BufferedReader-按行读取文件" class="headerlink" title="示例：使用 BufferedReader 按行读取文件"></a>示例：使用 <code>BufferedReader</code> 按行读取文件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BufferedReaderExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">br</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            br = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;example.txt&quot;</span>));<br><br>            String line;<br>            <span class="hljs-keyword">while</span> ((line = br.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>                System.out.println(line);  <span class="hljs-comment">// 打印每一行</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (br != <span class="hljs-literal">null</span>) &#123;<br>                    br.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>BufferedReader</code> 使用缓冲区按行读取文件。</li>
+<li><code>br.readLine()</code> 读取一行文本，直到文件末尾返回 <code>null</code>。</li>
+</ul>
+<h4 id="2-缓冲字符输出流"><a href="#2-缓冲字符输出流" class="headerlink" title="(2) 缓冲字符输出流"></a>(2) <strong>缓冲字符输出流</strong></h4><p><code>BufferedWriter</code> 用于缓冲写入字符数据，可以高效地按行写入文本文件。</p>
+<h5 id="示例：使用-BufferedWriter-按行写入文件"><a href="#示例：使用-BufferedWriter-按行写入文件" class="headerlink" title="示例：使用 BufferedWriter 按行写入文件"></a>示例：使用 <code>BufferedWriter</code> 按行写入文件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BufferedWriterExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">BufferedWriter</span> <span class="hljs-variable">bw</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            bw = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedWriter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(<span class="hljs-string">&quot;output.txt&quot;</span>));<br><br>            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello, World!&quot;</span>;<br>            bw.write(content);  <span class="hljs-comment">// 写入字符内容</span><br>            bw.newLine();  <span class="hljs-comment">// 添加换行</span><br>            bw.write(<span class="hljs-string">&quot;Second Line&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">if</span> (bw != <span class="hljs-literal">null</span>) &#123;<br>                    bw.close();  <span class="hljs-comment">// 关闭流</span><br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>BufferedWriter</code> 提供高效的字符写入操作。</li>
+<li><code>bw.newLine()</code> 用于写入换行符。</li>
+</ul>
+<h3 id="5-复制文件"><a href="#5-复制文件" class="headerlink" title="5. 复制文件"></a>5. <strong>复制文件</strong></h3><p>通过字节流或字符流可以实现文件复制。通常使用缓冲流来提高效率。</p>
+<h4 id="示例：使用字节流复制文件"><a href="#示例：使用字节流复制文件" class="headerlink" title="示例：使用字节流复制文件"></a>示例：使用字节流复制文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileCopyExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fis</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(<span class="hljs-string">&quot;source.txt&quot;</span>);<br>             <span class="hljs-type">FileOutputStream</span> <span class="hljs-variable">fos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;destination.txt&quot;</span>)) &#123;<br><br>            <span class="hljs-type">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span>];<br>            <span class="hljs-type">int</span> bytesRead;<br>            <span class="hljs-keyword">while</span> ((bytesRead = fis.read(buffer)) != -<span class="hljs-number">1</span>) &#123;<br>                fos.write(buffer, <span class="hljs-number">0</span>, bytesRead);<br>            &#125;<br><br>            System.out.println(<span class="hljs-string">&quot;File copied successfully!&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="示例：使用字符流复制文件"><a href="#示例：使用字符流复制文件" class="headerlink" title="示例：使用字符流复制文件"></a>示例：使用字符流复制文件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileCopyWithCharsExample</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;source.txt&quot;</span>);<br>             <span class="hljs-type">FileWriter</span> <span class="hljs-variable">fw</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(<span class="hljs-string">&quot;destination.txt&quot;</span>)) &#123;<br><br>            <span class="hljs-type">int</span> charRead;<br>            <span class="hljs-keyword">while</span> ((charRead = fr.read()) != -<span class="hljs-number">1</span>) &#123;<br>                fw.write(charRead);<br>            &#125;<br><br>            System.out.println(<span class="hljs-string">&quot;File copied successfully!&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Java/" class="category-chain-item">Java</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JAVA语法概览</div>
+      <div>http://example.com/2022/09/19/计算机基础/编程语言/Java/java语法概览/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C++/C++11%E7%89%B9%E6%80%A7/" title="C++11特性">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++11特性</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/18/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E7%88%AC%E8%99%AB%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="正则表达式基本使用">
+                        <span class="hidden-mobile">正则表达式基本使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

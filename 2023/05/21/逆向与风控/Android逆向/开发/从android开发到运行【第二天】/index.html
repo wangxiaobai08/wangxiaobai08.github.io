@@ -1,0 +1,736 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="从android开发到运行今天准备把昨天的内容实践一下，就先自己写了个超级简单的程序示例（第一次写安卓程序感觉好像Qt开发，尤其是目录结构，不同的是多了个AndroidManifest.xml文件）  使用身份证的类比，AndroidManifest.xml 文件的重要性和作用更容易理解：它不仅定义了应用程序的身份和特征，还决定了应用程序在 Android 系统中的运行方式和访问权限。管理好这个文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从android开发到运行">
+<meta property="og:url" content="http://example.com/2023/05/21/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E5%BC%80%E5%8F%91/%E4%BB%8Eandroid%E5%BC%80%E5%8F%91%E5%88%B0%E8%BF%90%E8%A1%8C%E3%80%90%E7%AC%AC%E4%BA%8C%E5%A4%A9%E3%80%91/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="从android开发到运行今天准备把昨天的内容实践一下，就先自己写了个超级简单的程序示例（第一次写安卓程序感觉好像Qt开发，尤其是目录结构，不同的是多了个AndroidManifest.xml文件）  使用身份证的类比，AndroidManifest.xml 文件的重要性和作用更容易理解：它不仅定义了应用程序的身份和特征，还决定了应用程序在 Android 系统中的运行方式和访问权限。管理好这个文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/GzovgVsq1Q6lW39.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/apH3xoJdYIGivhA.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/FfGBO5z8xvgWlke.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/D2AOjxJfEFReZdp.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/xMdKzZhv9rQ7BlP.png">
+<meta property="article:published_time" content="2023-05-21T05:38:54.000Z">
+<meta property="article:modified_time" content="2025-04-27T06:58:58.317Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/07/02/GzovgVsq1Q6lW39.png">
+  
+  
+  
+  <title>从android开发到运行 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从android开发到运行"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-21 13:38" pubdate>
+          2023年5月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">从android开发到运行</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="从android开发到运行"><a href="#从android开发到运行" class="headerlink" title="从android开发到运行"></a>从android开发到运行</h1><p>今天准备把昨天的内容实践一下，就先自己写了个超级简单的程序示例（第一次写安卓程序感觉好像Qt开发，尤其是目录结构，不同的是多了个AndroidManifest.xml文件）</p>
+<blockquote>
+<p>使用身份证的类比，<code>AndroidManifest.xml</code> 文件的重要性和作用更容易理解：它不仅定义了应用程序的身份和特征，还决定了应用程序在 Android 系统中的运行方式和访问权限。管理好这个文件，就像管理好自己的身份证一样，能够确保应用程序在 Android 平台上的正常运行和合规使用。</p>
+</blockquote>
+<p>当用户输入错误密码则弹出提示。</p>
+<p><img src="https://s2.loli.net/2024/07/02/GzovgVsq1Q6lW39.png" srcset="/img/loading.gif" lazyload alt="image-20240702171617646"></p>
+<p>用户输入正确密码则跳转到另一个界面。</p>
+<p><img src="https://s2.loli.net/2024/07/02/apH3xoJdYIGivhA.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先Java 编译器生成 .class 文件，可以看出是针对每个类都生成了1个.class文件，当存在嵌套类时生成多个.class。一般来说.class文件是Java程序跨平台运行的关键，它包含了编译后的字节码，JVM可以解释并执行这些字节码，从而实现Java程序的运行。</p>
+<blockquote>
+<p>具体路径： D:\Code\app\build\intermediates\javac\debug\classes\com\droider\firstapp</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/07/02/FfGBO5z8xvgWlke.png" srcset="/img/loading.gif" lazyload alt="image-20240702171805403"></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038390259#item-5">android - 如何读懂晦涩的 Class 文件｜进阶必备 - 个人文章 - SegmentFault 思否</a></p>
+<p>以上是16进制表示，当然我们可以用jdk自带的命令来查看具体信息如：</p>
+<p><img src="https://s2.loli.net/2024/07/02/D2AOjxJfEFReZdp.png" srcset="/img/loading.gif" lazyload alt="image-20240702163414949"></p>
+<p><a target="_blank" rel="noopener" href="https://javabetter.cn/jvm/class-file-jiegou.html">详解Java的类文件结构（.class文件的结构） | 二哥的Java进阶之路 (javabetter.cn)</a></p>
+<p>随后dx 工具将 .class 文件转换成 .dex 文件以便Dalvik VM执行：</p>
+<p><img src="https://s2.loli.net/2024/07/02/xMdKzZhv9rQ7BlP.png" srcset="/img/loading.gif" lazyload alt="image-20240702165504467"></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/freeking101/article/details/107551057">一篇文章带你搞懂 DEX 文件的结构-CSDN博客</a></p>
+<p>然后ART 加载 .dex 文件，JIT 和 AOT 编译生成机器码在 CPU 上执行</p>
+<h2 id="—categories-逆向与风控-Android逆向-开发"><a href="#—categories-逆向与风控-Android逆向-开发" class="headerlink" title="—categories:- [逆向与风控, Android逆向, 开发]"></a>—categories:<br>- [逆向与风控, Android逆向, 开发]</h2><p>然后我还在想这个机器码是类似PC上由像x86汇编语言经汇编器而来的吗？查了半天资料都是由Dalvik虚拟机或ART将其转换为对应设备架构的机器码执行。插个眼，回头再看</p>
+<hr>
+<p>查资料过程中看到了安卓Native层。不懂概念直接GPT</p>
+<blockquote>
+<p>安卓的Native层指的是使用C、C++等本地编程语言编写的代码，这些代码直接运行在安卓操作系统的底层。与之相对的是Java或Kotlin等高级语言编写的代码，这些代码运行在安卓应用程序框架层。</p>
+<p>具体来说，安卓的软件堆栈可以分为以下几个层次：</p>
+<ol>
+<li><p><strong>应用层（Application Layer）：</strong> 这一层包括用户直接与之交互的应用程序，通常使用Java或Kotlin编写。这些应用程序通过Android框架提供的API与系统和硬件进行交互。</p>
+</li>
+<li><p><strong>框架层（Framework Layer）：</strong> 安卓框架提供了许多高级API和服务，供应用程序使用。这些框架层的代码大部分是使用Java编写的，例如活动管理、视图系统、通知管理等。</p>
+</li>
+<li><p><strong>Native层（Native Layer）：</strong> Native层是直接运行在操作系统上的底层代码，通常使用C、C++等编程语言编写。这些代码能够直接访问设备的硬件资源和系统服务，提供了更高效和更接近硬件的访问能力。</p>
+</li>
+</ol>
+<p>安卓Native层的主要组成部分包括：</p>
+<ul>
+<li><p><strong>系统运行库（System Libraries）：</strong> 包括C库、图形库（如OpenGL ES）、多媒体库等，提供了底层的系统功能和服务。</p>
+</li>
+<li><p><strong>硬件抽象层（Hardware Abstraction Layer, HAL）：</strong> 提供了与设备硬件交互的接口，允许上层软件通过标准API访问设备硬件，例如摄像头、传感器等。</p>
+</li>
+<li><p><strong>驱动程序（Drivers）：</strong> 这些是硬件设备的实际驱动程序，用于控制设备和处理设备级别的输入输出操作。</p>
+</li>
+</ul>
+<p>安卓Native层的优势在于能够提供更高的性能、更直接的硬件访问能力，适合需要处理复杂计算或与底层硬件交互的应用程序功能。</p>
+</blockquote>
+<p>个人感觉也就是个上层到底层交互的中间件。这个库中的的文件大多是.so文件形式。</p>
+<p>什么是.so文件？.so文件与ELF关系？不多解释，直接类比PC：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Windows（PE格式）</th>
+<th>Linux&#x2F;Unix（ELF格式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>文件格式</strong></td>
+<td>PE（Portable Executable）</td>
+<td>ELF（Executable and Linkable Format）</td>
+</tr>
+<tr>
+<td><strong>可执行文件</strong></td>
+<td>.exe</td>
+<td>无特定扩展名的可执行文件</td>
+</tr>
+<tr>
+<td><strong>动态链接库</strong></td>
+<td>.dll</td>
+<td>.so（Shared Object）</td>
+</tr>
+<tr>
+<td><strong>静态链接库</strong></td>
+<td>.lib</td>
+<td>.a（Archive）</td>
+</tr>
+<tr>
+<td><strong>预处理文件</strong></td>
+<td>.i（C预处理文件）</td>
+<td>.i（C预处理文件）</td>
+</tr>
+<tr>
+<td><strong>编译输出文件</strong></td>
+<td>.obj（目标文件）</td>
+<td>.o（目标文件）</td>
+</tr>
+<tr>
+<td><strong>调试信息文件</strong></td>
+<td>.pdb（Program Database）</td>
+<td>.dbg（调试符号文件）</td>
+</tr>
+<tr>
+<td><strong>符号表文件</strong></td>
+<td>.sym</td>
+<td>.symtab</td>
+</tr>
+<tr>
+<td><strong>资源文件</strong></td>
+<td>.res（资源文件）</td>
+<td>.rc（资源文件）</td>
+</tr>
+</tbody></table>
+<p>.so文件中的机器码是从ARM汇编代码编译而来的，这些机器码针对ARM架构，而安卓系统主要运行在arm架构上。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/" class="category-chain-item">Android逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从android开发到运行</div>
+      <div>http://example.com/2023/05/21/逆向与风控/Android逆向/开发/从android开发到运行【第二天】/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/25/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" title="壳实现的前置知识">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">壳实现的前置知识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/18/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E5%BC%80%E5%8F%91/android%20studio%E9%85%8D%E7%BD%AE/" title="android_stuido配置与坑">
+                        <span class="hidden-mobile">android_stuido配置与坑</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

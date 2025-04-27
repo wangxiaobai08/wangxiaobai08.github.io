@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在C++11特性 - The Peak Tower文章中简答提到了“资源管理指针”这一个概念，却没有深入的去了解，本文将重点看看所谓智能指针到底是什么？ RAll思想RAII（Resource Acquisition Is Initialization，资源获取即初始化） 是 C++ 中的一种核心编程思想，它的核心是通过对象的生命周期来管理资源。RAII 是智能指针（如 std::unique_p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++的智能指针">
+<meta property="og:url" content="http://example.com/2023/09/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C++/C++%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="在C++11特性 - The Peak Tower文章中简答提到了“资源管理指针”这一个概念，却没有深入的去了解，本文将重点看看所谓智能指针到底是什么？ RAll思想RAII（Resource Acquisition Is Initialization，资源获取即初始化） 是 C++ 中的一种核心编程思想，它的核心是通过对象的生命周期来管理资源。RAII 是智能指针（如 std::unique_p">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/03/13/jdQePEuotGKRYCk.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/13/KuX5HqNteSxDijp.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/08/B2V6pStI5Jn7ZYX.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/12/Nh4yiM1IUpfjGwa.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/12/vqtIACBnyFwHQhZ.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/12/ZwRUM8E6liJykD1.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/12/pyjOlac6rVfdSzn.png">
+<meta property="og:image" content="https://s2.loli.net/2025/03/12/Pz127cYKDu3Fjah.png">
+<meta property="article:published_time" content="2023-09-29T13:16:08.000Z">
+<meta property="article:modified_time" content="2025-04-27T06:58:58.275Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2025/03/13/jdQePEuotGKRYCk.png">
+  
+  
+  
+  <title>C++的智能指针 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++的智能指针"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-29 21:16" pubdate>
+          2023年9月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C++的智能指针</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2022/09/22/C++11%E7%89%B9%E6%80%A7/">C++11特性 - The Peak Tower</a>文章中简答提到了“资源管理指针”这一个概念，却没有深入的去了解，本文将重点看看所谓智能指针到底是什么？</p>
+<h1 id="RAll思想"><a href="#RAll思想" class="headerlink" title="RAll思想"></a><strong>RAll思想</strong></h1><p><strong>RAII（Resource Acquisition Is Initialization，资源获取即初始化）</strong> 是 C++ 中的一种核心编程思想，它的核心是通过对象的生命周期来管理资源。RAII 是智能指针（如 <code>std::unique_ptr</code> 和 <code>std::shared_ptr</code>）的指导思想，也是 C++ 中管理资源（如内存、文件句柄、网络连接、互斥量等）的最佳实践。</p>
+<h2 id="RAII-的核心思想"><a href="#RAII-的核心思想" class="headerlink" title="RAII 的核心思想"></a><strong>RAII 的核心思想</strong></h2><ol>
+<li><strong>资源获取即初始化</strong>：<ul>
+<li>在对象的构造函数中获取资源（例如分配内存、打开文件、加锁等）。</li>
+<li>在对象的析构函数中释放资源（例如释放内存、关闭文件、解锁等）。</li>
+</ul>
+</li>
+<li><strong>利用对象的生命周期管理资源</strong>：<ul>
+<li>当对象创建时，资源被获取。</li>
+<li>当对象销毁时，资源被释放。</li>
+<li>这种方式确保了资源的正确释放，即使发生异常也不会泄漏资源。</li>
+</ul>
+</li>
+</ol>
+<h2 id="RAII-的设计原则"><a href="#RAII-的设计原则" class="headerlink" title="RAII 的设计原则"></a><strong>RAII 的设计原则</strong></h2><ol>
+<li><strong>封装资源管理</strong>：<ul>
+<li>将资源的获取和释放封装在类的构造函数和析构函数中。</li>
+</ul>
+</li>
+<li><strong>确保析构函数释放资源</strong>：<ul>
+<li>析构函数必须正确释放资源，即使发生异常。</li>
+</ul>
+</li>
+<li><strong>禁止拷贝（如果需要）</strong>：<ul>
+<li>如果资源不能被共享，可以通过删除拷贝构造函数和拷贝赋值运算符来禁止拷贝。</li>
+</ul>
+</li>
+</ol>
+<h2 id="—categories-计算机基础-编程语言-C-C"><a href="#—categories-计算机基础-编程语言-C-C" class="headerlink" title="—categories:- [计算机基础, 编程语言, C, C++]"></a>—categories:<br>- [计算机基础, 编程语言, C, C++]</h2><h1 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a><strong>unique_ptr</strong></h1><p><code>std::unique_ptr</code> 是 C++11 引入的一种智能指针，用于管理动态分配的内存资源。它提供独占式所有权（exclusive ownership），确保一个时刻只有一个 <code>unique_ptr</code> 拥有所管理的对象，并在指针超出作用域时自动释放内存。</p>
+<h3 id="基本特性"><a href="#基本特性" class="headerlink" title="基本特性"></a><strong>基本特性</strong></h3><ul>
+<li><strong>独占所有权</strong>：一个 <code>unique_ptr</code> 独占所管理的对象，不能复制，只能移动。</li>
+<li><strong>自动释放</strong>：当 <code>unique_ptr</code> 超出作用域时，会自动释放所管理的对象。</li>
+<li><strong>轻量高效</strong>：<code>unique_ptr</code> 的开销几乎与原始指针相同，没有额外的引用计数。</li>
+</ul>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a><strong>基本用法</strong></h3><h4 id="创建-unique-ptr"><a href="#创建-unique-ptr" class="headerlink" title="创建 unique_ptr"></a>创建 <code>unique_ptr</code></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span> <span class="hljs-comment">// 包含 unique_ptr 的头文件</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建一个 unique_ptr，管理一个 int 对象</span><br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">42</span>))</span></span>;<br><br>    <span class="hljs-comment">// 使用 C++14 的 std::make_unique 创建 unique_ptr（推荐）</span><br>    <span class="hljs-keyword">auto</span> ptr2 = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">100</span>);<br><br>    std::cout &lt;&lt; *ptr1 &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; *ptr2 &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 42, 100</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>std::make_unique</code>**：C++14 引入的工厂函数，用于创建 <code>unique_ptr</code>，更安全且更易读。</li>
+</ul>
+<h4 id="释放所有权"><a href="#释放所有权" class="headerlink" title="释放所有权"></a>释放所有权</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 释放所有权，返回原始指针，unique_ptr 变为 nullptr</span><br>    <span class="hljs-type">int</span>* rawPtr = ptr.<span class="hljs-built_in">release</span>();<br><br>    std::cout &lt;&lt; *rawPtr &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 42</span><br>    <span class="hljs-keyword">delete</span> rawPtr; <span class="hljs-comment">// 需要手动释放内存</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>release()</code>**：释放 <code>unique_ptr</code> 对对象的所有权，返回原始指针，<code>unique_ptr</code> 变为 <code>nullptr</code>。</li>
+</ul>
+<h4 id="重置指针"><a href="#重置指针" class="headerlink" title="重置指针"></a>重置指针</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 重置 unique_ptr，释放当前对象并管理新对象</span><br>    ptr.<span class="hljs-built_in">reset</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">100</span>));<br><br>    std::cout &lt;&lt; *ptr &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 100</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>reset()</code>**：释放当前管理的对象（如果有），并接管新对象。</li>
+</ul>
+<h4 id="检查是否为空"><a href="#检查是否为空" class="headerlink" title="检查是否为空"></a>检查是否为空</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-keyword">if</span> (ptr) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ptr is not null&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    ptr.<span class="hljs-built_in">reset</span>(); <span class="hljs-comment">// 释放对象，ptr 变为 nullptr</span><br><br>    <span class="hljs-keyword">if</span> (!ptr) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ptr is null&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>operator bool()</code>**：检查 <code>unique_ptr</code> 是否为空。</li>
+</ul>
+<hr>
+<h3 id="独占所有权"><a href="#独占所有权" class="headerlink" title="独占所有权"></a><strong>独占所有权</strong></h3><p><code>unique_ptr</code> 不能复制，只能移动。这是其独占所有权的核心特性。</p>
+<p><img src="https://s2.loli.net/2025/03/13/jdQePEuotGKRYCk.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="移动语义"><a href="#移动语义" class="headerlink" title="移动语义"></a>移动语义</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr1 = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 移动语义：ptr1 的所有权转移给 ptr2，ptr1 变为 nullptr</span><br>    <span class="hljs-keyword">auto</span> ptr2 = std::<span class="hljs-built_in">move</span>(ptr1);<br><br>    <span class="hljs-keyword">if</span> (!ptr1) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ptr1 is null&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    std::cout &lt;&lt; *ptr2 &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 42</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>std::move()</code>**：用于转移 <code>unique_ptr</code> 的所有权。</li>
+</ul>
+<h4 id="禁止复制"><a href="#禁止复制" class="headerlink" title="禁止复制"></a>禁止复制</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr1 = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 错误：unique_ptr 不能复制</span><br>    <span class="hljs-comment">// auto ptr2 = ptr1;</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>禁止复制</strong>：<code>unique_ptr</code> 的拷贝构造函数和拷贝赋值运算符被删除。</li>
+</ul>
+<p><img src="https://s2.loli.net/2025/03/13/KuX5HqNteSxDijp.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="categories-计算机基础-编程语言-C-C"><a href="#categories-计算机基础-编程语言-C-C" class="headerlink" title="categories:- [计算机基础, 编程语言, C, C++]"></a>categories:<br>- [计算机基础, 编程语言, C, C++]</h2><h3 id="自定义删除器"><a href="#自定义删除器" class="headerlink" title="自定义删除器"></a><strong>自定义删除器</strong></h3><p><code>unique_ptr</code> 允许指定自定义删除器，用于释放资源。</p>
+<h4 id="使用函数指针"><a href="#使用函数指针" class="headerlink" title="使用函数指针"></a>使用函数指针</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">customDeleter</span><span class="hljs-params">(<span class="hljs-type">int</span>* ptr)</span> </span>&#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Custom deleter called&quot;</span> &lt;&lt; std::endl;<br>    <span class="hljs-keyword">delete</span> ptr;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>, <span class="hljs-title">decltype</span><span class="hljs-params">(&amp;customDeleter)</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">42</span>), customDeleter)</span></span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 退出作用域时调用 customDeleter</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用-Lambda-表达式"><a href="#使用-Lambda-表达式" class="headerlink" title="使用 Lambda 表达式"></a>使用 Lambda 表达式</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> deleter = [](<span class="hljs-type">int</span>* ptr) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Lambda deleter called&quot;</span> &lt;&lt; std::endl;<br>        <span class="hljs-keyword">delete</span> ptr;<br>    &#125;;<br><br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>, <span class="hljs-title">decltype</span><span class="hljs-params">(deleter)</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">42</span>), deleter)</span></span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 退出作用域时调用 Lambda 删除器</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="管理数组"><a href="#管理数组" class="headerlink" title="管理数组"></a><strong>管理数组</strong></h3><p><code>unique_ptr</code> 可以管理动态数组。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 管理动态数组</span><br>    <span class="hljs-keyword">auto</span> ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>[]&gt;(<span class="hljs-number">10</span>);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i) &#123;<br>        ptr[i] = i + <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i) &#123;<br>        std::cout &lt;&lt; ptr[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    &#125;<br>    std::cout &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>std::make_unique&lt;int[]&gt;</code>**：用于创建动态数组。</li>
+</ul>
+<h2 id="categories-计算机基础-编程语言-C-C-1"><a href="#categories-计算机基础-编程语言-C-C-1" class="headerlink" title="categories:- [计算机基础, 编程语言, C, C++]"></a>categories:<br>- [计算机基础, 编程语言, C, C++]</h2><h3 id="与原始指针的转换"><a href="#与原始指针的转换" class="headerlink" title="与原始指针的转换"></a><strong>与原始指针的转换</strong></h3><h4 id="获取原始指针"><a href="#获取原始指针" class="headerlink" title="获取原始指针"></a>获取原始指针</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 获取原始指针，但不释放所有权</span><br>    <span class="hljs-type">int</span>* rawPtr = ptr.<span class="hljs-built_in">get</span>();<br><br>    std::cout &lt;&lt; *rawPtr &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 42</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>**<code>get()</code>**：返回原始指针，但不释放所有权。</li>
+</ul>
+<h4 id="从原始指针构造"><a href="#从原始指针构造" class="headerlink" title="从原始指针构造"></a>从原始指针构造</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span>* rawPtr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">42</span>);<br><br>    <span class="hljs-comment">// 从原始指针构造 unique_ptr</span><br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(rawPtr)</span></span>;<br><br>    std::cout &lt;&lt; *ptr &lt;&lt; std::endl; <span class="hljs-comment">// 输出: 42</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150555165">现代 C++：一文读懂智能指针 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/548864356">深入理解Modern C++智能指针std::shared_ptr - 知乎</a></p>
+<p>C++智能指针shared_ptr是一种可以自动管理内存的智能指针，它是C++11新增的特性之一。与传统指针不同，shared_ptr可以自动释放所管理的动态分配对象的内存，并避免了手动释放内存的繁琐操作，从而减少了内存泄漏和野指针的出现。</p>
+</blockquote>
+<p>看百度来的解释，结合最近在看各种语言的垃圾回收机制(GC)，个人觉得该所谓的智能指针只是对C++没有垃圾回收机制的一种弥补。比如python的GC机制也有<strong>引用计数</strong>类似的概念。</p>
+<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/16/C++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/">《C++反汇编与逆向分析》阅读总结(三) - The Peak Tower</a>这篇文章中提到了C++中的各类对象：</p>
+<p><img src="https://s2.loli.net/2025/03/08/B2V6pStI5Jn7ZYX.png" srcset="/img/loading.gif" lazyload></p>
+<p>又在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/22/%E3%80%8AC++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E3%80%8B%E9%98%85%E8%AF%BB(%E5%9B%9B)/">《C++反汇编与逆向分析》阅读总结(四) - The Peak Tower</a>可以看到C++的各色继承多态关系都与对象脱不了关系。</p>
+<p>那么重点是shared_ptr是如何实现自动释放所管理的动态分配对象的内存的呢？</p>
+<blockquote>
+<p>shared_ptr是一个模板类，通过引用计数器实现多个智能指针共享对一个对象的所有权。每次复制一个shared_ptr对象时，该对象的引用计数器会增加1，当最后一个shared_ptr对象被销毁时，引用计数器减1，如果引用计数器变为0，则释放所管理的对象的内存。</p>
+</blockquote>
+<p>C++ 的智能指针（如 <code>std::shared_ptr</code>、<code>std::unique_ptr</code> 和 <code>std::weak_ptr</code>）是<strong>类模板</strong>，它们封装了原始指针，并提供了额外的功能（如自动内存管理、引用计数等）。智能指针的实例是一个对象，但它通过重载运算符（如 <code>operator*</code> 和 <code>operator-&gt;</code>）表现得像一个指针。(shared_ptr 代表的是共享所有权，即多个 shared_ptr 可以共享同一块内存。)</p>
+<p><img src="https://s2.loli.net/2025/03/12/Nh4yiM1IUpfjGwa.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里给出一个简单实现的shared_ptr(未考虑线程安全)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleSharedPtr</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 构造函数</span><br>    <span class="hljs-function"><span class="hljs-keyword">explicit</span> <span class="hljs-title">SimpleSharedPtr</span><span class="hljs-params">(T* ptr = <span class="hljs-literal">nullptr</span>)</span> : ptr_(ptr), ref_count_(new size_t(<span class="hljs-number">1</span>)) &#123;</span><br>        <span class="hljs-keyword">if</span> (ptr_ == <span class="hljs-literal">nullptr</span>) &#123;<br>            *ref_count_ = <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 拷贝构造函数</span><br>    <span class="hljs-built_in">SimpleSharedPtr</span>(<span class="hljs-type">const</span> SimpleSharedPtr&amp; other) : <span class="hljs-built_in">ptr_</span>(other.ptr_), <span class="hljs-built_in">ref_count_</span>(other.ref_count_) &#123;<br>        <span class="hljs-keyword">if</span> (ptr_) &#123;<br>            ++(*ref_count_);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 拷贝赋值运算符</span><br>    SimpleSharedPtr&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> SimpleSharedPtr&amp; other) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> != &amp;other) &#123;<br>            <span class="hljs-built_in">release</span>();<br>            ptr_ = other.ptr_;<br>            ref_count_ = other.ref_count_;<br>            <span class="hljs-keyword">if</span> (ptr_) &#123;<br>                ++(*ref_count_);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 析构函数</span><br>    ~<span class="hljs-built_in">SimpleSharedPtr</span>() &#123;<br>        <span class="hljs-built_in">release</span>();<br>    &#125;<br><br>    <span class="hljs-comment">// 解引用运算符</span><br>    T&amp; <span class="hljs-keyword">operator</span>*() <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> *ptr_;<br>    &#125;<br><br>    <span class="hljs-comment">// 箭头运算符</span><br>    T* <span class="hljs-keyword">operator</span>-&gt;() <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_;<br>    &#125;<br><br>    <span class="hljs-comment">// 获取引用计数</span><br>    <span class="hljs-function"><span class="hljs-type">size_t</span> <span class="hljs-title">use_count</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> *ref_count_;<br>    &#125;<br>    <span class="hljs-comment">// 获取原始指针</span><br>    <span class="hljs-function">T* <span class="hljs-title">get</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> ptr_;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">release</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (ptr_ &amp;&amp; --(*ref_count_) == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">delete</span> ptr_;<br>            <span class="hljs-keyword">delete</span> ref_count_;<br>        &#125;<br>    &#125;<br><br>    T* ptr_;<br>    <span class="hljs-type">size_t</span>* ref_count_;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">SimpleSharedPtr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">10</span>))</span></span>;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;ptr1 use count: &quot;</span> &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 1</span><br><br>    &#123;<br>        SimpleSharedPtr&lt;<span class="hljs-type">int</span>&gt; ptr2 = ptr1;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ptr1 use count: &quot;</span> &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 2</span><br>        std::cout &lt;&lt; <span class="hljs-string">&quot;ptr2 use count: &quot;</span> &lt;&lt; ptr2.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 2</span><br>    &#125;<br><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;ptr1 use count: &quot;</span> &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 1</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>给出使用一个示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr1 = std::<span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">30</span>);<br><br>    <span class="hljs-comment">// ptr2 共享 ptr1 所指向的对象</span><br>    std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr2 = ptr1;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Value from ptr1: &quot;</span> &lt;&lt; *ptr1 &lt;&lt; std::endl; <br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Value from ptr2: &quot;</span> &lt;&lt; *ptr2 &lt;&lt; std::endl; <br>    <span class="hljs-comment">// 引用计数</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Use count: &quot;</span> &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 输出 2</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2025/03/12/vqtIACBnyFwHQhZ.png" srcset="/img/loading.gif" lazyload></p>
+<p>例如：</p>
+<p><img src="https://s2.loli.net/2025/03/12/ZwRUM8E6liJykD1.png" srcset="/img/loading.gif" lazyload></p>
+<p>注意：和普通变量一样，当最后一个 <strong><code>shared_ptr</code></strong> 超出作用域时，所管理的对象会被自动释放。</p>
+<h2 id="内存泄露-循环引用"><a href="#内存泄露-循环引用" class="headerlink" title="内存泄露(循环引用)"></a>内存泄露(循环引用)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>; <span class="hljs-comment">// 前向声明</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;B&gt; b_ptr; <span class="hljs-comment">// A 持有 B 的 shared_ptr</span><br><br>    ~<span class="hljs-built_in">A</span>() &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;A 被销毁&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;A&gt; a_ptr; <span class="hljs-comment">// B 持有 A 的 shared_ptr</span><br><br>    ~<span class="hljs-built_in">B</span>() &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;B 被销毁&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建 A 和 B 的 shared_ptr</span><br>    std::shared_ptr&lt;A&gt; a = std::<span class="hljs-built_in">make_shared</span>&lt;A&gt;();<br>    std::shared_ptr&lt;B&gt; b = std::<span class="hljs-built_in">make_shared</span>&lt;B&gt;();<br><br>    <span class="hljs-comment">// A 和 B 互相引用</span><br>    a-&gt;b_ptr = b;<br>    b-&gt;a_ptr = a;<br><br>    <span class="hljs-comment">// 输出引用计数</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;A 的引用计数: &quot;</span> &lt;&lt; a.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 2</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;B 的引用计数: &quot;</span> &lt;&lt; b.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 2</span><br><br>    <span class="hljs-comment">// 退出作用域，a 和 b 的引用计数减 1</span><br>    <span class="hljs-comment">// 但由于循环引用，引用计数不会变为 0，导致内存泄漏</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在对象A中通过shared_ptr管理资源B，在对象B中通过shared_ptr管理资源A。导致A，B均不会释放相应内存，产生内存泄露。</p>
+<p><img src="https://s2.loli.net/2025/03/12/pyjOlac6rVfdSzn.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="性能差异"><a href="#性能差异" class="headerlink" title="性能差异"></a>性能差异</h3><p>注意：shared_ptr 的内存占用是裸指针的两倍。因为除了要管理一个裸指针外，还要维护一个引用计数。因此相比于 unique_ptr, shared_ptr 的内存占用更高</p>
+<p>考虑到线程安全问题，引用计数的增减必须是原子操作。而原子操作一般情况下都比非原子操作慢。shared_ptr 在性能上固然是低于 unique_ptr。而通常情况，我们也可以尽量避免 shared_ptr 复制。</p>
+<blockquote>
+<p>如果，一个 shared_ptr 需要将所有权共享给另外一个新的 shared_ptr，而我们确定在之后的代码中都不再使用这个 shared_ptr，那么这是一个非常鲜明的移动语义。对于此种场景，我们尽量使用 std::move，将 shared_ptr 转移给新的对象。因为移动不用增加引用计数，性能比复制更好。</p>
+</blockquote>
+<h1 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h1><blockquote>
+<p><strong><code>std::weak_ptr</code></strong> 是 C++11 引入的智能指针类型，用于解决 <strong><code>std::shared_ptr</code></strong> 的循环引用问题。它提供了一种不参与对象引用计数的弱引用，这意味着它不会影响所管理对象的生命周期。</p>
+</blockquote>
+<p>weak_ptr是为了配合shared_ptr而引入的一种智能指针，它指向一个由shared_ptr管理的对象而不影响所指对象的生命周期。(也就是将一个weak_ptr绑定到一个shared_ptr不会改变shared_ptr的引用计数。)</p>
+<p>它只可以从一个 shared_ptr 或另一个 weak_ptr 对象构造，它的构造和析构不会引起引用记数的增加或减少。弱引用能检测到所管理的对象是否已经被释放，从而避免访问非法内存。</p>
+<p><code>std::weak_ptr</code><strong>没有重载 <code>\*</code> 和 <code>-&gt;</code> 运算符</strong>因为其不能直接访问资源，因为它不拥有资源的所有权。</p>
+<p><img src="https://s2.loli.net/2025/03/12/Pz127cYKDu3Fjah.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>也就是说，weak_ptr是为了弥补shared_ptr循环引用而生的，它没有RAII的特性，不直接管理资源，只是shared_ptr的跟班，这也是weak_ptr支持使用shared_ptr构造的原因。</strong></p>
+<p>在使用上，weak_ptr支持指针所有的操作。它不是一个功能型的智能指针，而是辅助型，它的使命是解决shared_ptr造成的循环引用问题。</p>
+<p>还是之前的例子说明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>; <span class="hljs-comment">// 前向声明</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;B&gt; b_ptr; <span class="hljs-comment">// A 持有 B 的 shared_ptr</span><br><br>    ~<span class="hljs-built_in">A</span>() &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;A 被销毁&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::weak_ptr&lt;A&gt; a_ptr; <span class="hljs-comment">// B 持有 A 的 weak_ptr</span><br><br>    ~<span class="hljs-built_in">B</span>() &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;B 被销毁&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">useA</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 通过 lock() 获取 shared_ptr</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">auto</span> a = a_ptr.<span class="hljs-built_in">lock</span>()) &#123;<br>            std::cout &lt;&lt; <span class="hljs-string">&quot;B 使用 A 的资源&quot;</span> &lt;&lt; std::endl;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            std::cout &lt;&lt; <span class="hljs-string">&quot;A 的资源已被释放&quot;</span> &lt;&lt; std::endl;<br>        &#125;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// 创建 A 和 B 的 shared_ptr</span><br>    std::shared_ptr&lt;A&gt; a = std::<span class="hljs-built_in">make_shared</span>&lt;A&gt;();<br>    std::shared_ptr&lt;B&gt; b = std::<span class="hljs-built_in">make_shared</span>&lt;B&gt;();<br><br>    <span class="hljs-comment">// A 和 B 互相引用</span><br>    a-&gt;b_ptr = b;<br>    b-&gt;a_ptr = a; <span class="hljs-comment">// 使用 weak_ptr 而不是 shared_ptr</span><br><br>    <span class="hljs-comment">// 输出引用计数</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;A 的引用计数: &quot;</span> &lt;&lt; a.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 1</span><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;B 的引用计数: &quot;</span> &lt;&lt; b.<span class="hljs-built_in">use_count</span>() &lt;&lt; std::endl; <span class="hljs-comment">// 2</span><br><br>    <span class="hljs-comment">// 使用 B 中的 A</span><br>    b-&gt;<span class="hljs-built_in">useA</span>(); <span class="hljs-comment">// 输出: B 使用 A 的资源</span><br><br>    <span class="hljs-comment">// 退出作用域，a 和 b 的引用计数减 1</span><br>    <span class="hljs-comment">// 由于 weak_ptr 不会增加引用计数，A 和 B 会被正确销毁</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="强弱引用"><a href="#强弱引用" class="headerlink" title="强弱引用"></a>强弱引用</h1><p>在C++中，<strong>强弱引用</strong>是用来描述对象生命周期管理的概念，通常与智能指针（如<code>std::shared_ptr</code>和<code>std::weak_ptr</code>）相关。它们的主要区别在于是否影响对象的生命周期。</p>
+<hr>
+<h2 id="强引用（Strong-Reference）"><a href="#强引用（Strong-Reference）" class="headerlink" title="强引用（Strong Reference）"></a><strong>强引用（Strong Reference）</strong></h2><p>强引用是指对对象的引用会<strong>增加对象的引用计数</strong>，从而<strong>延长对象的生命周期</strong>。只要存在至少一个强引用，对象就不会被销毁。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li><strong>影响生命周期</strong>：强引用会增加对象的引用计数，防止对象被销毁。</li>
+<li><strong>可能导致循环引用</strong>：如果两个对象相互持有对方的强引用，会导致引用计数无法归零，从而引发内存泄漏。</li>
+</ul>
+<p>在C++中，<code>std::shared_ptr</code>是一种强引用智能指针。它通过引用计数来管理对象的生命周期。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>; <span class="hljs-comment">// 前向声明</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;B&gt; b_ptr;<br>    ~<span class="hljs-built_in">A</span>() &#123; std::cout &lt;&lt; <span class="hljs-string">&quot;A destroyed\n&quot;</span>; &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;A&gt; a_ptr;<br>    ~<span class="hljs-built_in">B</span>() &#123; std::cout &lt;&lt; <span class="hljs-string">&quot;B destroyed\n&quot;</span>; &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> a = std::<span class="hljs-built_in">make_shared</span>&lt;A&gt;();<br>    <span class="hljs-keyword">auto</span> b = std::<span class="hljs-built_in">make_shared</span>&lt;B&gt;();<br>    a-&gt;b_ptr = b; <span class="hljs-comment">// A 持有 B 的强引用</span><br>    b-&gt;a_ptr = a; <span class="hljs-comment">// B 持有 A 的强引用</span><br><br>    <span class="hljs-comment">// 循环引用导致内存泄漏</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="categories-计算机基础-编程语言-C-C-2"><a href="#categories-计算机基础-编程语言-C-C-2" class="headerlink" title="categories:- [计算机基础, 编程语言, C, C++]"></a>categories:<br>- [计算机基础, 编程语言, C, C++]</h2><h2 id="弱引用（Weak-Reference）"><a href="#弱引用（Weak-Reference）" class="headerlink" title="弱引用（Weak Reference）"></a><strong>弱引用（Weak Reference）</strong></h2><p>弱引用是指对对象的引用<strong>不会增加对象的引用计数</strong>，因此<strong>不会影响对象的生命周期</strong>。弱引用通常用于观察对象是否存在，而不会阻止对象被销毁。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li><strong>不影响生命周期</strong>：弱引用不会增加对象的引用计数，不会阻止对象被销毁。</li>
+<li><strong>解决循环引用问题</strong>：通过将循环引用中的一方改为弱引用，可以避免内存泄漏。</li>
+<li><strong>需要检查对象是否存在</strong>：在使用弱引用访问对象时，需要检查对象是否仍然存在。</li>
+</ul>
+<p>在C++中，<code>std::weak_ptr</code>是一种弱引用智能指针。它不会增加对象的引用计数，但可以通过<code>lock()</code>方法获取一个临时的<code>std::shared_ptr</code>来访问对象。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;memory&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>; <span class="hljs-comment">// 前向声明</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::shared_ptr&lt;B&gt; b_ptr;<br>    ~<span class="hljs-built_in">A</span>() &#123; std::cout &lt;&lt; <span class="hljs-string">&quot;A destroyed\n&quot;</span>; &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    std::weak_ptr&lt;A&gt; a_ptr; <span class="hljs-comment">// 使用弱引用</span><br>    ~<span class="hljs-built_in">B</span>() &#123; std::cout &lt;&lt; <span class="hljs-string">&quot;B destroyed\n&quot;</span>; &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">auto</span> a = std::<span class="hljs-built_in">make_shared</span>&lt;A&gt;();<br>    <span class="hljs-keyword">auto</span> b = std::<span class="hljs-built_in">make_shared</span>&lt;B&gt;();<br>    a-&gt;b_ptr = b; <span class="hljs-comment">// A 持有 B 的强引用</span><br>    b-&gt;a_ptr = a; <span class="hljs-comment">// B 持有 A 的弱引用</span><br><br>    <span class="hljs-comment">// 检查弱引用是否有效</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">auto</span> shared_a = b-&gt;a_ptr.<span class="hljs-built_in">lock</span>()) &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;A is still alive\n&quot;</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;A has been destroyed\n&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="强弱引用的对比"><a href="#强弱引用的对比" class="headerlink" title="强弱引用的对比"></a><strong>强弱引用的对比</strong></h2><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>强引用（<code>std::shared_ptr</code>）</strong></th>
+<th><strong>弱引用（<code>std::weak_ptr</code>）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>是否增加引用计数</strong></td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>是否影响对象生命周期</strong></td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>能否访问对象</strong></td>
+<td>直接访问</td>
+<td>需要通过<code>lock()</code>方法获取<code>std::shared_ptr</code></td>
+</tr>
+<tr>
+<td><strong>是否可能导致循环引用</strong></td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td><strong>典型用途</strong></td>
+<td>管理对象的生命周期</td>
+<td>观察对象是否存在，避免循环引用</td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" class="category-chain-item">C</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C/" class="category-chain-item">C++</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++的智能指针</div>
+      <div>http://example.com/2023/09/29/计算机基础/编程语言/C/C++/C++的智能指针/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/golang%20%E9%94%81%E6%9C%BA%E5%88%B6/" title="golang锁机制">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">golang锁机制</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/channel/" title="channel">
+                        <span class="hidden-mobile">channel</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
