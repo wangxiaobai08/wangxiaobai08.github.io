@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/eQVpLgxDUlo2MYW.png">
 <meta property="og:image" content="https://s2.loli.net/2024/10/22/d2mhlM48NF7BD9y.png">
 <meta property="article:published_time" content="2023-05-18T11:39:25.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.368Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.638Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/12/27/YNU83osbr7j6tKQ.png">
@@ -256,7 +256,7 @@
             
               <div class="markdown-body">
                 
-                <p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/05/15/Dex%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/#DexFile">Dex加载流程 - The Peak Tower</a>这篇文章中，详细探讨了dex的加载流程，而类加载的整个过程如下：</p>
+                <p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/05/15/Dex%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/#DexFile">Dex加载流程 - The Peak Tower</a>这篇文章中，详细探讨了dex的加载流程，而类加载的整个过程如下：</p>
 <table>
 <thead>
 <tr>
@@ -303,7 +303,7 @@
 <h2 id="LoadClass"><a href="#LoadClass" class="headerlink" title="LoadClass"></a>LoadClass</h2><p><img src="https://s2.loli.net/2024/10/22/S9zgVq4kNRPx2YE.png" srcset="/img/loading.gif" lazyload alt="image-20241022201826940"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="hljs-type">boolean</span> resolve) <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>    <span class="hljs-comment">// 第一步，检查类是否已经被加载</span><br>    Class&lt;?&gt; c = findLoadedClass(name);  <br>    <span class="hljs-keyword">if</span> (c == <span class="hljs-literal">null</span>) &#123;  <span class="hljs-comment">// 如果类没有被加载，则继续查找</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 如果父类加载器不为 null，则尝试使用父加载器加载</span><br>            <span class="hljs-keyword">if</span> (parent != <span class="hljs-literal">null</span>) &#123;<br>                c = parent.loadClass(name, <span class="hljs-literal">false</span>);  <span class="hljs-comment">// 调用父加载器的 loadClass 方法</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                c = findBootstrapClassOrNull(name);  <span class="hljs-comment">// 如果没有父加载器，则尝试查找引导类（Bootstrap Class）</span><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>            <span class="hljs-comment">// 如果父加载器找不到该类，则会抛出 ClassNotFoundException</span><br>            <span class="hljs-comment">// 这里捕获该异常，继续处理</span><br>        &#125;<br><br>        <span class="hljs-comment">// 如果父加载器仍然没有找到该类，则调用 findClass 方法查找类</span><br>        <span class="hljs-keyword">if</span> (c == <span class="hljs-literal">null</span>) &#123;<br>            c = findClass(name);  <span class="hljs-comment">// 使用当前加载器查找该类</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> c;  <span class="hljs-comment">// 返回已加载的类，或者抛出 ClassNotFoundException</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-<p>注意：c &#x3D; parent.loadClass(name, false);涉及到了双亲委派机制【双亲委派机制是 Java 类加载器（<code>ClassLoader</code>）的核心机制之一，旨在确保 Java 类的加载遵循一种优先级的委派模式。其基本思想是：当前类加载器请求加载一个类时，首先会将请求委派给父类加载器，如果父类加载器无法处理，则由当前类加载器处理。这种机制有助于避免类的重复加载和冲突。】具体可参考之前文章<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/12/19/%E5%88%9D%E8%AF%86JVM/">初识JVM - The Peak Tower</a></p>
+<p>注意：c &#x3D; parent.loadClass(name, false);涉及到了双亲委派机制【双亲委派机制是 Java 类加载器（<code>ClassLoader</code>）的核心机制之一，旨在确保 Java 类的加载遵循一种优先级的委派模式。其基本思想是：当前类加载器请求加载一个类时，首先会将请求委派给父类加载器，如果父类加载器无法处理，则由当前类加载器处理。这种机制有助于避免类的重复加载和冲突。】具体可参考之前文章<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/12/19/%E5%88%9D%E8%AF%86JVM/">初识JVM - The Peak Tower</a></p>
 <h3 id="findClass"><a href="#findClass" class="headerlink" title="findClass"></a>findClass</h3><p>因为BaseDexClassLoader继承了ClassLoader虚类，其他加载器的类基本都继承于BaseDexClassLoader类，BaseDexClassLoader类中重写了findClass方法，所以上一步会去调用BaseDexClassLoader类中的findClass方法。</p>
 <p><img src="https://s2.loli.net/2024/10/22/8FJPWLdXoZ2qRaf.png" srcset="/img/loading.gif" lazyload alt="image-20241022201923215"></p>
 <p>从类路径中查找类，如果找不到，抛出一个带有附加信息的 <code>ClassNotFoundException</code> 异常，并将其他抑制的异常添加到这个异常中。</p>

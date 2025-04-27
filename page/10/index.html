@@ -202,74 +202,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/06/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98-Redis/" target="_self">
-          缓冲问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/25/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98-Redis/" target="_self">
-        <div>
-          缓存应用场景用户的数据一般都是存储于数据库，数据库的数据是落在磁盘上的，磁盘的读写速度可以说是计算机里最慢的硬件了。  如果用户的请求都访问数据库的话，一旦请求数量上来，数据库很容易就奔溃。因此为了避免用户直接访问数据库，会选用 Redis 作为缓存层。因为 Redis 是内存数据库，可以将数据库的数据缓存在 Redis 里，相当于数据缓存在内存，内存的读写速度比硬盘快好几个数量级，以此大大提高了
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-25 16:12" pubdate>
-              2023-06-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/" class="category-chain-item">Redis</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2023/06/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/%E6%8C%81%E4%B9%85%E5%8C%96-Redis/" target="_self">
           持久化
         </a>
@@ -900,6 +832,88 @@
     
   <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
   
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/05/18/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
+          Android类加载流程
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/18/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" target="_self">
+        <div>
+          在Dex加载流程 - The Peak Tower这篇文章中，详细探讨了dex的加载流程，而类加载的整个过程如下：    步骤 描述 相关技术&#x2F;组件    1. 编译与打包 将 .java 源代码编译成 .class 文件，然后使用 d8 或 dx 工具将其转换为 .dex 文件，并打包到 APK 中。 d8、dx、APK   2. 应用启动 当应用启动时，系统加载 .dex 文件，准备
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-18 19:39" pubdate>
+              2023-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/" class="category-chain-item">Android逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" class="category-chain-item">文件格式</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E9%80%86%E5%90%91/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="category-chain-item">装载链接运行</a>
+  
+  
+
+  
+
   
 
   

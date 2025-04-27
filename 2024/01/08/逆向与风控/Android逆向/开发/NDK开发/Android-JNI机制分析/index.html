@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/30/bc89DhJ3pWVgrS1.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/30/7zFrgxaTc83HIhj.png">
 <meta property="article:published_time" content="2024-01-08T01:15:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.318Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.653Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
@@ -256,9 +256,9 @@
               <div class="markdown-body">
                 
                 <p>关于android中的Jni机制，在前面的文章中都或多或少介绍过。</p>
-<p>比如在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2022/08/21/%E5%88%9D%E8%AF%86JVM/">初识JVM - The Peak Tower</a>我们谈到JNI的基本概念【JNI作为连接Java世界和C&#x2F;C++世界的桥梁】和调用大致过程还有java层调用的本地代码在本地C实现的函数命名规则,</p>
-<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">android系统启动流程 - The Peak Tower</a>中谈到了Android系统在启动启动过程中，先启动Kernel创建init进程，紧接着由init进程fork第一个横穿Java和C&#x2F;C++的进程，即Zygote进程。Zygote启动过程中会<code>AndroidRuntime.cpp</code>中的<code>startVm</code>创建虚拟机，VM创建完成后，紧接着调用<code>startReg</code>完成虚拟机中的JNI方法注册。接着在register_jni_procs(gRegJNI, NELEM(gRegJNI), env)方法中循环调用<code>gRegJNI</code>数组成员所对应的方法。而<code>gRegJNI</code>数组，有100多个成员变量，每个成员都代表一个类文件的jni映射，其中REG_JNI是一个宏定义，在<a target="_blank" rel="noopener" href="http://gityuan.com/2016/02/13/android-zygote">Zygote</a>中介绍过，该宏的作用就是调用相应的方法。</p>
-<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4-namespace%E6%9C%BA%E5%88%B6">So加载和链接(linker) - The Peak Tower</a>中我们介绍了用户定义的so如何被加载运行但一笔带过了FindSymbol调用JNI_Load</p>
+<p>比如在<a target="_blank" rel="noopener" href="https://restack3.github.io/2022/08/21/%E5%88%9D%E8%AF%86JVM/">初识JVM - The Peak Tower</a>我们谈到JNI的基本概念【JNI作为连接Java世界和C&#x2F;C++世界的桥梁】和调用大致过程还有java层调用的本地代码在本地C实现的函数命名规则,</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">android系统启动流程 - The Peak Tower</a>中谈到了Android系统在启动启动过程中，先启动Kernel创建init进程，紧接着由init进程fork第一个横穿Java和C&#x2F;C++的进程，即Zygote进程。Zygote启动过程中会<code>AndroidRuntime.cpp</code>中的<code>startVm</code>创建虚拟机，VM创建完成后，紧接着调用<code>startReg</code>完成虚拟机中的JNI方法注册。接着在register_jni_procs(gRegJNI, NELEM(gRegJNI), env)方法中循环调用<code>gRegJNI</code>数组成员所对应的方法。而<code>gRegJNI</code>数组，有100多个成员变量，每个成员都代表一个类文件的jni映射，其中REG_JNI是一个宏定义，在<a target="_blank" rel="noopener" href="http://gityuan.com/2016/02/13/android-zygote">Zygote</a>中介绍过，该宏的作用就是调用相应的方法。</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4-namespace%E6%9C%BA%E5%88%B6">So加载和链接(linker) - The Peak Tower</a>中我们介绍了用户定义的so如何被加载运行但一笔带过了FindSymbol调用JNI_Load</p>
 <p>今天这篇文章将着重了解JNI的底层实现原理。</p>
 <h1 id="JNI原理分析"><a href="#JNI原理分析" class="headerlink" title="JNI原理分析"></a>JNI原理分析</h1><h2 id="JNI注册"><a href="#JNI注册" class="headerlink" title="JNI注册"></a>JNI注册</h2><h3 id="注册时机"><a href="#注册时机" class="headerlink" title="注册时机"></a>注册时机</h3><ul>
 <li>Android系统启动过程中Zygote注册，可通过查询AndroidRuntime.cpp中的gRegJNI，看看是否存在对应的register方法；</li>
@@ -371,7 +371,7 @@
 <blockquote>
 <p>注意：方法的参数是JNIEnv指针，其中JNIEnv是重点，它<strong>代表Native世界中Java环境的代表，通过JNIEnv* 指针可以在Native世界访问Java世界的代码</strong>，进行操作，它只在创建它的线程中有效，不能跨线程传递。</p>
 </blockquote>
-<p>在中间的流程不多介绍，具体可看<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4-namespace%E6%9C%BA%E5%88%B6">So加载和链接(linker) - The Peak Tower</a>我们就续这这篇文章中的调用JNI_Load开始说起</p>
+<p>在中间的流程不多介绍，具体可看<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/05/25/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4-namespace%E6%9C%BA%E5%88%B6">So加载和链接(linker) - The Peak Tower</a>我们就续这这篇文章中的调用JNI_Load开始说起</p>
 <blockquote>
 <p>这里以提供系统服务与Native层的桥接。</p>
 <p>frameworks&#x2F;base&#x2F;services&#x2F;core&#x2F;jni&#x2F;为例，源码地址：</p>

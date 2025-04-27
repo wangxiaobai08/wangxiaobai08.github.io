@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/01/30/YRb9qoPngvflQIX.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/30/QRGuB3WJ49fsNxI.png">
 <meta property="article:published_time" content="2024-03-26T07:12:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.225Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.658Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/01/28/qBnNxQrsmGj4Ecy.png">
@@ -268,7 +268,7 @@
 <p><img src="https://s2.loli.net/2025/01/28/qBnNxQrsmGj4Ecy.png" srcset="/img/loading.gif" lazyload alt="image-20250128222933895"></p>
 <p>谈到分布式式爬虫就不得不提到scrapy-redis了。</p>
 <h2 id="scrapy-redis"><a href="#scrapy-redis" class="headerlink" title="scrapy-redis"></a>scrapy-redis</h2><p>【<a target="_blank" rel="noopener" href="https://github.com/rmax/scrapy-redis">GitHub - rmax&#x2F;scrapy-redis: Redis-based components for Scrapy.</a>】</p>
-<p>在前面的文章<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2022/09/26/Scrapy%E4%BD%BF%E7%94%A8/">Scrapy初步使用 - The Peak Tower</a>中简单谈到了scrapy的简单使用和原理，Redis在前面的专栏<strong>数据库</strong>中也分析过。而Scrapy-Redis是一个将 <strong>Scrapy</strong> 和 <strong>Redis</strong> 集成的库，旨在帮助开发者使用 Scrapy 在分布式爬虫架构下运行爬虫。它通过将 Scrapy 的数据存储、请求队列和去重功能与 Redis 集成，使得多个爬虫实例可以共享队列并协同工作，进而构建一个分布式爬虫系统。注意：scrapy-redis只是替换了redis的几个组件，不是一个新的框架。</p>
+<p>在前面的文章<a target="_blank" rel="noopener" href="https://restack3.github.io/2022/09/26/Scrapy%E4%BD%BF%E7%94%A8/">Scrapy初步使用 - The Peak Tower</a>中简单谈到了scrapy的简单使用和原理，Redis在前面的专栏<strong>数据库</strong>中也分析过。而Scrapy-Redis是一个将 <strong>Scrapy</strong> 和 <strong>Redis</strong> 集成的库，旨在帮助开发者使用 Scrapy 在分布式爬虫架构下运行爬虫。它通过将 Scrapy 的数据存储、请求队列和去重功能与 Redis 集成，使得多个爬虫实例可以共享队列并协同工作，进而构建一个分布式爬虫系统。注意：scrapy-redis只是替换了redis的几个组件，不是一个新的框架。</p>
 <p>这里主要围绕着两者如何结合的原理和基本使用。</p>
 <p> <code>scrapy-redis</code> 的主要功能：</p>
 <table>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/01/04/qvDzoaSCGwgyZcF.png">
 <meta property="og:image" content="https://s2.loli.net/2025/01/04/92R8slSg7VjLwF1.png">
 <meta property="article:published_time" content="2023-01-25T05:08:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.253Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.656Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/01/03/YdmZncQXk1Ny9ib.png">
@@ -459,7 +459,7 @@
 </tbody></table>
 <hr>
 <h1 id="中断机构和中断处理程序"><a href="#中断机构和中断处理程序" class="headerlink" title="中断机构和中断处理程序"></a>中断机构和中断处理程序</h1><p><img src="https://s2.loli.net/2025/01/04/DP8JrEHTdAXaUS3.png" srcset="/img/loading.gif" lazyload alt="image-20250104090411981"></p>
-<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/10/CPU%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8E%E8%BF%9B%E7%A8%8B/">CPU虚拟化与进程 - The Peak Tower</a>我们提到中断是操作系统夺回CPU控制的唯一途径，当中断发生时，就意味着操作系统介入，进行管理工作。正因如此多道程序才能进行并发运行，合理的移交CPU控制权</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/10/CPU%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8E%E8%BF%9B%E7%A8%8B/">CPU虚拟化与进程 - The Peak Tower</a>我们提到中断是操作系统夺回CPU控制的唯一途径，当中断发生时，就意味着操作系统介入，进行管理工作。正因如此多道程序才能进行并发运行，合理的移交CPU控制权</p>
 <p>我们知道用户态的程序进行系统调用时会触发库函数(并不是每一个库函数都会进行中断)里的中断，进而陷入内核态。</p>
 <blockquote>
 <p>那么当内核态操作系统完成调用时，如何将控制器移交给用户程序呢？</p>
@@ -680,7 +680,7 @@
 <td>网络卡控制器接收到数据包后发出中断，操作系统或驱动程序接收并处理这些数据。硬盘控制器在完成数据传输后也会生成中断。</td>
 </tr>
 </tbody></table>
-<p>其中组成部分在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/20/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86/">外存管理 - The Peak Tower</a>有过介绍不多赘述，</p>
+<p>其中组成部分在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/20/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86/">外存管理 - The Peak Tower</a>有过介绍不多赘述，</p>
 <blockquote>
 <p>那 CPU 是如何与设备的控制寄存器和数据缓冲区进行通信的？</p>
 </blockquote>
@@ -690,7 +690,7 @@
 </ul>
 <p>I&#x2F;O <strong>控制方式</strong></p>
 <p>在前面我知道，每种设备都有一个设备控制器，控制器相当于一个小 CPU，它可以自己处理一些事情，但有个问题是，当 CPU 给设备发送了一个指令，让设备控制器去读设备的数据，它读完的时候，要怎么通知 CPU 呢？</p>
-<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/20/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86/">外存管理 - The Peak Tower</a>同样介绍过，这里简单总结一下</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/20/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86/">外存管理 - The Peak Tower</a>同样介绍过，这里简单总结一下</p>
 <table>
 <thead>
 <tr>

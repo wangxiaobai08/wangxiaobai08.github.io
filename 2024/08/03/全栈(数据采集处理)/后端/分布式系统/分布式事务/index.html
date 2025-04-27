@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/20/PK9kp12ndAmZNI4.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/20/sFiRYDXlMT7Ckbn.png">
 <meta property="article:published_time" content="2024-08-03T04:12:18.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.207Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.661Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/20/GNK5hp2ErMDjxJS.jpg">
@@ -345,7 +345,7 @@
 <li>对一致性要求高的场景，可以选择 <strong>2PC</strong> 或 <strong>TCC</strong>。</li>
 <li>对性能要求高的场景，可以选择 <strong>基于消息队列的最终一致性</strong> 或 <strong>本地消息表</strong>。</li>
 </ul>
-<h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><p>我们都知道数据库(MySql)的事务机制【<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/05/06/%E4%BA%8B%E5%8A%A1/">事务(隔离级别) - The Peak Tower</a>】有ACID四大性质：<strong>原子性（Atomicity）</strong>、<strong>一致性（Consistency）</strong>、<strong>隔离性（Isolation）</strong> 和 <strong>持久性（Durability）</strong>，类比来看：</p>
+<h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><p>我们都知道数据库(MySql)的事务机制【<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/05/06/%E4%BA%8B%E5%8A%A1/">事务(隔离级别) - The Peak Tower</a>】有ACID四大性质：<strong>原子性（Atomicity）</strong>、<strong>一致性（Consistency）</strong>、<strong>隔离性（Isolation）</strong> 和 <strong>持久性（Durability）</strong>，类比来看：</p>
 <p><strong>分布式事务</strong>是指涉及多个独立系统或服务的事务操作，这些系统或服务可能分布在不同的节点或数据库中。分布式事务需要确保所有参与的系统要么全部提交事务，要么全部回滚，以保持数据的一致性。</p>
 <p><img src="https://s2.loli.net/2025/03/20/GNK5hp2ErMDjxJS.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>比如：商城系统，用户在下单时，系统需要完成以下操作：</p>
@@ -372,7 +372,7 @@
 </li>
 </ol>
 <blockquote>
-<p>还记得Mysql的两阶段提交吗？<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/04/25/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">日志系统 - The Peak Tower</a></p>
+<p>还记得Mysql的两阶段提交吗？<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/04/25/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">日志系统 - The Peak Tower</a></p>
 </blockquote>
 <h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="2PC第一阶段"><a href="#2PC第一阶段" class="headerlink" title="2PC第一阶段"></a>2PC第一阶段</h4><p>投票环节，投票由协调者节点发起，可以进一步细分为以下步骤：</p>
 <ol>

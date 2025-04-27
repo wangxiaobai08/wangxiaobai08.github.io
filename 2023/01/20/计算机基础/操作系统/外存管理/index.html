@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/21/3JgNmYFdju81Xfo.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/21/tNaVmgeKGuC5xdQ.png">
 <meta property="article:published_time" content="2023-01-20T07:26:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.251Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.657Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/12/21/VK4UMSjxOYlFhpt.png">
@@ -268,7 +268,7 @@
                 <blockquote>
 <p>本文旨在提供计算机持久化的知识框架体系，对于一些细节内容并没有过多介绍。</p>
 </blockquote>
-<h1 id="内存的不足"><a href="#内存的不足" class="headerlink" title="内存的不足"></a>内存的不足</h1><h2 id="内存管理管理方式："><a href="#内存管理管理方式：" class="headerlink" title="内存管理管理方式："></a>内存管理管理方式：</h2><p>在上一篇文章中：<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/12/19/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理 - The Peak Tower</a>，提到了内存管理：<strong>所有的应用程序都需要<code>存储</code>和<code>检索</code>信息。进程运行时，它能够在自己的存储空间内存储一定量的信息。</strong></p>
+<h1 id="内存的不足"><a href="#内存的不足" class="headerlink" title="内存的不足"></a>内存的不足</h1><h2 id="内存管理管理方式："><a href="#内存管理管理方式：" class="headerlink" title="内存管理管理方式："></a>内存管理管理方式：</h2><p>在上一篇文章中：<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/12/19/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理 - The Peak Tower</a>，提到了内存管理：<strong>所有的应用程序都需要<code>存储</code>和<code>检索</code>信息。进程运行时，它能够在自己的存储空间内存储一定量的信息。</strong></p>
 <h2 id="带来的问题："><a href="#带来的问题：" class="headerlink" title="带来的问题："></a>带来的问题：</h2><p>然而，存储容量受<code>虚拟地址空间</code>大小的限制。对于一些应用程序来说，存储空间的大小是充足的，但是对于其他一些应用程序，比如航空订票系统、银行系统、企业记账系统来说，这些容量又显得太小了。</p>
 <p>第二个问题是，当进程终止时信息会丢失。对于一些应用程序（例如数据库），信息会长久保留。在这些进程终止时，相关的信息应该保留下来，是不能丢失的。甚至这些应用程序崩溃后，信息也应该保留下来。</p>
 <p>第三个问题是，通常需要很多进程在同一时刻访问这些信息。解决这种问题的方式是把这些信息单独保留在各自的进程中。</p>

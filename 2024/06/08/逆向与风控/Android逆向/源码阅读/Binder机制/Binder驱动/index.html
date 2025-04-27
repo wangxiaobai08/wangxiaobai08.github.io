@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/08/FADuc48rGdv7JI2.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/08/gJR4S5HO9KQreFL.png">
 <meta property="article:published_time" content="2024-06-08T13:13:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.335Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.644Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/07/wUmIV3bfF4MC51Z.png">
@@ -269,11 +269,11 @@
 <p><a target="_blank" rel="noopener" href="https://gityuan.com/2015/11/02/binder-driver-2/">Binder系列2—Binder Driver再探 - Gityuan博客 | 袁辉辉的技术博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/15928203.html">linux源码解读（二十六）：android binder原理和实现方式 - 第七子007 - 博客园</a></p>
 </blockquote>
-<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="为什么要有Bindre驱动？"><a href="#为什么要有Bindre驱动？" class="headerlink" title="为什么要有Bindre驱动？"></a>为什么要有Bindre驱动？</h2><p>在第一篇文章<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a>中涉及IPC机制谈到这么一句话：</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="为什么要有Bindre驱动？"><a href="#为什么要有Bindre驱动？" class="headerlink" title="为什么要有Bindre驱动？"></a>为什么要有Bindre驱动？</h2><p>在第一篇文章<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a>中涉及IPC机制谈到这么一句话：</p>
 <blockquote>
 <p>总结来说：对于用户空间，不同进程之间彼此是不能共享的，而内核空间却是可共享的。Client进程向Server进程通信，利用进程间可共享的内核内存空间来完成底层通信工作的。</p>
 </blockquote>
-<p>而我们知道用户态程序想要调用内核态程序，则必须进行系统调用(<code>syscall</code>)【在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/25/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86%E3%80%90%E8%A1%A5%E5%85%85%E3%80%91/#%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F">外存管理【补充】 - The Peak Tower</a>有详细讨论过】。而在Binder机制中系统调用又有一番学问,先给出一个在之前文章谈到有关I&#x2F;O系统接口的截图：</p>
+<p>而我们知道用户态程序想要调用内核态程序，则必须进行系统调用(<code>syscall</code>)【在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/25/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86%E3%80%90%E8%A1%A5%E5%85%85%E3%80%91/#%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F">外存管理【补充】 - The Peak Tower</a>有详细讨论过】。而在Binder机制中系统调用又有一番学问,先给出一个在之前文章谈到有关I&#x2F;O系统接口的截图：</p>
 <p><img src="https://s2.loli.net/2025/03/07/wUmIV3bfF4MC51Z.png" srcset="/img/loading.gif" lazyload></p>
 <p>为什么给出这个？因为应用程序想要调用内核也必须实现操作系统给出的通一接口，比如：open(),mmap()和ioctl等。而后内核通过<strong>中断向量表</strong>找到对应处理的内核程序。</p>
 <p>这里可以看到：Binder的底层调用内核实现IPC数据传输机制必须要实现在内核中那个“对应处理的内核程序”—&gt;驱动程序</p>
@@ -306,7 +306,7 @@
 <p><img src="https://s2.loli.net/2025/03/08/MlpKZ2jfwqTVUzI.png" srcset="/img/loading.gif" lazyload></p>
 <p>这种就是Linux典型的IPC方案：<strong>共享内存</strong>。</p>
 <blockquote>
-<p>在前面<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/10/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/#%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1-%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4">内存管理 - The Peak Tower</a>已经介绍了虚拟内存的概念，不多解释</p>
+<p>在前面<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/10/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/#%E8%BF%9B%E8%A1%8C%E6%8A%BD%E8%B1%A1-%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4">内存管理 - The Peak Tower</a>已经介绍了虚拟内存的概念，不多解释</p>
 </blockquote>
 <p>共享内存区是把文件或者内存对象映射到多个进程的虚拟地址空间中，这样这些进程可以共享这些数据。但是从这些共享的内存区写入或者读取时通常需要某种形式的同步。当这种映射关系建立起来后，进程可以不再通过执行任何进入内核的系统调用就可直接操作这些内存区。共享内存是总所周知的直接对内存映射操作，速度最快的通信方式</p>
 <h3 id="共享存储映射"><a href="#共享存储映射" class="headerlink" title="共享存储映射"></a><strong>共享存储映射</strong></h3><p>存储映射I&#x2F;O (Memory-mapped I&#x2F;O) 使一个磁盘文件与存储空间中的一个缓冲区相映射。于是当从缓冲区中取数据，就相当于读文件中的相应字节。于此类似，将数据存入缓冲区，则相应的字节就自动写入文件。这样，就可在不使用read和write函数的情况下，使用地址（指针）完成I&#x2F;O操作。使用这种方法，首先应通知内核，将一个指定文件映射到存储区域中。</p>
@@ -333,7 +333,7 @@
 <p><strong>核心点</strong>：内核只使用了一块物理地址，但通过虚拟地址映射，这块物理地址同时映射到了两个虚拟地址空间（内核缓存区和接收端进程空间）。因此，数据在内核和接收端进程之间传递时，避免了额外的拷贝操作，提升了效率。</p>
 <p>与其这样为什么不直接使用共享内存的方式？</p>
 <blockquote>
-<p>见<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a></p>
+<p>见<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a></p>
 <p>0次复制操作那就与Linux标准内核的共享内存的IPC机制没有区别了，对于共享内存虽然效率高，但是对于多进程的同步问题比较复杂，而管道&#x2F;消息队列等IPC需要复制2两次，效率较低。这里就不先展开讨论Linux现有的各种IPC机制跟Binder的详细对比，总之Android选择Binder的基于速度和安全性的考虑。</p>
 </blockquote>
 <h2 id="C-S架构—RPC思想"><a href="#C-S架构—RPC思想" class="headerlink" title="C&#x2F;S架构—RPC思想"></a>C&#x2F;S架构—RPC思想</h2><p>首先要明确一点 Binder 是一个 RPC（框架，也就是说借助于 Binder，我们可以在 A 进程中访问 B 进程中的函数。</p>

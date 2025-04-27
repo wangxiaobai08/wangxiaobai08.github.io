@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/ZFcSMYKnG5J8o9P.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/08/uOX3wr5bKlN8Ivc.png">
 <meta property="article:published_time" content="2024-06-01T09:11:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.338Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.642Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/07/lRzFxBhUIEs5g9M.png">
@@ -259,7 +259,7 @@
 <p>站在巨人的肩膀上：<a target="_blank" rel="noopener" href="https://gityuan.com/2015/10/31/binder-prepare/">Binder系列—开篇 - Gityuan博客 | 袁辉辉的技术博客</a></p>
 </blockquote>
 <h1 id="Binder是什么？"><a href="#Binder是什么？" class="headerlink" title="Binder是什么？"></a>Binder是什么？</h1><p>Android的<strong>Binder</strong>是一种<strong>进程间通信（IPC）机制</strong>，是Android系统中用于实现跨进程通信的核心技术。它允许不同进程之间安全、高效地传递数据和调用方法，支撑了Android应用组件（如Activity、Service）和系统服务之间的交互。</p>
-<p>既然是IPC机制。总所周知，在Linux平台下有着众多选择，比如管道，共享内存，套接字等。详见<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/10/CPU%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8E%E8%BF%9B%E7%A8%8B/#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%88IPC%EF%BC%89">CPU虚拟化与进程 - The Peak Tower</a>。而Android底层又基于Linux内核构建的。为什么不直接<strong>采用Linux现有的进程IPC方案呢</strong>？</p>
+<p>既然是IPC机制。总所周知，在Linux平台下有着众多选择，比如管道，共享内存，套接字等。详见<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/10/CPU%E8%99%9A%E6%8B%9F%E5%8C%96%E4%B8%8E%E8%BF%9B%E7%A8%8B/#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%88IPC%EF%BC%89">CPU虚拟化与进程 - The Peak Tower</a>。而Android底层又基于Linux内核构建的。为什么不直接<strong>采用Linux现有的进程IPC方案呢</strong>？</p>
 <p>这个问题的答案众说纷纭：</p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/39440766/answer/93550572">(46 封私信 &#x2F; 99+ 条消息) 为什么 Android 要采用 Binder 作为 IPC 机制？ - 知乎</a></p>
 <p>其中高赞回答 Gityuan ，总结来说就是以下几点：</p>
@@ -309,7 +309,7 @@
 <blockquote>
 <p><strong>RPC（远程过程调用）机制</strong> 是一种分布式计算技术，允许一个程序调用另一个地址空间（通常是远程机器上的进程）中的函数或方法，就像调用本地函数一样。RPC 的目标是隐藏网络通信的复杂性，使开发者能够像编写本地代码一样编写分布式应用。</p>
 </blockquote>
-<p>在之前的<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/09/18/gRPC%E6%A1%86%E6%9E%B6/">gRPC框架 - The Peak Tower</a>中看到过在网络应用中的RPC框架结构：</p>
+<p>在之前的<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/09/18/gRPC%E6%A1%86%E6%9E%B6/">gRPC框架 - The Peak Tower</a>中看到过在网络应用中的RPC框架结构：</p>
 <p><img src="https://s2.loli.net/2025/01/20/C1GXo5TaELtOlu6.png" srcset="/img/loading.gif" lazyload></p>
 <p>而在Android系统中则<strong>利用了RPC的基本思想</strong>，建立在IPC之上的更高层抽象，允许一个进程调用另一个进程中的方法，就像调用本地方法一样。</p>
 <p><img src="https://s2.loli.net/2025/03/07/KgPmZjY1kdbsrCQ.png" srcset="/img/loading.gif" lazyload></p>

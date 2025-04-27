@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/12/pyjOlac6rVfdSzn.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/12/Pz127cYKDu3Fjah.png">
 <meta property="article:published_time" content="2023-09-29T13:16:08.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.275Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.654Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/13/jdQePEuotGKRYCk.png">
@@ -257,7 +257,7 @@
             
               <div class="markdown-body">
                 
-                <p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2022/09/22/C++11%E7%89%B9%E6%80%A7/">C++11特性 - The Peak Tower</a>文章中简答提到了“资源管理指针”这一个概念，却没有深入的去了解，本文将重点看看所谓智能指针到底是什么？</p>
+                <p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2022/09/22/C++11%E7%89%B9%E6%80%A7/">C++11特性 - The Peak Tower</a>文章中简答提到了“资源管理指针”这一个概念，却没有深入的去了解，本文将重点看看所谓智能指针到底是什么？</p>
 <h1 id="RAll思想"><a href="#RAll思想" class="headerlink" title="RAll思想"></a><strong>RAll思想</strong></h1><p><strong>RAII（Resource Acquisition Is Initialization，资源获取即初始化）</strong> 是 C++ 中的一种核心编程思想，它的核心是通过对象的生命周期来管理资源。RAII 是智能指针（如 <code>std::unique_ptr</code> 和 <code>std::shared_ptr</code>）的指导思想，也是 C++ 中管理资源（如内存、文件句柄、网络连接、互斥量等）的最佳实践。</p>
 <h2 id="RAII-的核心思想"><a href="#RAII-的核心思想" class="headerlink" title="RAII 的核心思想"></a><strong>RAII 的核心思想</strong></h2><ol>
 <li><strong>资源获取即初始化</strong>：<ul>
@@ -351,9 +351,9 @@
 <p>C++智能指针shared_ptr是一种可以自动管理内存的智能指针，它是C++11新增的特性之一。与传统指针不同，shared_ptr可以自动释放所管理的动态分配对象的内存，并避免了手动释放内存的繁琐操作，从而减少了内存泄漏和野指针的出现。</p>
 </blockquote>
 <p>看百度来的解释，结合最近在看各种语言的垃圾回收机制(GC)，个人觉得该所谓的智能指针只是对C++没有垃圾回收机制的一种弥补。比如python的GC机制也有<strong>引用计数</strong>类似的概念。</p>
-<p>在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/16/C++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/">《C++反汇编与逆向分析》阅读总结(三) - The Peak Tower</a>这篇文章中提到了C++中的各类对象：</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/16/C++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%9F%BA%E7%A1%80/">《C++反汇编与逆向分析》阅读总结(三) - The Peak Tower</a>这篇文章中提到了C++中的各类对象：</p>
 <p><img src="https://s2.loli.net/2025/03/08/B2V6pStI5Jn7ZYX.png" srcset="/img/loading.gif" lazyload></p>
-<p>又在<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2023/01/22/%E3%80%8AC++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E3%80%8B%E9%98%85%E8%AF%BB(%E5%9B%9B)/">《C++反汇编与逆向分析》阅读总结(四) - The Peak Tower</a>可以看到C++的各色继承多态关系都与对象脱不了关系。</p>
+<p>又在<a target="_blank" rel="noopener" href="https://restack3.github.io/2023/01/22/%E3%80%8AC++%E5%8F%8D%E6%B1%87%E7%BC%96%E4%B8%8E%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E3%80%8B%E9%98%85%E8%AF%BB(%E5%9B%9B)/">《C++反汇编与逆向分析》阅读总结(四) - The Peak Tower</a>可以看到C++的各色继承多态关系都与对象脱不了关系。</p>
 <p>那么重点是shared_ptr是如何实现自动释放所管理的动态分配对象的内存的呢？</p>
 <blockquote>
 <p>shared_ptr是一个模板类，通过引用计数器实现多个智能指针共享对一个对象的所有权。每次复制一个shared_ptr对象时，该对象的引用计数器会增加1，当最后一个shared_ptr对象被销毁时，引用计数器减1，如果引用计数器变为0，则释放所管理的对象的内存。</p>
@@ -551,9 +551,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/golang%20%E9%94%81%E6%9C%BA%E5%88%B6/" title="golang锁机制">
+                      <a href="/2023/10/08/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RabbitMQ/" title="Rabiitmq">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">golang锁机制</span>
+                        <span class="hidden-mobile">Rabiitmq</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

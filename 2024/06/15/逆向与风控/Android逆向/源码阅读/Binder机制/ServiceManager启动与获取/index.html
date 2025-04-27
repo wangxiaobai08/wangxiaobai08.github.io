@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/09/9xyifMQvkSAE7nP.jpg">
 <meta property="og:image" content="https://s2.loli.net/2025/03/09/ZFWwDXArflGB8Op.jpg">
 <meta property="article:published_time" content="2024-06-15T05:56:14.000Z">
-<meta property="article:modified_time" content="2025-04-27T06:58:58.337Z">
+<meta property="article:modified_time" content="2025-04-27T11:56:57.642Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/02/03/W8L9VC5PStxufa6.png">
@@ -260,7 +260,7 @@
 <p><a target="_blank" rel="noopener" href="https://gityuan.com/2015/11/08/binder-get-sm/">Binder系列4—获取ServiceManager - Gityuan博客 | 袁辉辉的技术博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://gityuan.com/2015/11/07/binder-start-sm/">Binder系列3—启动ServiceManager - Gityuan博客 | 袁辉辉的技术博客</a></p>
 </blockquote>
-<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>在前面<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/06/08/Binder%E9%A9%B1%E5%8A%A8/">Binder驱动 - The Peak Tower</a>和<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a>两篇文章中简单谈到了Binder驱动实现了IPC并在其基础上构建了RPC通信框架，也就是两个进程目前可以通过Binder驱动进行相互通信和调用方法了。当然和普通的RPC所面临的难题一样，当服务实例数量增长时，如何让通信双方可以准确而不费力的找到对方就变成一个至关重要的问题了，也正因如此，在微服务(<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/09/16/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/">服务注册与发现(consul注册中心) - The Peak Tower</a>)中引入了诸如像consul之类的服务注册中心。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>在前面<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/06/08/Binder%E9%A9%B1%E5%8A%A8/">Binder驱动 - The Peak Tower</a>和<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/06/01/%E7%BC%98%E8%B5%B7Binder/">缘起Binder - The Peak Tower</a>两篇文章中简单谈到了Binder驱动实现了IPC并在其基础上构建了RPC通信框架，也就是两个进程目前可以通过Binder驱动进行相互通信和调用方法了。当然和普通的RPC所面临的难题一样，当服务实例数量增长时，如何让通信双方可以准确而不费力的找到对方就变成一个至关重要的问题了，也正因如此，在微服务(<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/09/16/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/">服务注册与发现(consul注册中心) - The Peak Tower</a>)中引入了诸如像consul之类的服务注册中心。</p>
 <p>先观察一下微服务网络应用中所谓的注册中心架构：</p>
 <p><img src="https://s2.loli.net/2025/02/03/W8L9VC5PStxufa6.png" srcset="/img/loading.gif" lazyload></p>
 <p>注意这个注册中心和整体服务发现过程，都与后文的ServiceManager有着异曲同工之处。</p>
@@ -313,7 +313,7 @@
 <li>当其他进程需要获取系统服务的 Binder 引用时，它们会通过 Binder 驱动向 ServiceManager 发送请求，ServiceManager 会返回相应的 Binder 引用。</li>
 </ul>
 </blockquote>
-<p>ServiceManager是由init进程通过解析init.rc文件而创建的。详细可看：<a target="_blank" rel="noopener" href="https://wangxiaobai08.github.io/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/#android%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%9B%BE">android系统启动流程 - The Peak Tower</a></p>
+<p>ServiceManager是由init进程通过解析init.rc文件而创建的。详细可看：<a target="_blank" rel="noopener" href="https://restack3.github.io/2024/01/03/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/#android%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%9B%BE">android系统启动流程 - The Peak Tower</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">ervice servicemanager /system/bin/servicemanager<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">core</span><br>    user system<br>    group system<br>    critical<br>    onrestart restart healthd<br>    onrestart restart zygote<br>    onrestart restart media<br>    onrestart restart surfaceflinger<br>    onrestart restart drm<br></code></pre></td></tr></table></figure>
 
 <p>其所对应的可执行程序&#x2F;system&#x2F;bin&#x2F;servicemanager，所对应的源文件是service_manager.c，进程名为&#x2F;system&#x2F;bin&#x2F;servicemanager。启动Service Manager的入口函数是service_manager.c中的main()方法</p>
