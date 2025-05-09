@@ -202,8 +202,514 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida-dexdump%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_self">
+          Frida_dexdump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida-dexdump%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_self">
+        <div>
+          在开始之前，建议补充Dex文件和加载相关基础知识： DEX文件解析器编写 - The Peak Tower Dex加载流程 - The Peak Tower 接着开始解析Frida_dexdump工具脚本  工具脚本目录结构 1234567891011121314151617181920frida-dexdump├─ agent│  ├─ package-lock.json│  ├─ packag
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" class="category-chain-item">脱壳脚本解析</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96-%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/">#逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 脱壳脚本解析]</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
+          壳实现的前置知识 - [软件安全, Android平台, 逆向, 壳的实现与脱取,壳的实现]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E5%A3%B3%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
+        <div>
+          Java的反射机制 Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 Class 对象来实现的。当Java虚拟机（JVM）获得类的 Class 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。  可以把class文件想象成
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="category-chain-item">壳的实现</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/">#逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 壳的实现]</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E4%B8%80%E4%BB%A3%E5%A3%B3%E5%AE%9E%E7%8E%B0/" target="_self">
+          第一代壳实现【DEX整体加固壳-落地加载】 - [软件安全, Android平台, 逆向, 壳的实现与脱取,壳的实现]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E4%B8%80%E4%BB%A3%E5%A3%B3%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          建议先观看前置文章知识： APP安装到启动流程大体概览 - The Peak Tower DEX文件解析器编写 - The Peak Tower Android类加载流程 - The Peak Tower 壳实现的基本原理(必看)： 壳实现的前置知识 - The Peak Tower  整体流程    阶段 步骤 操作 目的    1. 源程序 APK      1.1 准备原始 APK 获取原
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="category-chain-item">壳的实现</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/">#逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 壳的实现]</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E4%B8%80%E4%BA%8C%E4%BB%A3%E5%A3%B3%E3%80%90%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E3%80%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%85%B3%E9%94%AE%E7%82%B9/" target="_self">
+          一/二代壳【整体加固】实现的关键点 - [软件安全, Android平台, 逆向, 壳的实现与脱取,壳的实现]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E4%B8%80%E4%BA%8C%E4%BB%A3%E5%A3%B3%E3%80%90%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E3%80%91%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%85%B3%E9%94%AE%E7%82%B9/" target="_self">
+        <div>
+          一&#x2F;二代壳【整体加固】实现的关键点  接下来，简单介绍在脱壳程序中的几个关键步骤的意义和作用。  创建源程序的DexClassLoader实例替换LoadedApk中的mClassLoader。  源程序要依靠ClassLoader动态加载的，而ClassLoader存放了应用所需的类库当需要加载某些类时，就会开始双亲委托模式寻找，而父类加载器以及祖先加载器里面肯定是没有源程序所需要的类
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="category-chain-item">壳的实现</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/">#逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 壳的实现]</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/Activity/" target="_self">
+          探究Activity使用 - [软件安全, Android平台,开发,四大组件相关] - [逆向与风控, Android平台, 开发, 四大组件]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/Activity/" target="_self">
+        <div>
+          Activity的基本用法  布局文件：通过 XML 定义界面元素（如 Button）。 Activity：加载布局文件并显示界面。 AndroidManifest.xml：声明 Activity 并配置为主 Activity。   1. 添加一个 Button在 res/layout/activity_main.xml 中定义一个布局文件，包含一个 Button： 1234567891011&l
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" class="category-chain-item">四大组件</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/%E5%85%B6%E4%BB%96/" target="_self">
+          其他 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/%E5%85%B6%E4%BB%96/" target="_self">
+        <div>
+          Android的DrawabIe第6章 Android的Drawable · Android开发艺术探索 · 看云 详解Android 13种 Drawable的使用方法_android drawable-CSDN博客 8.1.1 Android中的13种Drawable小结 Part 1 | 菜鸟教程 Android 动画Android动画深入分析-腾讯云开发者社区-腾讯云 《Android开发
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-05-09 15:31" pubdate>
+              2025-05-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/" class="category-chain-item">View机制</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BD%93%E7%B3%BB/" target="_self">
-          View事件体系 - [软件安全, Android平台,开发,View相关]
+          View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]
         </a>
       </h2>
 
@@ -278,7 +784,7 @@
       <h2 class="index-header">
         
         <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%92%8Cremoteview/" target="_self">
-          View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]
+          View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]
         </a>
       </h2>
 
@@ -420,7 +926,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%80%86%E5%90%91-android-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91/">#逆向(android) - [软件安全, Android平台,开发,NDK开发]</a>
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91/">#逆向(android) - [软件安全, Android平台,开发,NDK开发] - [逆向与风控, Android平台, 开发, NDK开发]</a>
             
           </div>
         
@@ -502,450 +1008,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%80%86%E5%90%91-android-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91/">#逆向(android) - [软件安全, Android平台,开发,NDK开发]</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/WMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/WMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
-        <div>
-          还记得在APP安装到启动流程大体概览 - The Peak Tower这篇文章中，我们谈到  Activity是在ActivityThread的performLaunchActivity方法中用ClassLoader类加载器创建出来的。 创建出来之后就会调用Activity的onCreate方法和onStart方法.  12345protected void onCreate(Bundle sa
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/" class="category-chain-item">内核</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/" class="category-chain-item">Android内核</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">AOSP源码阅读</a>
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
-        <div>
-          在android系统启动流程 - The Peak Tower中，我们简单谈到：  Android系统在启动的时候,在启动两个重要的进程，一个是Zygote进程，另一个是由zygote进程fork出来的system_server进程。SystemSever负责启动系统的各项服务。其中各项服务中包括：    Activity Manager Service (AMS) 管理应用程序的生命周期，包括启
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/" class="category-chain-item">内核</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/" class="category-chain-item">Android内核</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">AOSP源码阅读</a>
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/%E4%BC%A0%E8%BE%93%E5%B1%82/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/%E4%BC%A0%E8%BE%93%E5%B1%82/" target="_self">
-        <div>
-          传输层 从通信和信息处理的角度看，传输层向它上面的应用层提供通信服务，它属于面向通信部分的最高层，同时也是用户功能中的最底层。为运行在不同主机上的进程之间提供了逻辑通信。   网络的边缘部分的两台主机使用网络核心部分的功能进行端到端的通信时，只有主机的协议栈才有传输层和应用层，而路由器在转发分组时都只用到下三层的功能（即 在通信子网中没有传输层，传输层只存在于通信子网以外的主机中）。  回顾之前的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/" class="category-chain-item">传输层</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/Socket%E6%A8%A1%E5%9E%8B/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/Socket%E6%A8%A1%E5%9E%8B/" target="_self">
-        <div>
-          什么是Socket在“传输层”那篇文章中，我们谈到：套接字是网络通信的核心抽象概念，用于唯一标识通信的端点。本质上是 （IP地址 + 端口号）的组合，用于唯一标识网络中的某个进程。起作用就像电话插孔一样，为数据通信提供“接口”，使不同主机上的进程能交换数据。为什么这里还要再谈Socket呢？ 从通信端点视角来看Socket 是网络协议栈的实体(具体实现)，由 (IP, 端口, 协议) 唯一标识，确
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BC%A0%E8%BE%93%E5%B1%82/" class="category-chain-item">传输层</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rabbitmq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E3%80%90%E7%AC%AC%E4%B8%80%E5%A4%A9%E3%80%91/" target="_self">
-          
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rabbitmq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E3%80%90%E7%AC%AC%E4%B8%80%E5%A4%A9%E3%80%91/" target="_self">
-        <div>
-          —title: rabbitmq使用date: 2023-10-09 16:08:18categories:- [后端开发与架构设计,消息队列]rabbitmq使用体验【第一天】 RabbitMq是什么?1.AMQP 协议AMQP，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端&#x2F;中间件不同产品，不同的开发语言
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/" class="category-chain-item">全栈(数据采集处理)</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="category-chain-item">消息队列</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" target="_self">
-          负载均衡 - [后端开发与架构设计, 微服务]
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" target="_self">
-        <div>
-          什么是负载均衡在服务注册与发现(consul注册中心) - The Peak Tower我们简单提到过负载均衡，这里将详细了解到底什么是负载均衡：   微服务的负载均衡是指在微服务架构中，通过某种算法将流量或请求合理地分配到多个服务实例，以确保系统的高可用性、稳定性和性能。微服务架构中，一个服务通常会有多个实例（如部署在多个机器或容器上），负载均衡通过智能地分配流量，使得每个实例的负载尽可能均衡，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 15:31" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/" class="category-chain-item">全栈(数据采集处理)</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="category-chain-item">微服务</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">#软件工程</a>
+              <a href="/tags/%E9%80%86%E5%90%91-android-%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E5%BC%80%E5%8F%91-NDK%E5%BC%80%E5%8F%91/">#逆向(android) - [软件安全, Android平台,开发,NDK开发] - [逆向与风控, Android平台, 开发, NDK开发]</a>
             
           </div>
         
@@ -957,7 +1020,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/#board">16</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

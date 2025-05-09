@@ -18,7 +18,7 @@
   
     <meta name="description" content="UI开发与常用控件第一行代码第三版——第四章：UI 开发的点点滴滴 - Android技术学习 - SegmentFault 思否 《第一行代码：Android篇》学习笔记（四） View基础知识什么是View?View是Android中所有控件的基类，代表界面层的控件抽象。ViewGroup是View的子类，用于包含多个控件，形成控件组。 继承关系：ViewGroup继承自View，因此View">
 <meta property="og:type" content="article">
-<meta property="og:title" content="View事件体系 - [软件安全, Android平台,开发,View相关]">
+<meta property="og:title" content="View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BD%93%E7%B3%BB/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="UI开发与常用控件第一行代码第三版——第四章：UI 开发的点点滴滴 - Android技术学习 - SegmentFault 思否 《第一行代码：Android篇》学习笔记（四） View基础知识什么是View?View是Android中所有控件的基类，代表界面层的控件抽象。ViewGroup是View的子类，用于包含多个控件，形成控件组。 继承关系：ViewGroup继承自View，因此View">
@@ -28,14 +28,14 @@
 <meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250310171255529.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/10/N2AsSaX6q8dYZ9K.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.497Z">
-<meta property="article:modified_time" content="2025-05-09T12:37:32.134Z">
+<meta property="article:modified_time" content="2025-05-09T12:45:04.311Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250310164749389.png">
   
   
   
-  <title>View事件体系 - [软件安全, Android平台,开发,View相关] - The Peak Tower</title>
+  <title>View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制] - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="View事件体系 - [软件安全, Android平台,开发,View相关]"></span>
+            <span id="subtitle" data-typed-text="View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]"></span>
           
         </div>
 
@@ -248,7 +248,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">View事件体系 - [软件安全, Android平台,开发,View相关]</h1>
+            <h1 id="seo-header">View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</h1>
             
             
               <div class="markdown-body">
@@ -314,10 +314,10 @@
 <li>初始化：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">VelocityTracker</span> <span class="hljs-variable">velocityTracker</span> <span class="hljs-operator">=</span> VelocityTracker.obtain();<br></code></pre></td></tr></table></figure></li>
 <li>追踪事件：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">velocityTracker.addMovement(event);<br></code></pre></td></tr></table></figure></li>
 <li>计算速度：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">velocityTracker.computeCurrentVelocity(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 单位：像素/秒</span><br><span class="hljs-type">float</span> <span class="hljs-variable">xVelocity</span> <span class="hljs-operator">=</span> velocityTracker.getXVelocity(); <span class="hljs-comment">// 水平速度</span><br><span class="hljs-type">float</span> <span class="hljs-variable">yVelocity</span> <span class="hljs-operator">=</span> velocityTracker.getYVelocity(); <span class="hljs-comment">// 垂直速度</span><br></code></pre></td></tr></table></figure></li>
-<li>释放资源：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">velocityTracker.recycle();<br></code></pre></td></tr></table></figure>
-categories:</li>
+<li>释放资源：  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">velocityTracker.recycle();<br></code></pre></td></tr></table></figure></li>
 </ol>
 <ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
 </ul>
 <hr>
@@ -377,7 +377,7 @@ categories:</li>
 <li><strong>滑动范围</strong>：<code>scrollTo</code> 和 <code>scrollBy</code> 的滑动范围受 View 的内容大小限制。如果内容不足以滑动，则不会产生效果。  </li>
 <li><strong>获取当前滑动位置</strong>：可以通过 <code>getScrollX()</code> 和 <code>getScrollY()</code> 获取当前 View 内容的滑动偏移量。</li>
 </ul>
-<h2 id="使用动画"><a href="#使用动画" class="headerlink" title="使用动画"></a>使用动画</h2><h2 id="使用动画实现-View-的滑动是一种常见且灵活的方式，可以通过补间动画（Tween-Animation）或属性动画（Property-Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。categories-逆向与风控-Android平台-开发-View机制"><a href="#使用动画实现-View-的滑动是一种常见且灵活的方式，可以通过补间动画（Tween-Animation）或属性动画（Property-Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="使用动画实现 View 的滑动是一种常见且灵活的方式，可以通过补间动画（Tween Animation）或属性动画（Property Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。categories:- [逆向与风控,Android平台,开发,View机制]"></a>使用动画实现 View 的滑动是一种常见且灵活的方式，可以通过补间动画（Tween Animation）或属性动画（Property Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="使用补间动画（Tween-Animation）"><a href="#使用补间动画（Tween-Animation）" class="headerlink" title="使用补间动画（Tween Animation）"></a><strong>使用补间动画（Tween Animation）</strong></h4><p>补间动画通过定义起始和结束状态，系统自动计算中间帧来实现动画效果。只是对 View 的影像进行操作，并未真正改变 View 的位置参数（如 <code>left</code>、<code>top</code>、<code>right</code>、<code>bottom</code> 等）。即使 View 的影像发生了移动、缩放或旋转，View 的真身（位置和大小）并未改变。</p>
+<h2 id="使用动画"><a href="#使用动画" class="headerlink" title="使用动画"></a>使用动画</h2><h2 id="使用动画实现-View-的滑动是一种常见且灵活的方式，可以通过补间动画（Tween-Animation）或属性动画（Property-Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#使用动画实现-View-的滑动是一种常见且灵活的方式，可以通过补间动画（Tween-Animation）或属性动画（Property-Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="使用动画实现 View 的滑动是一种常见且灵活的方式，可以通过补间动画（Tween Animation）或属性动画（Property Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a>使用动画实现 View 的滑动是一种常见且灵活的方式，可以通过补间动画（Tween Animation）或属性动画（Property Animation）来实现。动画滑动不仅能够实现平滑的过渡效果，还可以控制滑动的速度、加速度等属性。<br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="使用补间动画（Tween-Animation）"><a href="#使用补间动画（Tween-Animation）" class="headerlink" title="使用补间动画（Tween Animation）"></a><strong>使用补间动画（Tween Animation）</strong></h4><p>补间动画通过定义起始和结束状态，系统自动计算中间帧来实现动画效果。只是对 View 的影像进行操作，并未真正改变 View 的位置参数（如 <code>left</code>、<code>top</code>、<code>right</code>、<code>bottom</code> 等）。即使 View 的影像发生了移动、缩放或旋转，View 的真身（位置和大小）并未改变。</p>
 <h5 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a><strong>实现步骤</strong></h5><ol>
 <li><p>定义动画资源文件（如 <code>res/anim/slide.xml</code>）：  </p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">set</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">translate</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:fromXDelta</span>=<span class="hljs-string">&quot;0&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:toXDelta</span>=<span class="hljs-string">&quot;100%&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:duration</span>=<span class="hljs-string">&quot;500&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -419,7 +419,10 @@ categories:</li>
 <h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h5><ul>
 <li><strong>真正改变位置</strong>：属性动画直接修改 View 的属性值，View 的实际位置会改变。  </li>
 <li><strong>灵活性强</strong>：可以控制动画的插值器、重复次数、反向播放等。  </li>
-<li><strong>适用场景</strong>：适合需要与用户交互的复杂滑动效果。<br>categories:</li>
+<li><strong>适用场景</strong>：适合需要与用户交互的复杂滑动效果。<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+</ul>
+</li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
 </ul>
 <hr>
@@ -498,7 +501,7 @@ categories:</li>
 </ul>
 </li>
 </ol>
-<h2 id="通过动画"><a href="#通过动画" class="headerlink" title="通过动画"></a>通过动画</h2><h2 id="通过动画实现-View-的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算-View-的滑动距离，并通过-scrollTo-方法更新-View-的内容位置。与-Scroller-相比，动画实现方式更加灵活，适用于更复杂的动画场景。categories-逆向与风控-Android平台-开发-View机制"><a href="#通过动画实现-View-的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算-View-的滑动距离，并通过-scrollTo-方法更新-View-的内容位置。与-Scroller-相比，动画实现方式更加灵活，适用于更复杂的动画场景。categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="通过动画实现 View 的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算 View 的滑动距离，并通过 scrollTo 方法更新 View 的内容位置。与 Scroller 相比，动画实现方式更加灵活，适用于更复杂的动画场景。categories:- [逆向与风控,Android平台,开发,View机制]"></a>通过动画实现 View 的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是<strong>利用动画的逐帧回调机制</strong>，在每一帧中根据动画的进度计算 View 的滑动距离，并通过 <code>scrollTo</code> 方法更新 View 的内容位置。与 Scroller 相比，动画实现方式更加灵活，适用于更复杂的动画场景。<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>利用动画实现弹性滑动的原理</strong></p>
+<h2 id="通过动画"><a href="#通过动画" class="headerlink" title="通过动画"></a>通过动画</h2><h2 id="通过动画实现-View-的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算-View-的滑动距离，并通过-scrollTo-方法更新-View-的内容位置。与-Scroller-相比，动画实现方式更加灵活，适用于更复杂的动画场景。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#通过动画实现-View-的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算-View-的滑动距离，并通过-scrollTo-方法更新-View-的内容位置。与-Scroller-相比，动画实现方式更加灵活，适用于更复杂的动画场景。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="通过动画实现 View 的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是利用动画的逐帧回调机制，在每一帧中根据动画的进度计算 View 的滑动距离，并通过 scrollTo 方法更新 View 的内容位置。与 Scroller 相比，动画实现方式更加灵活，适用于更复杂的动画场景。  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a>通过动画实现 View 的弹性滑动，是一种非常灵活且强大的方式。它的核心思想是<strong>利用动画的逐帧回调机制</strong>，在每一帧中根据动画的进度计算 View 的滑动距离，并通过 <code>scrollTo</code> 方法更新 View 的内容位置。与 Scroller 相比，动画实现方式更加灵活，适用于更复杂的动画场景。<br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>利用动画实现弹性滑动的原理</strong></p>
 <ol>
 <li><p><strong>动画的逐帧回调</strong>：</p>
 <ul>
@@ -563,7 +566,7 @@ categories:</li>
 </tr>
 </tbody></table>
 <p>可以看出：动画的逐帧回调机制非常灵活，不仅可以实现滑动，还可以结合其他动画效果（如缩放、旋转、透明度变化等）。可以在 <code>onAnimationUpdate</code> 中添加自定义逻辑，实现更复杂的交互效果。</p>
-<h2 id="使用延时策略"><a href="#使用延时策略" class="headerlink" title="使用延时策略"></a>使用延时策略</h2><h2 id="延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新-View-的位置，从而实现平滑的滑动效果。这种方式与动画和-Scroller-相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。categories-逆向与风控-Android平台-开发-View机制"><a href="#延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新-View-的位置，从而实现平滑的滑动效果。这种方式与动画和-Scroller-相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新 View 的位置，从而实现平滑的滑动效果。这种方式与动画和 Scroller 相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。categories:- [逆向与风控,Android平台,开发,View机制]"></a>延时策略是另一种实现弹性滑动的有效方法，其核心思想是<strong>通过发送一系列延时消息</strong>，将滑动过程分解为多个小步骤，逐步更新 View 的位置，从而实现平滑的滑动效果。这种方式与动画和 Scroller 相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>延时策略的核心思想</strong></p>
+<h2 id="使用延时策略"><a href="#使用延时策略" class="headerlink" title="使用延时策略"></a>使用延时策略</h2><h2 id="延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新-View-的位置，从而实现平滑的滑动效果。这种方式与动画和-Scroller-相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新-View-的位置，从而实现平滑的滑动效果。这种方式与动画和-Scroller-相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="延时策略是另一种实现弹性滑动的有效方法，其核心思想是通过发送一系列延时消息，将滑动过程分解为多个小步骤，逐步更新 View 的位置，从而实现平滑的滑动效果。这种方式与动画和 Scroller 相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a>延时策略是另一种实现弹性滑动的有效方法，其核心思想是<strong>通过发送一系列延时消息</strong>，将滑动过程分解为多个小步骤，逐步更新 View 的位置，从而实现平滑的滑动效果。这种方式与动画和 Scroller 相比，更加底层，但也更加灵活。下面我们详细分析延时策略的实现原理，并通过代码示例说明其具体实现。<br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>延时策略的核心思想</strong></p>
 <ol>
 <li><p><strong>逐帧更新</strong>：</p>
 <ul>
@@ -592,7 +595,12 @@ categories:</li>
 <hr>
 <p><strong>代码实现</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MESSAGE_SCROLL_TO</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 消息标识</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">FRAME_COUNT</span> <span class="hljs-operator">=</span> <span class="hljs-number">30</span>;     <span class="hljs-comment">// 总帧数</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">DELAYED_TIME</span> <span class="hljs-operator">=</span> <span class="hljs-number">33</span>;    <span class="hljs-comment">// 每帧延时时间（ms）</span><br><br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">mCount</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 当前帧数</span><br><br><span class="hljs-meta">@SuppressLint(&quot;HandlerLeak&quot;)</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">Handler</span> <span class="hljs-variable">mHandler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleMessage</span><span class="hljs-params">(Message msg)</span> &#123;<br>        <span class="hljs-keyword">switch</span> (msg.what) &#123;<br>            <span class="hljs-keyword">case</span> MESSAGE_SCROLL_TO: &#123;<br>                mCount++;<br>                <span class="hljs-keyword">if</span> (mCount &lt;= FRAME_COUNT) &#123;<br>                    <span class="hljs-comment">// 计算当前滑动进度</span><br>                    <span class="hljs-type">float</span> <span class="hljs-variable">fraction</span> <span class="hljs-operator">=</span> mCount / (<span class="hljs-type">float</span>) FRAME_COUNT;<br>                    <span class="hljs-comment">// 计算当前滑动距离</span><br>                    <span class="hljs-type">int</span> <span class="hljs-variable">scrollX</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>) (fraction * <span class="hljs-number">100</span>);<br>                    <span class="hljs-comment">// 更新 View 的位置</span><br>                    mButton1.scrollTo(scrollX, <span class="hljs-number">0</span>);<br>                    <span class="hljs-comment">// 发送下一帧的延时消息</span><br>                    mHandler.sendEmptyMessageDelayed(MESSAGE_SCROLL_TO, DELAYED_TIME);<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">default</span>:<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">// 启动滑动</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">startScroll</span><span class="hljs-params">()</span> &#123;<br>    mCount = <span class="hljs-number">0</span>; <span class="hljs-comment">// 重置帧数</span><br>    mHandler.sendEmptyMessage(MESSAGE_SCROLL_TO); <span class="hljs-comment">// 发送第一帧的消息</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="categories-逆向与风控-Android平台-开发-View机制"><a href="#categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="categories:- [逆向与风控,Android平台,开发,View机制]"></a>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>与其他方式的对比</strong></p>
+<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+<li>[逆向与风控,Android平台,开发,View机制]</li>
+</ul>
+<hr>
+<p><strong>与其他方式的对比</strong></p>
 <table>
 <thead>
 <tr>
@@ -698,7 +706,12 @@ categories:</li>
 </ol>
 <p>整个流程可以用伪代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">dispatchTouchEvent</span><span class="hljs-params">(MotionEvent ev)</span> &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">consume</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span> (onInterceptTouchEvent(ev)) &#123;<br>        consume = onTouchEvent(ev);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        consume = child.dispatchTouchEvent(ev);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> consume;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="categories-逆向与风控-Android平台-开发-View机制-1"><a href="#categories-逆向与风控-Android平台-开发-View机制-1" class="headerlink" title="categories:- [逆向与风控,Android平台,开发,View机制]"></a>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><p><strong>事件分发流程示例</strong></p>
+<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+<li>[逆向与风控,Android平台,开发,View机制]</li>
+</ul>
+<hr>
+<p><strong>事件分发流程示例</strong></p>
 <p>以下是一个典型的事件分发流程示例：</p>
 <ol>
 <li>用户点击屏幕，触发 <code>ACTION_DOWN</code> 事件。</li>
@@ -854,7 +867,7 @@ categories:</li>
 <li>外部是 <code>ScrollView</code>，内部是 <code>RecyclerView</code>，两者都支持上下滑动。</li>
 <li>外部是 <code>HorizontalScrollView</code>，内部是 <code>ViewPager</code>，两者都支持左右滑动。</li>
 </ul>
-<h2 id="冲突原因：-当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。-导致的结果是：-只有一层能够滑动。-或者两层都滑动，但滑动效果卡顿。categories-逆向与风控-Android平台-开发-View机制"><a href="#冲突原因：-当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。-导致的结果是：-只有一层能够滑动。-或者两层都滑动，但滑动效果卡顿。categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="冲突原因：- 当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。- 导致的结果是：  - 只有一层能够滑动。  - 或者两层都滑动，但滑动效果卡顿。categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>冲突原因</strong>：<br>- 当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。<br>- 导致的结果是：<br>  - 只有一层能够滑动。<br>  - 或者两层都滑动，但滑动效果卡顿。<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h3 id="多层嵌套滑动"><a href="#多层嵌套滑动" class="headerlink" title="多层嵌套滑动"></a><strong>多层嵌套滑动</strong></h3><p><strong>典型场景</strong>：</p>
+<h2 id="冲突原因：-当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。-导致的结果是：-只有一层能够滑动。-或者两层都滑动，但滑动效果卡顿。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#冲突原因：-当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。-导致的结果是：-只有一层能够滑动。-或者两层都滑动，但滑动效果卡顿。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="冲突原因：- 当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。- 导致的结果是：  - 只有一层能够滑动。  - 或者两层都滑动，但滑动效果卡顿。  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>冲突原因</strong>：<br>- 当用户滑动时，系统无法确定是应该让外部控件滑动，还是让内部控件滑动。<br>- 导致的结果是：<br>  - 只有一层能够滑动。<br>  - 或者两层都滑动，但滑动效果卡顿。<br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h3 id="多层嵌套滑动"><a href="#多层嵌套滑动" class="headerlink" title="多层嵌套滑动"></a><strong>多层嵌套滑动</strong></h3><p><strong>典型场景</strong>：</p>
 <ul>
 <li>外部是 <code>SlideMenu</code>（支持左右滑动），内部是 <code>ViewPager</code>（支持左右滑动），<code>ViewPager</code> 的每个页面又是一个 <code>ListView</code>（支持上下滑动）。</li>
 <li>外部是 <code>CoordinatorLayout</code>，内部是 <code>RecyclerView</code>，<code>RecyclerView</code> 的每个 Item 又是一个 <code>ViewPager</code>。</li>
@@ -953,7 +966,7 @@ categories:</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>View事件体系 - [软件安全, Android平台,开发,View相关]</div>
+      <div>View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/开发/View机制/View的事件体系/</div>
     </div>
     <div class="license-meta">
@@ -998,9 +1011,9 @@ categories:</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/%E5%85%B6%E4%BB%96/" title="其他 - [软件安全, Android平台,开发,View相关]">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/%E5%85%B6%E4%BB%96/" title="其他 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">其他 - [软件安全, Android平台,开发,View相关]</span>
+                        <span class="hidden-mobile">其他 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1008,8 +1021,8 @@ categories:</li>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%92%8Cremoteview/" title="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]">
-                        <span class="hidden-mobile">View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]</span>
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%92%8Cremoteview/" title="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]">
+                        <span class="hidden-mobile">View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

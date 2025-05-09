@@ -18,7 +18,7 @@
   
     <meta name="description" content="文章基于： 第一行代码：Android（第3版） - 第 5 章 手机平板要兼顾，探究Fragment - 郭霖 - 微信读书 带你彻底搞懂-View的工作原理！-腾讯云开发者社区-腾讯云 Android高级UI进阶之路(三) —— 理解View的工作原理及自定义View入门_android自定义view案例+讲解-CSDN博客  什么是Fragment？ 5.1 Fragment基本概述 |">
 <meta property="og:type" content="article">
-<meta property="og:title" content="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]">
+<meta property="og:title" content="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%92%8Cremoteview/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="文章基于： 第一行代码：Android（第3版） - 第 5 章 手机平板要兼顾，探究Fragment - 郭霖 - 微信读书 带你彻底搞懂-View的工作原理！-腾讯云开发者社区-腾讯云 Android高级UI进阶之路(三) —— 理解View的工作原理及自定义View入门_android自定义view案例+讲解-CSDN博客  什么是Fragment？ 5.1 Fragment基本概述 |">
@@ -26,14 +26,14 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/12/rnDj5qIZBaRAiyS.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/12/vIUflCrGM1iagyp.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.495Z">
-<meta property="article:modified_time" content="2025-05-09T12:37:32.133Z">
+<meta property="article:modified_time" content="2025-05-09T12:45:04.310Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/12/rnDj5qIZBaRAiyS.png">
   
   
   
-  <title>View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - The Peak Tower</title>
+  <title>View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制] - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]"></span>
+            <span id="subtitle" data-typed-text="View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]"></span>
           
         </div>
 
@@ -198,7 +198,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          5.6k 字
         
       </span>
     
@@ -209,7 +209,7 @@
         
         
         
-          46 分钟
+          47 分钟
         
       </span>
     
@@ -246,7 +246,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]</h1>
+            <h1 id="seo-header">View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</h1>
             
             
               <div class="markdown-body">
@@ -270,7 +270,10 @@
 </li>
 <li><p>Fragment 可以在多个 Activity 中复用，从而减少代码重复。</p>
 </li>
-<li><p>Fragment 可以在运行时动态添加、替换或移除，这使得 UI 可以根据用户交互或设备配置动态调整。<br>categories:</p>
+<li><p>Fragment 可以在运行时动态添加、替换或移除，这使得 UI 可以根据用户交互或设备配置动态调整。</p>
+<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+</ul>
 </li>
 <li><p>[逆向与风控,Android平台,开发,View机制]</p>
 </li>
@@ -356,11 +359,12 @@
 </ul>
 </li>
 <li><strong>复用 UI 组件</strong>：<ul>
-<li>将通用的 UI 组件封装为 Fragment，以便在多个 Activity 中复用。<br>categories:</li>
+<li>将通用的 UI 组件封装为 Fragment，以便在多个 Activity 中复用。</li>
 </ul>
 </li>
 </ol>
 <ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
 </ul>
 <hr>
@@ -376,7 +380,12 @@
 <h4 id="2-Fragment-调用-Activity-的方法"><a href="#2-Fragment-调用-Activity-的方法" class="headerlink" title="2. Fragment 调用 Activity 的方法"></a><strong>2. Fragment 调用 Activity 的方法</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 在 Fragment 中</span><br><span class="hljs-type">MyActivity</span> <span class="hljs-variable">activity</span> <span class="hljs-operator">=</span> (MyActivity) getActivity();<br><span class="hljs-keyword">if</span> (activity != <span class="hljs-literal">null</span>) &#123;<br>    activity.someMethod();<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="3-使用接口回调"><a href="#3-使用接口回调" class="headerlink" title="3. 使用接口回调"></a><strong>3. 使用接口回调</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 在 Fragment 中定义接口</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">OnFragmentInteractionListener</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">onInteraction</span><span class="hljs-params">(String data)</span>;<br>&#125;<br><br><span class="hljs-comment">// 在 Activity 中实现接口</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AppCompatActivity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MyFragment</span>.OnFragmentInteractionListener &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onInteraction</span><span class="hljs-params">(String data)</span> &#123;<br>        <span class="hljs-comment">// 处理交互逻辑</span><br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 在 Fragment 中调用接口方法</span><br><span class="hljs-type">OnFragmentInteractionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> (OnFragmentInteractionListener) getActivity();<br><span class="hljs-keyword">if</span> (listener != <span class="hljs-literal">null</span>) &#123;<br>    listener.onInteraction(<span class="hljs-string">&quot;Some data&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="categories-逆向与风控-Android平台-开发-View机制"><a href="#categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="categories:- [逆向与风控,Android平台,开发,View机制]"></a>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h3 id="Fragment-与-Activity-的区别"><a href="#Fragment-与-Activity-的区别" class="headerlink" title="Fragment 与 Activity 的区别"></a><strong>Fragment 与 Activity 的区别</strong></h3><table>
+<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+<li>[逆向与风控,Android平台,开发,View机制]</li>
+</ul>
+<hr>
+<h3 id="Fragment-与-Activity-的区别"><a href="#Fragment-与-Activity-的区别" class="headerlink" title="Fragment 与 Activity 的区别"></a><strong>Fragment 与 Activity 的区别</strong></h3><table>
 <thead>
 <tr>
 <th>特性</th>
@@ -487,13 +496,9 @@
 <td>2</td>
 <td>子 <code>View</code> 的尺寸不能超过父容器指定的最大尺寸，但可以小于这个尺寸。</td>
 </tr>
-<tr>
-<td>categories:</td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
 <ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
 </ul>
 <hr>
@@ -509,7 +514,7 @@
 <h2 id="MeasureSpec-的创建"><a href="#MeasureSpec-的创建" class="headerlink" title="MeasureSpec 的创建"></a><strong>MeasureSpec 的创建</strong></h2><p>可以通过 <code>MeasureSpec.makeMeasureSpec</code> 方法创建一个 <code>MeasureSpec</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">measureSpec</span> <span class="hljs-operator">=</span> MeasureSpec.makeMeasureSpec(size, mode);<br></code></pre></td></tr></table></figure>
 
-<h2 id="例如：categories-逆向与风控-Android平台-开发-View机制"><a href="#例如：categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="例如：categories:- [逆向与风控,Android平台,开发,View机制]"></a>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">measureSpec</span> <span class="hljs-operator">=</span> MeasureSpec.makeMeasureSpec(<span class="hljs-number">200</span>, MeasureSpec.EXACTLY);<br></code></pre></td></tr></table></figure><br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h2 id="MeasureSpec-的使用场景"><a href="#MeasureSpec-的使用场景" class="headerlink" title="MeasureSpec 的使用场景"></a><strong>MeasureSpec 的使用场景</strong></h2><p>在 <code>View</code> 的测量过程中，父容器会根据自己的尺寸和布局规则，生成子 <code>View</code> 的 <code>MeasureSpec</code>，并通过 <code>measure</code> 方法传递给子 <code>View</code>。子 <code>View</code> 根据 <code>MeasureSpec</code> 的约束，确定自己的测量宽高。</p>
+<h2 id="例如：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#例如：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="例如：  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">measureSpec</span> <span class="hljs-operator">=</span> MeasureSpec.makeMeasureSpec(<span class="hljs-number">200</span>, MeasureSpec.EXACTLY);<br></code></pre></td></tr></table></figure><br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h2 id="MeasureSpec-的使用场景"><a href="#MeasureSpec-的使用场景" class="headerlink" title="MeasureSpec 的使用场景"></a><strong>MeasureSpec 的使用场景</strong></h2><p>在 <code>View</code> 的测量过程中，父容器会根据自己的尺寸和布局规则，生成子 <code>View</code> 的 <code>MeasureSpec</code>，并通过 <code>measure</code> 方法传递给子 <code>View</code>。子 <code>View</code> 根据 <code>MeasureSpec</code> 的约束，确定自己的测量宽高。</p>
 <h3 id="父容器生成-MeasureSpec-的规则"><a href="#父容器生成-MeasureSpec-的规则" class="headerlink" title="父容器生成 MeasureSpec 的规则"></a><strong>父容器生成 MeasureSpec 的规则</strong></h3><ul>
 <li>父容器的 <code>MeasureSpec</code> 和子 <code>View</code> 的 <code>LayoutParams</code> 共同决定了子 <code>View</code> 的 <code>MeasureSpec</code>。</li>
 <li>例如：<ul>
@@ -591,7 +596,8 @@
 </li>
 <li><strong>关键点</strong>：<ul>
 <li>绘制完成后，<code>View</code> 的内容会显示在屏幕上。</li>
-<li><code>View</code> 的绘制顺序是：背景 → 内容 → 子 <code>View</code> → 装饰。<br>categories:</li>
+<li><code>View</code> 的绘制顺序是：背景 → 内容 → 子 <code>View</code> → 装饰。</li>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
 </ul>
 </li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
@@ -649,13 +655,9 @@
 <td>继承现有的 <code>ViewGroup</code>（如 <code>LinearLayout</code>、<code>RelativeLayout</code>），扩展其功能。</td>
 <td>重写相关方法，如 <code>onMeasure</code>、<code>onLayout</code> 等。</td>
 </tr>
-<tr>
-<td>categories:</td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
 <ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
 <li>[逆向与风控,Android平台,开发,View机制]</li>
 </ul>
 <hr>
@@ -682,7 +684,7 @@
 <p><strong>示例（继承 <code>View</code>）</strong>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDraw</span><span class="hljs-params">(Canvas canvas)</span> &#123;<br>    <span class="hljs-built_in">super</span>.onDraw(canvas);<br>    <span class="hljs-comment">// 考虑 padding</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingLeft</span> <span class="hljs-operator">=</span> getPaddingLeft();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingTop</span> <span class="hljs-operator">=</span> getPaddingTop();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingRight</span> <span class="hljs-operator">=</span> getPaddingRight();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingBottom</span> <span class="hljs-operator">=</span> getPaddingBottom();<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">width</span> <span class="hljs-operator">=</span> getWidth() - paddingLeft - paddingRight;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">height</span> <span class="hljs-operator">=</span> getHeight() - paddingTop - paddingBottom;<br><br>    <span class="hljs-comment">// 绘制内容时考虑 padding</span><br>    canvas.drawRect(paddingLeft, paddingTop, width, height, paint);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="示例（继承-ViewGroup）：categories-逆向与风控-Android平台-开发-View机制"><a href="#示例（继承-ViewGroup）：categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="示例（继承 ViewGroup）：categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>示例（继承 <code>ViewGroup</code>）</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMeasure</span><span class="hljs-params">(<span class="hljs-type">int</span> widthMeasureSpec, <span class="hljs-type">int</span> heightMeasureSpec)</span> &#123;<br>    <span class="hljs-comment">// 考虑 padding</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingLeft</span> <span class="hljs-operator">=</span> getPaddingLeft();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingTop</span> <span class="hljs-operator">=</span> getPaddingTop();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingRight</span> <span class="hljs-operator">=</span> getPaddingRight();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingBottom</span> <span class="hljs-operator">=</span> getPaddingBottom();<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">width</span> <span class="hljs-operator">=</span> MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">height</span> <span class="hljs-operator">=</span> MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom;<br><br>    setMeasuredDimension(width, height);<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onLayout</span><span class="hljs-params">(<span class="hljs-type">boolean</span> changed, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> t, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> b)</span> &#123;<br>    <span class="hljs-comment">// 考虑 padding 和子 View 的 margin</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingLeft</span> <span class="hljs-operator">=</span> getPaddingLeft();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingTop</span> <span class="hljs-operator">=</span> getPaddingTop();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; getChildCount(); i++) &#123;<br>        <span class="hljs-type">View</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> getChildAt(i);<br>        <span class="hljs-type">MarginLayoutParams</span> <span class="hljs-variable">lp</span> <span class="hljs-operator">=</span> (MarginLayoutParams) child.getLayoutParams();<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">childLeft</span> <span class="hljs-operator">=</span> paddingLeft + lp.leftMargin;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childTop</span> <span class="hljs-operator">=</span> paddingTop + lp.topMargin;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childRight</span> <span class="hljs-operator">=</span> childLeft + child.getMeasuredWidth();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childBottom</span> <span class="hljs-operator">=</span> childTop + child.getMeasuredHeight();<br><br>        child.layout(childLeft, childTop, childRight, childBottom);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="3-不要在-View-中使用-Handler"><a href="#3-不要在-View-中使用-Handler" class="headerlink" title="(3) 不要在 View 中使用 Handler"></a><strong>(3) 不要在 View 中使用 Handler</strong></h4><ul>
+<h2 id="示例（继承-ViewGroup）：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#示例（继承-ViewGroup）：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="示例（继承 ViewGroup）：  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>示例（继承 <code>ViewGroup</code>）</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMeasure</span><span class="hljs-params">(<span class="hljs-type">int</span> widthMeasureSpec, <span class="hljs-type">int</span> heightMeasureSpec)</span> &#123;<br>    <span class="hljs-comment">// 考虑 padding</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingLeft</span> <span class="hljs-operator">=</span> getPaddingLeft();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingTop</span> <span class="hljs-operator">=</span> getPaddingTop();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingRight</span> <span class="hljs-operator">=</span> getPaddingRight();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingBottom</span> <span class="hljs-operator">=</span> getPaddingBottom();<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">width</span> <span class="hljs-operator">=</span> MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">height</span> <span class="hljs-operator">=</span> MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom;<br><br>    setMeasuredDimension(width, height);<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onLayout</span><span class="hljs-params">(<span class="hljs-type">boolean</span> changed, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> t, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> b)</span> &#123;<br>    <span class="hljs-comment">// 考虑 padding 和子 View 的 margin</span><br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingLeft</span> <span class="hljs-operator">=</span> getPaddingLeft();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">paddingTop</span> <span class="hljs-operator">=</span> getPaddingTop();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; getChildCount(); i++) &#123;<br>        <span class="hljs-type">View</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> getChildAt(i);<br>        <span class="hljs-type">MarginLayoutParams</span> <span class="hljs-variable">lp</span> <span class="hljs-operator">=</span> (MarginLayoutParams) child.getLayoutParams();<br><br>        <span class="hljs-type">int</span> <span class="hljs-variable">childLeft</span> <span class="hljs-operator">=</span> paddingLeft + lp.leftMargin;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childTop</span> <span class="hljs-operator">=</span> paddingTop + lp.topMargin;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childRight</span> <span class="hljs-operator">=</span> childLeft + child.getMeasuredWidth();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">childBottom</span> <span class="hljs-operator">=</span> childTop + child.getMeasuredHeight();<br><br>        child.layout(childLeft, childTop, childRight, childBottom);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="3-不要在-View-中使用-Handler"><a href="#3-不要在-View-中使用-Handler" class="headerlink" title="(3) 不要在 View 中使用 Handler"></a><strong>(3) 不要在 View 中使用 Handler</strong></h4><ul>
 <li><strong>问题</strong>：在 <code>View</code> 中使用 <code>Handler</code> 可能会导致内存泄漏或性能问题。</li>
 <li><strong>解决方法</strong>：<ul>
 <li>使用 <code>View#post</code> 或 <code>View#postDelayed</code> 代替 <code>Handler</code>。</li>
@@ -700,7 +702,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="示例：categories-逆向与风控-Android平台-开发-View机制"><a href="#示例：categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="示例：categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>示例</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDetachedFromWindow</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">super</span>.onDetachedFromWindow();<br>    <span class="hljs-comment">// 停止动画</span><br>    <span class="hljs-keyword">if</span> (animator != <span class="hljs-literal">null</span> &amp;&amp; animator.isRunning()) &#123;<br>        animator.cancel();<br>    &#125;<br>    <span class="hljs-comment">// 停止线程</span><br>    <span class="hljs-keyword">if</span> (thread != <span class="hljs-literal">null</span> &amp;&amp; thread.isAlive()) &#123;<br>        thread.interrupt();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="5-处理好嵌套滑动"><a href="#5-处理好嵌套滑动" class="headerlink" title="(5) 处理好嵌套滑动"></a><strong>(5) 处理好嵌套滑动</strong></h4><ul>
+<h2 id="示例：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#示例：-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="示例：  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a><strong>示例</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onDetachedFromWindow</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">super</span>.onDetachedFromWindow();<br>    <span class="hljs-comment">// 停止动画</span><br>    <span class="hljs-keyword">if</span> (animator != <span class="hljs-literal">null</span> &amp;&amp; animator.isRunning()) &#123;<br>        animator.cancel();<br>    &#125;<br>    <span class="hljs-comment">// 停止线程</span><br>    <span class="hljs-keyword">if</span> (thread != <span class="hljs-literal">null</span> &amp;&amp; thread.isAlive()) &#123;<br>        thread.interrupt();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h4 id="5-处理好嵌套滑动"><a href="#5-处理好嵌套滑动" class="headerlink" title="(5) 处理好嵌套滑动"></a><strong>(5) 处理好嵌套滑动</strong></h4><ul>
 <li><strong>问题</strong>：如果自定义 <code>View</code> 支持滑动，可能会与父容器或子 <code>View</code> 的滑动产生冲突。</li>
 <li><strong>解决方法</strong>：<ul>
 <li>实现 <code>NestedScrollingChild</code> 或 <code>NestedScrollingParent</code> 接口，支持嵌套滑动。</li>
@@ -739,7 +741,12 @@
 <h4 id="3-在-XML-中使用自定义-View"><a href="#3-在-XML-中使用自定义-View" class="headerlink" title="(3) 在 XML 中使用自定义 View"></a><strong>(3) 在 XML 中使用自定义 View</strong></h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">com.example.CustomView</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">app:customColor</span>=<span class="hljs-string">&quot;@color/blue&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="4-在代码中使用自定义-View"><a href="#4-在代码中使用自定义-View" class="headerlink" title="(4) 在代码中使用自定义 View"></a><strong>(4) 在代码中使用自定义 View</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">CustomView</span> <span class="hljs-variable">customView</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomView</span>(context);<br>customView.setCustomColor(Color.BLUE); <span class="hljs-comment">// 动态设置颜色</span><br>parentLayout.addView(customView);<br></code></pre></td></tr></table></figure>
-<h2 id="categories-逆向与风控-Android平台-开发-View机制-1"><a href="#categories-逆向与风控-Android平台-开发-View机制-1" class="headerlink" title="categories:- [逆向与风控,Android平台,开发,View机制]"></a>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h2 id="自定义-ViewGroup"><a href="#自定义-ViewGroup" class="headerlink" title="自定义 ViewGroup"></a><strong>自定义 ViewGroup</strong></h2><p>如果需要创建一个自定义容器，可以继承 <code>ViewGroup</code> 并重写 <code>onMeasure</code> 和 <code>onLayout</code> 方法。</p>
+<ul>
+<li>[逆向与风控, Android平台, 开发, View机制]<br>categories:</li>
+<li>[逆向与风控,Android平台,开发,View机制]</li>
+</ul>
+<hr>
+<h2 id="自定义-ViewGroup"><a href="#自定义-ViewGroup" class="headerlink" title="自定义 ViewGroup"></a><strong>自定义 ViewGroup</strong></h2><p>如果需要创建一个自定义容器，可以继承 <code>ViewGroup</code> 并重写 <code>onMeasure</code> 和 <code>onLayout</code> 方法。</p>
 <h4 id="1-继承-ViewGroup"><a href="#1-继承-ViewGroup" class="headerlink" title="(1) 继承 ViewGroup"></a><strong>(1) 继承 ViewGroup</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomLayout</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ViewGroup</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">CustomLayout</span><span class="hljs-params">(Context context)</span> &#123;<br>        <span class="hljs-built_in">super</span>(context);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">CustomLayout</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> &#123;<br>        <span class="hljs-built_in">super</span>(context, attrs);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onMeasure</span><span class="hljs-params">(<span class="hljs-type">int</span> widthMeasureSpec, <span class="hljs-type">int</span> heightMeasureSpec)</span> &#123;<br>        <span class="hljs-comment">// 测量子 View</span><br>        measureChildren(widthMeasureSpec, heightMeasureSpec);<br><br>        <span class="hljs-comment">// 设置自己的宽高</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">width</span> <span class="hljs-operator">=</span> resolveSize(<span class="hljs-number">500</span>, widthMeasureSpec);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">height</span> <span class="hljs-operator">=</span> resolveSize(<span class="hljs-number">500</span>, heightMeasureSpec);<br>        setMeasuredDimension(width, height);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onLayout</span><span class="hljs-params">(<span class="hljs-type">boolean</span> changed, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> t, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> b)</span> &#123;<br>        <span class="hljs-comment">// 布局子 View</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; getChildCount(); i++) &#123;<br>            <span class="hljs-type">View</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> getChildAt(i);<br>            child.layout(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, child.getMeasuredWidth(), child.getMeasuredHeight());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="2-在-XML-中使用自定义-ViewGroup"><a href="#2-在-XML-中使用自定义-ViewGroup" class="headerlink" title="(2) 在 XML 中使用自定义 ViewGroup"></a><strong>(2) 在 XML 中使用自定义 ViewGroup</strong></h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">com.example.CustomLayout</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Button 1&quot;</span> /&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">Button</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">&quot;wrap_content&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">android:text</span>=<span class="hljs-string">&quot;Button 2&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">com.example.CustomLayout</span>&gt;</span><br></code></pre></td></tr></table></figure>
@@ -761,7 +768,7 @@
 <li><strong>通知栏</strong>：在通知栏中自定义通知的 UI。</li>
 <li><strong>跨进程 UI 更新</strong>：在某些情况下，一个进程需要更新另一个进程的 UI。</li>
 </ol>
-<h2 id="RemoteViews-的核心思想是将-UI-的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新-UI。categories-逆向与风控-Android平台-开发-View机制"><a href="#RemoteViews-的核心思想是将-UI-的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新-UI。categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="RemoteViews 的核心思想是将 UI 的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新 UI。categories:- [逆向与风控,Android平台,开发,View机制]"></a><code>RemoteViews</code> 的核心思想是将 UI 的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新 UI。<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h3 id="RemoteViews-的内部机制"><a href="#RemoteViews-的内部机制" class="headerlink" title="RemoteViews 的内部机制"></a><strong>RemoteViews 的内部机制</strong></h3><h4 id="1-描述-UI-结构"><a href="#1-描述-UI-结构" class="headerlink" title="1. 描述 UI 结构"></a><strong>1. 描述 UI 结构</strong></h4><p><code>RemoteViews</code> 通过 XML 布局文件或代码动态构建的方式描述 UI 结构。它并不是直接操作 View，而是将 UI 的描述信息封装在 <code>RemoteViews</code> 对象中。</p>
+<h2 id="RemoteViews-的核心思想是将-UI-的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新-UI。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制"><a href="#RemoteViews-的核心思想是将-UI-的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新-UI。-逆向与风控-Android平台-开发-View机制-categories-逆向与风控-Android平台-开发-View机制" class="headerlink" title="RemoteViews 的核心思想是将 UI 的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新 UI。  - [逆向与风控, Android平台, 开发, View机制]categories:- [逆向与风控,Android平台,开发,View机制]"></a><code>RemoteViews</code> 的核心思想是将 UI 的描述和操作封装成一个对象，然后通过跨进程通信（IPC）机制传递给目标进程，由目标进程根据描述更新 UI。<br>  - [逆向与风控, Android平台, 开发, View机制]<br>categories:<br>- [逆向与风控,Android平台,开发,View机制]</h2><h3 id="RemoteViews-的内部机制"><a href="#RemoteViews-的内部机制" class="headerlink" title="RemoteViews 的内部机制"></a><strong>RemoteViews 的内部机制</strong></h3><h4 id="1-描述-UI-结构"><a href="#1-描述-UI-结构" class="headerlink" title="1. 描述 UI 结构"></a><strong>1. 描述 UI 结构</strong></h4><p><code>RemoteViews</code> 通过 XML 布局文件或代码动态构建的方式描述 UI 结构。它并不是直接操作 View，而是将 UI 的描述信息封装在 <code>RemoteViews</code> 对象中。</p>
 <h4 id="2-跨进程传递"><a href="#2-跨进程传递" class="headerlink" title="2. 跨进程传递"></a><strong>2. 跨进程传递</strong></h4><p><code>RemoteViews</code> 实现了 <code>Parcelable</code> 接口，因此可以通过 Binder 跨进程传递。当 <code>RemoteViews</code> 被传递到目标进程时，目标进程会根据描述信息重新构建 UI。</p>
 <h4 id="3-更新-UI"><a href="#3-更新-UI" class="headerlink" title="3. 更新 UI"></a><strong>3. 更新 UI</strong></h4><p><code>RemoteViews</code> 通过 <code>apply()</code> 方法将 UI 描述应用到目标进程中。<code>apply()</code> 方法会创建一个新的 View 层次结构，并将其附加到目标容器中。</p>
 <h4 id="4-操作-UI"><a href="#4-操作-UI" class="headerlink" title="4. 操作 UI"></a><strong>4. 操作 UI</strong></h4><p><code>RemoteViews</code> 提供了一些方法（如 <code>setTextViewText()</code>、<code>setImageViewResource()</code> 等）来更新 UI 元素。这些操作会被封装为 <code>Action</code> 对象，并在目标进程中执行。</p>
@@ -843,7 +850,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关]</div>
+      <div>View工作原理和RemoteViews - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/开发/View机制/View工作原理和remoteview/</div>
     </div>
     <div class="license-meta">
@@ -888,9 +895,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BD%93%E7%B3%BB/" title="View事件体系 - [软件安全, Android平台,开发,View相关]">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/View%E6%9C%BA%E5%88%B6/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BD%93%E7%B3%BB/" title="View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">View事件体系 - [软件安全, Android平台,开发,View相关]</span>
+                        <span class="hidden-mobile">View事件体系 - [软件安全, Android平台,开发,View相关] - [逆向与风控, Android平台, 开发, View机制]</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
