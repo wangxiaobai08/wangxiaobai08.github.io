@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="—title: rabbitmq使用date: 2023-10-09 16:08:18categories:  rabbitmq使用体验【第一天】 RabbitMq是什么?1.AMQP 协议AMQP，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端&#x2F;中间件不同产品，不同的开发语言等条件的限制。 AMQP三层协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Peak Tower">
+<meta property="og:url" content="http://example.com/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rabbitmq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E3%80%90%E7%AC%AC%E4%B8%80%E5%A4%A9%E3%80%91/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="—title: rabbitmq使用date: 2023-10-09 16:08:18categories:  rabbitmq使用体验【第一天】 RabbitMq是什么?1.AMQP 协议AMQP，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端&#x2F;中间件不同产品，不同的开发语言等条件的限制。 AMQP三层协议">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/891600f8b5a477ffa83f7eb174883783.png">
+<meta property="article:published_time" content="2025-05-09T07:31:42.163Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.772Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/891600f8b5a477ffa83f7eb174883783.png">
+  
+  
+  
+  <title>The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-09 15:31" pubdate>
+          2025年5月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>﻿—<br>title: rabbitmq使用<br>date: 2023-10-09 16:08:18<br>categories:</p>
+<hr>
+<h1 id="rabbitmq使用体验【第一天】"><a href="#rabbitmq使用体验【第一天】" class="headerlink" title="rabbitmq使用体验【第一天】"></a>rabbitmq使用体验【第一天】</h1><p><img src="https://i-blog.csdnimg.cn/blog_migrate/891600f8b5a477ffa83f7eb174883783.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="RabbitMq是什么"><a href="#RabbitMq是什么" class="headerlink" title="RabbitMq是什么?"></a>RabbitMq是什么?</h2><h3 id="1-AMQP-协议"><a href="#1-AMQP-协议" class="headerlink" title="1.AMQP 协议"></a>1.AMQP 协议</h3><p>AMQP，高级消息队列协议，是应用层协议的一个开放标准，为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端&#x2F;中间件不同产品，不同的开发语言等条件的限制。</p>
+<h4 id="AMQP三层协议："><a href="#AMQP三层协议：" class="headerlink" title="AMQP三层协议："></a>AMQP三层协议：</h4><p>Module Layer：协议最高层，主要定义了一些客户端调用的命令，客户端可以用这些命令实现自己的业务逻辑。<br>Session Layer：中间层，主要负责客户端命会发送给服务器，再将服务端应答返回客户端，提供可靠性同步机制和错误处理。<br>TransportLayer：最底层，主要传输二进制数据流，提供帧的处理、信道服用、错误检测和数据表示等。</p>
+<h4 id="AMQP组件："><a href="#AMQP组件：" class="headerlink" title="AMQP组件："></a>AMQP组件：</h4><p>交换器(Exchange)：消息代理服务器中用于把消息路由到队列的组件。<br>队列（queue）：用来存储消息的数据结构，位于硬盘或内存中。<br>绑定（Binding）：一套规则，告知交换器消息应该将消息投递给哪个队列。</p>
+<h3 id="2-RabbitMQ-核心组件"><a href="#2-RabbitMQ-核心组件" class="headerlink" title="2.RabbitMQ 核心组件"></a>2.RabbitMQ 核心组件</h3><p>理解您的需求，这里是一个简洁的表格，详细描述了 RabbitMQ 中的核心组件及其功能：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>消息生产者（Producer）</strong></td>
+<td>负责创建和发送消息到 RabbitMQ 服务器。生产者将消息发布到交换机（Exchange），而不是直接发送到队列。</td>
+</tr>
+<tr>
+<td><strong>消息代理服务器（Broker）</strong></td>
+<td>RabbitMQ 服务器充当消息代理，负责接收、路由和存储消息，确保消息从生产者传递到消费者。</td>
+</tr>
+<tr>
+<td><strong>交换机（Exchange）</strong></td>
+<td>接收来自生产者的消息，并根据预定的规则（绑定键）将消息路由到一个或多个队列中。常见类型包括直接交换机、扇出交换机、主题交换机和头部交换机。</td>
+</tr>
+<tr>
+<td><strong>队列（Queue）</strong></td>
+<td>RabbitMQ 中的消息存储区域，用于暂存待处理的消息。消费者可以订阅队列并接收其中的消息。</td>
+</tr>
+<tr>
+<td><strong>消费者（Consumer）</strong></td>
+<td>订阅队列并接收其中的消息。消费者通过消费者标签（Consumer Tag）与 RabbitMQ 建立关联，使用 <code>ch.Consume</code> 方法持续监听并消费队列中的消息。</td>
+</tr>
+</tbody></table>
+<h3 id="3-信息发布流程"><a href="#3-信息发布流程" class="headerlink" title="3.信息发布流程"></a>3.<strong>信息发布流程</strong></h3><table>
+<thead>
+<tr>
+<th>过程</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>消息发布</strong></td>
+<td>生产者通过 <code>ch.Publish</code> 方法将消息发布到指定的交换机上，消息包含路由键或绑定键。</td>
+</tr>
+<tr>
+<td><strong>消息路由</strong></td>
+<td>交换机根据消息的路由键或绑定键将消息路由到一个或多个绑定了该交换机的队列上。</td>
+</tr>
+<tr>
+<td><strong>消息存储和转发</strong></td>
+<td>队列接收到交换机路由过来的消息，并将其存储起来，等待消费者来处理。</td>
+</tr>
+<tr>
+<td><strong>消息消费</strong></td>
+<td>消费者通过 <code>ch.Consume</code> 方法持续监听队列中的消息，并在消息到达时进行处理，确认消息，或将处理结果发送回服务器。</td>
+</tr>
+</tbody></table>
+<h2 id="代码编写指导"><a href="#代码编写指导" class="headerlink" title="代码编写指导"></a>代码编写指导</h2><h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a><strong>角色</strong></h3><p>rabbitmq—–&gt;银行营业厅</p>
+<p>管道———&gt;不同业务窗口</p>
+<p>交换机——&gt;业务操作员</p>
+<p>队列———&gt;银行账号</p>
+<p>生产者&#x2F;消费者</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>1，生产者和消费者必须去银行营业厅在相应的业务窗口处理</p>
+<p>2，除了面对面交易，生产者全权委派业务处理员处理</p>
+<p>3，消费者必须在生产者对应的业务处理员上绑定银行账号</p>
+<p>4，生产者和消费者互不相识，依赖业务操作员根据相互约定的凭证识别。</p>
+<h3 id="必要参数"><a href="#必要参数" class="headerlink" title="必要参数"></a>必要参数</h3><p><strong>ch.Publish()方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>exchange</code></td>
+<td><code>string</code></td>
+<td>指定消息要发送到的交换机名称。如果设置为空字符串 <code>&quot;&quot;</code>，则表示消息将直接发送到默认交换机（默认是名为 <code>&quot;&quot;</code> 的直连交换机）。</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>路由键（Routing Key），用于将消息路由到合适的队列。交换机根据路由键将消息分发到绑定了该交换机并且路由键匹配的队列中。</td>
+</tr>
+<tr>
+<td><code>mandatory</code></td>
+<td><code>bool</code></td>
+<td>当设置为 <code>true</code> 时，如果交换机无法将消息路由到任何队列，则消息会被返回给生产者（Basic.Return）。如果设置为 <code>false</code>，则直接丢弃消息。</td>
+</tr>
+<tr>
+<td><code>immediate</code></td>
+<td><code>bool</code></td>
+<td>当设置为 <code>true</code> 时，如果交换机无法将消息立即路由到队列，则消息会被返回给生产者（Basic.Return）。如果设置为 <code>false</code>，则将消息存入队列中，等待消费者。</td>
+</tr>
+<tr>
+<td><code>msg</code></td>
+<td><code>amqp.Publishing</code></td>
+<td><code>amqp.Publishing</code> 结构体，包含了要发送的消息内容，例如消息的内容类型、消息体、消息的持久性等信息。</td>
+</tr>
+</tbody></table>
+<p><strong>ch.Consume()方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>queue</code></td>
+<td><code>string</code></td>
+<td>指定要消费的队列名称。</td>
+</tr>
+<tr>
+<td><code>consumer</code></td>
+<td><code>string</code></td>
+<td>消费者标识符，用于标识这个消费者。如果设置为空字符串 <code>&quot;&quot;</code>，RabbitMQ 会自动生成一个唯一的消费者标识符。</td>
+</tr>
+<tr>
+<td><code>autoAck</code></td>
+<td><code>bool</code></td>
+<td>是否自动确认消息。如果设置为 <code>true</code>，则消息一旦被消费者接收，RabbitMQ 就会自动确认消息，将消息标记为已处理。</td>
+</tr>
+<tr>
+<td><code>exclusive</code></td>
+<td><code>bool</code></td>
+<td>是否排他性。如果设置为 <code>true</code>，则这个消费者会成为独占消费者，只有当前连接可以使用这个消费者。</td>
+</tr>
+<tr>
+<td><code>noLocal</code></td>
+<td><code>bool</code></td>
+<td>设置为 <code>true</code> 时，表示不接收自己发送的消息。在某些情况下可以避免消息回环。</td>
+</tr>
+<tr>
+<td><code>noWait</code></td>
+<td><code>bool</code></td>
+<td>设置为 <code>true</code> 时，表示不等待服务器确认消费请求，直接开始消费。</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td><code>amqp.Table</code></td>
+<td>可选的参数，用于设置消费者的其他属性，例如消息的优先级、超时设置等。是一个键值对的集合，类型为 <code>amqp.Table</code>。</td>
+</tr>
+</tbody></table>
+<p><strong>ch.QueueDeclare()方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>队列名称。</td>
+</tr>
+<tr>
+<td><code>durable</code></td>
+<td><code>bool</code></td>
+<td>是否持久化。如果设置为 <code>true</code>，则在服务器重启后，队列仍然存在。</td>
+</tr>
+<tr>
+<td><code>autoDelete</code></td>
+<td><code>bool</code></td>
+<td>是否自动删除。如果设置为 <code>true</code>，当最后一个消费者取消订阅时，队列会自动删除。</td>
+</tr>
+<tr>
+<td><code>exclusive</code></td>
+<td><code>bool</code></td>
+<td>是否排他性。如果设置为 <code>true</code>，则只有当前连接可以使用这个队列。其他连接不能访问这个队列。</td>
+</tr>
+<tr>
+<td><code>noWait</code></td>
+<td><code>bool</code></td>
+<td>设置为 <code>true</code> 时，表示不等待服务器确认队列声明操作完成，直接开始使用队列。</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td><code>amqp.Table</code></td>
+<td>可选的参数，用于设置队列的其他属性，例如消息的超时、最大长度等。是一个键值对的集合，类型为 <code>amqp.Table</code>。</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>见官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://rabbitmq.org.cn/tutorials/tutorial-three-go">RabbitMQ 教程 - 发布&#x2F;订阅 | RabbitMQ 中文</a></p>
+<p>其他零碎知识点</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1816305">必知必会 RabbitMQ面试题 33道（附答案）-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+<hr>
+<p>会 RabbitMQ面试题 33道（附答案）-腾讯云开发者社区-腾讯云 (tencent.com)](<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1816305">https://cloud.tencent.com/developer/article/1816305</a>)</p>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/" class="category-chain-item">全栈(数据采集处理)</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="category-chain-item">消息队列</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2025/05/09/全栈(数据采集处理)/后端/消息队列/rabbitmq使用体验【第一天】/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%8F%8D%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/%E4%BF%A1%E6%81%AF%E6%A0%A1%E9%AA%8C%E5%9E%8B/Cookie%E5%8F%8D%E7%88%AC%E8%99%AB/" title="Cookie反爬虫">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cookie反爬虫</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RabbitMQ/" title="Rabiitmq">
+                        <span class="hidden-mobile">Rabiitmq</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

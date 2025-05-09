@@ -18,22 +18,22 @@
   
     <meta name="description" content="我眼里的日志系统：发生异常—-&gt;将异常信息写入日志文件——&gt;退出 Nginx实现的日志系统 专门的日志数据结构12345678910111213141516struct ngx_log_s &#123;    ngx_uint_t           log_level;            &#x2F;&#x2F; 日志级别，用于控制日志的详细程度（例如，DEBUG、INFO、ERROR 等）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx日志系统 - [碎片小屋, Nginx]">
+<meta property="og:title" content="Nginx日志系统">
 <meta property="og:url" content="http://example.com/2025/05/09/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/Nginx/Nginx%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BC%82%E5%B8%B8/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="我眼里的日志系统：发生异常—-&gt;将异常信息写入日志文件——&gt;退出 Nginx实现的日志系统 专门的日志数据结构12345678910111213141516struct ngx_log_s &#123;    ngx_uint_t           log_level;            &#x2F;&#x2F; 日志级别，用于控制日志的详细程度（例如，DEBUG、INFO、ERROR 等）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/05/27/L1OfGAd982xwKpQ.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.231Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.255Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.782Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="Nginx - [碎片小屋, Nginx]">
+<meta property="article:tag" content="Nginx">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/05/27/L1OfGAd982xwKpQ.png">
   
   
   
-  <title>Nginx日志系统 - [碎片小屋, Nginx] - The Peak Tower</title>
+  <title>Nginx日志系统 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Nginx日志系统 - [碎片小屋, Nginx]"></span>
+            <span id="subtitle" data-typed-text="Nginx日志系统"></span>
           
         </div>
 
@@ -246,7 +246,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Nginx日志系统 - [碎片小屋, Nginx]</h1>
+            <h1 id="seo-header">Nginx日志系统</h1>
             
             
               <div class="markdown-body">
@@ -339,7 +339,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Nginx-%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B-Nginx/" class="print-no-link">#Nginx - [碎片小屋, Nginx]</a>
+        <a href="/tags/Nginx/" class="print-no-link">#Nginx</a>
       
     </div>
   
@@ -351,7 +351,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Nginx日志系统 - [碎片小屋, Nginx]</div>
+      <div>Nginx日志系统</div>
       <div>http://example.com/2025/05/09/碎片小屋/Nginx/Nginx日志管理与异常/</div>
     </div>
     <div class="license-meta">
@@ -396,9 +396,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/Nginx/Nginx%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E4%B8%8E%E5%AE%9A%E6%97%B6%E5%99%A8/" title="Nginx时间管理与定时器 - [碎片小屋, Nginx]">
+                      <a href="/2025/05/09/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/Nginx/Nginx%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86%E4%B8%8E%E5%AE%9A%E6%97%B6%E5%99%A8/" title="Nginx时间管理与定时器">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Nginx时间管理与定时器 - [碎片小屋, Nginx]</span>
+                        <span class="hidden-mobile">Nginx时间管理与定时器</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -406,8 +406,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/Nginx/Nginx%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Nginx数据结构 - [碎片小屋, Nginx]">
-                        <span class="hidden-mobile">Nginx数据结构 - [碎片小屋, Nginx]</span>
+                      <a href="/2025/05/09/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/Nginx/Nginx%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Nginx数据结构">
+                        <span class="hidden-mobile">Nginx数据结构</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

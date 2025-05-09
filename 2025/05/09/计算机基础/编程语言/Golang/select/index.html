@@ -18,7 +18,7 @@
   
     <meta name="description" content="1234type scase struct &#123;	c    *hchan         &#x2F;&#x2F; 指向 channel 的指针，hchan 是 Go 中 channel 的内部实现结构	elem unsafe.Pointer &#x2F;&#x2F; 指向数据的指针，用于表示发送或接收的元素&#125;    1234case ir.OSELECT:	n :&#x3D; n.(*ir.SelectStmt)	walkS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
+<meta property="og:title" content="select机制">
 <meta property="og:url" content="http://example.com/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/select/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="1234type scase struct &#123;	c    *hchan         &#x2F;&#x2F; 指向 channel 的指针，hchan 是 Go 中 channel 的内部实现结构	elem unsafe.Pointer &#x2F;&#x2F; 指向数据的指针，用于表示发送或接收的元素&#125;    1234case ir.OSELECT:	n :&#x3D; n.(*ir.SelectStmt)	walkS">
@@ -28,14 +28,14 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/15/HlFzZKyaDRSvPN5.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/15/dpaoHntVvNYCUch.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.346Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.277Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.803Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/15/RwucnOitThpCXqQ.png">
   
   
   
-  <title>select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang] - The Peak Tower</title>
+  <title>select机制 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]"></span>
+            <span id="subtitle" data-typed-text="select机制"></span>
           
         </div>
 
@@ -248,7 +248,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</h1>
+            <h1 id="seo-header">select机制</h1>
             
             
               <div class="markdown-body">
@@ -405,7 +405,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</div>
+      <div>select机制</div>
       <div>http://example.com/2025/05/09/计算机基础/编程语言/Golang/select/</div>
     </div>
     <div class="license-meta">
@@ -450,9 +450,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0Golang%E8%AF%AD%E8%A8%80/" title="深入学习Golang语言 - [计算机基础, 编程语言, Golang]">
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0Golang%E8%AF%AD%E8%A8%80/" title="深入学习Golang语言">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入学习Golang语言 - [计算机基础, 编程语言, Golang]</span>
+                        <span class="hidden-mobile">深入学习Golang语言</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -460,8 +460,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/goroutine%E4%B8%8EScheduler/" title="goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
-                        <span class="hidden-mobile">goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</span>
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/goroutine%E4%B8%8EScheduler/" title="goroutine与Scheduler">
+                        <span class="hidden-mobile">goroutine与Scheduler</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

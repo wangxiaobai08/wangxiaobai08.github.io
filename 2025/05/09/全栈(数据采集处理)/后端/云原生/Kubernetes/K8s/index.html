@@ -18,7 +18,7 @@
   
     <meta name="description" content="Kubernetes 文档 | Kubernetes  为什么需要Kubernetes?在前面Docker技术原理浅析 - The Peak Tower我们简单谈到了Docker用于构建和运行容器,目前已经被很多公司采用，从单机走向集群已成为必然。Docker在单机环境，管理少量容器中尚可，但想象一下假如有1000个以上的微服务容器集群需要管理，其中的调度、扩展和负载均衡，又或者自动扩展、自我修复">
 <meta property="og:type" content="article">
-<meta property="og:title" content="K8s基础知识 - [后端开发与架构设计, 云原生,Kubernetes]">
+<meta property="og:title" content="K8s基础知识">
 <meta property="og:url" content="http://example.com/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/Kubernetes/K8s/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="Kubernetes 文档 | Kubernetes  为什么需要Kubernetes?在前面Docker技术原理浅析 - The Peak Tower我们简单谈到了Docker用于构建和运行容器,目前已经被很多公司采用，从单机走向集群已成为必然。Docker在单机环境，管理少量容器中尚可，但想象一下假如有1000个以上的微服务容器集群需要管理，其中的调度、扩展和负载均衡，又或者自动扩展、自我修复">
@@ -45,15 +45,15 @@
 <meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250213171136005.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/13/KmjzQnVbw7s6Euv.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.131Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.238Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.767Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="软件工程 - [全栈(数据采集处理), 后端, 云原生, Kubernetes]">
+<meta property="article:tag" content="软件工程">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/02/08/SME2kqyQpFgKl5V.png">
   
   
   
-  <title>K8s基础知识 - [后端开发与架构设计, 云原生,Kubernetes] - The Peak Tower</title>
+  <title>K8s基础知识 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="K8s基础知识 - [后端开发与架构设计, 云原生,Kubernetes]"></span>
+            <span id="subtitle" data-typed-text="K8s基础知识"></span>
           
         </div>
 
@@ -229,7 +229,7 @@
         
         
         
-          107 分钟
+          106 分钟
         
       </span>
     
@@ -266,7 +266,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">K8s基础知识 - [后端开发与架构设计, 云原生,Kubernetes]</h1>
+            <h1 id="seo-header">K8s基础知识</h1>
             
             
               <div class="markdown-body">
@@ -628,8 +628,7 @@
 </tr>
 </tbody></table>
 <ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 <hr>
 <h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a><strong>工作原理</strong></h4><p>RC 通过以下机制确保 Pod 的副本数量始终符合预期：</p>
@@ -681,10 +680,9 @@
 <li>Kubernetes 会逐步替换旧的 Pod，创建新的 Pod，确保应用不中断。</li>
 <li>可以通过以下命令查看更新状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl rollout status deployment/myapp-deployment<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="回滚-Deployment"><a href="#回滚-Deployment" class="headerlink" title="回滚 Deployment"></a><strong>回滚 Deployment</strong></h3><p>如果更新后发现问题，可以回滚到之前的版本。</p>
@@ -711,10 +709,9 @@
 <li>Kubernetes 会自动创建新的 Pod，直到满足指定的副本数量。</li>
 <li>可以通过以下命令查看 Pod 状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get pods<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="查看-Deployment-状态"><a href="#查看-Deployment-状态" class="headerlink" title="查看 Deployment 状态"></a><strong>查看 Deployment 状态</strong></h3><h4 id="查看-Deployment-详情"><a href="#查看-Deployment-详情" class="headerlink" title="查看 Deployment 详情"></a><strong>查看 Deployment 详情</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl describe deployment myapp-deployment<br></code></pre></td></tr></table></figure>
@@ -761,10 +758,9 @@
 <li>StatefulSet 会按顺序逐个更新 Pod，确保有状态应用的稳定性。</li>
 <li>可以通过以下命令查看更新状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl rollout status statefulset/myapp-statefulset<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="回滚-StatefulSet"><a href="#回滚-StatefulSet" class="headerlink" title="回滚 StatefulSet"></a><strong>回滚 StatefulSet</strong></h3><p>如果更新后发现问题，可以回滚到之前的版本。</p>
@@ -790,10 +786,9 @@
 <li>StatefulSet 会按顺序逐个创建新的 Pod，并为每个 Pod 分配独立的存储卷。</li>
 <li>可以通过以下命令查看 Pod 状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get pods -l app=myapp<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="缩容-StatefulSet"><a href="#缩容-StatefulSet" class="headerlink" title="缩容 StatefulSet"></a><strong>缩容 StatefulSet</strong></h3><p>假设我们需要将 Pod 副本数量从 5 缩减到 3。</p>
@@ -819,10 +814,9 @@
 <li>创建一个名为 <code>myapp-daemonset</code> 的 DaemonSet。</li>
 <li>使用 <code>nginx:1.14.2</code> 镜像，在每个节点上运行一个 Pod。</li>
 <li>每个 Pod 暴露 80 端口。<ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="更新-DaemonSet"><a href="#更新-DaemonSet" class="headerlink" title="更新 DaemonSet"></a><strong>更新 DaemonSet</strong></h3><h4 id="更新镜像版本-2"><a href="#更新镜像版本-2" class="headerlink" title="更新镜像版本"></a><strong>更新镜像版本</strong></h4><p>假设我们需要将镜像从 <code>nginx:1.14.2</code> 更新到 <code>nginx:1.16.1</code>。</p>
@@ -847,10 +841,9 @@
 
 <h4 id="说明-11"><a href="#说明-11" class="headerlink" title="说明"></a><strong>说明</strong></h4><ul>
 <li>DaemonSet 会逐步回滚 Pod，恢复到指定的历史版本。<ul>
-<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 云原生, Kubernetes]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,云原生,Kubernetes]</li>
 </ul>
 <hr>
 <h3 id="节点调度"><a href="#节点调度" class="headerlink" title="节点调度"></a><strong>节点调度</strong></h3><p>DaemonSet 默认会在每个节点上运行一个 Pod，但可以通过节点选择器或污点&#x2F;容忍机制来控制 Pod 的调度。</p>
@@ -1016,7 +1009,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E5%85%A8%E6%A0%88-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86-%E5%90%8E%E7%AB%AF-%E4%BA%91%E5%8E%9F%E7%94%9F-Kubernetes/" class="print-no-link">#软件工程 - [全栈(数据采集处理), 后端, 云原生, Kubernetes]</a>
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="print-no-link">#软件工程</a>
       
     </div>
   
@@ -1028,7 +1021,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>K8s基础知识 - [后端开发与架构设计, 云原生,Kubernetes]</div>
+      <div>K8s基础知识</div>
       <div>http://example.com/2025/05/09/全栈(数据采集处理)/后端/云原生/Kubernetes/K8s/</div>
     </div>
     <div class="license-meta">
@@ -1073,9 +1066,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/Kubernetes/K8s%E8%BF%9B%E9%98%B6%E7%AF%87/" title="K8s存储和网络 - [后端开发与架构设计, 云原生,Kubernetes]">
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/Kubernetes/K8s%E8%BF%9B%E9%98%B6%E7%AF%87/" title="K8s存储和网络">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">K8s存储和网络 - [后端开发与架构设计, 云原生,Kubernetes]</span>
+                        <span class="hidden-mobile">K8s存储和网络</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -1083,8 +1076,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/Docker/%E4%BB%80%E4%B9%88%E6%98%AFDocker/" title="Docker技术原理浅析 - [后端开发与架构设计, 云原生,Docker]">
-                        <span class="hidden-mobile">Docker技术原理浅析 - [后端开发与架构设计, 云原生,Docker]</span>
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E4%BA%91%E5%8E%9F%E7%94%9F/Docker/%E4%BB%80%E4%B9%88%E6%98%AFDocker/" title="Docker技术原理浅析">
+                        <span class="hidden-mobile">Docker技术原理浅析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

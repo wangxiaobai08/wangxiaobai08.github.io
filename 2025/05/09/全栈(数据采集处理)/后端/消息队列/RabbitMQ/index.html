@@ -18,7 +18,7 @@
   
     <meta name="description" content="RabbitMQ基本概念1. 什么是 RoutingKey（路由键）？RoutingKey 是 RabbitMQ 中用于将消息从 交换机（Exchange） 路由到 队列（Queue） 的关键字。它的作用类似于邮件的“收件人地址”，决定了消息最终会被发送到哪个队列  在 Direct 和 Topic 类型的交换机中，RoutingKey 用于匹配绑定规则（Binding Key），从而决定消息的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rabiitmq - [全栈(数据采集处理), 后端, 消息队列] - [全栈(数据采集处理), 后端, 消息队列]">
+<meta property="og:title" content="Rabiitmq">
 <meta property="og:url" content="http://example.com/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/RabbitMQ/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="RabbitMQ基本概念1. 什么是 RoutingKey（路由键）？RoutingKey 是 RabbitMQ 中用于将消息从 交换机（Exchange） 路由到 队列（Queue） 的关键字。它的作用类似于邮件的“收件人地址”，决定了消息最终会被发送到哪个队列  在 Direct 和 Topic 类型的交换机中，RoutingKey 用于匹配绑定规则（Binding Key），从而决定消息的">
@@ -29,14 +29,14 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/16/BpqxabLOj4rH3iI.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/16/z1ao5ScvWKUE79n.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.161Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.243Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.772Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/16/vn4dmEiKI6AQLxZ.png">
   
   
   
-  <title>Rabiitmq - [全栈(数据采集处理), 后端, 消息队列] - [全栈(数据采集处理), 后端, 消息队列] - The Peak Tower</title>
+  <title>Rabiitmq - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -178,7 +178,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Rabiitmq - [全栈(数据采集处理), 后端, 消息队列] - [全栈(数据采集处理), 后端, 消息队列]"></span>
+            <span id="subtitle" data-typed-text="Rabiitmq"></span>
           
         </div>
 
@@ -201,7 +201,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          5.3k 字
         
       </span>
     
@@ -212,7 +212,7 @@
         
         
         
-          46 分钟
+          45 分钟
         
       </span>
     
@@ -249,7 +249,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Rabiitmq - [全栈(数据采集处理), 后端, 消息队列] - [全栈(数据采集处理), 后端, 消息队列]</h1>
+            <h1 id="seo-header">Rabiitmq</h1>
             
             
               <div class="markdown-body">
@@ -271,7 +271,13 @@
 <li><strong>队列（Queue）</strong>：消息的存储位置。</li>
 <li><strong>绑定键（Binding Key）</strong>：用于匹配 RoutingKey 的规则（在 Direct 和 Topic 类型的交换机中有效）。</li>
 </ul>
-<h2 id="将队列绑定到交换机并指定-Binding-Key：-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#将队列绑定到交换机并指定-Binding-Key：-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="将队列绑定到交换机并指定 Binding Key：  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a>将队列绑定到交换机并指定 Binding Key：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">ch.QueueBind(<br>    <span class="hljs-string">&quot;queueName&quot;</span>,  <span class="hljs-comment">// 队列名称</span><br>    <span class="hljs-string">&quot;bindingKey&quot;</span>, <span class="hljs-comment">// 绑定键</span><br>    <span class="hljs-string">&quot;exchange&quot;</span>,   <span class="hljs-comment">// 交换机名称</span><br>    <span class="hljs-literal">false</span>,        <span class="hljs-comment">// 无等待</span><br>    <span class="hljs-literal">nil</span>,          <span class="hljs-comment">// 参数</span><br>)<br></code></pre></td></tr></table></figure><br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h2 id="3-交换器4种类型？"><a href="#3-交换器4种类型？" class="headerlink" title="3. 交换器4种类型？"></a>3. <strong>交换器4种类型？</strong></h2><p>RabbitMQ 支持以下 4 种类型的交换机：</p>
+<p>将队列绑定到交换机并指定 Binding Key：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">ch.QueueBind(<br>    <span class="hljs-string">&quot;queueName&quot;</span>,  <span class="hljs-comment">// 队列名称</span><br>    <span class="hljs-string">&quot;bindingKey&quot;</span>, <span class="hljs-comment">// 绑定键</span><br>    <span class="hljs-string">&quot;exchange&quot;</span>,   <span class="hljs-comment">// 交换机名称</span><br>    <span class="hljs-literal">false</span>,        <span class="hljs-comment">// 无等待</span><br>    <span class="hljs-literal">nil</span>,          <span class="hljs-comment">// 参数</span><br>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h2 id="3-交换器4种类型？"><a href="#3-交换器4种类型？" class="headerlink" title="3. 交换器4种类型？"></a>3. <strong>交换器4种类型？</strong></h2><p>RabbitMQ 支持以下 4 种类型的交换机：</p>
 <p><strong>Direct（直连交换机）</strong>：</p>
 <p>根据 RoutingKey 精确匹配 Binding Key，将消息路由到对应的队列。<strong>适用场景</strong>：点对点消息传递。</p>
 <p><strong>Fanout（广播交换机）</strong>：</p>
@@ -281,7 +287,21 @@
 <p><strong>Headers（头交换机）</strong>：</p>
 <p>忽略 RoutingKey，根据消息头（Headers）的属性匹配 Binding Key，将消息路由到匹配的队列。<strong>适用场景</strong>：基于消息属性的路由。</p>
 <hr>
-<h2 id="4-生产者消息运转？"><a href="#4-生产者消息运转？" class="headerlink" title="4. 生产者消息运转？"></a>4. <strong>生产者消息运转？</strong></h2><h2 id="生产者消息的运转过程如下：1-创建连接：生产者连接到-RabbitMQ-服务器。2-创建通道：在连接上创建通道（Channel）。3-声明交换机：声明一个交换机（可选，如果交换机已存在则不需要）。4-发送消息：将消息发送到交换机，并指定-RoutingKey。5-路由消息：交换机根据-RoutingKey-和绑定规则将消息路由到队列。6-持久化：如果消息和队列是持久化的，消息会被写入磁盘。7-确认机制：如果启用了生产者确认机制，RabbitMQ-会返回确认（ACK）或否定确认（NACK）。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#生产者消息的运转过程如下：1-创建连接：生产者连接到-RabbitMQ-服务器。2-创建通道：在连接上创建通道（Channel）。3-声明交换机：声明一个交换机（可选，如果交换机已存在则不需要）。4-发送消息：将消息发送到交换机，并指定-RoutingKey。5-路由消息：交换机根据-RoutingKey-和绑定规则将消息路由到队列。6-持久化：如果消息和队列是持久化的，消息会被写入磁盘。7-确认机制：如果启用了生产者确认机制，RabbitMQ-会返回确认（ACK）或否定确认（NACK）。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="生产者消息的运转过程如下：1. 创建连接：生产者连接到 RabbitMQ 服务器。2. 创建通道：在连接上创建通道（Channel）。3. 声明交换机：声明一个交换机（可选，如果交换机已存在则不需要）。4. 发送消息：将消息发送到交换机，并指定 RoutingKey。5. 路由消息：交换机根据 RoutingKey 和绑定规则将消息路由到队列。6. 持久化：如果消息和队列是持久化的，消息会被写入磁盘。7. 确认机制：如果启用了生产者确认机制，RabbitMQ 会返回确认（ACK）或否定确认（NACK）。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a>生产者消息的运转过程如下：<br>1. <strong>创建连接</strong>：生产者连接到 RabbitMQ 服务器。<br>2. <strong>创建通道</strong>：在连接上创建通道（Channel）。<br>3. <strong>声明交换机</strong>：声明一个交换机（可选，如果交换机已存在则不需要）。<br>4. <strong>发送消息</strong>：将消息发送到交换机，并指定 RoutingKey。<br>5. <strong>路由消息</strong>：交换机根据 RoutingKey 和绑定规则将消息路由到队列。<br>6. <strong>持久化</strong>：如果消息和队列是持久化的，消息会被写入磁盘。<br>7. <strong>确认机制</strong>：如果启用了生产者确认机制，RabbitMQ 会返回确认（ACK）或否定确认（NACK）。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h2 id="5-消费者接收消息过程？"><a href="#5-消费者接收消息过程？" class="headerlink" title="5. 消费者接收消息过程？"></a>5. <strong>消费者接收消息过程？</strong></h2><p>消费者接收消息的过程如下：</p>
+<h2 id="4-生产者消息运转？"><a href="#4-生产者消息运转？" class="headerlink" title="4. 生产者消息运转？"></a>4. <strong>生产者消息运转？</strong></h2><p>生产者消息的运转过程如下：</p>
+<ol>
+<li><strong>创建连接</strong>：生产者连接到 RabbitMQ 服务器。</li>
+<li><strong>创建通道</strong>：在连接上创建通道（Channel）。</li>
+<li><strong>声明交换机</strong>：声明一个交换机（可选，如果交换机已存在则不需要）。</li>
+<li><strong>发送消息</strong>：将消息发送到交换机，并指定 RoutingKey。</li>
+<li><strong>路由消息</strong>：交换机根据 RoutingKey 和绑定规则将消息路由到队列。</li>
+<li><strong>持久化</strong>：如果消息和队列是持久化的，消息会被写入磁盘。</li>
+<li><strong>确认机制</strong>：如果启用了生产者确认机制，RabbitMQ 会返回确认（ACK）或否定确认（NACK）。</li>
+</ol>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h2 id="5-消费者接收消息过程？"><a href="#5-消费者接收消息过程？" class="headerlink" title="5. 消费者接收消息过程？"></a>5. <strong>消费者接收消息过程？</strong></h2><p>消费者接收消息的过程如下：</p>
 <ol>
 <li><strong>创建连接</strong>：消费者连接到 RabbitMQ 服务器。</li>
 <li><strong>创建通道</strong>：在连接上创建通道（Channel）。</li>
@@ -293,7 +313,19 @@
 <li><strong>重试机制</strong>：如果消息处理失败，消费者可以发送否定确认（NACK）或将消息重新放回队列。</li>
 </ol>
 <hr>
-<h2 id="6-队列结构"><a href="#6-队列结构" class="headerlink" title="6. 队列结构"></a>6. <strong>队列结构</strong></h2><h2 id="RabbitMQ-的队列是一个先进先出（FIFO）的数据结构，用于存储消息。队列的主要属性包括：-名称：队列的唯一标识。-持久化：队列是否持久化（重启后是否仍然存在）。-独占：队列是否只能被一个连接使用。-自动删除：当没有消费者时，队列是否自动删除。-参数：队列的其他配置参数（例如消息的-TTL、死信队列等）。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#RabbitMQ-的队列是一个先进先出（FIFO）的数据结构，用于存储消息。队列的主要属性包括：-名称：队列的唯一标识。-持久化：队列是否持久化（重启后是否仍然存在）。-独占：队列是否只能被一个连接使用。-自动删除：当没有消费者时，队列是否自动删除。-参数：队列的其他配置参数（例如消息的-TTL、死信队列等）。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="RabbitMQ 的队列是一个先进先出（FIFO）的数据结构，用于存储消息。队列的主要属性包括：- 名称：队列的唯一标识。- 持久化：队列是否持久化（重启后是否仍然存在）。- 独占：队列是否只能被一个连接使用。- 自动删除：当没有消费者时，队列是否自动删除。- 参数：队列的其他配置参数（例如消息的 TTL、死信队列等）。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a>RabbitMQ 的队列是一个先进先出（FIFO）的数据结构，用于存储消息。队列的主要属性包括：<br>- <strong>名称</strong>：队列的唯一标识。<br>- <strong>持久化</strong>：队列是否持久化（重启后是否仍然存在）。<br>- <strong>独占</strong>：队列是否只能被一个连接使用。<br>- <strong>自动删除</strong>：当没有消费者时，队列是否自动删除。<br>- <strong>参数</strong>：队列的其他配置参数（例如消息的 TTL、死信队列等）。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h2 id="7-死信队列？"><a href="#7-死信队列？" class="headerlink" title="7. 死信队列？"></a>7. <strong>死信队列？</strong></h2><p><strong>死信队列（Dead Letter Queue, DLQ）</strong> 是用于存储无法被正常消费的消息的队列。</p>
+<h2 id="6-队列结构"><a href="#6-队列结构" class="headerlink" title="6. 队列结构"></a>6. <strong>队列结构</strong></h2><p>RabbitMQ 的队列是一个先进先出（FIFO）的数据结构，用于存储消息。队列的主要属性包括：</p>
+<ul>
+<li><strong>名称</strong>：队列的唯一标识。</li>
+<li><strong>持久化</strong>：队列是否持久化（重启后是否仍然存在）。</li>
+<li><strong>独占</strong>：队列是否只能被一个连接使用。</li>
+<li><strong>自动删除</strong>：当没有消费者时，队列是否自动删除。</li>
+<li><strong>参数</strong>：队列的其他配置参数（例如消息的 TTL、死信队列等）。<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="7-死信队列？"><a href="#7-死信队列？" class="headerlink" title="7. 死信队列？"></a>7. <strong>死信队列？</strong></h2><p><strong>死信队列（Dead Letter Queue, DLQ）</strong> 是用于存储无法被正常消费的消息的队列。</p>
 <p>导致消息进入死信队列的几种原因包括：</p>
 <ol>
 <li><strong>消息被拒绝</strong>：消费者发送 NACK 或 Reject，且未设置重新入队。</li>
@@ -302,7 +334,12 @@
 <li><strong>队列被删除</strong>：消息所在的队列被删除。</li>
 </ol>
 <hr>
-<h2 id="8-延迟队列？"><a href="#8-延迟队列？" class="headerlink" title="8. 延迟队列？"></a>8. <strong>延迟队列？</strong></h2><h2 id="延迟队列（Delayed-Queue）-是用于实现延迟消息的队列。消息在延迟时间到达后才会被投递到队列。使用-RabbitMQ-的插件（如-rabbitmq-delayed-message-exchange）。设置消息的延迟时间。适用场景：定时任务、订单超时等。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#延迟队列（Delayed-Queue）-是用于实现延迟消息的队列。消息在延迟时间到达后才会被投递到队列。使用-RabbitMQ-的插件（如-rabbitmq-delayed-message-exchange）。设置消息的延迟时间。适用场景：定时任务、订单超时等。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="延迟队列（Delayed Queue） 是用于实现延迟消息的队列。消息在延迟时间到达后才会被投递到队列。使用 RabbitMQ 的插件（如 rabbitmq_delayed_message_exchange）。设置消息的延迟时间。适用场景：定时任务、订单超时等。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a><strong>延迟队列（Delayed Queue）</strong> 是用于实现延迟消息的队列。消息在延迟时间到达后才会被投递到队列。使用 RabbitMQ 的插件（如 <code>rabbitmq_delayed_message_exchange</code>）。设置消息的延迟时间。<strong>适用场景</strong>：定时任务、订单超时等。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h2 id="9-优先级队列？"><a href="#9-优先级队列？" class="headerlink" title="9. 优先级队列？"></a>9. <strong>优先级队列？</strong></h2><p><strong>优先级队列（Priority Queue）</strong> 是支持消息优先级的队列。高优先级的消息会被优先消费。</p>
+<h2 id="8-延迟队列？"><a href="#8-延迟队列？" class="headerlink" title="8. 延迟队列？"></a>8. <strong>延迟队列？</strong></h2><p><strong>延迟队列（Delayed Queue）</strong> 是用于实现延迟消息的队列。消息在延迟时间到达后才会被投递到队列。使用 RabbitMQ 的插件（如 <code>rabbitmq_delayed_message_exchange</code>）。设置消息的延迟时间。<strong>适用场景</strong>：定时任务、订单超时等。</p>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h2 id="9-优先级队列？"><a href="#9-优先级队列？" class="headerlink" title="9. 优先级队列？"></a>9. <strong>优先级队列？</strong></h2><p><strong>优先级队列（Priority Queue）</strong> 是支持消息优先级的队列。高优先级的消息会被优先消费。</p>
 <p>声明队列时设置最大优先级。发送消息时指定优先级。</p>
 <p><strong>适用场景</strong>：</p>
 <ul>
@@ -432,8 +469,7 @@
 <p>在发送消息时设置消息的过期时间。如果消息在队列中超过 TTL，会被自动丢弃或发送到死信队列。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go">err = ch.Publish(<br>    <span class="hljs-string">&quot;exchange&quot;</span>, <span class="hljs-comment">// 交换机</span><br>    <span class="hljs-string">&quot;routingKey&quot;</span>, <span class="hljs-comment">// 路由键</span><br>    <span class="hljs-literal">false</span>,       <span class="hljs-comment">// 强制标志</span><br>    <span class="hljs-literal">false</span>,       <span class="hljs-comment">// 立即标志</span><br>    amqp.Publishing&#123;<br>        Expiration: <span class="hljs-string">&quot;5000&quot;</span>, <span class="hljs-comment">// 消息 5 秒后过期</span><br>        ContentType: <span class="hljs-string">&quot;text/plain&quot;</span>,<br>        Body:        []<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;Expiring Message&quot;</span>),<br>    &#125;,<br>)<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[全栈(数据采集处理), 后端, 消息队列]<br>categories:</li>
-<li>[全栈(数据采集处理),后端,消息队列]</li>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
 </ul>
 <hr>
 <h3 id="消息队列满了以后该怎么处理？"><a href="#消息队列满了以后该怎么处理？" class="headerlink" title="消息队列满了以后该怎么处理？"></a><strong>消息队列满了以后该怎么处理？</strong></h3><p><strong>设置队列的最大长度</strong>：</p>
@@ -446,7 +482,12 @@
 <h3 id="3-有几百万消息持续积压几小时，说说怎么解决？"><a href="#3-有几百万消息持续积压几小时，说说怎么解决？" class="headerlink" title="3. 有几百万消息持续积压几小时，说说怎么解决？"></a>3. <strong>有几百万消息持续积压几小时，说说怎么解决？</strong></h3><p><strong>临时扩容</strong>：增加消费者数量，提高消息的处理速度。增加 RabbitMQ 集群节点，提高消息的处理能力。</p>
 <p><strong>批量处理</strong>：修改消费者逻辑，支持批量处理消息。</p>
 <p><strong>消息丢弃</strong>：如果消息允许丢失，可以丢弃部分旧消息，优先处理新消息。</p>
-<h2 id="数据分流：将消息分流到多个队列中，分散压力。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#数据分流：将消息分流到多个队列中，分散压力。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="数据分流：将消息分流到多个队列中，分散压力。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a><strong>数据分流</strong>：将消息分流到多个队列中，分散压力。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h3 id="4-设计-MQ-思路？"><a href="#4-设计-MQ-思路？" class="headerlink" title="4. 设计 MQ 思路？"></a>4. <strong>设计 MQ 思路？</strong></h3><p>设计一个消息队列系统时，需要考虑以下方面：</p>
+<p><strong>数据分流</strong>：将消息分流到多个队列中，分散压力。</p>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h3 id="4-设计-MQ-思路？"><a href="#4-设计-MQ-思路？" class="headerlink" title="4. 设计 MQ 思路？"></a>4. <strong>设计 MQ 思路？</strong></h3><p>设计一个消息队列系统时，需要考虑以下方面：</p>
 <ol>
 <li><strong>消息模型</strong>：<ul>
 <li>支持点对点、发布&#x2F;订阅等消息模型。</li>
@@ -476,7 +517,12 @@
 <hr>
 <h3 id="5-如何保证-RabbitMQ-消息的顺序性？"><a href="#5-如何保证-RabbitMQ-消息的顺序性？" class="headerlink" title="5. 如何保证 RabbitMQ 消息的顺序性？"></a>5. <strong>如何保证 RabbitMQ 消息的顺序性？</strong></h3><p><strong>单队列单消费者</strong>：将需要保证顺序的消息发送到同一个队列，并由单个消费者处理。</p>
 <p><strong>消息分组</strong>：使用 RoutingKey 或消息头将消息分组，确保同一组消息由同一个消费者处理。</p>
-<h2 id="全局序列号：在消息中添加全局序列号，消费者根据序列号处理消息。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#全局序列号：在消息中添加全局序列号，消费者根据序列号处理消息。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="全局序列号：在消息中添加全局序列号，消费者根据序列号处理消息。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a><strong>全局序列号</strong>：在消息中添加全局序列号，消费者根据序列号处理消息。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h3 id="6-RabbitMQ-消息丢失的情况有哪些？"><a href="#6-RabbitMQ-消息丢失的情况有哪些？" class="headerlink" title="6. RabbitMQ 消息丢失的情况有哪些？"></a>6. <strong>RabbitMQ 消息丢失的情况有哪些？</strong></h3><p><strong>生产者丢失</strong>：消息未成功发送到 RabbitMQ。</p>
+<p><strong>全局序列号</strong>：在消息中添加全局序列号，消费者根据序列号处理消息。</p>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h3 id="6-RabbitMQ-消息丢失的情况有哪些？"><a href="#6-RabbitMQ-消息丢失的情况有哪些？" class="headerlink" title="6. RabbitMQ 消息丢失的情况有哪些？"></a>6. <strong>RabbitMQ 消息丢失的情况有哪些？</strong></h3><p><strong>生产者丢失</strong>：消息未成功发送到 RabbitMQ。</p>
 <p><strong>解决方案</strong>：使用生产者确认机制。</p>
 <p><strong>RabbitMQ 丢失</strong>：消息未持久化，服务器重启后丢失。</p>
 <p><strong>解决方案</strong>：使用持久化机制。</p>
@@ -489,10 +535,9 @@
 <li><strong>已拒绝</strong>：消息被消费者拒绝。</li>
 <li><strong>已过期</strong>：消息在队列中超过 TTL。</li>
 <li><strong>死信</strong>：消息被发送到死信队列。<ul>
-<li>[全栈(数据采集处理), 后端, 消息队列]<br>categories:</li>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
 </ul>
 </li>
-<li>[全栈(数据采集处理),后端,消息队列]</li>
 </ul>
 <hr>
 <h3 id="8-为什么不应该对所有的-message-都使用持久化机制？"><a href="#8-为什么不应该对所有的-message-都使用持久化机制？" class="headerlink" title="8. 为什么不应该对所有的 message 都使用持久化机制？"></a>8. <strong>为什么不应该对所有的 message 都使用持久化机制？</strong></h3><p><strong>性能开销</strong>：持久化消息需要写入磁盘，性能较差。</p>
@@ -501,7 +546,12 @@
 <hr>
 <h3 id="9-如何保证消息不被重复消费？或者说，如何保证消息消费时的幂等性？"><a href="#9-如何保证消息不被重复消费？或者说，如何保证消息消费时的幂等性？" class="headerlink" title="9. 如何保证消息不被重复消费？或者说，如何保证消息消费时的幂等性？"></a>9. <strong>如何保证消息不被重复消费？或者说，如何保证消息消费时的幂等性？</strong></h3><p><strong>幂等性设计</strong>：消费者逻辑设计为幂等操作，即使重复消费也不会产生副作用。</p>
 <p><strong>唯一标识</strong>：在消息中添加唯一标识（如 UUID），消费者记录已处理的消息 ID。</p>
-<h2 id="数据库约束：使用数据库的唯一约束，防止重复处理。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列"><a href="#数据库约束：使用数据库的唯一约束，防止重复处理。-全栈-数据采集处理-后端-消息队列-categories-全栈-数据采集处理-后端-消息队列" class="headerlink" title="数据库约束：使用数据库的唯一约束，防止重复处理。  - [全栈(数据采集处理), 后端, 消息队列]categories:- [全栈(数据采集处理),后端,消息队列]"></a><strong>数据库约束</strong>：使用数据库的唯一约束，防止重复处理。<br>  - [全栈(数据采集处理), 后端, 消息队列]<br>categories:<br>- [全栈(数据采集处理),后端,消息队列]</h2><h3 id="10-消息基于什么传输？"><a href="#10-消息基于什么传输？" class="headerlink" title="10. 消息基于什么传输？"></a>10. <strong>消息基于什么传输？</strong></h3><ul>
+<p><strong>数据库约束</strong>：使用数据库的唯一约束，防止重复处理。</p>
+<ul>
+<li>[全栈(数据采集处理), 后端, 消息队列]</li>
+</ul>
+<hr>
+<h3 id="10-消息基于什么传输？"><a href="#10-消息基于什么传输？" class="headerlink" title="10. 消息基于什么传输？"></a>10. <strong>消息基于什么传输？</strong></h3><ul>
 <li><strong>协议</strong>：<ul>
 <li>RabbitMQ 基于 AMQP（Advanced Message Queuing Protocol）协议传输消息。</li>
 </ul>
@@ -585,7 +635,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Rabiitmq - [全栈(数据采集处理), 后端, 消息队列] - [全栈(数据采集处理), 后端, 消息队列]</div>
+      <div>Rabiitmq</div>
       <div>http://example.com/2025/05/09/全栈(数据采集处理)/后端/消息队列/RabbitMQ/</div>
     </div>
     <div class="license-meta">
@@ -630,9 +680,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86/%E5%8F%8D%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/%E4%BF%A1%E6%81%AF%E6%A0%A1%E9%AA%8C%E5%9E%8B/Cookie%E5%8F%8D%E7%88%AC%E8%99%AB/" title="Cookie反爬虫 - [全栈(数据采集处理), 数据采集处理, 反爬虫技术, 信息校验型]">
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/rabbitmq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C%E3%80%90%E7%AC%AC%E4%B8%80%E5%A4%A9%E3%80%91/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Cookie反爬虫 - [全栈(数据采集处理), 数据采集处理, 反爬虫技术, 信息校验型]</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -640,8 +690,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" title="负载均衡 - [后端开发与架构设计, 微服务]">
-                        <span class="hidden-mobile">负载均衡 - [后端开发与架构设计, 微服务]</span>
+                      <a href="/2025/05/09/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%90%8E%E7%AB%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" title="负载均衡">
+                        <span class="hidden-mobile">负载均衡</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

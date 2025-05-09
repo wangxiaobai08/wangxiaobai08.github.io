@@ -18,7 +18,7 @@
   
     <meta name="description" content="在开始之前，建议补充Dex文件和加载相关基础知识： DEX文件解析器编写 - The Peak Tower Dex加载流程 - The Peak Tower 接着开始解析Frida_dump工具脚本  工具脚本目录结构 12345678910frida_dump├─ .tours│  └─ dump_dex.tour├─ android│  ├─ SoFixer32│  └─ SoFixer64├">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Frida_dump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]">
+<meta property="og:title" content="Frida_dump脚本解析">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida_dump%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="在开始之前，建议补充Dex文件和加载相关基础知识： DEX文件解析器编写 - The Peak Tower Dex加载流程 - The Peak Tower 接着开始解析Frida_dump工具脚本  工具脚本目录结构 12345678910frida_dump├─ .tours│  └─ dump_dex.tour├─ android│  ├─ SoFixer32│  └─ SoFixer64├">
@@ -31,15 +31,15 @@
 <meta property="og:image" content="https://s2.loli.net/2025/02/26/mC8WMSv7gDZnwUe.png">
 <meta property="og:image" content="https://s2.loli.net/2025/02/26/gLTbnD73sAzRCjG.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.550Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.320Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.835Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 脱壳脚本解析]">
+<meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/02/26/ZbUFyctkKpSQCAI.png">
   
   
   
-  <title>Frida_dump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析] - The Peak Tower</title>
+  <title>Frida_dump脚本解析 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -181,7 +181,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Frida_dump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]"></span>
+            <span id="subtitle" data-typed-text="Frida_dump脚本解析"></span>
           
         </div>
 
@@ -252,7 +252,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Frida_dump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]</h1>
+            <h1 id="seo-header">Frida_dump脚本解析</h1>
             
             
               <div class="markdown-body">
@@ -354,7 +354,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96-%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" class="print-no-link">#逆向(android) - [逆向与风控, Android平台, 逆向, 壳的实现与脱取, 脱壳脚本解析]</a>
+        <a href="/tags/%E9%80%86%E5%90%91-android/" class="print-no-link">#逆向(android)</a>
       
     </div>
   
@@ -366,7 +366,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Frida_dump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]</div>
+      <div>Frida_dump脚本解析</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/逆向/壳的实现与脱取/脱壳脚本解析/Frida_dump源码解析/</div>
     </div>
     <div class="license-meta">
@@ -411,9 +411,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/frida_fart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="Fart脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/frida_fart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="Fart脚本解析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Fart脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]</span>
+                        <span class="hidden-mobile">Fart脚本解析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -421,8 +421,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida-dexdump%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="Frida_dexdump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]">
-                        <span class="hidden-mobile">Frida_dexdump脚本解析 - [软件安全, Android平台, 逆向, 壳的实现与脱取,脱壳脚本解析]</span>
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida-dexdump%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="Frida_dexdump脚本解析">
+                        <span class="hidden-mobile">Frida_dexdump脚本解析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

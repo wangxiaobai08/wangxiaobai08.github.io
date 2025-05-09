@@ -18,20 +18,20 @@
   
     <meta name="description" content="索引的基本思想 索引是提升查询速度的一种数据结构，可以理解为类似书的目录。索引之所以能提升查询速度，在于它在插入时对数据进行了排序（显而易见，其缺点是影响插入或者更新的性能）。有效的设计并创建索引可以提升数据库系统的整体性能，但是也要考虑索引维护带来的成本消耗。 索引的演化历史 关于索引的知识具体可以参考： 为什么MySQL的主键查询这么快 | 蝉沐风 从数据页的角度看 B+ 树 | 小林codi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="查询优化(索引角度) - [计算机基础, 数据库, Mysql]">
+<meta property="og:title" content="查询优化(索引角度)">
 <meta property="og:url" content="http://example.com/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="索引的基本思想 索引是提升查询速度的一种数据结构，可以理解为类似书的目录。索引之所以能提升查询速度，在于它在插入时对数据进行了排序（显而易见，其缺点是影响插入或者更新的性能）。有效的设计并创建索引可以提升数据库系统的整体性能，但是也要考虑索引维护带来的成本消耗。 索引的演化历史 关于索引的知识具体可以参考： 为什么MySQL的主键查询这么快 | 蝉沐风 从数据页的角度看 B+ 树 | 小林codi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-09T07:31:42.269Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.263Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.791Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="数据库 - [计算机基础, 数据库, Mysql]">
+<meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>查询优化(索引角度) - [计算机基础, 数据库, Mysql] - The Peak Tower</title>
+  <title>查询优化(索引角度) - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="查询优化(索引角度) - [计算机基础, 数据库, Mysql]"></span>
+            <span id="subtitle" data-typed-text="查询优化(索引角度)"></span>
           
         </div>
 
@@ -196,7 +196,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k 字
+          5.1k 字
         
       </span>
     
@@ -207,7 +207,7 @@
         
         
         
-          44 分钟
+          43 分钟
         
       </span>
     
@@ -244,7 +244,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">查询优化(索引角度) - [计算机基础, 数据库, Mysql]</h1>
+            <h1 id="seo-header">查询优化(索引角度)</h1>
             
             
               <div class="markdown-body">
@@ -337,7 +337,12 @@
 <li>减少了数据传输量：从 3 条记录减少到 1 条记录。</li>
 </ul>
 <p>使用条件：索引下推适用于联合索引，因为联合索引的叶子节点中包含了多个字段的值。过滤条件必须包含在联合索引中。索引下推是 MySQL 5.6 及以上版本的功能，默认开启。</p>
-<h2 id="这些是数据库索引设计中的核心原则，目的是为了-提升查询性能-和-减少资源消耗。下面详细解释每一条原则的原因和适用场景。-计算机基础-数据库-Mysql-categories-计算机基础-数据库-Mysql"><a href="#这些是数据库索引设计中的核心原则，目的是为了-提升查询性能-和-减少资源消耗。下面详细解释每一条原则的原因和适用场景。-计算机基础-数据库-Mysql-categories-计算机基础-数据库-Mysql" class="headerlink" title="这些是数据库索引设计中的核心原则，目的是为了 提升查询性能 和 减少资源消耗。下面详细解释每一条原则的原因和适用场景。  - [计算机基础, 数据库, Mysql]categories:- [计算机基础,数据库,Mysql]"></a>这些是数据库索引设计中的核心原则，目的是为了 <strong>提升查询性能</strong> 和 <strong>减少资源消耗</strong>。下面详细解释每一条原则的原因和适用场景。<br>  - [计算机基础, 数据库, Mysql]<br>categories:<br>- [计算机基础,数据库,Mysql]</h2><h3 id="不为离散度低的列创建索引"><a href="#不为离散度低的列创建索引" class="headerlink" title="不为离散度低的列创建索引"></a><strong>不为离散度低的列创建索引</strong></h3><p><strong>离散度</strong>：指列中不同值的数量与总行数的比例。离散度低的列（如性别、状态等）只有少数几个不同的值。</p>
+<p>这些是数据库索引设计中的核心原则，目的是为了 <strong>提升查询性能</strong> 和 <strong>减少资源消耗</strong>。下面详细解释每一条原则的原因和适用场景。</p>
+<ul>
+<li>[计算机基础, 数据库, Mysql]</li>
+</ul>
+<hr>
+<h3 id="不为离散度低的列创建索引"><a href="#不为离散度低的列创建索引" class="headerlink" title="不为离散度低的列创建索引"></a><strong>不为离散度低的列创建索引</strong></h3><p><strong>离散度</strong>：指列中不同值的数量与总行数的比例。离散度低的列（如性别、状态等）只有少数几个不同的值。</p>
 <p><strong>索引效果差</strong>：</p>
 <ul>
 <li>如果列的离散度低，索引无法有效过滤数据，查询时仍然需要扫描大量数据。例如，性别列只有「男」和「女」两个值，创建索引后，查询时仍然需要扫描大约 50% 的数据。</li>
@@ -345,7 +350,12 @@
 <p>只为离散度高的列（如用户 ID、手机号等）创建索引。</p>
 <hr>
 <h3 id="只为用于搜索、排序或分组的列创建索引"><a href="#只为用于搜索、排序或分组的列创建索引" class="headerlink" title="只为用于搜索、排序或分组的列创建索引"></a><strong>只为用于搜索、排序或分组的列创建索引</strong></h3><p><strong>索引的作用</strong>：加速搜索（<code>WHERE</code> 条件），加速排序（<code>ORDER BY</code>），加速分组（<code>GROUP BY</code>）。如果列不用于以上，创建索引只会增加存储和维护开销，而不会提升查询性能。</p>
-<h2 id="只为实际用于查询条件的列创建索引。-计算机基础-数据库-Mysql-categories-计算机基础-数据库-Mysql"><a href="#只为实际用于查询条件的列创建索引。-计算机基础-数据库-Mysql-categories-计算机基础-数据库-Mysql" class="headerlink" title="只为实际用于查询条件的列创建索引。  - [计算机基础, 数据库, Mysql]categories:- [计算机基础,数据库,Mysql]"></a>只为实际用于查询条件的列创建索引。<br>  - [计算机基础, 数据库, Mysql]<br>categories:<br>- [计算机基础,数据库,Mysql]</h2><h3 id="对过长的字段，建立前缀索引"><a href="#对过长的字段，建立前缀索引" class="headerlink" title="对过长的字段，建立前缀索引"></a><strong>对过长的字段，建立前缀索引</strong></h3><p>如果字段过长（如 <code>VARCHAR(255)</code>），索引会占用大量存储空间。长字段的索引查询效率较低，因为需要比较更多的字节。</p>
+<p>只为实际用于查询条件的列创建索引。</p>
+<ul>
+<li>[计算机基础, 数据库, Mysql]</li>
+</ul>
+<hr>
+<h3 id="对过长的字段，建立前缀索引"><a href="#对过长的字段，建立前缀索引" class="headerlink" title="对过长的字段，建立前缀索引"></a><strong>对过长的字段，建立前缀索引</strong></h3><p>如果字段过长（如 <code>VARCHAR(255)</code>），索引会占用大量存储空间。长字段的索引查询效率较低，因为需要比较更多的字节。</p>
 <p><strong>前缀索引</strong>：</p>
 <ul>
 <li>只对字段的前缀部分创建索引，减少索引大小。</li>
@@ -594,7 +604,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E6%95%B0%E6%8D%AE%E5%BA%93-Mysql/" class="print-no-link">#数据库 - [计算机基础, 数据库, Mysql]</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
       
     </div>
   
@@ -606,7 +616,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>查询优化(索引角度) - [计算机基础, 数据库, Mysql]</div>
+      <div>查询优化(索引角度)</div>
       <div>http://example.com/2025/05/09/计算机基础/数据库/Mysql/索引与算法/</div>
     </div>
     <div class="license-meta">
@@ -651,9 +661,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/%E8%A1%A8/" title="表结构 - [计算机基础, 数据库, Mysql]">
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/%E8%A1%A8/" title="表结构">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">表结构 - [计算机基础, 数据库, Mysql]</span>
+                        <span class="hidden-mobile">表结构</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -661,8 +671,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" title="日志系统 - [计算机基础, 数据库, Mysql]">
-                        <span class="hidden-mobile">日志系统 - [计算机基础, 数据库, Mysql]</span>
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" title="日志系统">
+                        <span class="hidden-mobile">日志系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

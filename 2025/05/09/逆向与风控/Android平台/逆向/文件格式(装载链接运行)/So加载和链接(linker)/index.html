@@ -18,7 +18,7 @@
   
     <meta name="description" content="本文以android 9源码进行分析  命名空间(namespace机制)主要参考Android 8.0 - 基于命名空间的动态链接—— 隔离 Android 中应用程序和系统的本地库 - 张同光 - 博客园总结来说： 概念命名空间是为了在 Android 操作系统中管理动态链接库（so 库）的加载和共享，确保系统和应用程序的本地库（so 库）得到有效的隔离和管理。这项机制的核心目标是提高系统的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="So加载和链接(linker) - [软件安全, Android平台, 逆向, 文件格式&#x2F;装载链接运行]">
+<meta property="og:title" content="So加载和链接(linker)">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F(%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C)/So%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%93%BE%E6%8E%A5(linker)/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="本文以android 9源码进行分析  命名空间(namespace机制)主要参考Android 8.0 - 基于命名空间的动态链接—— 隔离 Android 中应用程序和系统的本地库 - 张同光 - 博客园总结来说： 概念命名空间是为了在 Android 操作系统中管理动态链接库（so 库）的加载和共享，确保系统和应用程序的本地库（so 库）得到有效的隔离和管理。这项机制的核心目标是提高系统的">
@@ -39,15 +39,15 @@
 <meta property="og:image" content="https://s2.loli.net/2024/12/27/VnSPedL7pKXB4z5.png">
 <meta property="og:image" content="https://s2.loli.net/2024/12/27/A5Li8pzubdH1OJP.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.572Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.326Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.840Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="逆向(android) - [逆向与风控, Android平台, 逆向, 文件格式(装载链接运行)]">
+<meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/12/22/98lLUWaV6qd5XAn.png">
   
   
   
-  <title>So加载和链接(linker) - [软件安全, Android平台, 逆向, 文件格式/装载链接运行] - The Peak Tower</title>
+  <title>So加载和链接(linker) - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="So加载和链接(linker) - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]"></span>
+            <span id="subtitle" data-typed-text="So加载和链接(linker)"></span>
           
         </div>
 
@@ -260,7 +260,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">So加载和链接(linker) - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]</h1>
+            <h1 id="seo-header">So加载和链接(linker)</h1>
             
             
               <div class="markdown-body">
@@ -664,7 +664,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%80%86%E5%90%91-android-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E9%80%86%E5%90%91-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F-%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C/" class="print-no-link">#逆向(android) - [逆向与风控, Android平台, 逆向, 文件格式(装载链接运行)]</a>
+        <a href="/tags/%E9%80%86%E5%90%91-android/" class="print-no-link">#逆向(android)</a>
       
     </div>
   
@@ -676,7 +676,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>So加载和链接(linker) - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]</div>
+      <div>So加载和链接(linker)</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/逆向/文件格式(装载链接运行)/So加载和链接(linker)/</div>
     </div>
     <div class="license-meta">
@@ -721,9 +721,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F(%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C)/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" title="Android类加载流程 - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F(%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C)/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B/" title="Android类加载流程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android类加载流程 - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]</span>
+                        <span class="hidden-mobile">Android类加载流程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -731,8 +731,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F(%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C)/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" title="ELF文件解析器编写 - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]">
-                        <span class="hidden-mobile">ELF文件解析器编写 - [软件安全, Android平台, 逆向, 文件格式/装载链接运行]</span>
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F(%E8%A3%85%E8%BD%BD%E9%93%BE%E6%8E%A5%E8%BF%90%E8%A1%8C)/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" title="ELF文件解析器编写">
+                        <span class="hidden-mobile">ELF文件解析器编写</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

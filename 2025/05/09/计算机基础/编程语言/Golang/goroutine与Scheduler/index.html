@@ -18,7 +18,7 @@
   
     <meta name="description" content="与其他并发模型的对比 Python等解释性语言采用的是多进程并发模型，进程的上下文是最大的，所以切换耗费巨大，同时由于多进程通信只能用socket通讯，或者专门设置共享内存，给编程带来了极大的困扰与不便； C++等语言通常会采用多线程并发模型，相比进程，线程的上下文要小很多，而且多个线程之间本来就是共享内存的，所以编程相比要轻松很多。但是线程的启动和销毁，切换依然要耗费大量CPU时间；于是出现了线">
 <meta property="og:type" content="article">
-<meta property="og:title" content="goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
+<meta property="og:title" content="goroutine与Scheduler">
 <meta property="og:url" content="http://example.com/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/goroutine%E4%B8%8EScheduler/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="与其他并发模型的对比 Python等解释性语言采用的是多进程并发模型，进程的上下文是最大的，所以切换耗费巨大，同时由于多进程通信只能用socket通讯，或者专门设置共享内存，给编程带来了极大的困扰与不便； C++等语言通常会采用多线程并发模型，相比进程，线程的上下文要小很多，而且多个线程之间本来就是共享内存的，所以编程相比要轻松很多。但是线程的启动和销毁，切换依然要耗费大量CPU时间；于是出现了线">
@@ -29,14 +29,14 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/15/Wo2qUwkcEtNXlFV.jpg">
 <meta property="og:image" content="https://s2.loli.net/2025/03/15/9g4Il3OeSJsWNFK.jpg">
 <meta property="article:published_time" content="2025-05-09T07:31:42.343Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.276Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.802Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/15/PdCsX68LqaptVuM.png">
   
   
   
-  <title>goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang] - The Peak Tower</title>
+  <title>goroutine与Scheduler - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -178,7 +178,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]"></span>
+            <span id="subtitle" data-typed-text="goroutine与Scheduler"></span>
           
         </div>
 
@@ -201,7 +201,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          3.7k 字
         
       </span>
     
@@ -212,7 +212,7 @@
         
         
         
-          32 分钟
+          31 分钟
         
       </span>
     
@@ -249,7 +249,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</h1>
+            <h1 id="seo-header">goroutine与Scheduler</h1>
             
             
               <div class="markdown-body">
@@ -273,7 +273,12 @@
 <li>Go 调度器基于 <strong>GMP 模型</strong>：</li>
 <li>调度器通过本地队列、全局队列和Work Stealing 机制，高效地调度 Goroutine。</li>
 </ul>
-<h2 id="计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang"><a href="#计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang" class="headerlink" title="  - [计算机基础, 编程语言, Golang]categories:- [计算机基础,编程语言,Golang]"></a><img src="https://s2.loli.net/2025/03/15/WVTr2ZLkcoqdAmO.png" srcset="/img/loading.gif" lazyload><br>  - [计算机基础, 编程语言, Golang]<br>categories:<br>- [计算机基础,编程语言,Golang]</h2><h3 id="自己维护堆栈"><a href="#自己维护堆栈" class="headerlink" title="自己维护堆栈"></a><strong>自己维护堆栈</strong></h3><p>每个 Goroutine 都有自己的栈空间，用于存储局部变量、函数调用等信息。Goroutine 的栈空间是动态分配的，初始大小只有几 KB，可以根据需要动态扩容（最大可达 1GB）。</p>
+<p><img src="https://s2.loli.net/2025/03/15/WVTr2ZLkcoqdAmO.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>[计算机基础, 编程语言, Golang]</li>
+</ul>
+<hr>
+<h3 id="自己维护堆栈"><a href="#自己维护堆栈" class="headerlink" title="自己维护堆栈"></a><strong>自己维护堆栈</strong></h3><p>每个 Goroutine 都有自己的栈空间，用于存储局部变量、函数调用等信息。Goroutine 的栈空间是动态分配的，初始大小只有几 KB，可以根据需要动态扩容（最大可达 1GB）。</p>
 <h4 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a><strong>原理</strong></h4><p><strong>连续栈（Contiguous Stack）</strong>：</p>
 <ul>
 <li>Go 语言使用连续栈技术管理 Goroutine 的栈空间。</li>
@@ -297,13 +302,23 @@
 <p>G：即goroutine，是go语言中的一段代码（以一个函数的形式展现），最小的并行单元；</p>
 </blockquote>
 <p><img src="https://s2.loli.net/2025/03/15/Wo2qUwkcEtNXlFV.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id="Go-语言的并发模型基于-GMP-模型，其中-G（Goroutine）、M（Machine）-和-P（Processor）-是三个核心组件。它们共同协作，实现了-Go-语言高效的并发调度机制。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang"><a href="#Go-语言的并发模型基于-GMP-模型，其中-G（Goroutine）、M（Machine）-和-P（Processor）-是三个核心组件。它们共同协作，实现了-Go-语言高效的并发调度机制。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang" class="headerlink" title="Go 语言的并发模型基于 GMP 模型，其中 G（Goroutine）、M（Machine） 和 P（Processor） 是三个核心组件。它们共同协作，实现了 Go 语言高效的并发调度机制。  - [计算机基础, 编程语言, Golang]categories:- [计算机基础,编程语言,Golang]"></a>Go 语言的并发模型基于 <strong>GMP 模型</strong>，其中 <strong>G（Goroutine）</strong>、<strong>M（Machine）</strong> 和 <strong>P（Processor）</strong> 是三个核心组件。它们共同协作，实现了 Go 语言高效的并发调度机制。<br>  - [计算机基础, 编程语言, Golang]<br>categories:<br>- [计算机基础,编程语言,Golang]</h2><h2 id="G（Goroutine）"><a href="#G（Goroutine）" class="headerlink" title="G（Goroutine）"></a><strong>G（Goroutine）</strong></h2><p>Goroutine是 Go 语言中的轻量级线程，由 Go 运行时（Runtime）管理。它是 Go 并发编程的基本单位，比操作系统线程更轻量，创建和销毁的开销更小。</p>
+<p>Go 语言的并发模型基于 <strong>GMP 模型</strong>，其中 <strong>G（Goroutine）</strong>、<strong>M（Machine）</strong> 和 <strong>P（Processor）</strong> 是三个核心组件。它们共同协作，实现了 Go 语言高效的并发调度机制。</p>
+<ul>
+<li>[计算机基础, 编程语言, Golang]</li>
+</ul>
+<hr>
+<h2 id="G（Goroutine）"><a href="#G（Goroutine）" class="headerlink" title="G（Goroutine）"></a><strong>G（Goroutine）</strong></h2><p>Goroutine是 Go 语言中的轻量级线程，由 Go 运行时（Runtime）管理。它是 Go 并发编程的基本单位，比操作系统线程更轻量，创建和销毁的开销更小。</p>
 <p><strong>栈</strong>：每个 Goroutine 初始只有几 KB 的栈空间，栈空间可以动态扩容（最大可达 1GB）。栈的动态扩容和缩容由 Go 运行时管理，避免了固定栈大小的限制。</p>
 <p><strong>调度</strong>：Goroutine 的调度是协作式的，Go 运行时会根据 Goroutine 的状态和调度策略决定是否切换 Goroutine。调度器会在 Goroutine 执行一定时间后强制切换（抢占式调度），避免某个 Goroutine 长时间占用 CPU。</p>
 <hr>
 <h2 id="M（Machine）"><a href="#M（Machine）" class="headerlink" title="M（Machine）"></a><strong>M（Machine）</strong></h2><p><strong>M</strong> 是操作系统线程（OS Thread）的抽象，代表真正的计算资源。每个 M 都与一个操作系统线程一一对应，负责执行 Goroutine 的代码。</p>
 <p><strong>线程</strong>：M 是操作系统线程的抽象，每个 M 都绑定一个操作系统线程。操作系统线程是真正的执行单元，负责运行 Goroutine。</p>
-<h2 id="绑定-P：每个-M-会绑定一个-P（逻辑处理器），并从-P-的队列中获取-Goroutine-执行。如果-M-在执行-Goroutine-时发生阻塞（如系统调用），Go-运行时会解绑-M-和-P，并将-P-交给其他空闲的-M。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang"><a href="#绑定-P：每个-M-会绑定一个-P（逻辑处理器），并从-P-的队列中获取-Goroutine-执行。如果-M-在执行-Goroutine-时发生阻塞（如系统调用），Go-运行时会解绑-M-和-P，并将-P-交给其他空闲的-M。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang" class="headerlink" title="绑定 P：每个 M 会绑定一个 P（逻辑处理器），并从 P 的队列中获取 Goroutine 执行。如果 M 在执行 Goroutine 时发生阻塞（如系统调用），Go 运行时会解绑 M 和 P，并将 P 交给其他空闲的 M。  - [计算机基础, 编程语言, Golang]categories:- [计算机基础,编程语言,Golang]"></a><strong>绑定 P</strong>：每个 M 会绑定一个 P（逻辑处理器），并从 P 的队列中获取 Goroutine 执行。如果 M 在执行 Goroutine 时发生阻塞（如系统调用），Go 运行时会解绑 M 和 P，并将 P 交给其他空闲的 M。<br>  - [计算机基础, 编程语言, Golang]<br>categories:<br>- [计算机基础,编程语言,Golang]</h2><h2 id="P（Processor）"><a href="#P（Processor）" class="headerlink" title="P（Processor）"></a><strong>P（Processor）</strong></h2><p><strong>P</strong> 是逻辑处理器（Logical Processor），是 GMP 模型中的调度上下文。P 的数量由 <code>GOMAXPROCS</code> 决定，默认等于 CPU 核心数。</p>
+<p><strong>绑定 P</strong>：每个 M 会绑定一个 P（逻辑处理器），并从 P 的队列中获取 Goroutine 执行。如果 M 在执行 Goroutine 时发生阻塞（如系统调用），Go 运行时会解绑 M 和 P，并将 P 交给其他空闲的 M。</p>
+<ul>
+<li>[计算机基础, 编程语言, Golang]</li>
+</ul>
+<hr>
+<h2 id="P（Processor）"><a href="#P（Processor）" class="headerlink" title="P（Processor）"></a><strong>P（Processor）</strong></h2><p><strong>P</strong> 是逻辑处理器（Logical Processor），是 GMP 模型中的调度上下文。P 的数量由 <code>GOMAXPROCS</code> 决定，默认等于 CPU 核心数。</p>
 <p>每个 P 都有一个本地 Goroutine 队列，用于存储待运行的 Goroutine。本地队列的长度有限，如果本地队列满了，新的 Goroutine 会被放入全局队列。</p>
 <p><strong>绑定 M</strong>：每个 P 会绑定一个 M，M 从 P 的本地队列中获取 Goroutine 并执行。如果 M 阻塞，P 会被解绑并交给其他 M。</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="本地运行队列"><a href="#本地运行队列" class="headerlink" title="本地运行队列"></a>本地运行队列</h3><p>在go中有多个运行队列可以保存待运行(_Grunnable)的G, 它们分别是各个P中的本地运行队列和全局运行队列。入队待运行的G时会优先加到当前P的本地运行队列, M获取待运行的G时也会优先从拥有的P的本地运行队列获取。</p>
@@ -386,8 +401,7 @@
 </tr>
 </tbody></table>
 <ul>
-<li>[计算机基础, 编程语言, Golang]<br>categories:</li>
-<li>[计算机基础,编程语言,Golang]</li>
+<li>[计算机基础, 编程语言, Golang]</li>
 </ul>
 <hr>
 <h2 id="P的状态"><a href="#P的状态" class="headerlink" title="P的状态"></a><strong>P的状态</strong></h2><table>
@@ -429,7 +443,12 @@
 <p>Go 调度器实现了 <strong>Work Stealing</strong> 机制：当线程的本地队列为空时，它会尝试从其他线程绑定的 P 的本地队列中“偷取”一些 Goroutine 来运行。</p>
 <h3 id="Hand-Off（交接）"><a href="#Hand-Off（交接）" class="headerlink" title="Hand Off（交接）"></a><strong>Hand Off（交接）</strong></h3><p>当一个线程（M）因为 Goroutine 发起系统调用（如文件 I&#x2F;O、网络 I&#x2F;O）而阻塞时，线程无法继续执行其他 Goroutine。</p>
 <p><strong>解决方案</strong>：</p>
-<h2 id="Go-调度器实现了-Hand-Off-机制：当线程阻塞时，它会释放绑定的-P，并将-P-交给其他空闲的线程继续执行。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang"><a href="#Go-调度器实现了-Hand-Off-机制：当线程阻塞时，它会释放绑定的-P，并将-P-交给其他空闲的线程继续执行。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang" class="headerlink" title="Go 调度器实现了 Hand Off 机制：当线程阻塞时，它会释放绑定的 P，并将 P 交给其他空闲的线程继续执行。  - [计算机基础, 编程语言, Golang]categories:- [计算机基础,编程语言,Golang]"></a>Go 调度器实现了 <strong>Hand Off</strong> 机制：当线程阻塞时，它会释放绑定的 P，并将 P 交给其他空闲的线程继续执行。<br>  - [计算机基础, 编程语言, Golang]<br>categories:<br>- [计算机基础,编程语言,Golang]</h2><h2 id="利用并行"><a href="#利用并行" class="headerlink" title="利用并行"></a><strong>利用并行</strong></h2><p>利用并行是 Go 调度器的另一个核心思想，目的是通过多核 CPU 的并行计算能力，提高程序的执行效率。</p>
+<p>Go 调度器实现了 <strong>Hand Off</strong> 机制：当线程阻塞时，它会释放绑定的 P，并将 P 交给其他空闲的线程继续执行。</p>
+<ul>
+<li>[计算机基础, 编程语言, Golang]</li>
+</ul>
+<hr>
+<h2 id="利用并行"><a href="#利用并行" class="headerlink" title="利用并行"></a><strong>利用并行</strong></h2><p>利用并行是 Go 调度器的另一个核心思想，目的是通过多核 CPU 的并行计算能力，提高程序的执行效率。</p>
 <p><strong>GOMAXPROCS 的作用</strong></p>
 <ul>
 <li><strong>GOMAXPROCS</strong> 是 Go 运行时的一个参数，用于设置 P（逻辑处理器）的数量。</li>
@@ -516,7 +535,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>goroutine与Scheduler - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</div>
+      <div>goroutine与Scheduler</div>
       <div>http://example.com/2025/05/09/计算机基础/编程语言/Golang/goroutine与Scheduler/</div>
     </div>
     <div class="license-meta">
@@ -561,9 +580,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/select/" title="select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/select/" title="select机制">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">select机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</span>
+                        <span class="hidden-mobile">select机制</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -571,8 +590,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/Golang%E8%AF%AD%E6%B3%95%E6%A6%82%E8%A7%88/" title="Goalng语法概览 - [计算机基础, 编程语言, Golang]">
-                        <span class="hidden-mobile">Goalng语法概览 - [计算机基础, 编程语言, Golang]</span>
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/Golang%E8%AF%AD%E6%B3%95%E6%A6%82%E8%A7%88/" title="Goalng语法概览">
+                        <span class="hidden-mobile">Goalng语法概览</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

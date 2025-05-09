@@ -18,20 +18,20 @@
   
     <meta name="description" content="线程在Android中是一个很重要的概念，从用途上来说，线程分为主线程和子线程，主线程主要处理和界面相关的事情，而子线程则往往用于执行耗时操作。由于Android的特性，如果在主线程中执行耗时操作那么就会导致程序无法及时地响应，因此耗时操作必须放在子线程中去执行。  主线程和子线程主线程（UI 线程）主线程是进程所拥有的默认线程，在 Java 和 Android 中，一个进程默认只有一个主线程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程与多线程机制 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]">
+<meta property="og:title" content="线程与多线程机制">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E6%9E%90/%E7%BA%BF%E7%A8%8B%E6%B1%A0/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="线程在Android中是一个很重要的概念，从用途上来说，线程分为主线程和子线程，主线程主要处理和界面相关的事情，而子线程则往往用于执行耗时操作。由于Android的特性，如果在主线程中执行耗时操作那么就会导致程序无法及时地响应，因此耗时操作必须放在子线程中去执行。  主线程和子线程主线程（UI 线程）主线程是进程所拥有的默认线程，在 Java 和 Android 中，一个进程默认只有一个主线程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-09T07:31:42.479Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.302Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.824Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="Andorid源码阅读 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]">
+<meta property="article:tag" content="Andorid源码阅读">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>线程与多线程机制 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析] - The Peak Tower</title>
+  <title>线程与多线程机制 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="线程与多线程机制 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]"></span>
+            <span id="subtitle" data-typed-text="线程与多线程机制"></span>
           
         </div>
 
@@ -196,7 +196,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          6.6k 字
         
       </span>
     
@@ -207,7 +207,7 @@
         
         
         
-          56 分钟
+          55 分钟
         
       </span>
     
@@ -244,7 +244,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">线程与多线程机制 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</h1>
+            <h1 id="seo-header">线程与多线程机制</h1>
             
             
               <div class="markdown-body">
@@ -268,10 +268,9 @@
 <li>文件读写（如加载大文件、保存数据）。</li>
 <li>数据库操作（如查询、插入、更新）。</li>
 <li>复杂计算（如图像处理、数据分析）。<ul>
-<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:</li>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
 </ul>
 </li>
-<li>[逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</li>
 </ul>
 <hr>
 <h2 id="主线程与子线程的协作"><a href="#主线程与子线程的协作" class="headerlink" title="主线程与子线程的协作"></a><strong>主线程与子线程的协作</strong></h2><p><strong>耗时操作必须放在子线程</strong>：</p>
@@ -442,8 +441,7 @@
 </ul>
 <h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a><strong>源码分析</strong></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HandlerThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    Looper mLooper; <span class="hljs-comment">// 线程的 Looper</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-meta">@Nullable</span> Handler mHandler; <span class="hljs-comment">// 线程的 Handler</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HandlerThread</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">super</span>(name); <span class="hljs-comment">// 调用父类构造方法，设置线程名称</span><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        Looper.prepare(); <span class="hljs-comment">// 创建消息队列</span><br>        <span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>) &#123;<br>            mLooper = Looper.myLooper(); <span class="hljs-comment">// 获取当前线程的 Looper</span><br>            notifyAll(); <span class="hljs-comment">// 通知等待线程</span><br>        &#125;<br>        Looper.loop(); <span class="hljs-comment">// 开启消息循环</span><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> Looper <span class="hljs-title function_">getLooper</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (!isAlive()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>        <span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>) &#123;<br>            <span class="hljs-keyword">while</span> (isAlive() &amp;&amp; mLooper == <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    wait(); <span class="hljs-comment">// 等待 Looper 创建完成</span><br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> mLooper; <span class="hljs-comment">// 返回 Looper</span><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> Handler <span class="hljs-title function_">getThreadHandler</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (mHandler == <span class="hljs-literal">null</span>) &#123;<br>            mHandler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>(getLooper()); <span class="hljs-comment">// 创建 Handler</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> mHandler;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">quit</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Looper</span> <span class="hljs-variable">looper</span> <span class="hljs-operator">=</span> getLooper();<br>        <span class="hljs-keyword">if</span> (looper != <span class="hljs-literal">null</span>) &#123;<br>            looper.quit(); <span class="hljs-comment">// 终止消息循环</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">quitSafely</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Looper</span> <span class="hljs-variable">looper</span> <span class="hljs-operator">=</span> getLooper();<br>        <span class="hljs-keyword">if</span> (looper != <span class="hljs-literal">null</span>) &#123;<br>            looper.quitSafely(); <span class="hljs-comment">// 安全终止消息循环</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:</li>
-<li>[逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</li>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
 </ul>
 <hr>
 <h4 id="HandlerThread-与普通-Thread-的区别"><a href="#HandlerThread-与普通-Thread-的区别" class="headerlink" title="HandlerThread 与普通 Thread 的区别"></a>HandlerThread 与普通 Thread 的区别</h4><table>
@@ -478,7 +476,12 @@
 <hr>
 <h4 id="HandlerThread-的使用场景"><a href="#HandlerThread-的使用场景" class="headerlink" title="HandlerThread 的使用场景"></a><strong>HandlerThread 的使用场景</strong></h4><p>**<code>IntentService</code>**：<code>IntentService</code> 内部使用 <code>HandlerThread</code> 来处理后台任务。任务按顺序执行，适合执行短期的后台任务。</p>
 <p><strong>按顺序执行任务</strong>：当需要按顺序执行任务时，可以使用 <code>HandlerThread</code> 确保任务按 FIFO（先进先出）的顺序执行。</p>
-<h2 id="线程间通信：通过-Handler-发送消息到-HandlerThread，实现线程间通信。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析"><a href="#线程间通信：通过-Handler-发送消息到-HandlerThread，实现线程间通信。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析" class="headerlink" title="线程间通信：通过 Handler 发送消息到 HandlerThread，实现线程间通信。  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]categories:- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]"></a><strong>线程间通信</strong>：通过 <code>Handler</code> 发送消息到 <code>HandlerThread</code>，实现线程间通信。<br>  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:<br>- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</h2><h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a><strong>使用示例</strong></h4><h5 id="创建-HandlerThread"><a href="#创建-HandlerThread" class="headerlink" title="创建 HandlerThread"></a>创建 HandlerThread</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">HandlerThread</span> <span class="hljs-variable">handlerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HandlerThread</span>(<span class="hljs-string">&quot;MyHandlerThread&quot;</span>);<br>handlerThread.start(); <span class="hljs-comment">// 启动线程</span><br></code></pre></td></tr></table></figure>
+<p><strong>线程间通信</strong>：通过 <code>Handler</code> 发送消息到 <code>HandlerThread</code>，实现线程间通信。</p>
+<ul>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
+</ul>
+<hr>
+<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a><strong>使用示例</strong></h4><h5 id="创建-HandlerThread"><a href="#创建-HandlerThread" class="headerlink" title="创建 HandlerThread"></a>创建 HandlerThread</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">HandlerThread</span> <span class="hljs-variable">handlerThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HandlerThread</span>(<span class="hljs-string">&quot;MyHandlerThread&quot;</span>);<br>handlerThread.start(); <span class="hljs-comment">// 启动线程</span><br></code></pre></td></tr></table></figure>
 
 <h5 id="创建-Handler"><a href="#创建-Handler" class="headerlink" title="创建 Handler"></a><strong>创建 Handler</strong></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Handler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Handler</span>(handlerThread.getLooper());<br></code></pre></td></tr></table></figure>
 
@@ -491,8 +494,7 @@
 <h4 id="创建-IntentService-子类"><a href="#创建-IntentService-子类" class="headerlink" title="创建 IntentService 子类"></a><strong>创建 IntentService 子类</strong></h4><p><code>IntentService</code> 是一个抽象类，因此必须创建它的子类才能使用。以下是一个简单的示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyIntentService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">IntentService</span> &#123;<br><br>    <span class="hljs-comment">// 必须提供无参构造函数</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">MyIntentService</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>(<span class="hljs-string">&quot;MyIntentService&quot;</span>); <span class="hljs-comment">// 传入线程名称</span><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 处理任务的核心方法，在子线程中执行。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> intent 传递过来的 Intent，包含任务数据。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onHandleIntent</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Intent intent)</span> &#123;<br>        <span class="hljs-comment">// 从 Intent 中获取数据</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">taskName</span> <span class="hljs-operator">=</span> intent.getStringExtra(<span class="hljs-string">&quot;task_name&quot;</span>);<br><br>        <span class="hljs-comment">// 模拟耗时任务</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>            Log.d(<span class="hljs-string">&quot;MyIntentService&quot;</span>, <span class="hljs-string">&quot;Executing task: &quot;</span> + taskName + <span class="hljs-string">&quot;, progress: &quot;</span> + i);<br>            <span class="hljs-keyword">try</span> &#123;<br>                Thread.sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 模拟耗时操作</span><br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br><br>        Log.d(<span class="hljs-string">&quot;MyIntentService&quot;</span>, <span class="hljs-string">&quot;Task completed: &quot;</span> + taskName);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
-<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:</li>
-<li>[逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</li>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
 </ul>
 <hr>
 <h4 id="启动-IntentService"><a href="#启动-IntentService" class="headerlink" title="启动 IntentService"></a><strong>启动 IntentService</strong></h4><p>通过 <code>Intent</code> 启动 <code>IntentService</code>，并传递任务数据：</p>
@@ -502,7 +504,12 @@
 <h4 id="IntentService-的特点"><a href="#IntentService-的特点" class="headerlink" title="IntentService 的特点"></a><strong>IntentService 的特点</strong></h4><p><strong>自动停止</strong>：<code>IntentService</code> 在执行完任务后会自动停止，无需手动调用 <code>stopSelf()</code>。</p>
 <p><strong>任务队列</strong>：如果多次启动 <code>IntentService</code>，任务会按顺序执行（通过 <code>HandlerThread</code> 实现）。</p>
 <p><strong>高优先级</strong>：由于 <code>IntentService</code> 是 <code>Service</code>，其优先级比普通线程高，不容易被系统杀死。</p>
-<h2 id="子线程执行：onHandleIntent-方法在子线程中执行，适合执行耗时任务。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析"><a href="#子线程执行：onHandleIntent-方法在子线程中执行，适合执行耗时任务。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析" class="headerlink" title="子线程执行：onHandleIntent() 方法在子线程中执行，适合执行耗时任务。  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]categories:- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]"></a><strong>子线程执行</strong>：<code>onHandleIntent()</code> 方法在子线程中执行，适合执行耗时任务。<br>  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:<br>- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</h2><h4 id="IntentService-的源码分析"><a href="#IntentService-的源码分析" class="headerlink" title="IntentService 的源码分析"></a><strong>IntentService 的源码分析</strong></h4><p><code>IntentService</code> 的核心实现如下：</p>
+<p><strong>子线程执行</strong>：<code>onHandleIntent()</code> 方法在子线程中执行，适合执行耗时任务。</p>
+<ul>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
+</ul>
+<hr>
+<h4 id="IntentService-的源码分析"><a href="#IntentService-的源码分析" class="headerlink" title="IntentService 的源码分析"></a><strong>IntentService 的源码分析</strong></h4><p><code>IntentService</code> 的核心实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">super</span>.onCreate();<br><br>    <span class="hljs-comment">// 创建 HandlerThread，用于执行任务</span><br>    <span class="hljs-type">HandlerThread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HandlerThread</span>(<span class="hljs-string">&quot;IntentService[&quot;</span> + mName + <span class="hljs-string">&quot;]&quot;</span>);<br>    thread.start();<br><br>    <span class="hljs-comment">// 获取 HandlerThread 的 Looper</span><br>    mServiceLooper = thread.getLooper();<br><br>    <span class="hljs-comment">// 创建 Handler，用于处理消息</span><br>    mServiceHandler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServiceHandler</span>(mServiceLooper);<br>&#125;<br><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onStart</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Intent intent, <span class="hljs-type">int</span> startId)</span> &#123;<br>    <span class="hljs-comment">// 将任务封装为 Message 并发送到 Handler</span><br>    <span class="hljs-type">Message</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> mServiceHandler.obtainMessage();<br>    msg.arg1 = startId;<br>    msg.obj = intent;<br>    mServiceHandler.sendMessage(msg);<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ServiceHandler</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Handler</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ServiceHandler</span><span class="hljs-params">(Looper looper)</span> &#123;<br>        <span class="hljs-built_in">super</span>(looper);<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleMessage</span><span class="hljs-params">(Message msg)</span> &#123;<br>        <span class="hljs-comment">// 调用 onHandleIntent() 方法执行任务</span><br>        onHandleIntent((Intent) msg.obj);<br>        <span class="hljs-comment">// 任务执行完毕后停止 Service</span><br>        stopSelf(msg.arg1);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -528,7 +535,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@WorkerThread</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onHandleIntent</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Intent intent)</span>;<br></code></pre></td></tr></table></figure>
 
 <p><strong>(5) <code>stopSelf(int startId)</code></strong></p>
-<h2 id="在-onHandleIntent-执行完毕后调用。尝试停止服务，但会等待所有消息处理完毕后才真正停止。使用-startId-判断是否所有任务都已完成。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析"><a href="#在-onHandleIntent-执行完毕后调用。尝试停止服务，但会等待所有消息处理完毕后才真正停止。使用-startId-判断是否所有任务都已完成。-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析-categories-逆向与风控-Android平台-内核-Android内核-线程与线程池浅析" class="headerlink" title="在 onHandleIntent() 执行完毕后调用。尝试停止服务，但会等待所有消息处理完毕后才真正停止。使用 startId 判断是否所有任务都已完成。  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]categories:- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]"></a>在 <code>onHandleIntent()</code> 执行完毕后调用。尝试停止服务，但会等待所有消息处理完毕后才真正停止。使用 <code>startId</code> 判断是否所有任务都已完成。<br>  - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]<br>categories:<br>- [逆向与风控,Android平台,内核,Android内核,线程与线程池浅析]</h2><h4 id="任务执行机制"><a href="#任务执行机制" class="headerlink" title="任务执行机制"></a><strong>任务执行机制</strong></h4><p><strong>(1) 任务队列</strong></p>
+<p>在 <code>onHandleIntent()</code> 执行完毕后调用。尝试停止服务，但会等待所有消息处理完毕后才真正停止。使用 <code>startId</code> 判断是否所有任务都已完成。</p>
+<ul>
+<li>[逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</li>
+</ul>
+<hr>
+<h4 id="任务执行机制"><a href="#任务执行机制" class="headerlink" title="任务执行机制"></a><strong>任务执行机制</strong></h4><p><strong>(1) 任务队列</strong></p>
 <p><code>IntentService</code> 内部通过 <code>HandlerThread</code> 实现任务队列，任务按 FIFO（先进先出）顺序执行。每次启动 <code>IntentService</code>，任务 <code>Intent</code> 会被封装为 <code>Message</code> 并发送到 <code>HandlerThread</code> 的消息队列中。</p>
 <p><strong>(2) 顺序执行</strong></p>
 <p><code>HandlerThread</code> 的 <code>Looper</code> 会顺序处理消息，因此 <code>IntentService</code> 也是顺序执行任务的。如果有多个后台任务，这些任务会按照启动顺序排队执行。</p>
@@ -614,7 +626,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Andorid%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7-Android%E5%B9%B3%E5%8F%B0-%E5%86%85%E6%A0%B8-Android%E5%86%85%E6%A0%B8-%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E6%9E%90/" class="print-no-link">#Andorid源码阅读 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</a>
+        <a href="/tags/Andorid%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="print-no-link">#Andorid源码阅读</a>
       
     </div>
   
@@ -626,7 +638,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>线程与多线程机制 - [逆向与风控, Android平台, 内核, Android内核, 线程与线程池浅析]</div>
+      <div>线程与多线程机制</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/内核/Android内核/线程与线程池浅析/线程池/</div>
     </div>
     <div class="license-meta">
@@ -671,9 +683,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/NDK%E5%BC%80%E5%8F%91/Android-JNI%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" title="JNI机制分析">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/AS%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/" title="android_stuido配置与坑">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JNI机制分析</span>
+                        <span class="hidden-mobile">android_stuido配置与坑</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -681,8 +693,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/Handler%E6%9C%BA%E5%88%B6/Handler/" title="Handler原理 - [逆向与风控, Android平台, 内核, Android内核, Handler机制]">
-                        <span class="hidden-mobile">Handler原理 - [逆向与风控, Android平台, 内核, Android内核, Handler机制]</span>
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/Handler%E6%9C%BA%E5%88%B6/Handler/" title="Handler原理">
+                        <span class="hidden-mobile">Handler原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

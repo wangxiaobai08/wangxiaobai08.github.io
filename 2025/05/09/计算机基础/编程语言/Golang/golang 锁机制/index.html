@@ -18,21 +18,21 @@
   
     <meta name="description" content="Mutex互斥锁的结构1234type Mutex struct &#123;	state int32	sema  uint32&#125;  Sync.Mutex由两个字段构成，state用来表示当前互斥锁处于的状态，sema用于控制锁状态的信号量。相信各位道友读完这两个字段的描述后，好像懂了，又好像没懂。下面我们详细理解下这两个字段到底都作了哪些事。 互斥锁state主要记录了如下四种状态：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang锁机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
+<meta property="og:title" content="golang锁机制">
 <meta property="og:url" content="http://example.com/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/golang%20%E9%94%81%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="Mutex互斥锁的结构1234type Mutex struct &#123;	state int32	sema  uint32&#125;  Sync.Mutex由两个字段构成，state用来表示当前互斥锁处于的状态，sema用于控制锁状态的信号量。相信各位道友读完这两个字段的描述后，好像懂了，又好像没懂。下面我们详细理解下这两个字段到底都作了哪些事。 互斥锁state主要记录了如下四种状态：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/03/15/zE6oe8AxtpIYnrO.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.337Z">
-<meta property="article:modified_time" content="2025-05-09T12:45:04.275Z">
+<meta property="article:modified_time" content="2025-05-09T13:15:40.801Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/15/zE6oe8AxtpIYnrO.png">
   
   
   
-  <title>golang锁机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang] - The Peak Tower</title>
+  <title>golang锁机制 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="golang锁机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]"></span>
+            <span id="subtitle" data-typed-text="golang锁机制"></span>
           
         </div>
 
@@ -245,7 +245,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">golang锁机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</h1>
+            <h1 id="seo-header">golang锁机制</h1>
             
             
               <div class="markdown-body">
@@ -266,7 +266,12 @@
 <hr>
 <h3 id="正常模式"><a href="#正常模式" class="headerlink" title="正常模式"></a><strong>正常模式</strong></h3><p>在正常模式下，所有阻塞在等待队列中的 Goroutine 会按顺序进行锁获取。当唤醒一个等待队列中的 Goroutine 时，此 Goroutine 并不会直接获取到锁，而是会和新请求锁的 Goroutine 竞争。通常，新请求锁的 Goroutine 更容易获取锁，因为它正在占用 CPU 时间片执行，大概率可以直接执行到获取锁的逻辑。</p>
 <p><strong>优点</strong>：性能较高，因为新请求锁的 Goroutine 可以直接参与竞争，减少了上下文切换的开销。适合低竞争的场景。</p>
-<h2 id="缺点：可能导致某些-Goroutine-长时间无法获取锁（即“饥饿”问题）。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang"><a href="#缺点：可能导致某些-Goroutine-长时间无法获取锁（即“饥饿”问题）。-计算机基础-编程语言-Golang-categories-计算机基础-编程语言-Golang" class="headerlink" title="缺点：可能导致某些 Goroutine 长时间无法获取锁（即“饥饿”问题）。  - [计算机基础, 编程语言, Golang]categories:- [计算机基础,编程语言,Golang]"></a><strong>缺点</strong>：可能导致某些 Goroutine 长时间无法获取锁（即“饥饿”问题）。<br>  - [计算机基础, 编程语言, Golang]<br>categories:<br>- [计算机基础,编程语言,Golang]</h2><h3 id="饥饿模式"><a href="#饥饿模式" class="headerlink" title="饥饿模式"></a><strong>饥饿模式</strong></h3><p>在饥饿模式下，新请求锁的 Goroutine 不会直接参与锁的竞争，而是会被加入到等待队列的尾部，阻塞等待获取锁。只有等待队列中的 Goroutine 才能获取锁，确保了锁的公平性。</p>
+<p><strong>缺点</strong>：可能导致某些 Goroutine 长时间无法获取锁（即“饥饿”问题）。</p>
+<ul>
+<li>[计算机基础, 编程语言, Golang]</li>
+</ul>
+<hr>
+<h3 id="饥饿模式"><a href="#饥饿模式" class="headerlink" title="饥饿模式"></a><strong>饥饿模式</strong></h3><p>在饥饿模式下，新请求锁的 Goroutine 不会直接参与锁的竞争，而是会被加入到等待队列的尾部，阻塞等待获取锁。只有等待队列中的 Goroutine 才能获取锁，确保了锁的公平性。</p>
 <p><strong>触发条件</strong>：当一个 Goroutine 等待锁的时间超过 <strong>1ms</strong> 时，互斥锁会切换到饥饿模式。</p>
 <p><strong>取消条件</strong>：当获取到锁的 Goroutine 是等待队列中的最后一个 Goroutine 时，互斥锁会切换到正常模式。当获取到锁的 Goroutine 的等待时间在 <strong>1ms</strong> 之内时，互斥锁会切换到正常模式。</p>
 <p><strong>优点</strong>：避免了某些 Goroutine 长时间无法获取锁的问题，提高了锁的公平性。适合高竞争的场景。</p>
@@ -357,7 +362,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>golang锁机制 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</div>
+      <div>golang锁机制</div>
       <div>http://example.com/2025/05/09/计算机基础/编程语言/Golang/golang 锁机制/</div>
     </div>
     <div class="license-meta">
@@ -402,9 +407,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/Golang%E8%AF%AD%E6%B3%95%E6%A6%82%E8%A7%88/" title="Goalng语法概览 - [计算机基础, 编程语言, Golang]">
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/Golang%E8%AF%AD%E6%B3%95%E6%A6%82%E8%A7%88/" title="Goalng语法概览">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Goalng语法概览 - [计算机基础, 编程语言, Golang]</span>
+                        <span class="hidden-mobile">Goalng语法概览</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -412,8 +417,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/gin.context/" title="Gin原理 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]">
-                        <span class="hidden-mobile">Gin原理 - [计算机基础, 编程语言, Golang] - [计算机基础, 编程语言, Golang]</span>
+                      <a href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Golang/gin.context/" title="Gin原理">
+                        <span class="hidden-mobile">Gin原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
