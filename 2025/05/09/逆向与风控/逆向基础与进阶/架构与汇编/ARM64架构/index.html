@@ -24,8 +24,8 @@
 <meta property="og:description" content="计算机体系架构32位和64位架构的不同？以下是将所有信息合并后的简洁对比表格：    特征 32位架构（ARM&#x2F;32位） 64位架构（ARM64&#x2F;64位）    架构位数 32位，使用ARMv7及之前版本的指令集 64位，使用ARMv8-A及后续版本的指令集   寄存器宽度 32位（4字节），每次操作32位数据 64位（8字节），每次操作64位数据   内存寻址能力 最大支持">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/12/17/yD5pZfVrajIK4nC.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wangxiaobai08/Picture@main/ARM%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/wangxiaobai08/Picture@main/app%E4%B8%ADarm%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="f:/Picture/ARM%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/10/a8TZ69upKgx3y4F.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/02/WplQzfTjOxR3EUk.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/02/kLdKwHgJBqVao8R.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/02/gEU8mVsap9NcHRe.png">
@@ -40,9 +40,8 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/02/9WukCoNt1vYU7EV.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/02/Yq8GMmLw5khIWdn.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.621Z">
-<meta property="article:modified_time" content="2025-05-09T13:15:40.849Z">
+<meta property="article:modified_time" content="2025-05-10T13:11:32.406Z">
 <meta property="article:author" content="Ling">
-<meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2024/12/17/yD5pZfVrajIK4nC.png">
   
@@ -197,14 +196,6 @@
         
           
   <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-09 15:31" pubdate>
-          2025年5月9日 下午
-        </time>
-      </span>
     
   </div>
 
@@ -361,7 +352,7 @@
 <td>由于指令复杂，流水线效率较低</td>
 </tr>
 </tbody></table>
-<h1 id="ARM64"><a href="#ARM64" class="headerlink" title="ARM64"></a>ARM64</h1><h2 id="ARM发展历程"><a href="#ARM发展历程" class="headerlink" title="ARM发展历程"></a>ARM发展历程</h2><h3 id="2000年以前"><a href="#2000年以前" class="headerlink" title="2000年以前"></a>2000年以前</h3><p><img src="https://cdn.jsdelivr.net/gh/wangxiaobai08/Picture@main/ARM%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png" srcset="/img/loading.gif" lazyload alt="ARM发展历史"></p>
+<h1 id="ARM64"><a href="#ARM64" class="headerlink" title="ARM64"></a>ARM64</h1><h2 id="ARM发展历程"><a href="#ARM发展历程" class="headerlink" title="ARM发展历程"></a>ARM发展历程</h2><h3 id="2000年以前"><a href="#2000年以前" class="headerlink" title="2000年以前"></a>2000年以前</h3><p><img src="F:/Picture/ARM%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2.png" srcset="/img/loading.gif" lazyload alt="ARM发展历史"></p>
 <h4 id="ARM-和-Thumb-模式的对比"><a href="#ARM-和-Thumb-模式的对比" class="headerlink" title="ARM 和 Thumb 模式的对比"></a>ARM 和 Thumb 模式的对比</h4><table>
 <thead>
 <tr>
@@ -450,7 +441,7 @@
 <p>2010年代至今，ARM推出了Cortex系列处理器，进一步扩展了架构的性能和能效。其中在Cortex-A系列(用于智能手机、平板电脑和服务器)中ARMv7-A引入了对多核处理的支持，ARMv8-A则引入了64位指令集（AArch64），大大提升了处理器的性能。注意：<strong>ARMv8引入的64位指令集支持更大规模的数据处理和更大的地址空间。指令集分为32位的AArch32和64位的AArch64，二者可以混合使用</strong>。(现在发售的智能手机一般就是arm64-v8a架构的)</p>
 <p><strong>注意：尽管 AArch64 的指令宽度是固定的 32 位，但它在寄存器和数据处理方面支持 64 位操作，这是它与 ARM32 最大的区别之一</strong></p>
 <p>在 Android 应用的 APK 文件中 <code>lib</code> 目录下，用于存放专门为各个不同架构编译的本地库（<code>.so</code> 文件）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/wangxiaobai08/Picture@main/app%E4%B8%ADarm%E6%9E%B6%E6%9E%84.png" srcset="/img/loading.gif" lazyload alt="app中arm架构"></p>
+<p><img src="https://s2.loli.net/2025/05/10/a8TZ69upKgx3y4F.png" srcset="/img/loading.gif" lazyload alt="app中arm架构"></p>
 <p><strong>高版本的 ARM64 架构能运行低版本的 ARM 应用</strong>，但为了充分利用设备的硬件性能，推荐使用与设备架构匹配的 64 位库。</p>
 <h2 id="ARMv8-A-架构介绍"><a href="#ARMv8-A-架构介绍" class="headerlink" title="ARMv8-A 架构介绍"></a>ARMv8-A 架构介绍</h2><p>ARMv8-A 是 ARM 公司发布的第一代支持 64 位处理器的指令集和架构。ARMv8-A 架构除了提高了处理能力外，还引入了很多吸引人的新特性。</p>
 <ul>
@@ -650,13 +641,6 @@
 
     </div>
   
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E9%80%86%E5%90%91-android/" class="print-no-link">#逆向(android)</a>
-      
-    </div>
   
 </div>
 
