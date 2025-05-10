@@ -1,0 +1,738 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="简单介绍Xposed框架是一款开源的Android平台动态模块化框架，允许用户在无需修改APK文件的情况下，通过加载自定义模块来改变系统和应用程序的行为。它通过Hook Android系统的关键函数调用，实现了对应用功能的深度定制，比如修改界面、增强功能或绕过限制等。Xposed由开发者rovo89于2013年推出，最初支持Dalvik虚拟机，随着Android 5.0转向ART运行时，其衍生项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xposed原理浅析">
+<meta property="og:url" content="http://example.com/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/Xposed%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="简单介绍Xposed框架是一款开源的Android平台动态模块化框架，允许用户在无需修改APK文件的情况下，通过加载自定义模块来改变系统和应用程序的行为。它通过Hook Android系统的关键函数调用，实现了对应用功能的深度定制，比如修改界面、增强功能或绕过限制等。Xposed由开发者rovo89于2013年推出，最初支持Dalvik虚拟机，随着Android 5.0转向ART运行时，其衍生项目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/05/10/uTnMzYIi18tgOAr.png">
+<meta property="article:published_time" content="2025-05-10T05:48:38.368Z">
+<meta property="article:modified_time" content="2025-05-10T12:21:58.055Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2025/05/10/uTnMzYIi18tgOAr.png">
+  
+  
+  
+  <title>Xposed原理浅析 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Xposed原理浅析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-10 13:48" pubdate>
+          2025年5月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Xposed原理浅析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h1><p><strong>Xposed框架</strong>是一款开源的Android平台动态模块化框架，允许用户在无需修改APK文件的情况下，通过加载自定义模块来改变系统和应用程序的行为。它通过Hook Android系统的关键函数调用，实现了对应用功能的深度定制，比如修改界面、增强功能或绕过限制等。Xposed由开发者rovo89于2013年推出，最初支持Dalvik虚拟机，随着Android 5.0转向ART运行时，其衍生项目如<strong>Magisk版Xposed</strong>和<strong>EdXposed</strong>逐步适配新架构。尽管因系统限制和安全性问题，官方支持在Android 8.0后逐渐停滞</p>
+<blockquote>
+<p>【Xposed不能在Android8.0上使用，因为android8具有系统分区完整性，该特性会检查系统分区的完整性，如果检测到系统分区被修改或者破坏系统将无法启动，而Xposed框架需要修改系统分区的一些文件。同时ART（Android Runtime）有所改变，art在android8.0中引入了一些重要的变化，加强了应用程序的隔离性和安全性，导致了xposed框架的一些核心功能无法正常工作】</p>
+</blockquote>
+<p>，但Xposed仍被视为Android定制化历史上的里程碑，启发了后续工具如Magisk模块的发展，广泛应用于插件化开发、逆向分析和系统优化等领域。</p>
+<h2 id="Xposed-框架的核心组成"><a href="#Xposed-框架的核心组成" class="headerlink" title="Xposed 框架的核心组成"></a><strong>Xposed 框架的核心组成</strong></h2><table>
+<thead>
+<tr>
+<th align="left"><strong>组件名称</strong></th>
+<th align="left"><strong>功能解释</strong></th>
+<th align="left"><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Xposed Installer</strong></td>
+<td align="left">用户端管理应用，用于安装框架、下载&#x2F;启用模块，并提供日志查看和设置功能。</td>
+<td align="left">提供图形化界面，普通用户主要交互入口。</td>
+</tr>
+<tr>
+<td align="left"><strong>Xposed Bridge</strong></td>
+<td align="left">核心Java库，提供开发者API（如<code>XC_MethodHook</code>），供模块编写Hook逻辑。</td>
+<td align="left">模块通过继承<code>IXposedHookLoadPackage</code>等接口实现功能。</td>
+</tr>
+<tr>
+<td align="left"><strong>Xposed Core</strong></td>
+<td align="left">底层Native层（C++），通过修改<code>libart.so</code>或<code>libdvm.so</code>实现方法替换（ArtMethod Hook）。</td>
+<td align="left">依赖<code>Zygote</code>注入，直接操作ART&#x2F;Dalvik虚拟机内部结构。</td>
+</tr>
+<tr>
+<td align="left"><strong>Xposed Modules</strong></td>
+<td align="left">用户开发的插件（APK格式），按需Hook指定应用或系统方法，实现定制功能。</td>
+<td align="left">例如：绿色守护（省电）、GravityBox（系统UI定制）。</td>
+</tr>
+<tr>
+<td align="left"><strong>app_process</strong></td>
+<td align="left">替换Android系统的原生<code>app_process</code>，在Zygote启动时加载Xposed环境。</td>
+<td align="left">实现全局Hook的关键，需Root权限替换系统文件。</td>
+</tr>
+<tr>
+<td align="left"><strong>Xposed Helper</strong></td>
+<td align="left">辅助工具库，处理模块兼容性、资源注入等边缘问题。</td>
+<td align="left">例如解决资源冲突或跨版本适配。</td>
+</tr>
+<tr>
+<td align="left"><strong>XposedTools</strong></td>
+<td align="left">用于编译和构建 Xposed 框架及其模块的开发工具集，包含代码生成、Hook 模板生成等功能。</td>
+<td align="left">开发者使用，支持模块的快速开发和调试。</td>
+</tr>
+<tr>
+<td align="left"><strong>android_art</strong></td>
+<td align="left">Xposed 修改后的 Android ART 运行时（替代原版 <code>libart.so</code>），支持方法 Hook 和虚拟机层拦截。</td>
+<td align="left">在 ART 模式下实现方法替换，是 Xposed 在 Android 5.0+ 上运行的关键。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>历史版本差异</strong>：</p>
+<ul>
+<li><strong>Dalvik时代</strong>：直接修改<code>libdvm.so</code>，Hook更简单。</li>
+<li><strong>ART时代</strong>：需适配<code>libart.so</code>，衍生出EdXposed、LSPosed等分支。</li>
+</ul>
+<p><strong>安全性限制</strong>：由于修改系统文件，易触发SafetyNet检测，现多被<strong>Magisk模块化方案</strong>替代。</p>
+</blockquote>
+<h2 id="Xposed和Frida的区别"><a href="#Xposed和Frida的区别" class="headerlink" title="Xposed和Frida的区别"></a>Xposed和Frida的区别</h2><p>Xposed <strong>专注于系统级 Java 层 Hook</strong>，通过修改 Android 运行时（ART&#x2F;Dalvik）在 Zygote 进程注入全局钩子， 可以在运行时动态的修改应用程序的类和方法，也可以在不重新编译应用程序的情况下进行修改，允许模块化修改任意 App 或系统行为，但需 Root 权限且对高版本 Android 兼容性较差,   核心是hook函数和模块化的方式</p>
+<p>而 Frida <strong>更通用灵活</strong>，支持跨平台（Android&#x2F;iOS&#x2F;Windows 等）的 Java&#x2F;Native 层双向 Hook，通过注入 JavaScript 脚本动态控制目标进程，无需修改系统文件，可脱离 Root 运行（如搭配 frida-gadget），还提供了rpc机制，可以通过网络接口与目标应用程序进行通信，但许多应用程序都有针对frida的防御措施，核心是动态插桩和js脚本，适合逆向分析、动态调试和安全测试。  </p>
+<p><strong>简言之</strong>：  </p>
+<ul>
+<li><strong>Xposed</strong> &#x3D; 系统级定制（如修改微信界面），需 Root，Java 层为主；  </li>
+<li><strong>Frida</strong> &#x3D; 动态分析利器（如脱壳、API 监控），免 Root 可选，全平台 + 多语言支持。</li>
+</ul>
+<h1 id="开门见山"><a href="#开门见山" class="headerlink" title="开门见山"></a>开门见山</h1><blockquote>
+<p>这里不兜圈子，直接给出Xposed运行整个过程</p>
+<p>可能需要了解的前置知识：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/Android%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">android系统启动流程 - The Peak Tower</a></p>
+</blockquote>
+<h2 id="Xposed框架运行整体流程"><a href="#Xposed框架运行整体流程" class="headerlink" title="Xposed框架运行整体流程"></a>Xposed框架运行整体流程</h2><ol>
+<li><strong><code>Xposed</code>框架的初始化</strong>：Xposed框架会在Zygote进程中注入自己的代码，Xposed框架通过替换&#x2F;system&#x2F;bin&#x2F;app_process程序来控制Zygote进程，使其在启动过程中加载XposedBridge.jar。XposedBridge.jar包中包含了Xposed框架的核心代码，其中最重要的是XposedBridge类。在XposedBridge类的main方法中启动Xposed框架的核心功能。</li>
+<li><strong>判断当前进程是否需要hook</strong>：在核心功能启动后，Xposed框架会通过HookZygoteInit类的handleLoadPackage方法，来判断当前进程是否是需要hook的应用程序进程。</li>
+<li><strong>Hook操作</strong>：如果当前进程需要hook，Xposed框架会开始进行hook操作。在hook操作中，Xposed框架会将Java层函数的指针替换为对应的native函数的指针，并将这些native函数注册为本地JNI方法。</li>
+<li><strong>将Java层函数转换为native函数</strong>：Xposed框架会将Java层函数转换为native函数，并将这些native函数的指针保存在XposedBridge类的sHookedMethodCallbacks静态变量中。</li>
+<li><strong>注册本地JNI方法</strong>：Xposed框架会通过JNI的RegisterNatives方法，将这些native函数注册为本地JNI方法。</li>
+<li><strong>Hook操作生效</strong>：当应用程序调用被hook的Java层函数时，实际上会调用对应的native函数，从而实现hook操作。</li>
+</ol>
+<blockquote>
+<p>由于需要替换app_process，故需要root或刷机(将xposed打包进Android系统镜像),重启手机后插件才会生效</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2025/05/10/uTnMzYIi18tgOAr.png" srcset="/img/loading.gif" lazyload></p>
+<p>下面就先就各部分简单谈谈。</p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903510778232840">深入理解Android（三）：Xposed详解Xposed，大名鼎鼎得Xposed，是Android平台上最负盛名的一个 - 掘金</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/boycelee/p/13418371.html">Xposed原理分析 - 码头工人 - 博客园</a></p>
+<p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-257844.htm">原创]Art模式下Xposed实现原理-Android安全-看雪-安全社区|安全招聘|kanxue.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://l0neman.github.io/2020/10/11/xposed-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">Xposed 实现原理分析 - l0neman 的博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://ckcat.github.io/2020/02/12/xposed%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">xposde源码分析 | CKCat的博客</a></p>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/codehxy/article/details/131906514">彻底讲透xposed原理-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/" class="category-chain-item">Hook技术</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/" class="category-chain-item">Xposed</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Xposed原理浅析</div>
+      <div>http://example.com/2025/05/10/逆向与风控/Android平台/逆向/Hook技术/Xposed/Xposed原理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/Xposed%E6%A3%80%E6%B5%8B/" title="Xposed检测技术浅析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Xposed检测技术浅析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Window%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook/HooK%E6%8A%80%E6%9C%AF%E5%85%A8%E8%A7%A3/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
