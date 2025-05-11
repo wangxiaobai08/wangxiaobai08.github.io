@@ -202,13 +202,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
-          
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
+          AMS源码浅析
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AMS%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" target="_self">
         <div>
           在android系统启动流程 - The Peak Tower中，我们简单谈到：  Android系统在启动的时候,在启动两个重要的进程，一个是Zygote进程，另一个是由zygote进程fork出来的system_server进程。SystemSever负责启动系统的各项服务。其中各项服务中包括：    Activity Manager Service (AMS) 管理应用程序的生命周期，包括启
         </div>
@@ -243,13 +243,6 @@
     
   <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/" class="category-chain-item">Android内核</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/AOSP%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="category-chain-item">AOSP源码阅读</a>
-  
-  
-
   
 
   
@@ -767,7 +760,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" target="_self">
         <div>
-          需求分析 假设我们设计一个简单的角色扮演游戏，玩家可以在游戏中存档并恢复进度。每当玩家通过某个关卡，系统会保存当前进度。当玩家失败时，玩家可以恢复之前保存的进度。 错误示例在没有使用备忘录模式的情况下，游戏进度可能会直接通过修改 GameCharacter 类的成员变量来进行管理，但这样会导致状态恢复的困难，而且可能会暴露内部实现，增加了系统的复杂性和脆弱性。 代码示例12345678910111
+          需求分析假设我们设计一个简单的角色扮演游戏，玩家可以在游戏中存档并恢复进度。每当玩家通过某个关卡，系统会保存当前进度。当玩家失败时，玩家可以恢复之前保存的进度。 错误示例在没有使用备忘录模式的情况下，游戏进度可能会直接通过修改 GameCharacter 类的成员变量来进行管理，但这样会导致状态恢复的困难，而且可能会暴露内部实现，增加了系统的复杂性和脆弱性。 代码示例123456789101112
         </div>
       </a>
 

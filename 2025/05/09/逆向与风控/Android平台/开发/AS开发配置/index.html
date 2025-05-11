@@ -18,7 +18,7 @@
   
     <meta name="description" content="前置知识Gradle Gradle Build Tool Gradle中文网 1–Gradle入门 - 简介、安装、目录结构、创建项目-CSDN博客  简单介绍Gradle 是一款开源自动化构建工具，其设计哲学围绕灵活性和高性能展开，被广泛应用于 Java、Kotlin、Android、C++ 等多语言项目的全生命周期管理。 其作用类似于 Makefile ,旨在通过预定义规则将源代码转换为可执行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android_stuido配置与坑">
+<meta property="og:title" content="AS开发配置与使用">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/AS%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="The Peak Tower">
 <meta property="og:description" content="前置知识Gradle Gradle Build Tool Gradle中文网 1–Gradle入门 - 简介、安装、目录结构、创建项目-CSDN博客  简单介绍Gradle 是一款开源自动化构建工具，其设计哲学围绕灵活性和高性能展开，被广泛应用于 Java、Kotlin、Android、C++ 等多语言项目的全生命周期管理。 其作用类似于 Makefile ,旨在通过预定义规则将源代码转换为可执行">
@@ -29,15 +29,20 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/01/62I5wxjNp9YCn8B.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/01/y12Vv8jnkgp5YG3.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/01/LPmzTHWGjDfkw47.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/GzovgVsq1Q6lW39.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/apH3xoJdYIGivhA.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/FfGBO5z8xvgWlke.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/D2AOjxJfEFReZdp.png">
+<meta property="og:image" content="https://s2.loli.net/2024/07/02/xMdKzZhv9rQ7BlP.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.484Z">
-<meta property="article:modified_time" content="2025-05-09T13:15:40.825Z">
+<meta property="article:modified_time" content="2025-05-11T10:00:40.738Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/03/01/bYUsjKp9Wlr8oEC.png">
   
   
   
-  <title>android_stuido配置与坑 - The Peak Tower</title>
+  <title>AS开发配置与使用 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -179,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="android_stuido配置与坑"></span>
+            <span id="subtitle" data-typed-text="AS开发配置与使用"></span>
           
         </div>
 
@@ -194,7 +199,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          3.3k 字
         
       </span>
     
@@ -205,7 +210,7 @@
         
         
         
-          18 分钟
+          28 分钟
         
       </span>
     
@@ -242,7 +247,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">android_stuido配置与坑</h1>
+            <h1 id="seo-header">AS开发配置与使用</h1>
             
             
               <div class="markdown-body">
@@ -381,6 +386,110 @@
 <p><img src="https://s2.loli.net/2025/03/01/LPmzTHWGjDfkw47.png" srcset="/img/loading.gif" lazyload></p>
 <p>自然对应着sdk中的Android模拟器的系统镜像文件。当然APP也可以用USB连接到真机上运行。也有人会问：为什么有时候也可以进行配置在雷神模拟器上运行？</p>
 <p>其实无论是 SDK 系统镜像还是雷神模拟器，它们都基于 Android 操作系统。雷神模拟器本质上也是一个 Android 虚拟设备（AVD），只是针对性能和使用场景进行了优化。Android Studio 通过 <code>adb</code>（Android Debug Bridge）与模拟器通信。并且都可以通过 <code>adb</code> 进行调试和安装应用。开发者都需要安装 Android SDK 和配置开发环境。</p>
+<h1 id="从android开发到运行"><a href="#从android开发到运行" class="headerlink" title="从android开发到运行"></a>从android开发到运行</h1><p>写了个简单的程序示例（第一次写安卓程序感觉好像Qt开发，尤其是目录结构，不同的是多了个AndroidManifest.xml文件）</p>
+<blockquote>
+<p>使用身份证的类比，<code>AndroidManifest.xml</code> 文件的重要性和作用更容易理解：它不仅定义了应用程序的身份和特征，还决定了应用程序在 Android 系统中的运行方式和访问权限。管理好这个文件，就像管理好自己的身份证一样，能够确保应用程序在 Android 平台上的正常运行和合规使用。</p>
+</blockquote>
+<p>当用户输入错误密码则弹出提示。</p>
+<p><img src="https://s2.loli.net/2024/07/02/GzovgVsq1Q6lW39.png" srcset="/img/loading.gif" lazyload alt="image-20240702171617646"></p>
+<p>用户输入正确密码则跳转到另一个界面。</p>
+<p><img src="https://s2.loli.net/2024/07/02/apH3xoJdYIGivhA.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先Java 编译器生成 .class 文件，可以看出是针对每个类都生成了1个.class文件，当存在嵌套类时生成多个.class。一般来说.class文件是Java程序跨平台运行的关键，它包含了编译后的字节码，JVM可以解释并执行这些字节码，从而实现Java程序的运行。</p>
+<blockquote>
+<p>具体路径： D:\Code\app\build\intermediates\javac\debug\classes\com\droider\firstapp</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/07/02/FfGBO5z8xvgWlke.png" srcset="/img/loading.gif" lazyload alt="image-20240702171805403"></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038390259#item-5">android - 如何读懂晦涩的 Class 文件｜进阶必备 - 个人文章 - SegmentFault 思否</a></p>
+<p>以上是16进制表示，当然我们可以用jdk自带的命令来查看具体信息如：</p>
+<p><img src="https://s2.loli.net/2024/07/02/D2AOjxJfEFReZdp.png" srcset="/img/loading.gif" lazyload alt="image-20240702163414949"></p>
+<p><a target="_blank" rel="noopener" href="https://javabetter.cn/jvm/class-file-jiegou.html">详解Java的类文件结构（.class文件的结构） | 二哥的Java进阶之路 (javabetter.cn)</a></p>
+<p>随后dx 工具将 .class 文件转换成 .dex 文件以便Dalvik VM执行：</p>
+<p><img src="https://s2.loli.net/2024/07/02/xMdKzZhv9rQ7BlP.png" srcset="/img/loading.gif" lazyload alt="image-20240702165504467"></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/freeking101/article/details/107551057">一篇文章带你搞懂 DEX 文件的结构-CSDN博客</a></p>
+<p>然后ART 加载 .dex 文件，JIT 和 AOT 编译生成机器码在 CPU 上执行</p>
+<hr>
+<p>然后我还在想这个机器码是类似PC上由像x86汇编语言经汇编器而来的吗？查了半天资料都是由Dalvik虚拟机或ART将其转换为对应设备架构的机器码执行。插个眼，回头再看</p>
+<hr>
+<p>查资料过程中看到了安卓Native层。不懂概念直接GPT</p>
+<blockquote>
+<p>安卓的Native层指的是使用C、C++等本地编程语言编写的代码，这些代码直接运行在安卓操作系统的底层。与之相对的是Java或Kotlin等高级语言编写的代码，这些代码运行在安卓应用程序框架层。</p>
+<p>具体来说，安卓的软件堆栈可以分为以下几个层次：</p>
+<ol>
+<li><p><strong>应用层（Application Layer）：</strong> 这一层包括用户直接与之交互的应用程序，通常使用Java或Kotlin编写。这些应用程序通过Android框架提供的API与系统和硬件进行交互。</p>
+</li>
+<li><p><strong>框架层（Framework Layer）：</strong> 安卓框架提供了许多高级API和服务，供应用程序使用。这些框架层的代码大部分是使用Java编写的，例如活动管理、视图系统、通知管理等。</p>
+</li>
+<li><p><strong>Native层（Native Layer）：</strong> Native层是直接运行在操作系统上的底层代码，通常使用C、C++等编程语言编写。这些代码能够直接访问设备的硬件资源和系统服务，提供了更高效和更接近硬件的访问能力。</p>
+</li>
+</ol>
+<p>安卓Native层的主要组成部分包括：</p>
+<ul>
+<li><p><strong>系统运行库（System Libraries）：</strong> 包括C库、图形库（如OpenGL ES）、多媒体库等，提供了底层的系统功能和服务。</p>
+</li>
+<li><p><strong>硬件抽象层（Hardware Abstraction Layer, HAL）：</strong> 提供了与设备硬件交互的接口，允许上层软件通过标准API访问设备硬件，例如摄像头、传感器等。</p>
+</li>
+<li><p><strong>驱动程序（Drivers）：</strong> 这些是硬件设备的实际驱动程序，用于控制设备和处理设备级别的输入输出操作。</p>
+</li>
+</ul>
+<p>安卓Native层的优势在于能够提供更高的性能、更直接的硬件访问能力，适合需要处理复杂计算或与底层硬件交互的应用程序功能。</p>
+</blockquote>
+<p>个人感觉也就是个上层到底层交互的中间件。这个库中的的文件大多是.so文件形式。</p>
+<p>什么是.so文件？.so文件与ELF关系？不多解释，直接类比PC：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Windows（PE格式）</th>
+<th>Linux&#x2F;Unix（ELF格式）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>文件格式</strong></td>
+<td>PE（Portable Executable）</td>
+<td>ELF（Executable and Linkable Format）</td>
+</tr>
+<tr>
+<td><strong>可执行文件</strong></td>
+<td>.exe</td>
+<td>无特定扩展名的可执行文件</td>
+</tr>
+<tr>
+<td><strong>动态链接库</strong></td>
+<td>.dll</td>
+<td>.so（Shared Object）</td>
+</tr>
+<tr>
+<td><strong>静态链接库</strong></td>
+<td>.lib</td>
+<td>.a（Archive）</td>
+</tr>
+<tr>
+<td><strong>预处理文件</strong></td>
+<td>.i（C预处理文件）</td>
+<td>.i（C预处理文件）</td>
+</tr>
+<tr>
+<td><strong>编译输出文件</strong></td>
+<td>.obj（目标文件）</td>
+<td>.o（目标文件）</td>
+</tr>
+<tr>
+<td><strong>调试信息文件</strong></td>
+<td>.pdb（Program Database）</td>
+<td>.dbg（调试符号文件）</td>
+</tr>
+<tr>
+<td><strong>符号表文件</strong></td>
+<td>.sym</td>
+<td>.symtab</td>
+</tr>
+<tr>
+<td><strong>资源文件</strong></td>
+<td>.res（资源文件）</td>
+<td>.rc（资源文件）</td>
+</tr>
+</tbody></table>
+<p>.so文件中的机器码是从ARM汇编代码编译而来的，这些机器码针对ARM架构，而安卓系统主要运行在arm架构上。</p>
 <h1 id="开发中遇到的问题"><a href="#开发中遇到的问题" class="headerlink" title="开发中遇到的问题"></a>开发中遇到的问题</h1><p>非ascill字符问题：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42583263/article/details/106980015">Android studio 加载项目时报错（Your project path contains non-ASCII characters. This will most likely cause）_android.overridepathcheck&#x3D;true-CSDN博客</a></p>
 <p>下载不同版本gradle太慢：</p>
@@ -441,7 +550,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>android_stuido配置与坑</div>
+      <div>AS开发配置与使用</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/开发/AS开发配置/</div>
     </div>
     <div class="license-meta">
@@ -486,9 +595,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/%E4%BB%8Eandroid%E5%BC%80%E5%8F%91%E5%88%B0%E8%BF%90%E8%A1%8C/" title="从android开发到运行">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%BC%80%E5%8F%91/NDK%E5%BC%80%E5%8F%91/Android-JNI%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" title="JNI机制分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从android开发到运行</span>
+                        <span class="hidden-mobile">JNI机制分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -496,7 +605,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%B5%85%E6%9E%90/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程与多线程机制">
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="线程与多线程机制">
                         <span class="hidden-mobile">线程与多线程机制</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
