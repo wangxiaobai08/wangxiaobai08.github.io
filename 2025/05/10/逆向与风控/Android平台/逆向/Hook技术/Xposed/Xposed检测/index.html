@@ -16,17 +16,19 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="安装列表检测堆栈信息检测方法Native化检测类加载检测文件与内存映射检测Xposed总开关检测缓存Map检测特征码校验和内存扫描 Xposed 框架带来的安全问题Xposed 框架对于三方应用开发者来说需要注意的是其带来的安全问题。利用此黑科技技术，一些灰色产业、爬虫数据采集、外挂软件等等也接踵而来。对于某些应用开发者，应该了解去如何去检测 Xposed 框架。 这里简单总结一下网络上搜寻到的检">
+    <meta name="description" content="推荐先阅读：Xposed原理浅析 - The Peak Tower  安装列表(包名)检测所有 Android 应用安装后确实会分配唯一的包名（如 com.example.app），因此通过检查设备是否安装了 Xposed 相关包名（如 de.robv.android.xposed.installer）是一种简单的检测手段。 检测原理通过检查设备上是否安装了 Xposed 框架相关的应用（如 d">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xposed检测技术浅析">
 <meta property="og:url" content="http://example.com/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/Xposed%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="安装列表检测堆栈信息检测方法Native化检测类加载检测文件与内存映射检测Xposed总开关检测缓存Map检测特征码校验和内存扫描 Xposed 框架带来的安全问题Xposed 框架对于三方应用开发者来说需要注意的是其带来的安全问题。利用此黑科技技术，一些灰色产业、爬虫数据采集、外挂软件等等也接踵而来。对于某些应用开发者，应该了解去如何去检测 Xposed 框架。 这里简单总结一下网络上搜寻到的检">
+<meta property="og:description" content="推荐先阅读：Xposed原理浅析 - The Peak Tower  安装列表(包名)检测所有 Android 应用安装后确实会分配唯一的包名（如 com.example.app），因此通过检查设备是否安装了 Xposed 相关包名（如 de.robv.android.xposed.installer）是一种简单的检测手段。 检测原理通过检查设备上是否安装了 Xposed 框架相关的应用（如 d">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/05/12/6Akn3iwpdHo2X4e.png">
 <meta property="article:published_time" content="2025-05-10T05:48:55.160Z">
-<meta property="article:modified_time" content="2025-05-10T12:31:13.626Z">
+<meta property="article:modified_time" content="2025-05-12T03:52:29.589Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2025/05/12/6Akn3iwpdHo2X4e.png">
   
   
   
@@ -187,7 +189,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          599 字
+          1.7k 字
         
       </span>
     
@@ -198,7 +200,7 @@
         
         
         
-          5 分钟
+          15 分钟
         
       </span>
     
@@ -240,28 +242,145 @@
             
               <div class="markdown-body">
                 
-                <h1 id="安装列表检测"><a href="#安装列表检测" class="headerlink" title="安装列表检测"></a><strong>安装列表检测</strong></h1><h1 id="堆栈信息检测"><a href="#堆栈信息检测" class="headerlink" title="堆栈信息检测"></a><strong>堆栈信息检测</strong></h1><h1 id="方法Native化检测"><a href="#方法Native化检测" class="headerlink" title="方法Native化检测"></a><strong>方法Native化检测</strong></h1><h1 id="类加载检测"><a href="#类加载检测" class="headerlink" title="类加载检测"></a><strong>类加载检测</strong></h1><h1 id="文件与内存映射检测"><a href="#文件与内存映射检测" class="headerlink" title="文件与内存映射检测"></a><strong>文件与内存映射检测</strong></h1><h1 id="Xposed总开关检测"><a href="#Xposed总开关检测" class="headerlink" title="Xposed总开关检测"></a><strong>Xposed总开关检测</strong></h1><h1 id="缓存Map检测"><a href="#缓存Map检测" class="headerlink" title="缓存Map检测"></a><strong>缓存Map检测</strong></h1><h1 id="特征码校验和内存扫描"><a href="#特征码校验和内存扫描" class="headerlink" title="特征码校验和内存扫描"></a>特征码校验和内存扫描</h1><hr>
-<h2 id="Xposed-框架带来的安全问题"><a href="#Xposed-框架带来的安全问题" class="headerlink" title="Xposed 框架带来的安全问题"></a>Xposed 框架带来的安全问题</h2><p>Xposed 框架对于三方应用开发者来说需要注意的是其带来的安全问题。利用此黑科技技术，一些灰色产业、爬虫数据采集、外挂软件等等也接踵而来。对于某些应用开发者，应该了解去如何去检测 Xposed 框架。</p>
-<p>这里简单总结一下网络上搜寻到的检测方案，大致分两大类，一种是 Java 层检测，一种是 Native 层检测。</p>
-<h3 id="Java-层检测（不靠谱）"><a href="#Java-层检测（不靠谱）" class="headerlink" title="Java 层检测（不靠谱）"></a>Java 层检测（不靠谱）</h3><ul>
-<li>遍历应用安装列表，查找本机是否安装 Xposed Installer 应用（Android 11 无法获取所有安装应用）</li>
-<li>通过自造 Crash，读取堆栈信息<br>从之前的小节了解到，每个应用进程都会由 zygote 进程孵化而来，而 Xposed 框架会走自己独特的 zygote 进程启动流程，所以可以在堆栈中看到带有 Xposed 关键字的错误信息。</li>
-<li>检查关键 Java 方法被变为 Native 方法<br>当一个应用中的 Java 方法被莫名其妙地变成了 Native 方法，则非常有可能被 Xposed 框架 Hook 了。由此可得，检查关键方法是不是变成 Native 方法，也可以检测是否被 Hook。通过反射调用 Modifier.isNative(method.getModifiers()) 方法可以校验方法是不是 Native 方法。</li>
+                <blockquote>
+<p>推荐先阅读：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/Xposed%E5%8E%9F%E7%90%86/">Xposed原理浅析 - The Peak Tower</a></p>
+</blockquote>
+<h1 id="安装列表-包名-检测"><a href="#安装列表-包名-检测" class="headerlink" title="安装列表(包名)检测"></a>安装列表(包名)检测</h1><p>所有 Android 应用安装后确实会分配唯一的<strong>包名</strong>（如 <code>com.example.app</code>），因此通过检查设备是否安装了 Xposed 相关包名（如 <code>de.robv.android.xposed.installer</code>）是一种简单的检测手段。</p>
+<h2 id="检测原理"><a href="#检测原理" class="headerlink" title="检测原理"></a>检测原理</h2><p>通过检查设备上是否安装了 Xposed 框架相关的应用（如 <code>de.robv.android.xposed.installer</code>），来判断设备是否被 Xposed Hook。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs"><br></code></pre></td></tr></table></figure>
+
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><h3 id="用户可轻易绕过"><a href="#用户可轻易绕过" class="headerlink" title="用户可轻易绕过"></a><strong>用户可轻易绕过</strong></h3><p><strong>禁止读取应用列表</strong>（Android 10+ 权限限制）：用户可以在系统设置中拒绝 App 的 <code>QUERY_ALL_PACKAGES</code> 权限，导致检测失效。代码会因权限不足直接返回 <code>false</code>（假阴性）。</p>
+<p><strong>修改包名或隐藏应用</strong>：用户可手动修改 Xposed 安装器的包名（如 <code>de.robv.android.xposed.installer</code> → <code>com.example.fakeapp</code>）。或使用 Magisk 模块隐藏 Xposed 管理器。</p>
+<h3 id="仅检测安装器，不检测运行环境"><a href="#仅检测安装器，不检测运行环境" class="headerlink" title="仅检测安装器，不检测运行环境"></a><strong>仅检测安装器，不检测运行环境</strong></h3><p>Xposed 可能已激活但未安装管理器，用户可能直接刷入 Xposed 框架（如 Magisk 模块），不安装图形化管理器。检测不到包名，但设备仍被 Hook。</p>
+<h1 id="Xposed总开关检测"><a href="#Xposed总开关检测" class="headerlink" title="Xposed总开关检测"></a><strong>Xposed总开关检测</strong></h1><p><strong>Xposed 总开关检测</strong> 是一种通过检查系统或 Xposed 框架的<strong>全局启用状态</strong>，来判断设备是否处于 Xposed 环境的技术。与检测具体模块或类不同，它直接针对 Xposed 框架的核心开关进行验证，适用于对抗<strong>模块隐藏</strong>或<strong>包名伪装</strong>等绕过手段。</p>
+<h2 id="检测原理-1"><a href="#检测原理-1" class="headerlink" title="检测原理"></a><strong>检测原理</strong></h2><p>Xposed 框架在激活后，会在系统中留下<strong>全局标志</strong>或<strong>配置文件</strong>，例如：</p>
+<ul>
+<li>**<code>xposed.prop</code>**（某些定制 ROM 或 Magisk 版 Xposed 会生成该文件）。</li>
+<li><strong>系统属性</strong>（如 <code>ro.xposed</code> 或 <code>persist.xposed</code>）。</li>
+<li><strong><code>XposedBridge</code> 的全局状态</strong>（如 <code>XposedBridge.isEnabled()</code>）。</li>
 </ul>
-<p>Xposed 框架可以非常简单的替换 Java 方法，其可以完全替换这些检测方法，返回合规的结果，去欺骗应用。因此这一类的检测方法都是不可靠的。</p>
-<h3 id="Native-层检测"><a href="#Native-层检测" class="headerlink" title="Native 层检测"></a>Native 层检测</h3><ul>
-<li>Native 层使用 C 来解析 &#x2F;proc&#x2F;self&#x2F;maps 文件，搜检 App 自身加载的库中是否存在 XposedBridge.jar、相关的 Dex、Jar 和 So 库等文件。</li>
-<li>XposedChecker 开源库：<a href="https://link.zhihu.com/?target=https://github.com/w568w/XposedChecker">https://github.com/w568w/XposedChecker</a></li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1、Android Hook技术防范漫谈：<a href="https://link.zhihu.com/?target=https://tech.meituan.com/2018/02/02/android-anti-hooking.html">https://tech.meituan.com/2018/02/02/android-anti-hooking.html</a></p>
-<p>2、Android 启动流程：<a href="https://link.zhihu.com/?target=https://www.cnblogs.com/wangjie1990/p/11310913.html">https://www.cnblogs.com/wangjie1990/p/11310913.html</a></p>
-<p>3、Android 在线源码查看：<a href="https://link.zhihu.com/?target=https://cs.android.com/">https://cs.android.com/</a></p>
-<p>4、抱歉，Xposed 真的可以为所欲为——终 · 庖丁解码：<a href="https://link.zhihu.com/?target=https://juejin.cn/post/6945000696441896973">https://juejin.cn/post/69450006</a></p>
+<p>通过检查这些标志，可以判断 Xposed 是否在系统层面被启用，即使某些模块隐藏了自身。</p>
+<h1 id="堆栈信息检测"><a href="#堆栈信息检测" class="headerlink" title="堆栈信息检测"></a><strong>堆栈信息检测</strong></h1><h2 id="检测原理-2"><a href="#检测原理-2" class="headerlink" title="检测原理"></a>检测原理</h2><p>Xposed 框架在 Hook 方法时，会通过 <strong>动态代码替换</strong> 将目标方法的执行流程重定向到 Xposed 自身的逻辑（如 <code>XposedBridge.handleHookedMethod</code>）。因此，当被 Hook 的方法被调用时，其调用栈（Call Stack）中必然会出现 Xposed 相关的类和方法。通过分析调用栈，可以识别这些特征痕迹。</p>
+<p>在 Xposed 环境下的调用栈中，通常会包含以下关键类&#x2F;方法：</p>
 <ol>
-<li>检查内存中是否有XposedBridge.jar</li>
-<li>检查是否有xposed-installer 这个apk</li>
-<li>反射调用xposed的一些核心类，如果可以反射找到，说明注入了XposedBridge.jar</li>
+<li><code>de.robv.android.xposed.XposedBridge.main</code><br>（Xposed 注入 Zygote 进程的入口）</li>
+<li><code>de.robv.android.xposed.XposedBridge.handleHookedMethod</code><br>（所有被 Hook 的方法都会先经过此方法）</li>
+<li><code>de.robv.android.xposed.XposedBridge.invokeOriginalMethodNative</code><br>（调用原始方法的 Native 层入口）</li>
 </ol>
+<p><img src="https://s2.loli.net/2025/05/12/6Akn3iwpdHo2X4e.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="方法Native化检测"><a href="#方法Native化检测" class="headerlink" title="方法Native化检测"></a><strong>方法Native化检测</strong></h1><h2 id="检测原理-3"><a href="#检测原理-3" class="headerlink" title="检测原理"></a>检测原理</h2><p>Xposed 框架在 Hook Java 方法时，会 <strong>将原方法转换为 Native 方法</strong>，并在 Native 层插入跳转逻辑，使其指向 Xposed 的代理方法（如 <code>XposedBridge.handleHookedMethod</code>）。<br>因此，<strong>若发现本应是 Java 实现的方法（如 <code>getDeviceId()</code>）被标记为 <code>native</code>，则极可能已被 Xposed Hook</strong>。</p>
+<h1 id="文件与内存映射检测"><a href="#文件与内存映射检测" class="headerlink" title="文件与内存映射检测"></a><strong>文件与内存映射检测</strong></h1><p><strong>文件与内存映射检测</strong>是指通过分析系统内存或文件映射信息，判断是否有 Xposed 框架的相关类被加载到内存中。</p>
+<h2 id="检测原理-4"><a href="#检测原理-4" class="headerlink" title="检测原理"></a>检测原理</h2><p>Xposed 框架在运行时会将自身的核心类（如 <code>XposedBridge</code>、<code>XposedHelpers</code>）加载到内存中，并通过 <strong>文件映射</strong>（Memory Mapping）或 <strong>动态链接库</strong>（如 <code>.so</code> 文件）与目标进程交互。检测思路包括：</p>
+<ul>
+<li><strong>检查内存中已加载的类</strong>：扫描进程内存，查找 Xposed 特有的类名或方法。</li>
+<li><strong>分析文件映射信息</strong>：查看 <code>/proc/self/maps</code> 或 <code>/proc/&lt;pid&gt;/maps</code>，寻找 Xposed 相关的文件路径或内存区域。</li>
+</ul>
+<h1 id="检测-Xposed-类的加载"><a href="#检测-Xposed-类的加载" class="headerlink" title="检测 Xposed 类的加载"></a><strong>检测 Xposed 类的加载</strong></h1><h2 id="检测原理-5"><a href="#检测原理-5" class="headerlink" title="检测原理"></a><strong>检测原理</strong></h2><p>Xposed 框架的核心类（如 <code>XposedBridge</code>、<code>XposedHelpers</code>）在框架激活时会被加载到 Android 的运行时环境（如 Dalvik&#x2F;ART）中。通过 <strong>反射尝试加载这些类</strong>，若能成功加载，则说明 Xposed 框架已安装并运行。</p>
+<p>Xposed 框架在启动时会通过 <code>Zygote</code> 进程预加载这些类，普通应用无法伪造其存在性。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>若 Xposed 未激活（如仅安装未启用），可能返回假阴性。</li>
+<li>高级变种框架（如 LSPosed）可能重命名或隐藏核心类。</li>
+</ul>
+<h1 id="Map缓存检测"><a href="#Map缓存检测" class="headerlink" title="Map缓存检测"></a>Map缓存检测</h1><p><strong>Xposed 框架的缓存 Map 检测</strong>是指通过检查 Xposed 运行时在内存中留下的特定数据结构（如全局缓存 Map），来判断当前环境是否被 Xposed 框架 Hook 的技术手段。</p>
+<h2 id="检测原理-6"><a href="#检测原理-6" class="headerlink" title="检测原理"></a>检测原理</h2><p>Xposed 框架通过替换 Android 系统的 <code>Zygote</code> 进程，动态加载模块并 Hook Java 方法。其核心机制包括(详见：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Xposed/Xposed%E5%8E%9F%E7%90%86/">Xposed原理浅析 - The Peak Tower</a>)：</p>
+<ul>
+<li><strong>方法 Hook</strong>：修改目标方法的入口，跳转到 Xposed 模块的自定义逻辑。</li>
+<li><strong>缓存管理</strong>：Xposed 会维护全局的 <strong>缓存 Map</strong>（如 <code>methodCache</code>），存储原始方法与 Hook 后的方法引用，避免重复 Hook。</li>
+</ul>
+<p>由于 Xposed 在运行时必须维护这些缓存数据结构，它们会成为检测 Xposed 存在的关键特征。</p>
+<ul>
+<li><strong>目标类</strong>：<code>de.robv.android.xposed.XposedBridge</code></li>
+<li><strong>检测字段</strong>：<code>private static final HashMap&lt;String, Method&gt; methodCache</code></li>
+</ul>
+<h1 id="Xposed-Helpers-缓存检测"><a href="#Xposed-Helpers-缓存检测" class="headerlink" title="Xposed Helpers 缓存检测"></a><strong>Xposed Helpers 缓存检测</strong></h1><p>Xposed 框架的 <code>XposedHelpers</code> 类（<code>de.robv.android.xposed.XposedHelpers</code>）内部维护了三个静态 <code>HashMap</code>，用于缓存被 Hook 的类、方法、构造函数的反射信息，以提升性能：</p>
+<ul>
+<li><code>fieldCache</code>：缓存被 Hook 的字段（<code>Field</code> 对象）。</li>
+<li><code>methodCache</code>：缓存被 Hook 的方法（<code>Method</code> 对象）。</li>
+<li><code>constructorCache</code>：缓存被 Hook 的构造函数（<code>Constructor</code> 对象）。</li>
+</ul>
+<h2 id="检测原理-7"><a href="#检测原理-7" class="headerlink" title="检测原理"></a>检测原理</h2><p>如果这些 <code>Map</code> 不为空，说明 Xposed 已对当前进程的某些类&#x2F;方法进行了 Hook。</p>
+<ul>
+<li><strong>目标类</strong>：<code>de.robv.android.xposed.XposedHelpers</code></li>
+<li>检测字段：<ul>
+<li><code>private static final HashMap&lt;String, Field&gt; fieldCache</code></li>
+<li><code>private static final HashMap&lt;String, Method&gt; methodCache</code></li>
+<li><code>private static final HashMap&lt;String, Constructor&lt;?&gt;&gt; constructorCache</code></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>检测目标</strong></th>
+<th align="center"><strong>实现方式</strong></th>
+<th align="center"><strong>绕过方法</strong></th>
+<th align="center"><strong>适用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>fieldCache</code></td>
+<td align="center">反射检查缓存字段</td>
+<td align="center">清空 <code>Map</code> 或替换实现</td>
+<td align="center">检测字段 Hook</td>
+</tr>
+<tr>
+<td align="center"><code>methodCache</code></td>
+<td align="center">反射检查缓存方法</td>
+<td align="center">拦截 <code>isEmpty()</code> 调用</td>
+<td align="center">检测方法 Hook</td>
+</tr>
+<tr>
+<td align="center"><code>constructorCache</code></td>
+<td align="center">反射检查缓存构造函数</td>
+<td align="center">隐藏 <code>XposedHelpers</code> 类</td>
+<td align="center">检测构造函数 Hook</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>检测类型</strong></th>
+<th align="center"><strong>缓存 Map 检测</strong></th>
+<th align="center"><strong>Xposed Helpers 缓存检测</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>检测的类</strong></td>
+<td align="center"><code>XposedBridge</code> 的 <code>methodCache</code></td>
+<td align="center"><code>XposedHelpers</code> 的 <code>fieldCache</code>&#x2F;<code>methodCache</code>&#x2F;<code>constructorCache</code></td>
+</tr>
+<tr>
+<td align="center"><strong>覆盖范围</strong></td>
+<td align="center">仅方法 Hook 缓存</td>
+<td align="center">字段、方法、构造函数的 Hook 缓存</td>
+</tr>
+<tr>
+<td align="center"><strong>检测粒度</strong></td>
+<td align="center">较粗（仅方法级）</td>
+<td align="center">更细（字段、方法、构造函数均可检测）</td>
+</tr>
+<tr>
+<td align="center"><strong>对抗难度</strong></td>
+<td align="center">易绕过（只需清空单个 <code>Map</code>）</td>
+<td align="center">需同时处理三个 <code>Map</code>，隐蔽性更高</td>
+</tr>
+<tr>
+<td align="center"><strong>典型代码</strong></td>
+<td align="center"><code>XposedBridge.methodCache</code></td>
+<td align="center"><code>XposedHelpers.&#123;fieldCache/methodCache/constructorCache&#125;</code></td>
+</tr>
+</tbody></table>
+<h1 id="特征码校验"><a href="#特征码校验" class="headerlink" title="特征码校验"></a>特征码校验</h1><h2 id="检测原理-8"><a href="#检测原理-8" class="headerlink" title="检测原理"></a>检测<strong>原理</strong></h2><p>通过比对内存或文件中的 ​<strong>​二进制特征码​</strong>​（如 Xposed 核心类、方法或字符串的独特字节序列），判断 Xposed 框架是否被加载。</p>
+<p><strong>实现方式</strong></p>
+<ul>
+<li><strong>静态特征码</strong>：扫描 <code>XposedBridge.jar</code>、<code>libxposed.so</code> 等文件的固定二进制模式。</li>
+<li><strong>动态特征码</strong>：运行时扫描内存中的 Xposed 类或方法代码（如 <code>XposedBridge.handleHookedMethod</code> 的机器码）。</li>
+</ul>
+<hr>
+<p>参考：</p>
+<p>[XposedChecker 开源库](XposedChecker 开源库：<a href="https://link.zhihu.com/?target=https://github.com/w568w/XposedChecker">https://github.com/w568w/XposedChecker</a>)</p>
+<p><a href="%5Bhttps://tech.meituan.com/2018/02/02/android-anti-hooking.html%5D(https://link.zhihu.com/?target=https://tech.meituan.com/2018/02/02/android-anti-hooking.html)">Android Hook技术防范漫谈</a></p>
+<p><a href="https://link.zhihu.com/?target=https://juejin.cn/post/6945000696441896973">抱歉，Xposed 真的可以为所欲为——终 · 庖丁解码</a></p>
 
                 
               </div>

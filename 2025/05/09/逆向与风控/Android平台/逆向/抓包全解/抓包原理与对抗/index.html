@@ -16,28 +16,30 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前情回顾： 在简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS的 安全性的实现原理等，当时留下一个历史遗留问题就是： 抓包问题。。。抓包抓包，什么是包？ 互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫Bit(比特)，简写b。一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。那什么是包呢？疫情期间，我们的家乡对湖北同胞们进行援助，一辆车，两辆车，N">
+    <meta name="description" content="前情回顾在HTTP(S)协议分析 - The Peak Tower中简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS安全性的实现原理等，既然HTTPS怎么安全，是否有抓包的可能呢？  抓包抓包，什么是包？ 互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫Bit(比特)，简写b。一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。那什么是包呢？疫情期间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Peak Tower">
+<meta property="og:title" content="抓包原理与对抗">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%8A%93%E5%8C%85%E5%85%A8%E8%A7%A3/%E6%8A%93%E5%8C%85%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AF%B9%E6%8A%97/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="前情回顾： 在简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS的 安全性的实现原理等，当时留下一个历史遗留问题就是： 抓包问题。。。抓包抓包，什么是包？ 互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫Bit(比特)，简写b。一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。那什么是包呢？疫情期间，我们的家乡对湖北同胞们进行援助，一辆车，两辆车，N">
+<meta property="og:description" content="前情回顾在HTTP(S)协议分析 - The Peak Tower中简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS安全性的实现原理等，既然HTTPS怎么安全，是否有抓包的可能呢？  抓包抓包，什么是包？ 互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫Bit(比特)，简写b。一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。那什么是包呢？疫情期间">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/05/11/D3dBs8j7METUltZ.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/Jrh6LxmdFcOIZoA.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/VRFUWwjY8Gi4MxI.jpg">
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/RiErNjHCzZUQILD.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/NEfo6JWuZ5h1jgr.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/EPQYUXJBacOhb5o.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/eirRNl1Xnkx9jc4.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/11/LXPTBqQs8efxEZa.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.562Z">
-<meta property="article:modified_time" content="2025-05-11T12:49:51.031Z">
+<meta property="article:modified_time" content="2025-05-12T03:50:31.608Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2025/04/28/Jrh6LxmdFcOIZoA.png">
+<meta name="twitter:image" content="https://s2.loli.net/2025/05/11/D3dBs8j7METUltZ.png">
   
   
   
-  <title>The Peak Tower</title>
+  <title>抓包原理与对抗 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -179,7 +181,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="抓包原理与对抗"></span>
           
         </div>
 
@@ -194,7 +196,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          5.1k 字
         
       </span>
     
@@ -205,7 +207,7 @@
         
         
         
-          41 分钟
+          43 分钟
         
       </span>
     
@@ -242,63 +244,52 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">抓包原理与对抗</h1>
             
             
               <div class="markdown-body">
                 
                 <hr>
-<p>前情回顾：</p>
-<p>在简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS的</p>
-<p>安全性的实现原理等，当时留下一个历史遗留问题就是：</p>
-<p>抓包问题。。。抓包抓包，什么是包？</p>
-<p>互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫<br>Bit(比特)，简写b。<br>一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。<br>那什么是包呢？疫情期间，我们的家乡对湖北同胞们进行援助，一辆车，两辆车，N辆 车，载着厚重的物资驶向了湖北各地。这些有着共同目标的车辆，简称援鄂车队。网络中也是把相同目标的比特集合称为数据包。也就是说，数据包就是我们发送的应用数据， 这个包，可大可小，甚至可以空（援鄂车队返航应该是空车回去的吧？）</p>
-<hr>
-<h1 id="抓包原理"><a href="#抓包原理" class="headerlink" title="抓包原理"></a>抓包原理</h1><p>在抓包中可能有许多工具，例如：<strong>Wireshark</strong>，<strong>tcpdump</strong>，<strong>Fiddler</strong>，<strong>Charles</strong>，<strong>Burp Suite</strong>，相信你在使用过程中经常有这样的疑问：为什么有的<strong>开箱即用</strong>，有的却需要<strong>安装证书、配置代理才能正常工作</strong>等一大堆要求。这些抓包工具使用方式的不同与其底层原理是否有何关系？</p>
-<p>浅薄的可以将这些抓包工具分为<strong>有感和无感</strong>抓包，</p>
+<h1 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h1><p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82/HTTP(S)%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/">HTTP(S)协议分析 - The Peak Tower</a>中简单讨论了HTTP(S)协议的基本原理，从中可以看出HTTPS安全性的实现原理等，既然HTTPS怎么安全，是否有抓包的可能呢？</p>
+<blockquote>
+<p>抓包抓包，什么是包？</p>
+<p>互联网是一直被喻为信息高速公路，那高速公路上最小的单位就是小汽车，网络中叫Bit(比特)，简写b。一辆一辆小汽车汇集成车水马龙，在网络中又叫比特流，流传输。<br>那什么是包呢？疫情期间，对湖北同胞们进行援助，一辆车，两辆车，N辆 车，载着厚重的物资驶向了湖北各地。这些有着共同目标的车辆，简称援鄂车队。网络中也是把相同目标的比特集合称为数据包。也就是说，数据包就是我们发送的应用数据， 这个包，可大可小，甚至可以空</p>
+</blockquote>
+<h1 id="抓包原理"><a href="#抓包原理" class="headerlink" title="抓包原理"></a>抓包原理</h1><p>在抓包中可能有许多工具，例如：<strong>Wireshark</strong>，<strong>tcpdump</strong>，<strong>Fiddler</strong>，<strong>Charles</strong>，<strong>Burp Suite</strong>，相信你在使用过程中经常有这样的疑问：为什么有的<strong>开箱即用</strong>，有的却需要<strong>安装证书、配置代理才能正常工作</strong>等一大堆要求。</p>
+<p>这些抓包工具使用方式的不同与其底层原理是否有何关系？</p>
+<p>浅薄的理解可以将这些抓包工具分为<strong>有感和无感</strong>抓包，</p>
 <h2 id="无感抓包（直接监听网卡）"><a href="#无感抓包（直接监听网卡）" class="headerlink" title="无感抓包（直接监听网卡）"></a><strong>无感抓包（直接监听网卡）</strong></h2><hr>
-<p>简单回顾计算机网络知识：</p>
-<p><strong>集线器</strong></p>
-<p>工作在OSI第一层（物理层）。用来<strong>信号放大&#x2F;重发</strong>，<strong>广播</strong>到所有端口，不解析数据内容。</p>
+<h3 id="机网回顾"><a href="#机网回顾" class="headerlink" title="机网回顾"></a>机网回顾</h3><p>简单回顾计算机网络知识：</p>
+<h4 id="集线器"><a href="#集线器" class="headerlink" title="集线器"></a><strong>集线器</strong></h4><p>工作在OSI第一层（物理层）。用来<strong>信号放大&#x2F;重发</strong>，<strong>广播</strong>到所有端口，不解析数据内容。</p>
 <p><strong>特性</strong>：无选择性，流量冲突大，易被嗅探。</p>
-<p><strong>交换机</strong></p>
-<p>工作在OSI第二层（数据链路层）。</p>
-<p>用来<strong>解析MAC地址</strong>，根据MAC地址表（学习机制）<strong>定向转发</strong>。</p>
+<h4 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a><strong>交换机</strong></h4><p>工作在OSI第二层（数据链路层）。用来<strong>解析MAC地址</strong>，根据MAC地址表（学习机制）<strong>定向转发</strong>。</p>
 <p><strong>特性</strong>：隔离流量，提升带宽利用率，正常情况下难以嗅探非广播流量。</p>
-<p>路由器</p>
-<p>工作在OSI第三层（网络层）。</p>
-<p>用来<strong>解析IP地址</strong>，根据路由表<strong>选择最佳路径</strong>并转发。</p>
+<h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p>工作在OSI第三层（网络层），用来<strong>解析IP地址</strong>，根据路由表<strong>选择最佳路径</strong>并转发。</p>
 <p><strong>特性</strong>：</p>
 <ul>
 <li><strong>静态路由表</strong>：手动配置，适合小型、稳定网络。</li>
 <li><strong>动态路由表</strong>：根据网络变化自动更新，适合大型网络。</li>
 </ul>
-<p><strong>两大机制</strong>：</p>
-<ul>
-<li>路由（路径选择）</li>
-<li>转发（内部端口转送）</li>
-</ul>
-<p>网卡</p>
-<p><strong>功能</strong>：</p>
-<ul>
-<li>接收数据时，依据设定的接收模式判断是否处理数据包。</li>
-<li><strong>中断驱动机制</strong>：网卡接受后通知CPU，中断唤醒驱动处理。</li>
-</ul>
+<p><strong>两大机制</strong>：路由（路径选择）和转发（内部端口转送）</p>
+<h4 id="网卡"><a href="#网卡" class="headerlink" title="网卡"></a>网卡</h4><p><strong>功能</strong>：接收数据时，依据设定的接收模式判断是否处理数据包。<strong>中断驱动机制</strong>：网卡接受后通知CPU，中断唤醒驱动处理。</p>
 <p><strong>接收模式</strong>：</p>
 <ul>
 <li>正常模式：只接收发给自己MAC的数据。</li>
 <li><strong>混杂模式</strong>：接收所有数据（用于嗅探）。</li>
 </ul>
-<hr>
-<p>嗅探器原理</p>
-<ul>
+<h3 id="嗅探器原理"><a href="#嗅探器原理" class="headerlink" title="嗅探器原理"></a>嗅探器原理</h3><ul>
 <li>收集：从网卡上收集二进制信息（将网卡设置成混杂模式完成抓包）</li>
 <li>转换：将捕获的二进制信息转换成可读形式。</li>
 <li>分析：对捕获和转换后的数据进行分析。</li>
 </ul>
-<p>前提，要捕获的东西必须是要物理信号能收到的报文信息。显然只要通知网卡接收其收到的所有包（一般叫做混杂promiscuous模式：指网络上的所有设备都对总线上传送的数据进行侦听，并不仅仅是它们自己的数据。），在HUB下就能接收到这个网段的所有包，但是交换机下就只能是自己的包加上广播包。</p>
-<p>要想在交换机下接收别人的包，那就要让其发往你的机器所在端口。交换机记住一个口的MAC是通过接收来自这个口的数据后并记住其源MAC，就像一个机器的IP与MAC对应的ARP列表，交换机维护一个物理口与MAC的表，所以可以欺骗交换机的。可以发一个包设置源MAC是你想接收的机器的MAC，那么交换机就把你机器的网线插的物理口与那个MAC对应起来了，以后发给那个MAC的包就发往你的网线插口了，也就是你的网卡可以Sniffer到了。注意这物理口与MAC的表与机器的ARP表一样是动态刷新的，那机器发包后交换HUB就又记住他的口了，所以实际上是两个在争，这只能应用在只要收听少量包就可以的场合。</p>
-<p>内部网基于IP的通信可以用ARP欺骗别人机器让其发送给你的机器，如果要想不影响原来两方的通信，可以欺骗两方，让其都发给你的机器再由你的机器转发，相当于做中间人，这用ARP加上编程很容易实现。并且现在很多设备支持远程管理，有很多交换机可以设置一个口监听别的口，不过这就要管理权限了。</p>
+<p>前提，要捕获的东西必须是要物理信号能收到的报文信息。显然只要<strong>通知网卡接收其收到的所有包</strong>（一般叫做混杂promiscuous模式：指网络上的所有设备都对总线上传送的数据进行侦听，并不仅仅是它们自己的数据。），在HUB下就能接收到这个网段的所有包，但是交换机下就只能是自己的包加上广播包。</p>
+<blockquote>
+<p>以下两个攻击方法是补充知识，可直接跳过</p>
+</blockquote>
+<h4 id="MAC-地址欺骗"><a href="#MAC-地址欺骗" class="headerlink" title="MAC 地址欺骗"></a><strong>MAC 地址欺骗</strong></h4><p>要想在交换机下接收别人的包，那就要让其发往你的机器所在端口。交换机记住一个口的MAC是通过接收来自这个口的数据后并记住其源MAC，就像一个机器的IP与MAC对应的ARP列表，交换机维护一个物理口与MAC的表，所以可以欺骗交换机的。可以发一个包设置源MAC是你想接收的机器的MAC，那么交换机就把你机器的网线插的物理口与那个MAC对应起来了，以后发给那个MAC的包就发往你的网线插口了，也就是你的网卡可以Sniffer到了。注意这物理口与MAC的表与机器的ARP表一样是动态刷新的，那机器发包后交换HUB就又记住他的口了，所以实际上是两个在争，这只能应用在只要收听少量包就可以的场合。</p>
+<p><img src="https://s2.loli.net/2025/05/11/D3dBs8j7METUltZ.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="ARP欺骗"><a href="#ARP欺骗" class="headerlink" title="ARP欺骗"></a>ARP欺骗</h4><p>内部网基于IP的通信可以用ARP欺骗别人机器让其发送给你的机器，如果要想不影响原来两方的通信，可以欺骗两方，让其都发给你的机器再由你的机器转发，相当于做中间人，这用ARP加上编程很容易实现。并且现在很多设备支持远程管理，有很多交换机可以设置一个口监听别的口，不过这就要管理权限了。</p>
+<hr>
 <p>可以看到无感抓包比较暴力，直接工作在<strong>网络层及以下</strong>，直接从网卡（NIC）捕获原始数据包，无需目标应用感知。有如下特点</p>
 <ul>
 <li>可抓取<strong>所有进出网卡的流量</strong>（包括 TCP&#x2F;UDP&#x2F;ICMP 等）。</li>
@@ -315,7 +306,6 @@
 <p><img src="https://s2.loli.net/2025/04/28/Jrh6LxmdFcOIZoA.png" srcset="/img/loading.gif" lazyload></p>
 <p>接下来详细谈一谈这背后的知识点。</p>
 <p>中间人（MITM）抓包 HTTPS 流量的过程本质上是<strong>对加密通信的劫持与解密</strong>，其核心在于<strong>伪造证书</strong>和<strong>双向代理</strong>。以下是详细的分步说明，包括客户端与服务器的交互过程：</p>
-<hr>
 <h3 id="中间人抓包-HTTPS-的完整流程"><a href="#中间人抓包-HTTPS-的完整流程" class="headerlink" title="中间人抓包 HTTPS 的完整流程"></a><strong>中间人抓包 HTTPS 的完整流程</strong></h3><h4 id="1-前置条件：获取控制权"><a href="#1-前置条件：获取控制权" class="headerlink" title="1. 前置条件：获取控制权"></a><strong>1. 前置条件：获取控制权</strong></h4><ul>
 <li><strong>安装根证书</strong>：在目标设备（客户端）上安装抓包工具（如 Fiddler、Charles）的<strong>自签名根证书</strong>，并设置为信任（否则浏览器会警告证书不安全）。</li>
 <li><strong>配置代理</strong>：将目标设备的网络流量强制导向中间人工具（如设置系统代理为 <code>127.0.0.1:8888</code>）。</li>
@@ -365,64 +355,35 @@
 <td>可修改响应内容（如注入脚本）</td>
 </tr>
 </tbody></table>
-<h4 id="3-关键点解析"><a href="#3-关键点解析" class="headerlink" title="3. 关键点解析"></a><strong>3. 关键点解析</strong></h4><ul>
-<li><strong>双向欺骗</strong>：<ul>
+<p><strong>这里有几点需要注意：</strong></p>
+<p><strong>双向欺骗</strong>：</p>
+<ul>
 <li>对客户端：中间人伪装成目标服务器（<code>example.com</code>）。</li>
 <li>对服务器：中间人伪装成真实客户端。</li>
 </ul>
-</li>
-<li><strong>证书伪造</strong>：<ul>
+<p><strong>证书伪造</strong>：</p>
+<ul>
 <li>中间人动态生成域名证书（如 <code>example.com</code>），由自签名根证书签发。</li>
 <li>客户端信任根证书 → 接受所有子证书（无浏览器警告）。</li>
 </ul>
-</li>
-<li><strong>明文获取</strong>：<ul>
-<li>中间人同时持有两端的密钥，可解密客户端→服务器、服务器→客户端的全部数据。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-抓包工具的实现"><a href="#4-抓包工具的实现" class="headerlink" title="4. 抓包工具的实现"></a><strong>4. 抓包工具的实现</strong></h4><ul>
+<p><strong>明文获取</strong>：中间人同时持有两端的密钥，可解密客户端→服务器、服务器→客户端的全部数据。</p>
+<hr>
+<p>可以看到中间人抓包 HTTPS 的本质是：<br><strong>通过控制客户端流量 + 伪造证书链</strong>，在客户端与服务器之间插入一个透明的解密层。其成功依赖两点：</p>
+<ol>
+<li>客户端必须信任中间人的根证书（用户主动安装）。</li>
+<li>客户端流量必须被重定向到中间人（代理或网络层劫持）。</li>
+</ol>
+<h3 id="抓包工具的实现"><a href="#抓包工具的实现" class="headerlink" title="抓包工具的实现"></a><strong>抓包工具的实现</strong></h3><ul>
 <li><strong>Fiddler&#x2F;Charles</strong>：自动完成证书伪造和代理转发。</li>
 <li><strong>Wireshark</strong>：需配合 SSLKEYLOGFILE 获取密钥（无法直接解密 HTTPS）。</li>
-<li><strong>Burp Suite</strong>：专业安全工具，支持修改请求&#x2F;响应。<ul>
-<li>[逆向与风控, Android平台, 逆向, 抓包全解]</li>
+<li><strong>Burp Suite</strong>：专业安全工具，支持修改请求&#x2F;响应。</li>
 </ul>
-</li>
-</ul>
-<hr>
 <h3 id="为什么-HTTPS-仍能被中间人抓包？"><a href="#为什么-HTTPS-仍能被中间人抓包？" class="headerlink" title="为什么 HTTPS 仍能被中间人抓包？"></a><strong>为什么 HTTPS 仍能被中间人抓包？</strong></h3><ol>
 <li><strong>人为信任了根证书</strong>：用户主动安装抓包工具的证书，相当于授权其解密。</li>
 <li><strong>代理强制流量转发</strong>：网络流量被重定向到中间人，而非直接连接目标服务器。</li>
 <li><strong>TLS 协议特性</strong>：TLS 只验证证书链，不验证通信路径。</li>
 </ol>
-<hr>
-<h3 id="防御中间人攻击的方法"><a href="#防御中间人攻击的方法" class="headerlink" title="防御中间人攻击的方法"></a><strong>防御中间人攻击的方法</strong></h3><ol>
-<li><strong>证书固定（Certificate Pinning）</strong>：<ul>
-<li>客户端预存目标服务器的证书指纹，拒绝中间人伪造的证书。</li>
-<li>常见于银行&#x2F;支付类 App（如支付宝）。</li>
-</ul>
-</li>
-<li><strong>检测代理设置</strong>：<ul>
-<li>应用检查系统是否配置了未知代理。</li>
-</ul>
-</li>
-<li><strong>HSTS（HTTP Strict Transport Security）</strong>：<ul>
-<li>强制浏览器只通过 HTTPS 连接，拒绝中间人降级攻击。</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>[逆向与风控, Android平台, 逆向, 抓包全解]</li>
-</ul>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>中间人抓包 HTTPS 的本质是：<br><strong>通过控制客户端流量 + 伪造证书链</strong>，在客户端与服务器之间插入一个透明的解密层。其成功依赖两点：</p>
-<ol>
-<li>客户端必须信任中间人的根证书（用户主动安装）。</li>
-<li>客户端流量必须被重定向到中间人（代理或网络层劫持）。</li>
-</ol>
-<hr>
-<p><em><strong>总结</strong></em></p>
-<table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
 <thead>
 <tr>
 <th align="left"><strong>分类</strong></th>
@@ -447,16 +408,15 @@
 <td align="left">网络协议分析、安全审计、底层流量捕获</td>
 </tr>
 </tbody></table>
-<h4 id="关键区别："><a href="#关键区别：" class="headerlink" title="关键区别："></a><strong>关键区别：</strong></h4><p><strong>代理 vs 网卡监听</strong></p>
+<h3 id="关键区别"><a href="#关键区别" class="headerlink" title="关键区别"></a><strong>关键区别</strong></h3><p><strong>代理 vs 网卡监听</strong></p>
 <ul>
 <li>有感工具通过<strong>代理服务器</strong>拦截应用层数据（如HTTP&#x2F;HTTPS），需手动设置代理或信任证书。</li>
 <li>无感工具通过<strong>网卡混杂模式</strong>捕获原始数据包（包括二层帧、TCP&#x2F;UDP等），无需目标设备配置。</li>
 </ul>
 <p><strong>加密流量处理</strong></p>
-<p>有感工具可解密HTTPS（需安装CA证书），无感工具默认无法解密HTTPS（除非获取私钥或使用SSLKEYLOGFILE）。</p>
-<h1 id="抓包对抗"><a href="#抓包对抗" class="headerlink" title="抓包对抗"></a>抓包对抗</h1><h2 id="HTTP时代"><a href="#HTTP时代" class="headerlink" title="HTTP时代"></a>HTTP时代</h2><p>如果说HTTP时代，抓包易如反掌</p>
-<p>那么HTTPS就需要使用更高级的代理抓包</p>
-<h2 id="HTTPS时代"><a href="#HTTPS时代" class="headerlink" title="HTTPS时代"></a>HTTPS时代</h2><h3 id="单向认证"><a href="#单向认证" class="headerlink" title="单向认证"></a>单向认证</h3><h4 id="代理抓包"><a href="#代理抓包" class="headerlink" title="代理抓包"></a>代理抓包</h4><p>前面说过，即使HTTPS防的住无法准确截获信息，但也防不住客户端的伪装。皇帝是伪装不了了，但是将军却还是可以伪装的？也就是我们常说的：HTTPS<strong>默认</strong>是单向认证  的</p>
+<p>有感工具可解密HTTPS（需安装CA证书），无感工具默认无法解密HTTPS（除非获取私钥或使SSLKEYLOGFILE）。</p>
+<h1 id="抓包对抗"><a href="#抓包对抗" class="headerlink" title="抓包对抗"></a>抓包对抗</h1><p>如果说HTTP时代，抓包易如反掌，那么HTTPS就需要使用更高级的代理抓包</p>
+<h2 id="单向认证"><a href="#单向认证" class="headerlink" title="单向认证"></a>单向认证</h2><h3 id="代理抓包"><a href="#代理抓包" class="headerlink" title="代理抓包"></a>代理抓包</h3><p>前面说过，即使HTTPS防的住无法准确截获信息，但也防不住客户端的伪装。皇帝是伪装不了了，但是将军却还是可以伪装的？也就是我们常说的：HTTPS<strong>默认</strong>是单向认证  的</p>
 <p><img src="https://s2.loli.net/2025/05/09/VRFUWwjY8Gi4MxI.jpg" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
 <p>在单向认证的实现上，占据主动性的还是客户端，因为只要客户端认可了server发来的签名和认证，然后直接告诉服务器我们下次使用什么秘钥进行通讯就行了。单向认证是在客户端上验证的。</p>
@@ -465,20 +425,14 @@
 <p><img src="https://s2.loli.net/2025/05/09/RiErNjHCzZUQILD.png" srcset="/img/loading.gif" lazyload></p>
 <p>即使能防的住中间人，假如客户端本地就是恶意接受抓包证书的呢？（这里以charles为例）比如：</p>
 <p><img src="https://s2.loli.net/2025/05/09/NEfo6JWuZ5h1jgr.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>HTTPS 抓包的核心条件</strong></p>
-<ol>
-<li><strong>安装自定义根证书</strong><ul>
-<li>工具会在本地生成一个自签名的根证书（CA Certificate），并需要用户手动安装到系统的信任存储中（如钥匙串&#x2F;证书管理器）。</li>
-<li><em>目的</em>：让操作系统信任工具伪造的站点证书。</li>
+<p>还记得前面所说的<strong>HTTPS 抓包的核心条件</strong>吗？</p>
+<ul>
+<li><strong>安装自定义根证书</strong>：工具会在本地生成一个自签名的根证书（CA Certificate），并需要用户手动安装到系统的信任存储中（如钥匙串&#x2F;证书管理器）。<em>目的</em>是让操作系统信任工具伪造的站点证书。</li>
+<li><strong>拦截 HTTPS 连接</strong>：工具会动态生成与目标域名匹配的假证书（由自签名CA签发），替代真实服务器的证书。</li>
 </ul>
-</li>
-<li><strong>拦截 HTTPS 连接</strong><ul>
-<li>工具会动态生成与目标域名匹配的假证书（由自签名CA签发），替代真实服务器的证书。</li>
-</ul>
-</li>
-</ol>
-<h4 id="SSL-Pinning反抓包"><a href="#SSL-Pinning反抓包" class="headerlink" title="SSL-Pinning反抓包"></a>SSL-Pinning反抓包</h4><blockquote>
-<p>可以利用SSL-Pinning的技术来进行反抓包。中间人攻击的要点是伪造了一个假的服务器证书，让客户端信以为真，那么我在客户端内置了一个server的证书，两者进行比较一下就知道是不是真的了。</p>
+<h3 id="SSL-Pinning反抓包"><a href="#SSL-Pinning反抓包" class="headerlink" title="SSL-Pinning反抓包"></a>SSL-Pinning反抓包</h3><blockquote>
+<p>可以利用SSL-Pinning的技术来进行反抓包。中间人攻击的要点是伪造了一个假的服务器证书，让客户端信以为真，那么我在客户端内置了一个server的证书，两者进行比较一下就知道是不是真的了。即<strong>证书固定（Certificate Pinning）</strong>：</p>
+<p>客户端预存目标服务器的证书指纹，拒绝中间人伪造的证书。</p>
 </blockquote>
 <p>为了防止中间人攻击，可以使用SSL-Pinning的技术来反抓包。 可以发现中间人攻击的要点的伪造了一个假的服务端证书给了客户端，客户端误以为真。解决思路就是，客户端也预置一份服务端的证书，比较一下就知道真假了。</p>
 <blockquote>
@@ -488,47 +442,87 @@
 <li>公钥锁定 提取证书中的公钥并内置到客户端中，通过与服务器对比公钥值来验证连接的正确性。制作证书密钥时，公钥在证书的续期前后都可以保持不变（即密钥对不变），所以可以避免证书有效期问题，一般推荐这种做法。</li>
 </ul>
 </blockquote>
-<h4 id="突破SSL-Pinning抓包"><a href="#突破SSL-Pinning抓包" class="headerlink" title="突破SSL-Pinning抓包"></a>突破SSL-Pinning抓包</h4><p><strong>突破思路：</strong>有函数会对内置证书或者公钥进行比照验证，如果让它一直返回通过，就可以绕过了。xposed+justTrustme模块，它将所有的HTTP请求库中用于校验证书的API都进行HOOK，将结果返回正常，所以基于这个思路，xpose+justTruseme就完成了对单向认证的突破。网上也有很多相关教程，不加赘述。</p>
-<p>在逆向界，一山更比一山高。 思路是这样的：内置证书或者公钥的时候，常常会有对比验证的函数，直接控制这个函数的返回结果让验证通过不就好了吗。 于是就有了一个突破SLL-Pinning的经典操作：采用Xposed+justTrustme模块。 这个方案使用的是JustTrustMe这个Xposed模块，它所做的事情就是<strong>将各种已知的的HTTP请求库中用于校验证书的API都进行Hook，使无论是否是可信证书的情况，校验结果返回都为正常状态，从而实现绕过证书检查的效果。</strong></p>
-<h3 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h3><h4 id="基本实现原理"><a href="#基本实现原理" class="headerlink" title="基本实现原理"></a>基本实现原理</h4><p>双向认证 SSL 协议要求服务器和用户双方都有证书。单向认证 SSL 协议不需要客户拥有CA证书</p>
+<h3 id="突破SSL-Pinning抓包"><a href="#突破SSL-Pinning抓包" class="headerlink" title="突破SSL-Pinning抓包"></a>突破SSL-Pinning抓包</h3><blockquote>
+<p>在逆向界，一山更比一山高。</p>
+</blockquote>
+<p>内置证书或者公钥的时候，常常会有对比验证的函数，直接控制这个函数的返回结果让验证通过不就好了。于是就有了一个突破SLL-Pinning的经典操作：</p>
+<p>采用<code>Xposed+justTrustme</code>模块。</p>
+<p> 这个方案使用的是JustTrustMe这个Xposed模块，它所做的事情就是<strong>将各种已知的的HTTP请求库中用于校验证书的API都进行Hook，使无论是否是可信证书的情况，校验结果返回都为正常状态，从而实现绕过证书检查的效果。</strong>从而完成了对单向认证的突破。网上也有很多相关教程，不加赘述。</p>
+<h2 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h2><h3 id="基本实现原理"><a href="#基本实现原理" class="headerlink" title="基本实现原理"></a>基本实现原理</h3><blockquote>
+<p>这在<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82/HTTP(S)%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/">HTTP(S)协议分析 - The Peak Tower</a>讲述TLS&#x2F;SSL和数字证书中也有简单介绍过。</p>
+</blockquote>
+<p>双向认证 SSL 协议要求服务器和用户双方都有证书。单向认证 SSL 协议不需要客户拥有CA证书</p>
 <p><img src="https://s2.loli.net/2025/04/28/EPQYUXJBacOhb5o.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以看到这里红字标清的地方就是与单向验证不同的地方!</p>
 <p><img src="https://s2.loli.net/2025/04/28/eirRNl1Xnkx9jc4.png" srcset="/img/loading.gif" lazyload></p>
 <p>了解了单向认证和双向认证在SSL握手过程中的不同后，新的问题出现了：<strong>为什么需要双向认证证书？网站使用双向认证将选择哪些客户端与其进行安全通信？</strong></p>
 <p>因为双向认证需要服务器和客户端提供身份认证，只能是服务器允许的客户方能访问，安全性相对于高一些。所以需要做双向认证的SSL证书多数是企业，尤其是像金融行业等对安全性要求较高的企业。</p>
+<blockquote>
 <p>比如，一个企业有自己的内部网站，该网站主要是用于员工查询信息和官方事务交流的。他们不希望任何人都可以这样自由访问内部网站。这种情况下，就可以选择使用双向认证的SSL证书验证客户端身份，然后再让他们访问网站。如此一来，企业可避免网络犯罪分子和僵尸程序进入该内部网站，降低不安全性风险。</p>
+</blockquote>
 <p>总的来说，一般Web应用都是采用SSL单向认证的，用户数自由无限制，且无需在通讯层对用户身份进行验证，一般都在应用逻辑层来保证用户的合法登入。但如果是企业应用对接，数据信息相对较多且复杂，可能会要求对客户端做身份验证，这时就需要做SSL双向认证，这也是保护公司内部数据信息的最好的方法。</p>
-<p>https 双向认证  其中客户端APP的证书是谁颁发的？</p>
-<p><strong>私有 PKI&#x2F;企业 CA 颁发（最常见场景）</strong></p>
-<ol>
-<li><strong>私有 PKI&#x2F;企业 CA 颁发（最常见场景）</strong></li>
-</ol>
+<hr>
+<p>你可能会好奇HTTPS 双向认证  其中客户端APP的证书是谁颁发的？又是如何信任的？</p>
+<p><img src="https://s2.loli.net/2025/05/11/LXPTBqQs8efxEZa.png" srcset="/img/loading.gif" lazyload></p>
+<p>一般都是由私有 PKI&#x2F;企业 CA 颁发（最常见场景）的，<strong>颁发者</strong>都是企业或组织自建的私有证书颁发机构（Private CA）</p>
+<p>典型场景：</p>
 <ul>
-<li><strong>颁发者</strong>：企业或组织自建的私有证书颁发机构（Private CA）</li>
-<li>典型场景：<ul>
 <li>企业内部系统（如微服务间通信）</li>
 <li>银行&#x2F;支付网关与商户系统的对接</li>
 <li>IoT 设备与服务端的认证</li>
 </ul>
-</li>
-<li>特点：<ul>
-<li>证书不公开信任，仅在组织内部或合作方之间使用</li>
-<li>服务端需预先配置信任该私有 CA 的根证书</li>
+<p>其特点就是：证书不公开信任，仅在组织内部或合作方之间使用，服务端需预先配置信任该私有 CA 的根证书</p>
+<p>常见的验证方式：</p>
+<ul>
+<li>APP内置CA证书（主流）：开发者将企业CA的<strong>根证书（或中间CA证书）</strong>打包到APP资源文件（如Android的<code>res/raw/</code>或iOS的Keychain）。代码中指定信任该CA（如Android的<code>TrustManager</code>，iOS的<code>SecPolicy</code>）。</li>
+<li>证书指纹校验：APP首次启动时从服务器下载CA证书（需首次连接通过其他方式验证，如短信验证码）。后续用该CA验证客户端证书。</li>
+<li>动态下发CA：客户端证书仅用于初次认证，后续用Token授权（如JWT）。证书可能临时颁发（如短有效期）。</li>
 </ul>
-</li>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>场景</strong></th>
+<th align="center">是否依赖系统CA列表？</th>
+<th align="center">是否需要预置CA？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>普通HTTPS（单向）</strong></td>
+<td align="center">默认用系统CA列表验证</td>
+<td align="center">不需要（除非服务器用私有CA）</td>
+</tr>
+<tr>
+<td align="center"><strong>双向认证（mTLS）</strong></td>
+<td align="center">服务端自定义CA验证规则</td>
+<td align="center">分情况：</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">- 客户端：需要持有有效证书</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">- 服务端：需配置信任的CA</td>
+</tr>
+</tbody></table>
+<ul>
+<li>单向HTTPS认证 → 依赖系统CA列表。</li>
+<li>双向认证 → 服务端决定信任哪些CA，客户端只需提供有效证书。需要证书Pinning</li>
 </ul>
-<h4 id="反双向认证抓包"><a href="#反双向认证抓包" class="headerlink" title="反双向认证抓包"></a>反双向认证抓包</h4><p><strong>双向认证抓包有两种解决方法：</strong></p>
-<p>一是：按照搞定证书的思路去想的话，就是要想办法拿到真正的证书。<br>二是：Hook SSL 对数据解密数据的地方。</p>
-<p>防抓包策略，将证书进行加密或者伪造，这样没有秘钥就无法打开证书内容。也就无法使用客户端的证书。</p>
-<p><strong>突破思路：</strong>一般在app&#x2F;assert、或者raw，搜索.p12或者.pks，直接逆向APK，找到对应加载证书和密码的地方，将其密码打印出来。</p>
-<ol>
-<li></li>
-</ol>
-<p>抠出的证书和密码，配置进 fiddler 或 charles 里面，就可以抓到双向认证的包。<br>PS： 还要注意证书的格式，抠出的证书可能是 jks 或 bks 格式的，fiddler 可能需要 p12 格式的， 所以要找工具先转换一下格式。</p>
-<ol start="2">
-<li></li>
-</ol>
+<h3 id="反双向认证抓包"><a href="#反双向认证抓包" class="headerlink" title="反双向认证抓包"></a>反双向认证抓包</h3><h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><p>按照搞定证书的思路去想的话，就是要想办法拿到真正的证书。</p>
+<p>即抠出的证书和密码，配置进 fiddler 或 charles 里面，就可以抓到双向认证的包。</p>
+<blockquote>
+<p>PS： 还要注意证书的格式，抠出的证书可能是 jks 或 bks 格式的，fiddler 可能需要 p12 格式的， 所以要找工具先转换一下格式。</p>
+</blockquote>
+<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><p>Hook SSL 对数据解密数据的地方。</p>
 <p>如果只是想抓包，还有另一种方法，不需要抠证书的方法。虽然 https 在传输过程中是加密的，但在终端显示的时候，必然会解密，不然 APP 上都没法显示了。所以如果能知道安卓解密 SSL 加解密是哪个类， Hook 这个类， 类里相关方法的输入输出肯定就是传输的明文数据。</p>
+<p><strong>突破思路：</strong>一般在app&#x2F;assert、或者raw，搜索.p12或者.pks，直接逆向APK，找到对应加载证书和密码的地方，将其密码打印出来。</p>
+<h2 id="其他防抓包策略"><a href="#其他防抓包策略" class="headerlink" title="其他防抓包策略"></a>其他防抓包策略</h2><ul>
+<li><strong>检测代理设置</strong>：应用检查系统是否配置了未知代理。</li>
+<li>加密或者伪造：将证书进行加密或者伪造，这样没有秘钥就无法打开证书内容。也就无法使用客户端的证书。</li>
+</ul>
 <hr>
 <p>参考博客</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xdyixia/p/9197889.html">抓包原理 - xdyixia - 博客园</a></p>
@@ -597,7 +591,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>抓包原理与对抗</div>
       <div>http://example.com/2025/05/09/逆向与风控/Android平台/逆向/抓包全解/抓包原理与对抗/</div>
     </div>
     <div class="license-meta">
@@ -652,8 +646,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%8A%93%E5%8C%85%E5%85%A8%E8%A7%A3/Android%E6%8A%93%E5%8C%85/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%8A%93%E5%8C%85%E5%85%A8%E8%A7%A3/Android%E6%8A%93%E5%8C%85/" title="Android抓包">
+                        <span class="hidden-mobile">Android抓包</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

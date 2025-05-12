@@ -16,15 +16,15 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信： 如果 Frida Server 被配置为通过 D-Bus 进行通信，可以检测是否有 Frida Se">
+    <meta name="description" content="发建议先阅读：详解linux系统下proc文件夹目录 - The Peak Tower  注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信：如果 Fr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Frida检测技术浅析">
 <meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/Frida%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信： 如果 Frida Server 被配置为通过 D-Bus 进行通信，可以检测是否有 Frida Se">
+<meta property="og:description" content="发建议先阅读：详解linux系统下proc文件夹目录 - The Peak Tower  注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信：如果 Fr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-09T07:31:42.524Z">
-<meta property="article:modified_time" content="2025-05-10T11:29:43.230Z">
+<meta property="article:modified_time" content="2025-05-12T02:49:53.716Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -187,7 +187,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          522 字
+          1.4k 字
         
       </span>
     
@@ -198,7 +198,7 @@
         
         
         
-          5 分钟
+          12 分钟
         
       </span>
     
@@ -240,27 +240,74 @@
             
               <div class="markdown-body">
                 
-                <h1 id="注入特征检测"><a href="#注入特征检测" class="headerlink" title="注入特征检测"></a>注入特征检测</h1><h2 id="基于网络检测"><a href="#基于网络检测" class="headerlink" title="基于网络检测"></a>基于网络检测</h2><h3 id="检测Frida的监听端口"><a href="#检测Frida的监听端口" class="headerlink" title="检测Frida的监听端口"></a>检测Frida的监听端口</h3><p>Frida 在运行时通常会开启特定的监听端口（默认 <code>27042</code> 和 <code>27043</code>）。可以通过扫描本地端口来检测是否存在这些端口。</p>
+                <blockquote>
+<p>发建议先阅读：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/11/%E7%A2%8E%E7%89%87%E5%B0%8F%E5%B1%8B/%E8%AF%A6%E8%A7%A3linux%E7%B3%BB%E7%BB%9F%E4%B8%8Bproc%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95/">详解linux系统下proc文件夹目录 - The Peak Tower</a></p>
+</blockquote>
+<h1 id="注入特征检测"><a href="#注入特征检测" class="headerlink" title="注入特征检测"></a>注入特征检测</h1><h2 id="基于网络检测"><a href="#基于网络检测" class="headerlink" title="基于网络检测"></a>基于网络检测</h2><h3 id="检测Frida的监听端口"><a href="#检测Frida的监听端口" class="headerlink" title="检测Frida的监听端口"></a>检测Frida的监听端口</h3><p>Frida 在运行时通常会开启特定的监听端口（默认 <code>27042</code> 和 <code>27043</code>）。可以通过扫描本地端口来检测是否存在这些端口。</p>
 <h3 id="检测D-Bus-协议通信"><a href="#检测D-Bus-协议通信" class="headerlink" title="检测D-Bus 协议通信"></a>检测D-Bus 协议通信</h3><p>frida 使用 D-Bus 协议通信，这个通信协议并不常见</p>
 <ol>
-<li>Frida Server 的通信：<ul>
-<li>如果 Frida Server 被配置为通过 D-Bus 进行通信，可以检测是否有 Frida Server 在特定的 D-Bus 总线上注册。</li>
-</ul>
-</li>
-<li>D-Bus 信号监听或方法调用 Hook：<ul>
-<li>检测是否有进程在监听特定的系统服务信号，或者通过 D-Bus 调用敏感接口。</li>
-</ul>
-</li>
-<li>可疑 D-Bus 服务注册：<ul>
-<li>检测是否有可疑的 D-Bus 服务名或对象路径被注册（与 Frida 的模块或库有关的名称）。</li>
-</ul>
-</li>
-<li>D-Bus 通信流量分析：<ul>
-<li>检测 D-Bus 通信中是否存在与 Frida 相关的关键字或行为模式。</li>
-</ul>
-</li>
+<li><strong>Frida Server 的通信</strong>：如果 Frida Server 被配置为通过 D-Bus 进行通信，可以检测是否有 Frida Server 在特定的 D-Bus 总线上注册。</li>
+<li><strong>D-Bus 信号监听或方法调用 Hook</strong>：检测是否有进程在监听特定的系统服务信号，或者通过 D-Bus 调用敏感接口。</li>
+<li><strong>可疑 D-Bus 服务注册</strong>：检测是否有可疑的 D-Bus 服务名或对象路径被注册（与 Frida 的模块或库有关的名称）。</li>
+<li><strong>D-Bus 通信流量分析</strong>：检测 D-Bus 通信中是否存在与 Frida 相关的关键字或行为模式。</li>
 </ol>
-<h2 id="基于线程进程检测"><a href="#基于线程进程检测" class="headerlink" title="基于线程进程检测"></a>基于线程进程检测</h2><h3 id="检测-Frida-相关的进程"><a href="#检测-Frida-相关的进程" class="headerlink" title="检测 Frida 相关的进程"></a><strong>检测 Frida 相关的进程</strong></h3><h3 id="检测Frida相关的线程"><a href="#检测Frida相关的线程" class="headerlink" title="检测Frida相关的线程"></a>检测Frida相关的线程</h3><h2 id="基于文件检测"><a href="#基于文件检测" class="headerlink" title="基于文件检测"></a>基于文件检测</h2><h3 id="检测Frida安装文件"><a href="#检测Frida安装文件" class="headerlink" title="检测Frida安装文件"></a>检测Frida安装文件</h3><h3 id="检测已加载的-Frida-动态库"><a href="#检测已加载的-Frida-动态库" class="headerlink" title="检测已加载的 Frida 动态库"></a><strong>检测已加载的 Frida 动态库</strong></h3><h3 id="基于-dlopen-或-dlsym-检测-Frida-库"><a href="#基于-dlopen-或-dlsym-检测-Frida-库" class="headerlink" title="基于 dlopen 或 dlsym 检测 Frida 库"></a><strong>基于 <code>dlopen</code> 或 <code>dlsym</code> 检测 Frida 库</strong></h3><h1 id="Hook特征检测"><a href="#Hook特征检测" class="headerlink" title="Hook特征检测"></a>Hook特征检测</h1><h2 id="inlineHook"><a href="#inlineHook" class="headerlink" title="inlineHook"></a>inlineHook</h2><h2 id="检查内存特征"><a href="#检查内存特征" class="headerlink" title="检查内存特征"></a>检查内存特征</h2><h2 id="检测系统调用行为"><a href="#检测系统调用行为" class="headerlink" title="检测系统调用行为"></a><strong>检测系统调用行为</strong></h2><h2 id="检测代码注入行为"><a href="#检测代码注入行为" class="headerlink" title="检测代码注入行为"></a><strong>检测代码注入行为</strong></h2><h1 id="其他补充"><a href="#其他补充" class="headerlink" title="其他补充"></a>其他补充</h1><h2 id="自定义-Syscall-防-Hook"><a href="#自定义-Syscall-防-Hook" class="headerlink" title="自定义 Syscall 防 Hook"></a><strong>自定义 Syscall 防 Hook</strong></h2><h2 id="双进程守护"><a href="#双进程守护" class="headerlink" title="双进程守护"></a><strong>双进程守护</strong></h2><hr>
+<p>可以遍历 &#x2F;proc&#x2F;net&#x2F;tcp 文件，或者直接从 0-65535 向每个开放的端口发送 D-Bus 认证消息，哪个端口回复了 REJECT，哪个端口上就运行了 frida-server。</p>
+<h2 id="基于线程进程检测"><a href="#基于线程进程检测" class="headerlink" title="基于线程进程检测"></a>基于线程进程检测</h2><h3 id="检测-Frida-相关的进程"><a href="#检测-Frida-相关的进程" class="headerlink" title="检测 Frida 相关的进程"></a><strong>检测 Frida 相关的进程</strong></h3><h3 id="检测Frida相关的线程"><a href="#检测Frida相关的线程" class="headerlink" title="检测Frida相关的线程"></a>检测Frida相关的线程</h3><p>在 &#x2F;proc&#x2F;pid&#x2F;task 目录下存储的是当前进程下的线程相关信息，文件结构类似 &#x2F;proc&#x2F;pid 目录。如果 frida 附加到了当前进程，那么在 task 目录下，就会存在运行 gmain、gdbus、gum-js-loop、pool-frida等的线程。如下图：</p>
+<ul>
+<li>gmain：Frida 使用 Glib 库，其中的主事件循环被称为 GMainLoop。在 Frida 中，gmain 表示 GMainLoop 的线程。</li>
+<li>gdbus：GDBus 是 Glib 提供的一个用于 D-Bus 通信的库。在 Frida 中，gdbus 表示 GDBus 相关的线程。</li>
+<li>gum-js-loop：Gum 是 Frida 的运行时引擎，用于执行注入的 JavaScript 代码。gum-js-loop 表示 Gum 引擎执行 JavaScript 代码的线程。</li>
+<li>pool-frida：Frida 中的某些功能可能会使用线程池来处理任务，pool-frida 表示 Frida 中的线程池。</li>
+</ul>
+<p>因此通过扫描 task 目录下的线程的 comm 文件或 status 文件，看是否存在上述字符。</p>
+<h2 id="基于文件检测"><a href="#基于文件检测" class="headerlink" title="基于文件检测"></a>基于文件检测</h2><h3 id="检测Frida安装文件"><a href="#检测Frida安装文件" class="headerlink" title="检测Frida安装文件"></a>检测Frida安装文件</h3><p>即检测frida-server</p>
+<h3 id="检测已加载的-Frida-动态库"><a href="#检测已加载的-Frida-动态库" class="headerlink" title="检测已加载的 Frida 动态库"></a><strong>检测已加载的 Frida 动态库</strong></h3><blockquote>
+<p>在 Linux 和 Android 系统中，<code>/proc/self/maps</code> 文件是一个重要的内存映射文件，它记录了当前进程的内存布局信息，包括加载的动态链接库（.so&#x2F;.dylib 文件）、匿名内存区域、堆栈区域等。</p>
+</blockquote>
+<p>Frida 在目标进程中运行时会加载一些特定的动态库（如 <code>libfrida-agent.so</code> 或 <code>libfrida-gadget.so</code>），这些库会出现在 <code>/proc/self/maps</code> 文件中。因此，通过扫描这个文件，可以有效检测 Frida 是否存在。(见：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/Frida-Core%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">Frida-Core源码浅析 - The Peak Tower</a>)。</p>
+<p>常见的 Frida 库名称：</p>
+<ul>
+<li><code>libfrida-gadget.so</code></li>
+<li><code>frida-agent.so</code></li>
+<li><code>libfrida-core.so</code></li>
+</ul>
+<p>因此通过扫描 maps 文件是否存在“frida”字样可以判断进程是否被 frida 附加。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>Frida 在运行时会动态加载一些特定的库，可以通过检查进程的已加载库列表来检测这些库是否存在。</p>
+<ul>
+<li><p>常见的 Frida 库名称：</p>
+<ul>
+<li><code>libfrida-gadget.so</code></li>
+<li><code>frida-agent.so</code></li>
+<li><code>libfrida-core.so</code></li>
+</ul>
+</li>
+<li><p>so列表检测</p>
+<ul>
+<li>maps文件内容遍历检测</li>
+<li>通过linker获取so list遍历检测</li>
+</ul>
+</li>
+<li><p>可执行段字符检测：遍历maps文件中带有可执行属性的segment，检测是否包含libfrida&#x2F;frida:rpc等字符特征</p>
+</li>
+</ul>
+<h3 id="基于-dlopen-或-dlsym-检测-Frida-库"><a href="#基于-dlopen-或-dlsym-检测-Frida-库" class="headerlink" title="基于 dlopen 或 dlsym 检测 Frida 库"></a><strong>基于 <code>dlopen</code> 或 <code>dlsym</code> 检测 Frida 库</strong></h3><p><code>命名通道检测</code>：遍历proc&#x2F;self&#x2F;fd，反查fd判断是否包含linjector字符特征</p>
+<ul>
+<li><p>linjector：一种用于 Android 设备的开源工具，它允许用户在运行时向 Android 应用程序注入动态链接库（DLL）文件。通过注入 DLL 文件，用户可以修改应用程序的行为、调试应用程序、监视函数调用等，这在逆向工程、安全研究和动态分析中是非常有用的。</p>
+</li>
+<li><p><code>目录检测</code>：针对&#x2F;data&#x2F;local&#x2F;tmp下面的re.frida.server</p>
+</li>
+<li><pre><code class="hljs">代码漏洞
+</code></pre>
+<ul>
+<li>elf头字节魔改：frida gum_try_parse_linker_proc_maps_line函数中在获取linker时会判断elf头字节是否匹配，可以选择修改elf头字节</li>
+<li>libc属性修改：使用目标libc的mmap将自身的相关so注册到目标maps表中;再执行目标libc的dlopen和dlsym函数将自身so中的函数进行执行，做法是主动mmap只读的libc从而让frida启动崩溃</li>
+</ul>
+</li>
+</ul>
+<h1 id="Hook特征检测"><a href="#Hook特征检测" class="headerlink" title="Hook特征检测"></a>Hook特征检测</h1><h2 id="inlineHook"><a href="#inlineHook" class="headerlink" title="inlineHook"></a>inlineHook</h2><h2 id="检查内存特征"><a href="#检查内存特征" class="headerlink" title="检查内存特征"></a>检查内存特征</h2><h2 id="检测系统调用行为"><a href="#检测系统调用行为" class="headerlink" title="检测系统调用行为"></a><strong>检测系统调用行为</strong></h2><h2 id="检测代码注入行为"><a href="#检测代码注入行为" class="headerlink" title="检测代码注入行为"></a><strong>检测代码注入行为</strong></h2><h1 id="其他补充"><a href="#其他补充" class="headerlink" title="其他补充"></a>其他补充</h1><h2 id="自定义-Syscall-防-Hook"><a href="#自定义-Syscall-防-Hook" class="headerlink" title="自定义 Syscall 防 Hook"></a><strong>自定义 Syscall 防 Hook</strong></h2><h2 id="双进程守护"><a href="#双进程守护" class="headerlink" title="双进程守护"></a><strong>双进程守护</strong></h2><ol>
+<li>frida在attach进程注入动态链接库时会显式地校验ELF_magic字段，如果不对则直接报错退出，可以手动在内存中抹掉SO的magic字段，达到反调试的效果。</li>
+</ol>
+<hr>
 <p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/423197110">从inlinehook角度检测frida - 知乎</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.ziyibbs.com/index.php/archives/45/">frida常用检测点及其原理–一把梭方案 - 紫血小站</a></p>
@@ -273,6 +320,8 @@
 <p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-285932.htm">分享]某邦企业壳frida检测绕过-Android安全-看雪-安全社区|安全招聘|kanxue.com</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1938862-1-1.html">《安卓逆向这档事》十九、表哥，你也不想你的Frida被检测吧!(下) - 吾爱破解 - 52pojie.cn</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1783400-1-1.html">frida 检测 - 吾爱破解 - 52pojie.cn</a></p>
+<p><a target="_blank" rel="noopener" href="https://tcc0lin.github.io/posts/frida%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E6%B1%87%E6%80%BB/">Frida特征检测汇总 - 佛光普照</a></p>
+<p><a target="_blank" rel="noopener" href="https://6uolong.github.io/posts/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91/frida%E6%A3%80%E6%B5%8B/">Frida检测 - huolong blog</a></p>
 
                 
               </div>

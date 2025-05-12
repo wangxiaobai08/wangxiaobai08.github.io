@@ -31,8 +31,10 @@
 <meta property="og:image" content="https://s2.loli.net/2025/05/11/YSBsU3waPfAQqpj.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/11/Zy43VQDx2TJlFsY.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/11/DgzFh4EQPwCeRda.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/12/ebxP9I6kDOhzqiJ.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/12/HteIoLvjlpa6C1z.png">
 <meta property="article:published_time" content="2025-05-11T01:44:03.416Z">
-<meta property="article:modified_time" content="2025-05-11T02:47:27.406Z">
+<meta property="article:modified_time" content="2025-05-12T01:34:25.774Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/05/11/4GcxVBYy3EniblU.png">
@@ -196,7 +198,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.9k 字
         
       </span>
     
@@ -207,7 +209,7 @@
         
         
         
-          29 分钟
+          33 分钟
         
       </span>
     
@@ -1240,6 +1242,47 @@
 </tbody></table>
 <h3 id="comm"><a href="#comm" class="headerlink" title="comm"></a>comm</h3><p><img src="https://s2.loli.net/2025/05/11/DgzFh4EQPwCeRda.png" srcset="/img/loading.gif" lazyload></p>
 <p>进程的命名</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="proc-self-task"><a href="#proc-self-task" class="headerlink" title="&#x2F;proc&#x2F;self&#x2F;task"></a>&#x2F;proc&#x2F;self&#x2F;task</h3><p><img src="https://s2.loli.net/2025/05/12/ebxP9I6kDOhzqiJ.png" srcset="/img/loading.gif" lazyload></p>
+<p>进入task目录：</p>
+<p><img src="https://s2.loli.net/2025/05/12/HteIoLvjlpa6C1z.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="proc-self-task-的结构"><a href="#proc-self-task-的结构" class="headerlink" title="/proc/self/task 的结构"></a><strong><code>/proc/self/task</code> 的结构</strong></h4><p><strong>每个线程对应一个子目录</strong>：<br>进程的每个线程（包括主线程）会在 <code>/proc/self/task</code> 下生成一个以 ​<strong>​线程 ID（TID）​</strong>​ 命名的子目录。</p>
+<ul>
+<li>例如：<code>/proc/self/task/1234</code> 表示线程 ID 为 1234 的线程。</li>
+</ul>
+<p><strong>子目录内容示例</strong>：<br>每个线程目录中包含该线程的运行时信息文件（与 <code>/proc/[PID]/</code> 下的文件类似），例如：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs txt">/proc/self/task/[TID]/status   # 线程状态（名称、优先级、内存占用等）<br>/proc/self/task/[TID]/stat     # 统计信息（CPU 时间、调度状态等）<br>/proc/self/task/[TID]/io       # I/O 统计（读写字节数）<br>/proc/self/task/[TID]/cwd      # 当前工作目录的符号链接<br>/proc/self/task/[TID]/exe      # 可执行文件的符号链接<br></code></pre></td></tr></table></figure>
+
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>在 Linux 的 <strong><code>/proc</code> 文件系统</strong>中，<code>/proc/self/task</code> 和 <code>/proc/[PID]/task/</code> 的核心功能是类似的（均用于查看线程信息），但它们的 <strong>指向对象</strong> 和 <strong>使用场景</strong> 有所不同。</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>路径</strong></th>
+<th align="center"><strong>动态性</strong></th>
+<th align="center"><strong>目标进程</strong></th>
+<th align="center"><strong>权限要求</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>/proc/self/task</code></td>
+<td align="center"><strong>自动指向当前进程</strong></td>
+<td align="center">当前进程（自身）</td>
+<td align="center">无需额外权限（属于自己）</td>
+</tr>
+<tr>
+<td align="center"><code>/proc/[PID]/task/</code></td>
+<td align="center"><strong>固定指向指定 PID 的进程</strong></td>
+<td align="center">其他进程（指定PID）</td>
+<td align="center">需目标进程的访问权限</td>
+</tr>
+</tbody></table>
+<p>其中<code>/proc/self</code> 是一个符号链接，始终指向 <strong>当前访问该路径的进程</strong>。例如：</p>
+<ul>
+<li>进程 A 访问 <code>/proc/self/task</code> → 显示进程 A 的线程信息。</li>
+<li>进程 B 访问 <code>/proc/self/task</code> → 显示进程 B 的线程信息。</li>
+</ul>
+<p>在程序内部查看自身的线程信息（无需硬编码 PID）。<br>在调试多线程程序时，直接在代码中读取 <code>/proc/self/task</code> 以分析线程状态。</p>
+<p>而**<code>/proc/[PID]/task/</code><strong>通过替换 <code>[PID]</code> 为具体进程 ID，查看 <strong>指定进程</strong> 的线程信息。</strong>用途**是监控或调试其他进程的线程（例如系统工具 <code>top</code>, <code>htop</code>, <code>ps</code> 等）。</p>
+<p>- </p>
 
                 
               </div>
