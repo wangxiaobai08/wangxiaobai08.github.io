@@ -24,7 +24,7 @@
 <meta property="og:description" content="发建议先阅读：详解linux系统下proc文件夹目录 - The Peak Tower  注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信：如果 Fr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-09T07:31:42.524Z">
-<meta property="article:modified_time" content="2025-05-12T02:49:53.716Z">
+<meta property="article:modified_time" content="2025-05-13T01:57:31.755Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -68,7 +68,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"7a4M5yfyGptX0OG18qvJppXQ-gzGzoHsz","app_key":"y6dZFtA8I8Lg1KVhHbujblfB","server_url":"https://7a4m5yfy.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -78,6 +78,35 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -187,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.6k 字
         
       </span>
     
@@ -198,12 +227,20 @@
         
         
         
-          12 分钟
+          14 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -272,25 +309,25 @@
 <li><code>libfrida-core.so</code></li>
 </ul>
 <p>因此通过扫描 maps 文件是否存在“frida”字样可以判断进程是否被 frida 附加。</p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>Frida 在运行时会动态加载一些特定的库，可以通过检查进程的已加载库列表来检测这些库是否存在。</p>
 <ul>
-<li><p>常见的 Frida 库名称：</p>
-<ul>
-<li><code>libfrida-gadget.so</code></li>
-<li><code>frida-agent.so</code></li>
-<li><code>libfrida-core.so</code></li>
-</ul>
-</li>
-<li><p>so列表检测</p>
-<ul>
+<li>so列表检测<ul>
 <li>maps文件内容遍历检测</li>
 <li>通过linker获取so list遍历检测</li>
 </ul>
 </li>
-<li><p>可执行段字符检测：遍历maps文件中带有可执行属性的segment，检测是否包含libfrida&#x2F;frida:rpc等字符特征</p>
-</li>
+<li>可执行段字符检测：遍历maps文件中带有可执行属性的segment，检测是否包含libfrida&#x2F;frida:rpc等字符特征</li>
 </ul>
-<h3 id="基于-dlopen-或-dlsym-检测-Frida-库"><a href="#基于-dlopen-或-dlsym-检测-Frida-库" class="headerlink" title="基于 dlopen 或 dlsym 检测 Frida 库"></a><strong>基于 <code>dlopen</code> 或 <code>dlsym</code> 检测 Frida 库</strong></h3><p><code>命名通道检测</code>：遍历proc&#x2F;self&#x2F;fd，反查fd判断是否包含linjector字符特征</p>
+<h3 id="动态库运行时检测"><a href="#动态库运行时检测" class="headerlink" title="动态库运行时检测"></a>动态库运行时检测</h3><p>通过 <strong><code>dlopen</code>&#x2F;<code>dlsym</code> 动态链接器 API</strong> 实现的 <strong>Frida 动态库特征检测</strong>。</p>
+<ol>
+<li><p>动态库检测：</p>
+<p>当 Frida 注入目标进程时，会加载其核心动态库（如 <code>libfrida-agent.so</code> 或 <code>libfrida-gadget.so</code>）。使用 <code>dlopen</code> 可以尝试加载这些动态库，如果它们已经被加载，则不会重复加载，并且会返回一个有效的句柄，即说明库已存在（被注入）。</p>
+</li>
+<li><p>符号解析检测：</p>
+<p>Frida 的动态库中包含一些特定的符号（如 <code>frida_agent_main</code>、<code>gum_interceptor_attach</code> 等）。直接扫描全局符号表（RTLD_DEFAULT），使用 <code>dlsym</code> 可以检查这些符号是否存在，如果存在，则说明 Frida 的库已经被注入。</p>
+</li>
+</ol>
+<hr>
+<p><code>命名通道检测</code>：遍历proc&#x2F;self&#x2F;fd，反查fd判断是否包含linjector字符特征</p>
 <ul>
 <li><p>linjector：一种用于 Android 设备的开源工具，它允许用户在运行时向 Android 应用程序注入动态链接库（DLL）文件。通过注入 DLL 文件，用户可以修改应用程序的行为、调试应用程序、监视函数调用等，这在逆向工程、安全研究和动态分析中是非常有用的。</p>
 </li>
@@ -304,7 +341,15 @@
 </ul>
 </li>
 </ul>
-<h1 id="Hook特征检测"><a href="#Hook特征检测" class="headerlink" title="Hook特征检测"></a>Hook特征检测</h1><h2 id="inlineHook"><a href="#inlineHook" class="headerlink" title="inlineHook"></a>inlineHook</h2><h2 id="检查内存特征"><a href="#检查内存特征" class="headerlink" title="检查内存特征"></a>检查内存特征</h2><h2 id="检测系统调用行为"><a href="#检测系统调用行为" class="headerlink" title="检测系统调用行为"></a><strong>检测系统调用行为</strong></h2><h2 id="检测代码注入行为"><a href="#检测代码注入行为" class="headerlink" title="检测代码注入行为"></a><strong>检测代码注入行为</strong></h2><h1 id="其他补充"><a href="#其他补充" class="headerlink" title="其他补充"></a>其他补充</h1><h2 id="自定义-Syscall-防-Hook"><a href="#自定义-Syscall-防-Hook" class="headerlink" title="自定义 Syscall 防 Hook"></a><strong>自定义 Syscall 防 Hook</strong></h2><h2 id="双进程守护"><a href="#双进程守护" class="headerlink" title="双进程守护"></a><strong>双进程守护</strong></h2><ol>
+<h2 id="行为特征检测"><a href="#行为特征检测" class="headerlink" title="行为特征检测"></a>行为特征检测</h2><h3 id="检测系统调用行为"><a href="#检测系统调用行为" class="headerlink" title="检测系统调用行为"></a><strong>检测系统调用行为</strong></h3><p>Frida 会劫持系统调用，可以通过监控系统调用行为的异常来检测 Frida。例如：</p>
+<ul>
+<li>检测常见函数（如 <code>ptrace</code>, <code>mprotect</code>, <code>malloc</code> 等）的调用频率和调用栈。</li>
+</ul>
+<h3 id="检测代码注入行为"><a href="#检测代码注入行为" class="headerlink" title="检测代码注入行为"></a><strong>检测代码注入行为</strong></h3><p>Frida 的动态注入可能会修改应用进程的代码段，可以通过检测代码段的完整性来判断是否被修改。例如：</p>
+<ul>
+<li>验证代码段的哈希值是否与预期一致。</li>
+</ul>
+<h1 id="Hook特征检测"><a href="#Hook特征检测" class="headerlink" title="Hook特征检测"></a>Hook特征检测</h1><h2 id="inlineHook"><a href="#inlineHook" class="headerlink" title="inlineHook"></a>inlineHook</h2><h2 id="检查内存特征"><a href="#检查内存特征" class="headerlink" title="检查内存特征"></a>检查内存特征</h2><h1 id="自我保护"><a href="#自我保护" class="headerlink" title="自我保护"></a>自我保护</h1><h2 id="自定义-Syscall-防-Hook"><a href="#自定义-Syscall-防-Hook" class="headerlink" title="自定义 Syscall 防 Hook"></a><strong>自定义 Syscall 防 Hook</strong></h2><h2 id="双进程守护"><a href="#双进程守护" class="headerlink" title="双进程守护"></a><strong>双进程守护</strong></h2><ol>
 <li>frida在attach进程注入动态链接库时会显式地校验ELF_magic字段，如果不对则直接报错退出，可以手动在内存中抹掉SO的magic字段，达到反调试的效果。</li>
 </ol>
 <hr>
@@ -551,6 +596,31 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
   
   
 </div>
@@ -694,6 +764,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

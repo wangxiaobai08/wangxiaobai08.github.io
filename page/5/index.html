@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"7a4M5yfyGptX0OG18qvJppXQ-gzGzoHsz","app_key":"y6dZFtA8I8Lg1KVhHbujblfB","server_url":"https://7a4m5yfy.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -70,6 +70,35 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -195,6 +224,87 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida_unpack%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" target="_self">
+          Frida_unpack脚本解析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/Frida_unpack%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" target="_self">
+        <div>
+          123456789101112131415161718192021222324252627282930/** * 此脚本在以下环境测试通过 * android os: 7.1.2 32bit  (64位可能要改OpenMemory的签名) * legu: libshella-2.8.so * 360:libjiagu.so */Interceptor.attach(Module.findExpor
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E8%84%B1%E5%A3%B3%E8%84%9A%E6%9C%AC%E8%A7%A3%E6%9E%90/" class="category-chain-item">脱壳脚本解析</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%86%E5%90%91-android/">#逆向(android)</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -445,13 +555,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
-          前置知识
+        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
+          反射机制/双亲委派模型
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" target="_self">
         <div>
           Java的反射机制 Java反射机制是指在程序运行时动态加载类并获取类的详细信息，从而可以操作类或对象的属性和方法。反射机制的核心是通过 Class 对象来实现的。当Java虚拟机（JVM）获得类的 Class 对象后，可以通过这个对象获取类的构造函数、方法、字段等信息，并且可以在运行时创建对象、调用方法或访问属性。这使得Java程序在运行时具有更高的灵活性和动态性。  可以把class文件想象成
         </div>
@@ -897,80 +1007,6 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/Frida%E6%A3%80%E6%B5%8B/" target="_self">
-          Frida检测技术浅析
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/Frida%E6%A3%80%E6%B5%8B/" target="_self">
-        <div>
-          发建议先阅读：详解linux系统下proc文件夹目录 - The Peak Tower  注入特征检测基于网络检测检测Frida的监听端口Frida 在运行时通常会开启特定的监听端口（默认 27042 和 27043）。可以通过扫描本地端口来检测是否存在这些端口。 检测D-Bus 协议通信frida 使用 D-Bus 协议通信，这个通信协议并不常见  Frida Server 的通信：如果 Fr
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/" class="category-chain-item">Hook技术</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/" class="category-chain-item">Frida</a>
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
@@ -1029,6 +1065,31 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
   
   
 </div>
@@ -1079,6 +1140,8 @@
 
 
 
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -16,21 +16,21 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="LingXiao�ĸ��˲���">
+    <meta name="description" content="前情回顾SocketTCP123456789101112131415161718192021创建套接字：Socket socket &#x3D; new Socket(&quot;www.baidu.com&quot;, 80); ---this(InetAddress.getAllByName(host), port, (SocketAddress) null, true);---setImpl()---">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android抓包">
-<meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%8A%93%E5%8C%85%E5%85%A8%E8%A7%A3/Android%E6%8A%93%E5%8C%85/index.html">
+<meta property="og:title" content="Android通信源码解析">
+<meta property="og:url" content="http://example.com/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E6%8A%93%E5%8C%85%E5%85%A8%E8%A7%A3/Android%E9%80%9A%E4%BF%A1%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="LingXiao�ĸ��˲���">
+<meta property="og:description" content="前情回顾SocketTCP123456789101112131415161718192021创建套接字：Socket socket &#x3D; new Socket(&quot;www.baidu.com&quot;, 80); ---this(InetAddress.getAllByName(host), port, (SocketAddress) null, true);---setImpl()---">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-09T07:31:42.559Z">
-<meta property="article:modified_time" content="2025-05-12T03:50:19.046Z">
+<meta property="article:modified_time" content="2025-05-16T09:56:24.976Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Android抓包 - The Peak Tower</title>
+  <title>Android通信源码解析 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -68,7 +68,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"7a4M5yfyGptX0OG18qvJppXQ-gzGzoHsz","app_key":"y6dZFtA8I8Lg1KVhHbujblfB","server_url":"https://7a4m5yfy.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -78,6 +78,35 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -172,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Android抓包"></span>
+            <span id="subtitle" data-typed-text="Android通信源码解析"></span>
           
         </div>
 
@@ -187,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          350 字
         
       </span>
     
@@ -198,12 +227,20 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -235,12 +272,32 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Android抓包</h1>
+            <h1 id="seo-header">Android通信源码解析</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <h1 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h1><h1 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h1><h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs text">创建套接字：<br>Socket socket = new Socket(&quot;www.baidu.com&quot;, 80); <br>---this(InetAddress.getAllByName(host), port, (SocketAddress) null, true);<br>---setImpl()<br>---impl = new SocksSocketImpl();<br>---java.net.SocksSocketImpl<br>建立连接：<br>Socket socket = new Socket(&quot;www.baidu.com&quot;, 80); <br>---&gt;this(InetAddress.getAllByName(host), port, (SocketAddress) null, true);<br>---&gt;connect(address)<br>---&gt;connect(SocketAddress endpoint)<br>接受数据：<br>java.net.SocketInputStream.read(byte[])<br>---read(b, 0, b.length)-&gt;<br>---read(b, off, length, impl.getTimeout())<br>---socketRead(fd, b, off, length, timeout)<br>---socketRead0(fd, b, off, length, timeout)(jni函数)<br>发送数据：<br>java.net.SocketOutputStream.write(byte[])<br>---socketWrite(b, 0, b.length)<br>---socketWrite0(fd, b, off, len)(jni函数)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs stylus">发送数据：<br>java<span class="hljs-selector-class">.net</span><span class="hljs-selector-class">.DatagramSocket</span><span class="hljs-selector-class">.send</span><br>-<span class="hljs-attr">--PlainDatagramSocketImpl</span><span class="hljs-selector-class">.send</span><br>-<span class="hljs-attr">--IoBridge</span><span class="hljs-selector-class">.sendto</span>(fd, <span class="hljs-selector-tag">p</span><span class="hljs-selector-class">.getData</span>(), <span class="hljs-selector-tag">p</span><span class="hljs-selector-class">.getOffset</span>(),<br>-<span class="hljs-attr">--p</span><span class="hljs-selector-class">.getLength</span>(), <span class="hljs-number">0</span>, <span class="hljs-selector-tag">address</span>, port)<br>-<span class="hljs-attr">--Libcore</span><span class="hljs-selector-class">.os</span><span class="hljs-selector-class">.sendto</span>(fd, bytes, byteOffset, byteCount, -flags, inetAddress, port)<br><span class="hljs-built_in">---sendtoBytes</span>(FileDescriptor fd, Object buffer, int byteOffset, int byteCount, int flags, InetAddress inetAddress, int port)(jni函数)<br>或<br><span class="hljs-built_in">----sendtoBytes</span>(FileDescriptor fd, Object buffer, int byteOffset, int byteCount, int flags, SocketAddress address)(jni函数)<br><br>接收数据：<br>java<span class="hljs-selector-class">.net</span><span class="hljs-selector-class">.DatagramSocket</span><span class="hljs-selector-class">.receive</span><br>-<span class="hljs-attr">--AbstractPlainDatagramSocketImpl</span><span class="hljs-selector-class">.reveive</span><br>-<span class="hljs-attr">--PlainDatagramSocketImpl</span><span class="hljs-selector-class">.reveive0</span><br>-<span class="hljs-attr">--doRecv</span><br>-<span class="hljs-attr">--IoBridge</span><span class="hljs-selector-class">.recvfrom</span><br>-<span class="hljs-attr">--BlockGuardOs</span><span class="hljs-selector-class">.recvfrom</span><br>-<span class="hljs-attr">--Linux</span><span class="hljs-selector-class">.recvfrom</span><br><span class="hljs-built_in">---recvfromBytes</span>(FileDescriptor fd, Object buffer, int byteOffset, int byteCount, int flags, InetSocketAddress srcAddress)(jni函数)<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="OkHttp框架"><a href="#OkHttp框架" class="headerlink" title="OkHttp框架"></a>OkHttp框架</h1><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs txt">---sslSocket<br>---com.android.org.conscrypt.OpenSSLSocketImplWrapper<br><br>发送数据：com.android.rog.conscrypt.OpenSSLSocketImpl$SSLSocketOutputStream<br><br>---public void write(int oneByte)<br>或<br>---public void write(byte[] buf, int offset, int byteCount)<br>NativeCrypto.SSL_write(sslNativePointer, Platform.getFileDescriptor(socket), OpenSSLSocketImpl.this, buf, offset, byteCount, writeTimeoutMilliseconds)(jni函数)<br><br>---com.android.org.conscrypt.NativeCrypto<br><br>接收数据：com.android.rog.conscrypt.OpenSSLSocketImpl$SSLSocketInputStream<br><br>---public int read()<br>或<br>---public int read(byte[] buf, int offset, int byteCount)<br><br>NativeCrypto.SSL_read(sslNativePointer, Platform.getFileDescriptor(socket), OpenSSLSocektImpl.this, buf, offset, byteCount, getSoTimeout())(jni函数)<br>---com.android.org.conscrypt.NativeCrypto<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://v5le0n9.github.io/posts/bdcbf47.html">网络通信协议分析 | v5le0n9’s garden</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaoeeyu.github.io/2024/06/01/Java%E5%B1%82socket%E6%8A%93%E5%8C%85%E4%B8%8E%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8A%EF%BC%89/">Java层socket抓包与源码分析（上） | xiaoeryu</a></p>
+<p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-267940.htm">原创]android抓包学习的整理和归纳-Android安全-看雪-安全社区|安全招聘|kanxue.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ovo-fisherman/p/18525290">抓包检测的分析和绕过 - fisherman-ovo - 博客园</a></p>
+
                 
               </div>
             
@@ -299,8 +356,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Android抓包</div>
-      <div>http://example.com/2025/05/09/逆向与风控/Android平台/逆向/抓包全解/Android抓包/</div>
+      <div>Android通信源码解析</div>
+      <div>http://example.com/2025/05/09/逆向与风控/Android平台/逆向/抓包全解/Android通信源码解析/</div>
     </div>
     <div class="license-meta">
       
@@ -462,6 +519,31 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
   
   
 </div>
@@ -605,6 +687,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
