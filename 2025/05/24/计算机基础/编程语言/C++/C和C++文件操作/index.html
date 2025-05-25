@@ -1,0 +1,1081 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ling">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="文件到底是什么？在计算机科学中，文件是存储在持久化介质（如硬盘、SSD、U盘等）上的逻辑数据单元，是操作系统管理数据的基本载体。文件通过名称-内容的二元结构组织信息，为用户和程序提供了一种抽象的数据存取方式，屏蔽了底层物理介质的复杂性。  可以详见参考之前的：外存管理 - The Peak Tower  文件的本质与作用文件是操作系统对存储设备的抽象映射，它将物理介质的二进制序列转化为可管理的逻辑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++文件操作">
+<meta property="og:url" content="http://example.com/2025/05/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C++/C%E5%92%8CC++%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="The Peak Tower">
+<meta property="og:description" content="文件到底是什么？在计算机科学中，文件是存储在持久化介质（如硬盘、SSD、U盘等）上的逻辑数据单元，是操作系统管理数据的基本载体。文件通过名称-内容的二元结构组织信息，为用户和程序提供了一种抽象的数据存取方式，屏蔽了底层物理介质的复杂性。  可以详见参考之前的：外存管理 - The Peak Tower  文件的本质与作用文件是操作系统对存储设备的抽象映射，它将物理介质的二进制序列转化为可管理的逻辑">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/05/24/DLgVAJ2qRQ5arNX.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/24/CXasjvKcdJzO13S.png">
+<meta property="article:published_time" content="2025-05-24T03:42:18.140Z">
+<meta property="article:modified_time" content="2025-05-24T06:55:18.358Z">
+<meta property="article:author" content="Ling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2025/05/24/DLgVAJ2qRQ5arNX.png">
+  
+  
+  
+  <title>C/C++文件操作 - The Peak Tower</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"7a4M5yfyGptX0OG18qvJppXQ-gzGzoHsz","app_key":"y6dZFtA8I8Lg1KVhHbujblfB","server_url":"https://7a4m5yfy.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C/C++文件操作"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C/C++文件操作</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="文件到底是什么？"><a href="#文件到底是什么？" class="headerlink" title="文件到底是什么？"></a>文件到底是什么？</h1><p>在计算机科学中，<strong>文件</strong>是存储在持久化介质（如硬盘、SSD、U盘等）上的逻辑数据单元，是操作系统管理数据的基本载体。文件通过<strong>名称-内容</strong>的二元结构组织信息，为用户和程序提供了一种抽象的数据存取方式，屏蔽了底层物理介质的复杂性。</p>
+<blockquote>
+<p>可以详见参考之前的：<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%A4%96%E5%AD%98%E7%AE%A1%E7%90%86/">外存管理 - The Peak Tower</a></p>
+</blockquote>
+<h2 id="文件的本质与作用"><a href="#文件的本质与作用" class="headerlink" title="文件的本质与作用"></a><strong>文件的本质与作用</strong></h2><p>文件是操作系统对存储设备的<strong>抽象映射</strong>，它将物理介质的二进制序列转化为可管理的逻辑单元。其核心价值在于：</p>
+<ul>
+<li><strong>持久化保存</strong>：断电后数据不丢失，区别于内存的临时性存储。</li>
+<li><strong>结构化访问</strong>：通过文件系统（如NTFS、EXT4）实现按名称寻址、权限控制、读写操作等标准化管理。</li>
+<li><strong>资源共享</strong>：作为进程间通信的桥梁，允许多个程序读写同一数据源。</li>
+</ul>
+<h2 id="文件的组成要素"><a href="#文件的组成要素" class="headerlink" title="文件的组成要素"></a><strong>文件的组成要素</strong></h2><p>一个完整的文件由以下部分构成：</p>
+<p><strong>元数据（Metadata）</strong>  描述文件属性的系统数据，包括：</p>
+<ul>
+<li>名称与扩展名（如<code>report.pdf</code>）</li>
+<li>存储路径（如<code>/home/user/docs/</code>）</li>
+<li>大小、创建&#x2F;修改时间</li>
+<li>权限（读&#x2F;写&#x2F;执行）</li>
+<li>所有者与用户组（Unix-like系统）</li>
+</ul>
+<p><strong>数据内容</strong>  用户实际存储的信息，可以是：</p>
+<ul>
+<li><strong>文本</strong>：ASCII&#x2F;Unicode编码的字符序列（如<code>.txt</code>文件）</li>
+<li><strong>二进制</strong>：结构化字节流（如<code>.exe</code>可执行文件）</li>
+<li><strong>混合型</strong>：包含头部和数据区（如<code>.png</code>图像文件）</li>
+</ul>
+<h2 id="文件与内存的关系"><a href="#文件与内存的关系" class="headerlink" title="文件与内存的关系"></a><strong>文件与内存的关系</strong></h2><p>文件与内存的交互是计算的核心过程：</p>
+<ul>
+<li><strong>加载（Load）</strong>：程序运行时，操作系统将可执行文件内容映射到内存（如PE&#x2F;ELF加载）</li>
+<li><strong>映射（mmap）</strong>：通过内存映射技术直接关联文件与内存地址，避免复制开销</li>
+<li><strong>交换（Swap）</strong>：当物理内存不足时，将部分数据暂存到磁盘交换文件</li>
+</ul>
+<p>注意下面的关键点：</p>
+<p>文件 &#x3D; 内容 + 属性，对文件的操作就是对文件内容和文件属性的操作。当文件没有被操作的时候，文件一般都是在磁盘上存放。当我们对文件操作时，文件都会被提前加载到内存中，加载的内容至少得有属性。当文件被加载到内存中时，在Linux下并不一定只有你一个人在打开文件，内存中一定存在大量的不同文件的属性。</p>
+<p>因此，打开文件的本质就是将文件属性加载到内存中，OS中一定存在大量被打开的文件，操作系统对这些被打开的文件进行管理需要<code>先描述、再组织</code>，所以需要先构建在内存中的文件结构体(<strong><code>struct file</code></strong>)。</p>
+<p>文件可以被分为两部分：<code>磁盘文件</code>和<code>被打开的文件(内存文件)</code>。文件是被OS所打开的，是被用户所创建的进程让OS打开的。我们之前所有的文件操作，都是<strong>进程(<code>struct task_struct</code>)</strong> 和被 <strong>打开文件(<code>struct file</code>)</strong> 的关系。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">磁盘文件 → 内核页缓存 → 标准库缓冲区 → 用户程序内存<br></code></pre></td></tr></table></figure>
+
+<h2 id="文件描述符的理解"><a href="#文件描述符的理解" class="headerlink" title="文件描述符的理解"></a>文件描述符的理解</h2><p>进程可以打开多个文件，这也就意味着系统中一定会存在大量的被打开的文件，然而被打开的文件则需要被操作系统管理，我们知道，管理的本质就是先描述在组织，所以操作系统为了管理对应的打开文件，操作系统必定要为文件创建对应的内核数据结构来标识文件，这个内核数据结构就是struct file{}结构体（与C语言的FILE没有关系哦）；包含了文件的大部分属性。</p>
+<p><img src="https://s2.loli.net/2025/05/24/DLgVAJ2qRQ5arNX.png" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>在Windows PE格式的可执行文件（.exe）中，数据存储采用<strong>小端模式（Little-Endian）</strong>，而C程序在x86&#x2F;x64架构的CPU上运行时，默认也使用<strong>小端模式</strong>。C程序读取PE文件（如.exe）中的数据后，<strong>内存中的存储方式仍然是小端（Little-Endian）</strong>，且<strong>可以直接使用而无需转换</strong>。</p>
+<ul>
+<li><strong>无需手动转换</strong>：在小端 CPU（如 x86&#x2F;x64）上，所有内存地址和整数值的存储<strong>默认就是小端模式</strong>。</li>
+<li><strong>直接使用即可</strong>：无论是硬编码的地址、指针运算，还是从内存中读取的地址，CPU 会自动按小端处理。</li>
+</ul>
+</blockquote>
+<h1 id="C语言文件操作"><a href="#C语言文件操作" class="headerlink" title="C语言文件操作"></a>C语言文件操作</h1><p>使用<strong>函数库</strong>（<code>&lt;stdio.h&gt;</code>）和<strong>文件指针</strong>（<code>FILE*</code>），操作基于函数调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">FILE* fp = fopen(<span class="hljs-string">&quot;file.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br><span class="hljs-type">char</span> buffer[<span class="hljs-number">100</span>];<br><span class="hljs-built_in">fscanf</span>(fp, <span class="hljs-string">&quot;%s&quot;</span>, buffer);  <span class="hljs-comment">// 格式化读取</span><br>fclose(fp);                <span class="hljs-comment">// 手动关闭</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：显式资源管理，依赖格式字符串，需手动处理错误。</p>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>以下是 C 语言文件操作的完整示例集合，涵盖常见文件操作场景：</p>
+<h3 id="1-基本文件写入"><a href="#1-基本文件写入" class="headerlink" title="1. 基本文件写入"></a><strong>1. 基本文件写入</strong></h3><h4 id="文本写入"><a href="#文本写入" class="headerlink" title="文本写入"></a>文本写入</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    FILE *file = fopen(<span class="hljs-string">&quot;example.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>); <span class="hljs-comment">// 写入模式（覆盖）</span><br>    <span class="hljs-keyword">if</span> (file == <span class="hljs-literal">NULL</span>) &#123;<br>        perror(<span class="hljs-string">&quot;文件打开失败&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-built_in">fprintf</span>(file, <span class="hljs-string">&quot;Hello, World!\n&quot;</span>);<br>    <span class="hljs-built_in">fputs</span>(<span class="hljs-string">&quot;这是第二行\n&quot;</span>, file);<br>    fclose(file);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="追加写入"><a href="#追加写入" class="headerlink" title="追加写入"></a>追加写入</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">FILE *file = fopen(<span class="hljs-string">&quot;log.txt&quot;</span>, <span class="hljs-string">&quot;a&quot;</span>); <span class="hljs-comment">// 追加模式</span><br><span class="hljs-keyword">if</span> (file) &#123;<br>    <span class="hljs-built_in">fprintf</span>(file, <span class="hljs-string">&quot;[LOG] 新事件记录\n&quot;</span>);<br>    fclose(file);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-基本文件读取"><a href="#2-基本文件读取" class="headerlink" title="2. 基本文件读取"></a><strong>2. 基本文件读取</strong></h3><h4 id="逐字符读取"><a href="#逐字符读取" class="headerlink" title="逐字符读取"></a>逐字符读取</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    FILE *file = fopen(<span class="hljs-string">&quot;example.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!file) &#123;<br>        perror(<span class="hljs-string">&quot;错误&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-type">int</span> c;<br>    <span class="hljs-keyword">while</span> ((c = fgetc(file)) != EOF) &#123; <span class="hljs-comment">// 读取到文件末尾</span><br>        <span class="hljs-built_in">putchar</span>(c);<br>    &#125;<br>    fclose(file);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="逐行读取"><a href="#逐行读取" class="headerlink" title="逐行读取"></a>逐行读取</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> buffer[<span class="hljs-number">256</span>];<br><span class="hljs-keyword">while</span> (fgets(buffer, <span class="hljs-keyword">sizeof</span>(buffer), file) != <span class="hljs-literal">NULL</span>) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, buffer); <span class="hljs-comment">// 保留换行符</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-二进制文件操作"><a href="#3-二进制文件操作" class="headerlink" title="3. 二进制文件操作"></a><strong>3. 二进制文件操作</strong></h3><h4 id="二进制写入"><a href="#二进制写入" class="headerlink" title="二进制写入"></a>二进制写入</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Data</span> &#123;</span><br>    <span class="hljs-type">int</span> id;<br>    <span class="hljs-type">double</span> value;<br>&#125; data = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">3.1415</span>&#125;;<br><br>FILE *binFile = fopen(<span class="hljs-string">&quot;data.bin&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>);<br><span class="hljs-keyword">if</span> (binFile) &#123;<br>    fwrite(&amp;data, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> Data), <span class="hljs-number">1</span>, binFile);<br>    fclose(binFile);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="二进制读取"><a href="#二进制读取" class="headerlink" title="二进制读取"></a>二进制读取</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Data</span> <span class="hljs-title">readData</span>;</span><br>FILE *binFile = fopen(<span class="hljs-string">&quot;data.bin&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);<br><span class="hljs-keyword">if</span> (binFile) &#123;<br>    fread(&amp;readData, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> Data), <span class="hljs-number">1</span>, binFile);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;ID: %d, Value: %f\n&quot;</span>, readData.id, readData.value);<br>    fclose(binFile);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-文件定位与随机访问"><a href="#4-文件定位与随机访问" class="headerlink" title="4. 文件定位与随机访问"></a><strong>4. 文件定位与随机访问</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">FILE *file = fopen(<span class="hljs-string">&quot;data.bin&quot;</span>, <span class="hljs-string">&quot;rb+&quot;</span>); <span class="hljs-comment">// 读写模式</span><br><span class="hljs-keyword">if</span> (file) &#123;<br>    fseek(file, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> Data), SEEK_SET); <span class="hljs-comment">// 定位到第二条记录</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Data</span> <span class="hljs-title">newData</span> =</span> &#123;<span class="hljs-number">2</span>, <span class="hljs-number">2.718</span>&#125;;<br>    fwrite(&amp;newData, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> Data), <span class="hljs-number">1</span>, file);<br>    <br>    rewind(file); <span class="hljs-comment">// 回到文件开头</span><br>    <span class="hljs-comment">// ... 读取操作 ...</span><br>    fclose(file);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-文件状态检测"><a href="#5-文件状态检测" class="headerlink" title="5. 文件状态检测"></a><strong>5. 文件状态检测</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (feof(file)) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;已到达文件末尾\n&quot;</span>);<br>&#125;<br><span class="hljs-keyword">if</span> (ferror(file)) &#123;<br>    perror(<span class="hljs-string">&quot;文件操作错误&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6-高级文件操作"><a href="#6-高级文件操作" class="headerlink" title="6. 高级文件操作"></a><strong>6. 高级文件操作</strong></h3><h4 id="文件复制"><a href="#文件复制" class="headerlink" title="文件复制"></a>文件复制</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">copyFile</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *src, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *dest)</span> &#123;<br>    FILE *srcFile = fopen(src, <span class="hljs-string">&quot;rb&quot;</span>);<br>    FILE *destFile = fopen(dest, <span class="hljs-string">&quot;wb&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!srcFile || !destFile) &#123;<br>        perror(<span class="hljs-string">&quot;文件打开失败&quot;</span>);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-type">char</span> buffer[<span class="hljs-number">4096</span>];<br>    <span class="hljs-type">size_t</span> bytes;<br>    <span class="hljs-keyword">while</span> ((bytes = fread(buffer, <span class="hljs-number">1</span>, <span class="hljs-keyword">sizeof</span>(buffer), srcFile)) &gt; <span class="hljs-number">0</span>) &#123;<br>        fwrite(buffer, <span class="hljs-number">1</span>, bytes, destFile);<br>    &#125;<br><br>    fclose(srcFile);<br>    fclose(destFile);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取文件大小"><a href="#获取文件大小" class="headerlink" title="获取文件大小"></a>获取文件大小</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">fseek(file, <span class="hljs-number">0</span>, SEEK_END);<br><span class="hljs-type">long</span> fileSize = ftell(file);<br>rewind(file);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;文件大小: %ld 字节\n&quot;</span>, fileSize);<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="7-临时文件操作"><a href="#7-临时文件操作" class="headerlink" title="7. 临时文件操作"></a><strong>7. 临时文件操作</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">FILE *tempFile = tmpfile(); <span class="hljs-comment">// 创建临时文件</span><br><span class="hljs-keyword">if</span> (tempFile) &#123;<br>    <span class="hljs-built_in">fputs</span>(<span class="hljs-string">&quot;临时文件内容&quot;</span>, tempFile);<br>    rewind(tempFile);<br>    <span class="hljs-comment">// ... 使用临时文件 ...</span><br>    <span class="hljs-comment">// 程序退出自动删除</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="8-格式化输入输出"><a href="#8-格式化输入输出" class="headerlink" title="8. 格式化输入输出"></a><strong>8. 格式化输入输出</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 格式化读取</span><br><span class="hljs-type">int</span> id;<br><span class="hljs-type">char</span> name[<span class="hljs-number">50</span>];<br><span class="hljs-built_in">fscanf</span>(file, <span class="hljs-string">&quot;ID: %d, Name: %49s&quot;</span>, &amp;id, name);<br><br><span class="hljs-comment">// 格式化写入</span><br><span class="hljs-built_in">fprintf</span>(file, <span class="hljs-string">&quot;ID: %05d, Score: %.2f\n&quot;</span>, <span class="hljs-number">123</span>, <span class="hljs-number">95.5</span>);<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="文件操作模式总结"><a href="#文件操作模式总结" class="headerlink" title="文件操作模式总结"></a><strong>文件操作模式总结</strong></h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;r&quot;</code></td>
+<td>只读（文件必须存在）</td>
+</tr>
+<tr>
+<td><code>&quot;w&quot;</code></td>
+<td>写入（覆盖创建）</td>
+</tr>
+<tr>
+<td><code>&quot;a&quot;</code></td>
+<td>追加写入</td>
+</tr>
+<tr>
+<td><code>&quot;r+&quot;</code></td>
+<td>读写（文件必须存在）</td>
+</tr>
+<tr>
+<td><code>&quot;w+&quot;</code></td>
+<td>读写（覆盖创建）</td>
+</tr>
+<tr>
+<td><code>&quot;a+&quot;</code></td>
+<td>读写（追加模式）</td>
+</tr>
+<tr>
+<td><code>&quot;rb&quot;</code>, <code>&quot;wb&quot;</code></td>
+<td>二进制模式</td>
+</tr>
+</tbody></table>
+<h1 id="CPP文件操作"><a href="#CPP文件操作" class="headerlink" title="CPP文件操作"></a>CPP文件操作</h1><p>使用<strong>流类</strong>（<code>&lt;fstream&gt;</code>）和<strong>运算符重载</strong>，操作封装为对象方法：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function">std::ifstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;file.txt&quot;</span>)</span></span>;<br>std::string line;<br>std::<span class="hljs-built_in">getline</span>(file, line);  <span class="hljs-comment">// 按行读取</span><br><span class="hljs-comment">// 自动调用析构函数关闭文件</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>特点</strong>：RAII自动管理资源，类型安全，支持链式操作（如<code>file &gt;&gt; a &gt;&gt; b</code>）。</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p>C++ 标准库中提供了 3 个类用于实现文件操作，它们统称为文件流类，这 3 个类分别为：</p>
+<ul>
+<li>ifstream：专用于从文件中读取数据；</li>
+<li>ofstream：专用于向文件中写入数据；</li>
+<li>fstream：既可用于从文件中读取数据，又可用于向文件中写入数据。</li>
+</ul>
+<p>以下是C++文件操作三种流类型的对比表格：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功能特点</th>
+<th>典型使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ofstream</td>
+<td>- 专用于文件写入<br>- 自动创建不存在的文件<br>- 默认覆盖写入(可设追加模式)<br>- 支持&lt;&lt;运算符和write()方法</td>
+<td>- 程序日志记录<br>- 数据报告导出<br>- 配置文件生成<br>- 对象序列化存储</td>
+</tr>
+<tr>
+<td>ifstream</td>
+<td>- 专用于文件读取<br>- 文件必须存在才能打开<br>- 支持&gt;&gt;运算符和getline()<br>- 可检测文件结束(eof())</td>
+<td>- 配置文件读取<br>- 数据文件导入<br>- 资源文件加载<br>- 对象反序列化</td>
+</tr>
+<tr>
+<td>fstream</td>
+<td>- 同时支持读写操作<br>- 需显式指定打开模式<br>- 需手动控制文件指针位置<br>- 适合频繁读写切换</td>
+<td>- 数据库文件操作<br>- 实时数据更新文件<br>- 大型文件随机访问<br>- 需要读写交替的工作文件</td>
+</tr>
+</tbody></table>
+<p><strong>值得一提的是，这 3 个文件流类都位于 <fstream> 头文件中，因此在使用它们之前，程序中应先引入此头文件</strong>。</p>
+<p><img src="https://s2.loli.net/2025/05/24/CXasjvKcdJzO13S.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到，</p>
+<ul>
+<li>ifstream 类和 fstream 类是从 istream 类派生而来的，因此 ifstream 类拥有 istream 类的全部成员方法。</li>
+<li>同样地，ofstream 和 fstream 类也拥有 ostream 类的全部成员方法。</li>
+</ul>
+<p>这也就意味着，istream 和 ostream 类提供的供 cin 和 cout 调用的成员方法，也同样适用于文件流。</p>
+<p>值得一提的是，和 <iostream> 头文件中定义有 ostream 和 istream 类的对象 cin 和 cout 不同，<fstream> 头文件中并没有定义可直接使用的 fstream、ifstream 和 ofstream 类对象。因此，如果我们想使用该类操作文件，需要自己创建相应类的对象。</p>
+<p>fstream 类拥有 ifstream 和 ofstream 类中所有的成员方法，这 罗列了 fstream 类一些常用的成员方法。</p>
+<table>
+<thead>
+<tr>
+<th>成员方法名</th>
+<th>适用类对象</th>
+<th>功  能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>open()</td>
+<td>fstream ifstream ofstream</td>
+<td>打开指定文件，使其与文件流对象相关联。</td>
+</tr>
+<tr>
+<td>is_open()</td>
+<td>检查指定文件是否已打开。</td>
+<td></td>
+</tr>
+<tr>
+<td>close()</td>
+<td>关闭文件，切断和文件流对象的关联。</td>
+<td></td>
+</tr>
+<tr>
+<td>swap()</td>
+<td>交换 2 个文件流对象。</td>
+<td></td>
+</tr>
+<tr>
+<td>operator&gt;&gt;</td>
+<td>fstream ifstream</td>
+<td>重载 &gt;&gt; 运算符，用于从指定文件中读取数据。</td>
+</tr>
+<tr>
+<td>gcount()</td>
+<td>返回上次从文件流提取出的字符个数。该函数常和 get()、getline()、ignore()、peek()、read()、readsome()、putback() 和 unget() 联用。</td>
+<td></td>
+</tr>
+<tr>
+<td>get()</td>
+<td>从文件流中读取一个字符，同时该字符会从输入流中消失。</td>
+<td></td>
+</tr>
+<tr>
+<td>getline(str,n,ch)</td>
+<td>**从文件流中接收 n-1 个字符给 str 变量，当遇到指定 ch 字符时会停止读取，默认情况下 ch 为 ‘\0’**。</td>
+<td></td>
+</tr>
+<tr>
+<td>ignore(n,ch)</td>
+<td>从文件流中逐个提取字符，但提取出的字符被忽略，不被使用，直至提取出 n 个字符，或者当前读取的字符为 ch。</td>
+<td></td>
+</tr>
+<tr>
+<td>peek()</td>
+<td>返回文件流中的第一个字符，但并不是提取该字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>putback(c)</td>
+<td>将字符 c 置入文件流（缓冲区）。</td>
+<td></td>
+</tr>
+<tr>
+<td>operator&lt;&lt;</td>
+<td>fstream ofstream</td>
+<td>重载 &lt;&lt; 运算符，用于向文件中写入指定数据。</td>
+</tr>
+<tr>
+<td>put()</td>
+<td>向指定文件流中写入单个字符。</td>
+<td></td>
+</tr>
+<tr>
+<td>write()</td>
+<td>向指定文件中写入字符串。</td>
+<td></td>
+</tr>
+<tr>
+<td>tellp()</td>
+<td><strong>用于获取当前文件输出流指针的位置</strong>。</td>
+<td></td>
+</tr>
+<tr>
+<td>seekp()</td>
+<td><strong>设置输出文件输出流指针的位置</strong>。</td>
+<td></td>
+</tr>
+<tr>
+<td>flush()</td>
+<td>刷新文件输出流缓冲区。</td>
+<td></td>
+</tr>
+<tr>
+<td>good()</td>
+<td>fstream ofstream ifstream</td>
+<td>操作成功，没有发生任何错误。</td>
+</tr>
+<tr>
+<td>eof()</td>
+<td>到达输入末尾或文件尾。</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这里中仅列举的了部分常用的成员方法，更详细的介绍，读者可查看 <a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/fstream/fstream/">C++标准库手册</a>。</p>
+</blockquote>
+<p><strong>文件打开模式</strong></p>
+<table>
+<thead>
+<tr>
+<th>模式标记</th>
+<th>适用对象</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ios::in</td>
+<td>(i)fstream</td>
+<td>打开文件用于读取数据。如果文件不存在，则打开出错。</td>
+</tr>
+<tr>
+<td>ios::out</td>
+<td>(o)fstream</td>
+<td>打开文件用于写入数据。如果文件不存在，则新建该文件；如果文件原来就存 在，则打开时清除原来的内容。</td>
+</tr>
+<tr>
+<td>ios::app</td>
+<td>(o)fstream</td>
+<td>打开文件，用于在其尾部添加数据。如果文件不存在，则新建该文件。</td>
+</tr>
+<tr>
+<td>ios::ate</td>
+<td>(i)fstream</td>
+<td>打开一个已有的文件，并将文件读指针指向文件末尾（读写指 的概念后面解 释）。如果文件不存在，则打开出错。</td>
+</tr>
+<tr>
+<td>ios::trunc</td>
+<td>(o)fstream</td>
+<td>打开文件时会清空内部存储的所有数据，单独使用时与 ios::out 相同。</td>
+</tr>
+<tr>
+<td>ios::binary</td>
+<td>(i&#x2F;o)fstream</td>
+<td>以二进制方式打开文件。若不指定此模式，则以文本模式打开。</td>
+</tr>
+<tr>
+<td>ios::in | ios::out</td>
+<td>fstream</td>
+<td>打开已存在的文件，既可读取其内容，也可向其写入数据。文件刚打开时，原有内容保持不变。如果文件不存在，则打开出错。</td>
+</tr>
+<tr>
+<td>ios::in | ios::out</td>
+<td>ofstream</td>
+<td>打开已存在的文件，可以向其写入数据。文件刚打开时，原有内容保持不变。如果文件不存在，则打开出错。</td>
+</tr>
+<tr>
+<td>ios::in | ios::out | ios::trunc</td>
+<td>fstream</td>
+<td>打开文件，既可读取其内容，也可向其写入数据。如果文件本来就存在，则打 开时清除原来的内容；如果文件不存在，则新建该文件。</td>
+</tr>
+</tbody></table>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><h3 id="1-写入文件（ofstream）"><a href="#1-写入文件（ofstream）" class="headerlink" title="1. 写入文件（ofstream）"></a><strong>1. 写入文件（ofstream）</strong></h3><h4 id="基本文本写入"><a href="#基本文本写入" class="headerlink" title="基本文本写入"></a>基本文本写入</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::ofstream <span class="hljs-title">outFile</span><span class="hljs-params">(<span class="hljs-string">&quot;example.txt&quot;</span>)</span></span>; <span class="hljs-comment">// 默认覆盖模式</span><br>    <span class="hljs-keyword">if</span> (outFile.<span class="hljs-built_in">is_open</span>()) &#123;<br>        outFile &lt;&lt; <span class="hljs-string">&quot;Hello, World!\n&quot;</span>;<br>        outFile &lt;&lt; <span class="hljs-number">42</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; <span class="hljs-number">3.14</span> &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>; <span class="hljs-comment">// 写入多种类型数据</span><br>        outFile.<span class="hljs-built_in">close</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="追加模式写入"><a href="#追加模式写入" class="headerlink" title="追加模式写入"></a>追加模式写入</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::ofstream <span class="hljs-title">appendFile</span><span class="hljs-params">(<span class="hljs-string">&quot;log.txt&quot;</span>, std::ios::app)</span></span>; <span class="hljs-comment">// 追加模式</span><br><span class="hljs-keyword">if</span> (appendFile) &#123;<br>    appendFile &lt;&lt; <span class="hljs-string">&quot;New log entry\n&quot;</span>;<br>    <span class="hljs-comment">// 不需要显式调用 close()，RAII 会自动处理</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="二进制写入-1"><a href="#二进制写入-1" class="headerlink" title="二进制写入"></a>二进制写入</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Data</span> &#123; <span class="hljs-type">int</span> id; <span class="hljs-type">double</span> value; &#125;;<br>Data data&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2.718</span>&#125;;<br><br><span class="hljs-function">std::ofstream <span class="hljs-title">binFile</span><span class="hljs-params">(<span class="hljs-string">&quot;data.bin&quot;</span>, std::ios::binary)</span></span>;<br><span class="hljs-keyword">if</span> (binFile) &#123;<br>    binFile.<span class="hljs-built_in">write</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">char</span>*&gt;(&amp;data), <span class="hljs-built_in">sizeof</span>(Data));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-读取文件（ifstream）"><a href="#2-读取文件（ifstream）" class="headerlink" title="2. 读取文件（ifstream）"></a><strong>2. 读取文件（ifstream）</strong></h3><h4 id="逐行读取文本"><a href="#逐行读取文本" class="headerlink" title="逐行读取文本"></a>逐行读取文本</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-function">std::ifstream <span class="hljs-title">inFile</span><span class="hljs-params">(<span class="hljs-string">&quot;example.txt&quot;</span>)</span></span>;<br>    std::string line;<br>    <span class="hljs-keyword">while</span> (std::<span class="hljs-built_in">getline</span>(inFile, line)) &#123;<br>        std::cout &lt;&lt; line &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="按词-数字读取"><a href="#按词-数字读取" class="headerlink" title="按词&#x2F;数字读取"></a>按词&#x2F;数字读取</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::ifstream <span class="hljs-title">inFile</span><span class="hljs-params">(<span class="hljs-string">&quot;data.txt&quot;</span>)</span></span>;<br><span class="hljs-type">int</span> a; <span class="hljs-type">double</span> b;<br>inFile &gt;&gt; a &gt;&gt; b; <span class="hljs-comment">// 读取空格分隔的数据</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="二进制读取-1"><a href="#二进制读取-1" class="headerlink" title="二进制读取"></a>二进制读取</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp">Data data;<br><span class="hljs-function">std::ifstream <span class="hljs-title">binFile</span><span class="hljs-params">(<span class="hljs-string">&quot;data.bin&quot;</span>, std::ios::binary)</span></span>;<br><span class="hljs-keyword">if</span> (binFile) &#123;<br>    binFile.<span class="hljs-built_in">read</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">char</span>*&gt;(&amp;data), <span class="hljs-built_in">sizeof</span>(Data));<br>    std::cout &lt;&lt; data.id &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; data.value;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-读写文件（fstream）"><a href="#3-读写文件（fstream）" class="headerlink" title="3. 读写文件（fstream）"></a><strong>3. 读写文件（fstream）</strong></h3><h4 id="同时读写文本"><a href="#同时读写文本" class="headerlink" title="同时读写文本"></a>同时读写文本</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::fstream <span class="hljs-title">rwFile</span><span class="hljs-params">(<span class="hljs-string">&quot;database.txt&quot;</span>, </span></span><br><span class="hljs-params"><span class="hljs-function">                   std::ios::in | std::ios::out)</span></span>;<br><span class="hljs-keyword">if</span> (rwFile) &#123;<br>    std::string content;<br>    rwFile &gt;&gt; content;          <span class="hljs-comment">// 读取</span><br>    rwFile &lt;&lt; <span class="hljs-string">&quot;\nNew data&quot;</span>;     <span class="hljs-comment">// 追加写入</span><br>    rwFile.<span class="hljs-built_in">seekg</span>(<span class="hljs-number">0</span>);            <span class="hljs-comment">// 重置指针到文件头</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="二进制随机访问"><a href="#二进制随机访问" class="headerlink" title="二进制随机访问"></a>二进制随机访问</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Record</span> &#123; <span class="hljs-type">int</span> id; <span class="hljs-type">char</span> name[<span class="hljs-number">20</span>]; &#125;;<br><br><span class="hljs-comment">// 写入测试数据</span><br><span class="hljs-function">std::ofstream <span class="hljs-title">out</span><span class="hljs-params">(<span class="hljs-string">&quot;records.bin&quot;</span>, std::ios::binary)</span></span>;<br>Record r1&#123;<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Alice&quot;</span>&#125;, r2&#123;<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Bob&quot;</span>&#125;;<br>out.<span class="hljs-built_in">write</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">char</span>*&gt;(&amp;r1), <span class="hljs-built_in">sizeof</span>(Record));<br>out.<span class="hljs-built_in">write</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">char</span>*&gt;(&amp;r2), <span class="hljs-built_in">sizeof</span>(Record));<br>out.<span class="hljs-built_in">close</span>();<br><br><span class="hljs-comment">// 随机读取第二条记录</span><br><span class="hljs-function">std::fstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;records.bin&quot;</span>, </span></span><br><span class="hljs-params"><span class="hljs-function">                 std::ios::binary | std::ios::in | std::ios::out)</span></span>;<br>Record record;<br>file.<span class="hljs-built_in">seekg</span>(<span class="hljs-built_in">sizeof</span>(Record)); <span class="hljs-comment">// 跳转到第二条记录</span><br>file.<span class="hljs-built_in">read</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">char</span>*&gt;(&amp;record), <span class="hljs-built_in">sizeof</span>(Record));<br>std::cout &lt;&lt; record.id &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; record.name; <span class="hljs-comment">// 输出 &quot;2 Bob&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-其他实用操作"><a href="#4-其他实用操作" class="headerlink" title="4. 其他实用操作"></a><strong>4. 其他实用操作</strong></h3><h4 id="检查文件状态"><a href="#检查文件状态" class="headerlink" title="检查文件状态"></a>检查文件状态</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::ifstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;data.txt&quot;</span>)</span></span>;<br><span class="hljs-keyword">if</span> (!file) &#123;<br>    std::cerr &lt;&lt; <span class="hljs-string">&quot;文件打开失败\n&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-keyword">while</span> (file &gt;&gt; data) &#123;<br>    <span class="hljs-comment">// 成功读取时处理数据</span><br>&#125;<br><span class="hljs-keyword">if</span> (file.<span class="hljs-built_in">eof</span>()) &#123;<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;已到达文件末尾\n&quot;</span>;<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (file.<span class="hljs-built_in">fail</span>()) &#123;<br>    std::cerr &lt;&lt; <span class="hljs-string">&quot;数据类型不匹配\n&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="一次性读取整个文件"><a href="#一次性读取整个文件" class="headerlink" title="一次性读取整个文件"></a>一次性读取整个文件</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sstream&gt;</span></span><br><br><span class="hljs-function">std::ifstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;bigfile.txt&quot;</span>)</span></span>;<br>std::stringstream buffer;<br>buffer &lt;&lt; file.<span class="hljs-built_in">rdbuf</span>(); <span class="hljs-comment">// 全部内容读入内存</span><br>std::string content = buffer.<span class="hljs-built_in">str</span>();<br></code></pre></td></tr></table></figure>
+
+<h4 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">std::ifstream <span class="hljs-title">src</span><span class="hljs-params">(<span class="hljs-string">&quot;source.txt&quot;</span>, std::ios::binary)</span></span>;<br><span class="hljs-function">std::ofstream <span class="hljs-title">dst</span><span class="hljs-params">(<span class="hljs-string">&quot;dest.txt&quot;</span>, std::ios::binary)</span></span>;<br>dst &lt;&lt; src.<span class="hljs-built_in">rdbuf</span>(); <span class="hljs-comment">// 高效拷贝</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-异常处理（推荐方式）"><a href="#5-异常处理（推荐方式）" class="headerlink" title="5. 异常处理（推荐方式）"></a><strong>5. 异常处理（推荐方式）</strong></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdexcept&gt;</span></span><br><br><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-function">std::ofstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;important.txt&quot;</span>)</span></span>;<br>    <span class="hljs-keyword">if</span> (!file) <span class="hljs-keyword">throw</span> std::<span class="hljs-built_in">runtime_error</span>(<span class="hljs-string">&quot;文件打开失败&quot;</span>);<br>    file &lt;&lt; <span class="hljs-string">&quot;关键数据&quot;</span>;<br>&#125; <span class="hljs-built_in">catch</span> (<span class="hljs-type">const</span> std::exception&amp; e) &#123;<br>    std::cerr &lt;&lt; <span class="hljs-string">&quot;错误: &quot;</span> &lt;&lt; e.<span class="hljs-built_in">what</span>() &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><table>
+<thead>
+<tr>
+<th>操作类型</th>
+<th>推荐流类</th>
+<th>常用模式标志</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>文本写入</strong></td>
+<td><code>ofstream</code></td>
+<td><code>ios::out</code>（默认）</td>
+</tr>
+<tr>
+<td><strong>文本读取</strong></td>
+<td><code>ifstream</code></td>
+<td><code>ios::in</code>（默认）</td>
+</tr>
+<tr>
+<td><strong>二进制操作</strong></td>
+<td><code>fstream</code></td>
+<td><code>ios::binary</code></td>
+</tr>
+<tr>
+<td><strong>追加写入</strong></td>
+<td><code>ofstream</code></td>
+<td><code>ios::app</code></td>
+</tr>
+<tr>
+<td><strong>随机访问</strong></td>
+<td><code>fstream</code></td>
+<td><code>ios::ate</code>（初始定位到末尾）</td>
+</tr>
+</tbody></table>
+<p>所有示例均遵循 RAII 原则，无需显式调用 <code>close()</code>，但显式关闭仍是良好实践。</p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51492202/article/details/125344672">文件操作的底层原理(文件描述符与缓冲区)_fopen是怎么实现的-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1284878">【Linux】基础IO——文件操作|文件描述符|重定向|缓冲区-阿里云开发者社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zjuhaohaoxuexi/p/16653557.html">第11章 C++文件操作总结 - 朴素贝叶斯 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/houbincarson/article/details/136327765">C++开发基础之文件操作_c++ file头文件-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" class="category-chain-item">C++</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C/C++文件操作</div>
+      <div>http://example.com/2025/05/24/计算机基础/编程语言/C++/C和C++文件操作/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ling</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/25/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Window%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8%E7%9B%B8%E5%85%B3/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/18/%E5%85%A8%E6%A0%88(%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%A4%84%E7%90%86)/%E5%89%8D%E7%AB%AF/Typescript%E5%9F%BA%E7%A1%80/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

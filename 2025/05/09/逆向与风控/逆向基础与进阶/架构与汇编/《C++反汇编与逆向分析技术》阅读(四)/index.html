@@ -40,6 +40,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/APQCx1GhijbeNuM.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/CSJi9lYZr3LVz7x.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/hvy9B1tHmXjNT6o.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/24/K8ZL3G2wu1jqNUD.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/xFH1EX7SqItuOks.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/h5UcxKWI81T29YO.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/06/LpEtSY1FUc93lI4.png">
@@ -55,7 +56,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/daQ5sr8le6x4XcT.png">
 <meta property="og:image" content="https://s2.loli.net/2025/03/07/hrB8oinkNgaPzDV.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.627Z">
-<meta property="article:modified_time" content="2025-05-09T13:15:40.851Z">
+<meta property="article:modified_time" content="2025-05-24T03:38:54.981Z">
 <meta property="article:author" content="Ling">
 <meta property="article:tag" content="逆向(android)">
 <meta name="twitter:card" content="summary_large_image">
@@ -249,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.2k 字
+          8.1k 字
         
       </span>
     
@@ -260,7 +261,7 @@
         
         
         
-          69 分钟
+          68 分钟
         
       </span>
     
@@ -437,7 +438,8 @@
 <p>两个虚表指针指向的虚表信息。查看图中两个虚表信息会发现，这两个虚表保存了子类的虚函数与父类的虚函数，父类的这些虚函数都是子类中没有实现的。由此可见，编译器制作了两份子类SofaBed的虚函数。为什么会产生两份虚函数呢？我们先从对象SofaBed的构造入手，循序渐进地分析</p>
 <p><img src="https://s2.loli.net/2025/03/07/CSJi9lYZr3LVz7x.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://s2.loli.net/2025/03/07/hvy9B1tHmXjNT6o.png" srcset="/img/loading.gif" lazyload></p>
-<p>根据继承关系的顺序，先调用父类Sofa的构造函数。在调用另一个父类Bed时，并不是直接将对象的首地址作为this指针传递，而是向后调整了父类Sofa的长度，以调整后的地址值作为this指针，最后再调用父类Bed的构造函数。因为有了两个父类，所以子类在继承时也将它们的虚表指针一起继承了过来，也就有了两个虚表指针。可见，在多重继承中，子类虚表指针的个数取决于继承的父类的个数，有几个父类便会出现几个虚表指针</p>
+<p>根据继承关系的顺序，先调用父类Sofa的构造函数。在调用另一个父类Bed时，并不是直接将对象的首地址作为this指针传递，而是向后调整了父类Sofa的长度，以调整后的地址值作为this指针，最后再调用父类Bed的构造函数。因为有了两个父类，所以子类在继承时也将它们的虚表指针一起继承了过来，也就有了两个虚表指针。可见，在多重继承中，子类虚表指针的个数取决于继承的父类的个数，有几个父类便会出现几个虚表指针。</p>
+<p><img src="https://s2.loli.net/2025/05/24/K8ZL3G2wu1jqNUD.png" srcset="/img/loading.gif" lazyload></p>
 <p>这些虚表指针在将子类对象转换成父类指针时使用，每个虚表指针对应着一个父类</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span> </span>&#123;<br>    SofaBed sofabed;<br>    Sofa* sofa = &amp;sofabed;<br>    Bed* bed = &amp;sofabed;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
@@ -446,78 +448,31 @@
 <p>了解了多重继承中子类的构造函数以及父类指针的转换过程后，接下来通过分析学习多重继承中子类对象的析构过程。</p>
 <p><img src="https://s2.loli.net/2025/03/07/h5UcxKWI81T29YO.png" srcset="/img/loading.gif" lazyload></p>
 <p>对象SofaBed的析构过程。因为具有多个同级父类（多个同时继承的父类），所以在子类中产生了多个虚表指针。在对父类进行析构时，需要设置this指针，用于调用父类的析构函数。因为具有多个父类，所以在析构的过程中调用各个父类的析构函数时，传递的首地址将有所不同，编译器会根据每个父类在对象中占用的空间位置，相应地传入各个父类部分的首地址作为this指针。</p>
+<hr>
 <p>前面讲解了多重继承中子类对象的生成与销毁过程以及在内存中的分布情况，对比单继承类，两者特征总结如下。</p>
-<h4 id="单继承"><a href="#单继承" class="headerlink" title="单继承"></a><strong>单继承</strong></h4><p><strong>内存分布</strong>：  </p>
+<p><strong>单继承</strong></p>
 <ul>
-<li>对象内存空间中<strong>只保存一份虚表指针</strong>，对应<strong>一个虚表</strong>。  </li>
-<li>虚表中存储了类中所有虚函数的首地址。</li>
+<li><strong>内存分布</strong>：  对象内存空间中<strong>只保存一份虚表指针</strong>，对应<strong>一个虚表</strong>。  虚表中存储了类中所有虚函数的首地址。  </li>
+<li><strong>构造过程</strong>：  先调用父类的构造函数，再调用自身的构造函数。  父类的构造函数<strong>只调用一次</strong>。  </li>
+<li><strong>析构过程</strong>：  先调用自身的析构函数，再调用父类的析构函数。  父类的析构函数<strong>只调用一次</strong>。  </li>
+<li><strong>特点</strong>：  结构简单，内存布局清晰，虚表指针唯一。</li>
 </ul>
-<p><strong>构造过程</strong>：  </p>
+<p><strong>多重继承</strong></p>
 <ul>
-<li>先调用父类的构造函数，再调用自身的构造函数。  </li>
-<li>父类的构造函数<strong>只调用一次</strong>。</li>
+<li><strong>内存分布</strong>：  对象内存空间中根据继承的父类（有虚函数）个数保存<strong>对应的虚表指针</strong>。  每个虚表指针对应一个虚表，虚表中存储了对应父类的虚函数首地址。  转换父类指针时，需要<strong>调整指针到对象的首地址</strong>。  </li>
+<li><strong>构造过程</strong>：  按继承列表的顺序依次调用父类的构造函数。  先构造继承列表中的第一个父类，最后构造自身。  每个父类的构造函数<strong>只调用一次</strong>。  </li>
+<li><strong>析构过程</strong>：  先调用自身的析构函数，再按构造的相反顺序调用父类的析构函数。  每个父类的析构函数<strong>只调用一次</strong>。</li>
 </ul>
-<p><strong>析构过程</strong>：  </p>
+<p><strong>对象作为成员时的内存分布</strong></p>
 <ul>
-<li>先调用自身的析构函数，再调用父类的析构函数。  </li>
-<li>父类的析构函数<strong>只调用一次</strong>。</li>
+<li><strong>无虚函数时</strong>：  内存结构与多重继承<strong>完全一致</strong>。  </li>
+<li><strong>有虚函数时</strong>：  内存结构与多重继承<strong>相似</strong>，但需观察虚表指针的位置和数量。  </li>
+<li><strong>还原继承关系</strong>：  通过观察虚表指针的位置、构造&#x2F;析构函数中填写虚表指针的数目、顺序及目标地址，可以还原继承或成员关系。  对于有虚函数的情况，可利用虚表的初始化，结合IDA中的引用参考进行识别还原。</li>
 </ul>
-<p><strong>特点</strong>：  </p>
+<p><strong>识别与还原对象模型</strong></p>
 <ul>
-<li>结构简单，内存布局清晰，虚表指针唯一。<ul>
-<li>[逆向与风控, 逆向基础与进阶, 架构与汇编]</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="多重继承-1"><a href="#多重继承-1" class="headerlink" title="多重继承"></a><strong>多重继承</strong></h4><p><strong>内存分布</strong>：  </p>
-<ul>
-<li>对象内存空间中根据继承的父类（有虚函数）个数保存<strong>对应的虚表指针</strong>。  </li>
-<li>每个虚表指针对应一个虚表，虚表中存储了对应父类的虚函数首地址。  </li>
-<li>转换父类指针时，需要<strong>调整指针到对象的首地址</strong>。</li>
-</ul>
-<p><strong>构造过程</strong>：  </p>
-<ul>
-<li>按继承列表的顺序依次调用父类的构造函数。  </li>
-<li>先构造继承列表中的第一个父类，最后构造自身。  </li>
-<li>每个父类的构造函数<strong>只调用一次</strong>。</li>
-</ul>
-<p><strong>析构过程</strong>：  </p>
-<ul>
-<li>先调用自身的析构函数，再按构造的相反顺序调用父类的析构函数。  </li>
-<li>每个父类的析构函数<strong>只调用一次</strong>。</li>
-</ul>
-<p><strong>特点</strong>：  </p>
-<ul>
-<li>结构复杂，内存布局可能包含多个虚表指针。  </li>
-<li>需要处理指针调整问题。</li>
-</ul>
-<hr>
-<h4 id="对象作为成员时的内存分布"><a href="#对象作为成员时的内存分布" class="headerlink" title="对象作为成员时的内存分布"></a><strong>对象作为成员时的内存分布</strong></h4><p><strong>无虚函数时</strong>：  </p>
-<ul>
-<li>内存结构与多重继承<strong>完全一致</strong>。</li>
-</ul>
-<p><strong>有虚函数时</strong>：  </p>
-<ul>
-<li>内存结构与多重继承<strong>相似</strong>，但需观察虚表指针的位置和数量。</li>
-</ul>
-<p><strong>还原继承关系</strong>：  </p>
-<ul>
-<li>通过观察虚表指针的位置、构造&#x2F;析构函数中填写虚表指针的数目、顺序及目标地址，可以还原继承或成员关系。  </li>
-<li>对于有虚函数的情况，可利用虚表的初始化，结合IDA中的引用参考进行识别还原。<ul>
-<li>[逆向与风控, 逆向基础与进阶, 架构与汇编]</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="识别与还原对象模型"><a href="#识别与还原对象模型" class="headerlink" title="识别与还原对象模型"></a><strong>识别与还原对象模型</strong></h4><p><strong>虚表指针的利用</strong>：  </p>
-<ul>
-<li>虚表指针的位置和数量是识别继承关系的重要线索。  </li>
-<li>通过分析构造和析构函数中虚表指针的初始化过程，可以推断类的继承关系。</li>
-</ul>
-<p><strong>工具辅助</strong>：  </p>
-<ul>
-<li>使用IDA等逆向工具，通过虚表的引用参考，可以更高效地还原对象模型。</li>
+<li><strong>虚表指针的利用</strong>：  虚表指针的位置和数量是识别继承关系的重要线索。  通过分析构造和析构函数中虚表指针的初始化过程，可以推断类的继承关系。  </li>
+<li><strong>工具辅助</strong>：  使用IDA等逆向工具，通过虚表的引用参考，可以更高效地还原对象模型。</li>
 </ul>
 <h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><blockquote>
 <p>既然是抽象事物，就不存在实体。如我们平常所说的“东西”，就不能被实例化。将某一物品描述为东西，等同于没有描述。在生活中，我们会经常遇到此类情况：在你的书桌上有一支钢笔、一个水杯、一本书。这时你的同桌对你说：“把你桌子上的那个东西借我一下。”由于没有具体的描述，你无法知道他所指的“那个东西”是哪一件物品。</p>

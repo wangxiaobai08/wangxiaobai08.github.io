@@ -28,11 +28,14 @@
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/VRFUWwjY8Gi4MxI.jpg">
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/RiErNjHCzZUQILD.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/09/NEfo6JWuZ5h1jgr.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/25/FwTkVNOqKstmvug.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/EPQYUXJBacOhb5o.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/eirRNl1Xnkx9jc4.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/11/LXPTBqQs8efxEZa.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/25/TVJQI6fLYpje594.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/25/saGQ2jchgKAdBbP.png">
 <meta property="article:published_time" content="2025-05-09T07:31:42.562Z">
-<meta property="article:modified_time" content="2025-05-12T03:56:28.216Z">
+<meta property="article:modified_time" content="2025-05-25T03:54:02.161Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/05/11/D3dBs8j7METUltZ.png">
@@ -225,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.1k 字
+          5.2k 字
         
       </span>
     
@@ -236,7 +239,7 @@
         
         
         
-          43 分钟
+          44 分钟
         
       </span>
     
@@ -463,24 +466,24 @@
 <li><strong>安装自定义根证书</strong>：工具会在本地生成一个自签名的根证书（CA Certificate），并需要用户手动安装到系统的信任存储中（如钥匙串&#x2F;证书管理器）。<em>目的</em>是让操作系统信任工具伪造的站点证书。</li>
 <li><strong>拦截 HTTPS 连接</strong>：工具会动态生成与目标域名匹配的假证书（由自签名CA签发），替代真实服务器的证书。</li>
 </ul>
-<h3 id="SSL-Pinning反抓包"><a href="#SSL-Pinning反抓包" class="headerlink" title="SSL-Pinning反抓包"></a>SSL-Pinning反抓包</h3><blockquote>
+<h3 id="SSL-Pinning-证书绑定-反抓包"><a href="#SSL-Pinning-证书绑定-反抓包" class="headerlink" title="SSL-Pinning(证书绑定)反抓包"></a>SSL-Pinning(证书绑定)反抓包</h3><blockquote>
 <p>可以利用SSL-Pinning的技术来进行反抓包。中间人攻击的要点是伪造了一个假的服务器证书，让客户端信以为真，那么我在客户端内置了一个server的证书，两者进行比较一下就知道是不是真的了。即<strong>证书固定（Certificate Pinning）</strong>：</p>
 <p>客户端预存目标服务器的证书指纹，拒绝中间人伪造的证书。</p>
 </blockquote>
 <p>为了防止中间人攻击，可以使用SSL-Pinning的技术来反抓包。 可以发现中间人攻击的要点的伪造了一个假的服务端证书给了客户端，客户端误以为真。解决思路就是，客户端也预置一份服务端的证书，比较一下就知道真假了。</p>
-<blockquote>
 <p>SSL-pinning有两种方式： 证书锁定（Certificate Pinning） 和公钥锁定（ Public Key Pinning）。</p>
 <ul>
 <li>证书锁定 需要在客户端代码内置仅接受指定域名的证书，而不接受操作系统或浏览器内置的CA根证书对应的任何证书，通过这种授权方式，保障了APP与服务端通信的唯一性和安全性，因此客户端与服务端（例如API网关）之间的通信是可以保证绝对安全。但是CA签发证书都存在有效期问题，缺点是在 <strong>证书续期后需要将证书重新内置到APP中。</strong> </li>
 <li>公钥锁定 提取证书中的公钥并内置到客户端中，通过与服务器对比公钥值来验证连接的正确性。制作证书密钥时，公钥在证书的续期前后都可以保持不变（即密钥对不变），所以可以避免证书有效期问题，一般推荐这种做法。</li>
 </ul>
-</blockquote>
 <h3 id="突破SSL-Pinning抓包"><a href="#突破SSL-Pinning抓包" class="headerlink" title="突破SSL-Pinning抓包"></a>突破SSL-Pinning抓包</h3><blockquote>
 <p>在逆向界，一山更比一山高。</p>
 </blockquote>
 <p>内置证书或者公钥的时候，常常会有对比验证的函数，直接控制这个函数的返回结果让验证通过不就好了。于是就有了一个突破SLL-Pinning的经典操作：</p>
 <p>采用<code>Xposed+justTrustme</code>模块。</p>
 <p> 这个方案使用的是JustTrustMe这个Xposed模块，它所做的事情就是<strong>将各种已知的的HTTP请求库中用于校验证书的API都进行Hook，使无论是否是可信证书的情况，校验结果返回都为正常状态，从而实现绕过证书检查的效果。</strong>从而完成了对单向认证的突破。网上也有很多相关教程，不加赘述。</p>
+<p>当然还有其他通过Hook 重点函数的方式进行绕过的策略【需要了解正向开发的使用框架】。<strong>同时SSL-Pinning也可以结合后面的双向认证(客户端校验)进行双重验证用以防止。</strong></p>
+<p><img src="https://s2.loli.net/2025/05/25/FwTkVNOqKstmvug.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h2><h3 id="基本实现原理"><a href="#基本实现原理" class="headerlink" title="基本实现原理"></a>基本实现原理</h3><blockquote>
 <p>这在<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82/HTTP(S)%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/">HTTP(S)协议分析 - The Peak Tower</a>讲述TLS&#x2F;SSL和数字证书中也有简单介绍过。</p>
 </blockquote>
@@ -544,16 +547,18 @@
 <li>单向HTTPS认证 → 依赖系统CA列表。</li>
 <li>双向认证 → 服务端决定信任哪些CA，客户端只需提供有效证书。需要证书Pinning</li>
 </ul>
-<h3 id="反双向认证抓包"><a href="#反双向认证抓包" class="headerlink" title="反双向认证抓包"></a>反双向认证抓包</h3><h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><p>按照搞定证书的思路去想的话，就是要想办法拿到真正的证书。</p>
+<h3 id="反双向认证抓包"><a href="#反双向认证抓包" class="headerlink" title="反双向认证抓包"></a>反双向认证抓包</h3><h4 id="证书提取与转化"><a href="#证书提取与转化" class="headerlink" title="证书提取与转化"></a>证书提取与转化</h4><p>按照搞定证书的思路去想的话，就是要想办法拿到真正的证书。</p>
 <p>即抠出的证书和密码，配置进 fiddler 或 charles 里面，就可以抓到双向认证的包。</p>
 <blockquote>
 <p>PS： 还要注意证书的格式，抠出的证书可能是 jks 或 bks 格式的，fiddler 可能需要 p12 格式的， 所以要找工具先转换一下格式。</p>
 </blockquote>
-<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><p>Hook SSL 对数据解密数据的地方。</p>
+<p><strong>突破思路：</strong>一般在app&#x2F;assert、或者raw，搜索.p12或者.pks，直接逆向APK，找到对应加载证书和密码的地方，将其密码打印出来。<strong>通过Hook证书绑定的关键函数并Dump的方式也可取得其证书和其私钥。(涉及安全开发的相关)</strong></p>
+<p><img src="https://s2.loli.net/2025/05/25/TVJQI6fLYpje594.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="Hook-SSLSocket"><a href="#Hook-SSLSocket" class="headerlink" title="Hook SSLSocket"></a>Hook SSLSocket</h4><p>Hook SSL 对数据解密数据的地方。</p>
 <p>如果只是想抓包，还有另一种方法，不需要抠证书的方法。虽然 https 在传输过程中是加密的，但在终端显示的时候，必然会解密，不然 APP 上都没法显示了。所以如果能知道安卓解密 SSL 加解密是哪个类， Hook 这个类， 类里相关方法的输入输出肯定就是传输的明文数据。</p>
-<p><strong>突破思路：</strong>一般在app&#x2F;assert、或者raw，搜索.p12或者.pks，直接逆向APK，找到对应加载证书和密码的地方，将其密码打印出来。</p>
+<p><img src="https://s2.loli.net/2025/05/25/saGQ2jchgKAdBbP.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="其他防抓包策略"><a href="#其他防抓包策略" class="headerlink" title="其他防抓包策略"></a>其他防抓包策略</h2><ul>
-<li><strong>检测代理设置</strong>：应用检查系统是否配置了未知代理。</li>
+<li><strong>检测代理设置</strong>：应用检查系统是否配置了未知代理。VPN检测&lt;&#x3D;&#x3D;&#x3D;&gt;VPN抓包</li>
 <li>加密或者伪造：将证书进行加密或者伪造，这样没有秘钥就无法打开证书内容。也就无法使用客户端的证书。</li>
 </ul>
 <hr>
