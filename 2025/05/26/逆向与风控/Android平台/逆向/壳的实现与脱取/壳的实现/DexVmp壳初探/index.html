@@ -16,24 +16,24 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在前面的文章中我们了解了：   整体壳实现的前置知识 - The Peak Tower 抽取壳实现的前置知识 - The Peak Tower   Android程序下的一些加固方式，从防护粒度上来看，其中： dex落地与不落地 属于整体加固，而函数抽取在是函数粒度的防护，今天将要讲述的是现在市面上强度最强的加固方案：代码虚拟化保护的方案。其是更细到指令级别的防护了。 通过将程序的代码编译为虚拟机">
+    <meta name="description" content="前情回顾在前面的文章中我们了解了：   整体壳实现的前置知识 - The Peak Tower 抽取壳实现的前置知识 - The Peak Tower   Android程序下的一些加固方式，从防护粒度上来看，其中： dex落地与不落地 属于整体加固，而函数抽取在是函数粒度的防护，今天将要讲述的是现在市面上强度最强的加固方案：代码虚拟化保护的方案。其是更细到指令级别的防护了。 通过将程序的代码编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Peak Tower">
-<meta property="og:url" content="http://example.com/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/DexVmp%E5%A3%B3%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:title" content="DexVmp思路初探">
+<meta property="og:url" content="http://example.com/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/DexVmp%E5%A3%B3%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="在前面的文章中我们了解了：   整体壳实现的前置知识 - The Peak Tower 抽取壳实现的前置知识 - The Peak Tower   Android程序下的一些加固方式，从防护粒度上来看，其中： dex落地与不落地 属于整体加固，而函数抽取在是函数粒度的防护，今天将要讲述的是现在市面上强度最强的加固方案：代码虚拟化保护的方案。其是更细到指令级别的防护了。 通过将程序的代码编译为虚拟机">
+<meta property="og:description" content="前情回顾在前面的文章中我们了解了：   整体壳实现的前置知识 - The Peak Tower 抽取壳实现的前置知识 - The Peak Tower   Android程序下的一些加固方式，从防护粒度上来看，其中： dex落地与不落地 属于整体加固，而函数抽取在是函数粒度的防护，今天将要讲述的是现在市面上强度最强的加固方案：代码虚拟化保护的方案。其是更细到指令级别的防护了。 通过将程序的代码编译">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/05/26/o3q7GeWyEfRaLlC.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-645e4580d41dc98206d53baa9935dbcd_1440w.webp?source=1def8aca">
 <meta property="article:published_time" content="2025-05-26T01:14:27.172Z">
-<meta property="article:modified_time" content="2025-05-26T09:45:05.707Z">
+<meta property="article:modified_time" content="2025-05-26T11:26:54.483Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/05/26/o3q7GeWyEfRaLlC.png">
   
   
   
-  <title>The Peak Tower</title>
+  <title>DexVmp思路初探 - The Peak Tower</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="DexVmp思路初探"></span>
           
         </div>
 
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          3.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          34 分钟
+          28 分钟
         
       </span>
     
@@ -275,12 +275,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">DexVmp思路初探</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在前面的文章中我们了解了：</p>
+                <h1 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h1><p>在前面的文章中我们了解了：</p>
 <blockquote>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/09/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E6%95%B4%E4%BD%93%E5%8A%A0%E5%9B%BA%E5%AE%9E%E7%8E%B0%E5%85%B3%E9%94%AE%E7%82%B9/">整体壳实现的前置知识 - The Peak Tower</a></li>
@@ -300,8 +300,104 @@
 <blockquote>
 <p>dex-vmp和arm-vmp有什么区别<br>顾名思义最大区别一个针对java层，一个针对so层</p>
 </blockquote>
-<p>在</p>
+<p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E8%99%9A%E6%8B%9F%E6%9C%BA/Dalvik%E8%A7%A3%E9%87%8A%E5%99%A8%E6%89%A7%E8%A1%8C/">Dalvik解释器执行流程 - The Peak Tower</a>中学习到了android解释器相关解释流程。也了解了ART下的AOT机制：</p>
 <p><img src="https://s2.loli.net/2025/05/26/o3q7GeWyEfRaLlC.png" srcset="/img/loading.gif" lazyload></p>
+<p>本文将简单了解以下DexVmp的实现思路。</p>
+<h1 id="始于Dalvik"><a href="#始于Dalvik" class="headerlink" title="始于Dalvik"></a>始于Dalvik</h1><p>我们知道Dalvik虚拟机主要解释执行dex字节码，对热点代码可以通过JIT编译为平台相关的机器码以提高性能。其中的注意：</p>
+<ul>
+<li>解释器本身就是字节码和机器码之间的抽象层</li>
+<li>它封装了所有字节码到机器操作的映射关系</li>
+<li>解释器维护虚拟机状态(寄存器、栈等)</li>
+<li>通过解释器代码而非原生机器码来管理这些状态</li>
+</ul>
+<h2 id="DexVMP原理"><a href="#DexVMP原理" class="headerlink" title="DexVMP原理"></a>DexVMP原理</h2><p>那么自然的能否在Dalvik虚拟机和上层应用之间再设置一个中间层，模仿Dalvik虚拟机的解释器，自定义一套指令序列，封装了所有自定义指令到Dalvik字节码的映射关系。在程序运行前先编译抽取加密保存处理后的治理，在程序运行过程中先解释后执行？</p>
+<pre><code class=" mermaid">flowchart TD
+    subgraph 保护阶段[&quot;保护阶段（编译时）&quot;]
+        A[原始Dex字节码] --&gt; B[VMP编译器]
+        B --&gt; C[生成自定义指令]
+        C --&gt; D[加密指令流]
+        D --&gt; E[嵌入APK资源/so库]
+    end
+
+    style 保护阶段 fill:#f9f,stroke:#333
+</code></pre>
+
+<p>举个例子：当壳代码需要执行 onCreate 时，会从之前保存的指令中取出属于 onCreate 的指令，解析出指令的 opcode &#x2F; operand ，通过一个巨大的 switch case （如下图）找到处理对应 opcode 的函数，然后执行。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-645e4580d41dc98206d53baa9935dbcd_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这个执行的过程一般模仿 Dalvik 虚拟机。稍微具体一点，对于一般的逻辑运算指令，如加、减、乘、除等，可以直接执行；对于像 invoke-direct &#x2F; invoke-virtual &#x2F; iget 等需要与系统交互的指令，就需要调用 JNI 接口来实现。</p>
+<pre><code class=" mermaid">flowchart TD
+    subgraph Dalvik原生解释器
+        A[Dalvik加载Dex] --&gt; B[读取Dex字节码]
+        B --&gt; C&#123;解释执行&#125;
+        C --&gt;|aload/invoke| D[直接操作寄存器/调用方法]
+        C --&gt;|return| E[返回调用者]
+    end
+
+    subgraph Dalvik下的VMP壳
+        F[VMP壳初始化] --&gt; G[从资源/so加载加密指令]
+        G --&gt; H[内存解密指令流]
+        H --&gt; I&#123;VMP解释器switch-case&#125;
+        I --&gt;|VMP_LOAD| J[操作虚拟寄存器]
+        I --&gt;|VMP_INVOKE| K[通过JNI调用Dalvik方法]
+        I --&gt;|VMP_RETURN| L[返回Dalvik]
+        K --&gt;|依赖| M[Dalvik JNI接口]
+    end
+
+    style Dalvik原生解释器 fill:#bbf,stroke:#333
+    style Dalvik下的VMP壳 fill:#f9f,stroke:#333
+</code></pre>
+
+<h2 id="整个流程如下"><a href="#整个流程如下" class="headerlink" title="整个流程如下"></a>整个流程如下</h2><h3 id="编译时保护阶段：替换原始指令"><a href="#编译时保护阶段：替换原始指令" class="headerlink" title="编译时保护阶段：替换原始指令"></a><strong>编译时保护阶段：替换原始指令</strong></h3><h4 id="自定义指令集设计"><a href="#自定义指令集设计" class="headerlink" title="自定义指令集设计"></a><strong>自定义指令集设计</strong></h4><p>VMP定义一套与物理CPU无关的指令集（伪代码示例）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">0x10: LOAD_REG   v1, [v2]  ; 从虚拟地址v2加载数据到v1<br>0x20: ADD        v0, v1, #42 ; v0 = v1 + 42<br>0x30: JNI_CALL   java/lang/System.exit ; 调用JNI方法<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键点</strong>：指令码（如<code>0x10</code>）和语义由VMP自行定义，与x86&#x2F;ARM无关。</p>
+<h4 id="指令替换"><a href="#指令替换" class="headerlink" title="指令替换"></a><strong>指令替换</strong></h4><p>将原始指令（如ARM的<code>ADD R0, R1, #42</code>）转换为自定义指令（如<code>0x20</code>）：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">原始ARM指令: ADD R0, R1, #42 → 替换为 → VMP指令: 0x20 0x00 0x01 0x2A<br></code></pre></td></tr></table></figure>
+
+<p><strong>操作数编码</strong>：<code>0x00</code>（v0）、<code>0x01</code>（v1）、<code>0x2A</code>（立即数42）。<strong>加密存储</strong>转换后的指令流会被加密（如AES&#x2F;XOR），嵌入到APK的资源文件或壳的.so库中。</p>
+<h4 id="桩代码注入"><a href="#桩代码注入" class="headerlink" title="桩代码注入"></a><strong>桩代码注入</strong></h4><p>原始方法体被替换为<strong>壳入口代码</strong>，强制跳转到VMP解释器：</p>
+<ul>
+<li><strong>ELF（Native层）</strong>：<br>修改函数指针或PLT&#x2F;GOT表，指向壳的初始化代码。</li>
+<li><strong>Dex（Java层）</strong>：<br>通过字节码注入，将方法体替换为<code>throw</code>或空操作，实际逻辑由VMP接管。</li>
+</ul>
+<h3 id="运行时执行阶段：还原为物理指令"><a href="#运行时执行阶段：还原为物理指令" class="headerlink" title="运行时执行阶段：还原为物理指令"></a><strong>运行时执行阶段：还原为物理指令</strong></h3><h4 id="VMP解释器初始化"><a href="#VMP解释器初始化" class="headerlink" title="VMP解释器初始化"></a>VMP解释器初始化</h4><p><strong>加载加密指令流</strong>：从资源文件或.so中读取加密数据，内存解密。</p>
+<p><strong>设置虚拟执行环境</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> &#123;</span><br>    <span class="hljs-type">uint32_t</span> vReg[<span class="hljs-number">8</span>];    <span class="hljs-comment">// 虚拟寄存器</span><br>    <span class="hljs-type">uint8_t</span>* vStack;     <span class="hljs-comment">// 虚拟栈</span><br>    <span class="hljs-type">uint8_t</span>* vEIP;       <span class="hljs-comment">// 当前指令指针</span><br>&#125; VMContext;<br></code></pre></td></tr></table></figure>
+
+<h4 id="指令分发与执行"><a href="#指令分发与执行" class="headerlink" title="指令分发与执行"></a><strong>指令分发与执行</strong></h4><p>VMP解释器通过<strong>大switch-case</strong>或<strong>跳转表</strong>实现指令分发：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 伪代码：VMP 解释器的 switch-case 分发</span><br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    opcode = *pc++;  <span class="hljs-comment">// 读取当前指令的 opcode</span><br>    <span class="hljs-keyword">switch</span> (opcode) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">0x10</span>: &#123; <span class="hljs-comment">// VMP_LOAD_* 指令</span><br>            operand1 = *pc++; <span class="hljs-comment">// 寄存器索引</span><br>            operand2 = *pc++; <span class="hljs-comment">// 数据来源（如参数、常量）</span><br>            <span class="hljs-keyword">if</span> (operand2 == <span class="hljs-number">0x00</span>) &#123;<br>                v_registers[operand1] = this; <span class="hljs-comment">// 加载 this</span><br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (operand2 == <span class="hljs-number">0x01</span>) &#123;<br>                v_registers[operand1] = args[<span class="hljs-number">0</span>]; <span class="hljs-comment">// 加载 Bundle</span><br>            &#125;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">0x20</span>: &#123; <span class="hljs-comment">// VMP_INVOKE_SUPER</span><br>            method_id = *pc++; <span class="hljs-comment">// 方法索引（0xA1 对应 Activity.onCreate）</span><br>            <span class="hljs-comment">// 通过 JNI 调用真实方法</span><br>            env-&gt;CallNonvirtualVoidMethod(<br>                v_registers[<span class="hljs-number">0</span>],  <span class="hljs-comment">// this (MainActivity)</span><br>                env-&gt;GetSuperclass(env-&gt;GetObjectClass(v_registers[<span class="hljs-number">0</span>])),<br>                method_id,       <span class="hljs-comment">// 方法 ID</span><br>                v_registers[<span class="hljs-number">1</span>]   <span class="hljs-comment">// Bundle</span><br>            );<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">0x30</span>: <span class="hljs-comment">// VMP_RETURN</span><br>            <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 退出解释器</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>简单指令（如 <code>VMP_LOAD</code>）</strong>:直接操作虚拟寄存器（类似 Dalvik 的 <code>aload_0</code>）。</li>
+<li><strong>系统调用指令（如 <code>VMP_INVOKE_SUPER</code>）</strong>:通过 JNI 调用 ART 的接口（<code>CallNonvirtualVoidMethod</code>），这是性能瓶颈之一。</li>
+</ul>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><p>DexVmp原理：对原 dex 处理，找到要保护的方法，将原指令翻译成等价指令，加密存储，并将原指令替换为 VMP 入口指令 - 实现 VM，解释执行存储的等价指令。那么这样这样实现的VM可以在java层也可以在so层，一般来说是放在so层。</p>
+<ol>
+<li><p>解析dex： 定位保护的方法，可以手动解析dex文件或者使用开源库dexlib2</p>
+</li>
+<li><p>将原指令翻译成等价指令 ： 这里就需要通过jni接口实现，这也是为什么DexVmp加壳后有native标签，我们知道一条java指令对应可以用jni指令进行实现，那么我们需要的就是将对应的方法通过jni接口调用so层中c&#x2F;c++实现方法进行翻译。因为dex-vmp需要调用jni接口，所以一定会调用CallVoidMethod方法等，所以这也是为什么很多快速追踪vmp调用栈选择InvokeWithVarArgs的原因</p>
+</li>
+<li><p>实现VM: vm基于寄存器结构，我们需要初始化寄存器，然后对对应的Opcode进行翻译，这里调用一些jni接口</p>
+</li>
+<li><p>解决JNI兼容的问题</p>
+</li>
+</ol>
+<p>补充一下ArmVMP原理：</p>
+<p>arm-vmp原理：将so文件中的arm汇编的指令码转换为自定义的虚拟指令。核心是虚拟指令集和虚拟指令解释器</p>
+<ol>
+<li><p>将Native化的java代码和原C++代码使用Capstone进行反编译，生成原生汇编码</p>
+</li>
+<li><p>使用随机生成的矩阵将原生指令码转换为虚拟指令码</p>
+</li>
+<li><p>通过虚拟指令解释器对虚拟指令码进行解释</p>
+</li>
+</ol>
+<h1 id="ART下的Vmp"><a href="#ART下的Vmp" class="headerlink" title="ART下的Vmp"></a>ART下的Vmp</h1><p>我们知道在ART下使用AOT机制，其中会使用到dex2oat对app代码进行编译，这就违背了Vmp所需要的解释运行要求。所以在ART环境下，VMP（虚拟化保护）壳的运行流程需要绕过AOT编译的机器码执行，强制让被保护的代码回归到解释执行或动态解释的模式。防止被保护方法的代码被编译为机器码（.oat），确保始终由VMP解释器接管。</p>
+<ul>
+<li>ART保留了Dex字节码解释器（尽管不常用），VMP利用这一点强制回归解释模式。</li>
+<li><strong>动态代码支持</strong>：<br>ART允许运行时加载&#x2F;执行未编译的字节码（如动态代理），VMP通过加密指令流伪装成“动态代码”。</li>
+<li><strong>JNI桥接</strong>：<br>所有系统调用最终通过JNI实现，与虚拟机版本无关。</li>
+</ul>
 <pre><code class=" mermaid">flowchart TD
     subgraph 保护阶段[&quot;保护阶段（编译时）&quot;]
         A[原始Dex] --&gt; B[VMP编译器]
@@ -321,67 +417,14 @@
     end
 </code></pre>
 
-<p>在ART环境下，VMP（虚拟化保护）壳的运行流程需要绕过AOT编译的机器码执行，强制让被保护的代码回归到解释执行或动态解释的模式。以下是<strong>ART下VMP壳的完整运行流程</strong>，结合AOT与解释器的交互逻辑：</p>
+<p>同时需要<strong>模拟Dalvik行为</strong>，即在ART环境下，通过自定义解释器执行加密指令流（类似Dalvik时代的VMP）。</p>
+<p>绕过AOT编译可以使用<strong>方法替换</strong>：<br>VMP编译器会将原始方法（如<code>onCreate</code>）的Dex字节码替换为一个<strong>壳入口桩代码</strong>（例如直接返回或抛出异常），确保该方法不会被<code>dex2oat</code>编译为机器码。  实际代码被加密后隐藏到资源文件或.so中。</p>
+<p>或者<strong>强制解释执行</strong>： 当ART尝试调用该方法时，壳代码会拦截调用，跳转到VMP解释器（即使系统已生成AOT机器码）。</p>
+<p>值得注意的是：VMP由于运行开销较大一般只保护关键算法</p>
+<p>VMP解释器执行完所有指令后，通过<code>VMP_RETURN</code>将控制权交还ART，继续执行未保护的其他代码。</p>
 <hr>
-<h3 id="1-ART下VMP的核心设计目标"><a href="#1-ART下VMP的核心设计目标" class="headerlink" title="1. ART下VMP的核心设计目标"></a><strong>1. ART下VMP的核心设计目标</strong></h3><ul>
-<li><strong>绕过AOT优化</strong>：防止被保护方法的代码被编译为机器码（.oat），确保始终由VMP解释器接管。</li>
-<li><strong>模拟Dalvik行为</strong>：在ART环境下，通过自定义解释器执行加密指令流（类似Dalvik时代的VMP）。</li>
-</ul>
-<hr>
-<h3 id="2-VMP壳的运行流程"><a href="#2-VMP壳的运行流程" class="headerlink" title="2. VMP壳的运行流程"></a><strong>2. VMP壳的运行流程</strong></h3><pre><code class=" mermaid">flowchart TD
-    subgraph 保护阶段[&quot;保护阶段（编译时）&quot;]
-        A[原始Dex] --&gt; B[VMP编译器]
-        B --&gt; C[加密为自定义指令]
-        C --&gt; D[替换原方法体为壳入口]
-    end
-
-    subgraph 运行时阶段[&quot;运行时阶段（ART下）&quot;]
-        E[调用被保护方法] --&gt; F&#123;方法是否AOT编译?&#125;
-        F --&gt;|是| G[强制跳转到VMP解释器]
-        F --&gt;|否| H[直接进入VMP解释器]
-        G &amp; H --&gt; I[解密指令流]
-        I --&gt; J&#123;VMP解释器switch-case&#125;
-        J --&gt;|VMP_LOAD| K[操作虚拟寄存器]
-        J --&gt;|VMP_INVOKE| L[通过JNI回调ART]
-        J --&gt;|VMP_RETURN| M[返回ART]
-    end
-</code></pre>
-
-<hr>
-<h3 id="3-关键步骤详解"><a href="#3-关键步骤详解" class="headerlink" title="3. 关键步骤详解"></a><strong>3. 关键步骤详解</strong></h3><h4 id="1-绕过AOT编译"><a href="#1-绕过AOT编译" class="headerlink" title="(1) 绕过AOT编译"></a><strong>(1) 绕过AOT编译</strong></h4><ul>
-<li><p><strong>方法替换</strong>：<br>VMP编译器会将原始方法（如<code>onCreate</code>）的Dex字节码替换为一个<strong>壳入口桩代码</strong>（例如直接返回或抛出异常），确保该方法不会被<code>dex2oat</code>编译为机器码。  </p>
-<ul>
-<li>实际代码被加密后隐藏到资源文件或.so中。</li>
-</ul>
-</li>
-<li><p><strong>强制解释执行</strong>：<br>当ART尝试调用该方法时，壳代码会拦截调用，跳转到VMP解释器（即使系统已生成AOT机器码）。</p>
-</li>
-</ul>
-<h4 id="2-VMP解释器工作流程"><a href="#2-VMP解释器工作流程" class="headerlink" title="(2) VMP解释器工作流程"></a><strong>(2) VMP解释器工作流程</strong></h4><ol>
-<li><p><strong>加载加密指令流</strong>  </p>
-<ul>
-<li>从APK资源或.so库中读取加密的自定义指令（如<code>0x10 0x01 0x00</code>对应<code>aload_0</code>）。  </li>
-<li>在内存中解密（常见算法：AES、XOR混淆）。</li>
-</ul>
-</li>
-<li><p><strong>模拟寄存器与指令分发</strong>  </p>
-<ul>
-<li>维护虚拟寄存器（<code>v0, v1,...</code>），模拟Dalvik的寄存器架构。  </li>
-<li>通过<code>switch-case</code>或线程式跳转分发指令（与Dalvik解释器类似）。</li>
-</ul>
-</li>
-<li><p><strong>系统调用桥接</strong>  </p>
-<ul>
-<li><p>遇到<code>VMP_INVOKE</code>等需要与ART交互的指令时，通过JNI调用ART接口：  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">env-&gt;CallVoidMethod(v0, methodID, v1); <span class="hljs-comment">// 通过JNI回调ART执行实际方法</span><br></code></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h4 id="3-返回ART环境"><a href="#3-返回ART环境" class="headerlink" title="(3) 返回ART环境"></a><strong>(3) 返回ART环境</strong></h4><ul>
-<li>VMP解释器执行完所有指令后，通过<code>VMP_RETURN</code>将控制权交还ART，继续执行未保护的其他代码。</li>
-</ul>
-<hr>
-<h3 id="4-ART与Dalvik下VMP的差异"><a href="#4-ART与Dalvik下VMP的差异" class="headerlink" title="4. ART与Dalvik下VMP的差异"></a><strong>4. ART与Dalvik下VMP的差异</strong></h3><table>
+<p><strong>ART与Dalvik下VMP的差异</strong></p>
+<table>
 <thead>
 <tr>
 <th><strong>维度</strong></th>
@@ -410,163 +453,7 @@
 <td><code>art::interpreter::Execute</code>劫持</td>
 </tr>
 </tbody></table>
-<hr>
-<h3 id="5-为什么VMP在ART下仍能工作？"><a href="#5-为什么VMP在ART下仍能工作？" class="headerlink" title="5. 为什么VMP在ART下仍能工作？"></a><strong>5. 为什么VMP在ART下仍能工作？</strong></h3><ul>
-<li><strong>解释器备用机制</strong>：<br>ART保留了Dex字节码解释器（尽管不常用），VMP利用这一点强制回归解释模式。</li>
-<li><strong>动态代码支持</strong>：<br>ART允许运行时加载&#x2F;执行未编译的字节码（如动态代理），VMP通过加密指令流伪装成“动态代码”。</li>
-<li><strong>JNI桥接</strong>：<br>所有系统调用最终通过JNI实现，与虚拟机版本无关。</li>
-</ul>
-<hr>
-<h3 id="6-逆向分析难点"><a href="#6-逆向分析难点" class="headerlink" title="6. 逆向分析难点"></a><strong>6. 逆向分析难点</strong></h3><ol>
-<li><p><strong>定位VMP解释器</strong>  </p>
-<ul>
-<li>搜索内存中的<code>switch-case</code>跳转表或特征指令（如<code>0x10 0x01</code>）。  </li>
-<li>Hook <code>art::ArtMethod::Invoke</code> 监控非AOT执行的方法。</li>
-</ul>
-</li>
-<li><p><strong>解密指令流</strong>  </p>
-<ul>
-<li>分析.so库中的解密函数（如<code>memcpy</code>后接XOR操作）。  </li>
-<li>动态Dump内存中的明文指令（Frida Hook解密函数）。</li>
-</ul>
-</li>
-<li><p><strong>重建原始逻辑</strong>  </p>
-<ul>
-<li>将VMP指令映射回Dalvik字节码（如<code>0x20 → invoke-virtual</code>）。  </li>
-<li>使用工具（如Unidbg）模拟执行自定义指令。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>ART下的VMP通过 <strong>“禁用AOT + 自定义解释器 + JNI桥接”</strong> 实现代码保护，本质上是在现代运行时中强行复现Dalvik时代的解释执行环境。这种设计虽然牺牲了性能，但大幅提高了逆向成本。对于分析者来说，关键在于破解指令集加密和拦截JNI调用链。</p>
-<p>ART（Android Runtime）虽然在应用安装时通过 <code>dex2oat</code> 将 Dex 字节码预编译为 OAT 文件（ELF 格式的本地机器码），但 <strong>仍然需要保留解释器</strong> 的原因涉及兼容性、动态行为和运行时灵活性等多方面因素。以下是详细解释：</p>
-<hr>
-<h3 id="1-处理动态代码和反射"><a href="#1-处理动态代码和反射" class="headerlink" title="1. 处理动态代码和反射"></a><strong>1. 处理动态代码和反射</strong></h3><ul>
-<li><p><strong>动态代码加载</strong><br>某些场景下，应用会在运行时动态生成或加载 Dex 字节码（如插件化框架、热修复技术）。这些代码无法预先编译为 AOT 机器码，必须依赖解释器即时执行。</p>
-</li>
-<li><p><strong>反射调用</strong><br>反射（如 <code>Class.forName()</code>、<code>Method.invoke()</code>）的目标方法可能在运行时才确定，无法在 AOT 阶段静态编译。解释器可以动态处理这类调用。</p>
-</li>
-</ul>
-<hr>
-<h3 id="2-兼容性与回退机制"><a href="#2-兼容性与回退机制" class="headerlink" title="2. 兼容性与回退机制"></a><strong>2. 兼容性与回退机制</strong></h3><ul>
-<li><p><strong>AOT 编译失败</strong><br>部分 Dex 字节码可能因复杂性或兼容性问题无法编译为机器码（如使用了某些指令或未优化的第三方库）。此时解释器作为备用执行路径。</p>
-</li>
-<li><p><strong>低性能设备优化</strong><br>在内存或存储空间不足的设备上，系统可能选择 <strong>部分 AOT 编译</strong>（仅编译高频代码），剩余代码由解释器执行以节省空间。</p>
-</li>
-</ul>
-<hr>
-<h3 id="3-调试与开发者工具"><a href="#3-调试与开发者工具" class="headerlink" title="3. 调试与开发者工具"></a><strong>3. 调试与开发者工具</strong></h3><ul>
-<li><p><strong>代码热替换（HotSwap）</strong><br>开发者在 Android Studio 中调试时，修改代码后无需重新安装应用，ART 解释器可以动态执行修改后的字节码，加速开发迭代。</p>
-</li>
-<li><p><strong>性能分析工具</strong><br>解释器模式便于插桩（如 Profiler 监控方法执行），而 AOT 编译后的机器码难以动态注入分析逻辑。</p>
-</li>
-</ul>
-<hr>
-<h3 id="4-系统升级与安全补丁"><a href="#4-系统升级与安全补丁" class="headerlink" title="4. 系统升级与安全补丁"></a><strong>4. 系统升级与安全补丁</strong></h3><ul>
-<li><p><strong>快速修复漏洞</strong><br>如果系统发现某个 AOT 编译的方法存在安全漏洞，可以通过解释器临时替换执行修复后的字节码，无需重新编译整个 OAT 文件。</p>
-</li>
-<li><p><strong>OTA 兼容性</strong><br>系统升级时，部分应用可能尚未重新编译为新版本的 AOT 代码，解释器确保这些应用仍能正常运行。</p>
-</li>
-</ul>
-<hr>
-<h3 id="5-解释器的实际工作场景"><a href="#5-解释器的实际工作场景" class="headerlink" title="5. 解释器的实际工作场景"></a><strong>5. 解释器的实际工作场景</strong></h3><pre><code class=" mermaid">flowchart TD
-    A[应用启动] --&gt; B&#123;方法是否已AOT编译?&#125;
-    B --&gt;|是| C[直接执行机器码]
-    B --&gt;|否| D[ART解释器执行字节码]
-    D --&gt; E[触发JIT（可选）]
-    E --&gt; F[编译为临时机器码]
-</code></pre>
-
-<ul>
-<li><strong>JIT 的辅助角色</strong><br>Android 7.0 后引入 <strong>混合模式</strong>（AOT + JIT），解释器与 JIT 协作：  <ul>
-<li>解释器执行未编译的代码，并标记热点方法。  </li>
-<li>JIT 动态编译热点方法，提升后续执行速度。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="6-性能与存储的权衡"><a href="#6-性能与存储的权衡" class="headerlink" title="6. 性能与存储的权衡"></a><strong>6. 性能与存储的权衡</strong></h3><table>
-<thead>
-<tr>
-<th><strong>执行方式</strong></th>
-<th><strong>速度</strong></th>
-<th><strong>存储占用</strong></th>
-<th><strong>适用场景</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>AOT 机器码</td>
-<td>最快</td>
-<td>高（.oat）</td>
-<td>已预编译的稳定代码</td>
-</tr>
-<tr>
-<td>解释器</td>
-<td>慢</td>
-<td>低（Dex）</td>
-<td>动态代码、调试、兼容性回退</td>
-</tr>
-<tr>
-<td>JIT</td>
-<td>中等</td>
-<td>中等（缓存）</td>
-<td>运行时优化热点方法</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>ART 保留解释器的核心原因是 <strong>应对不可预测的运行时行为</strong>，包括动态代码、反射、调试需求等。AOT 编译虽能覆盖大部分场景，但解释器作为补充机制，确保了系统的灵活性和鲁棒性。这种设计平衡了性能、存储和开发效率的需求。  </p>
-<p>如果需要具体案例（如热修复如何依赖解释器），可以进一步展开！</p>
-<p>Dex-vmp原理：对原 dex 处理，找到要保护的方法，将原指令翻译成等价指令，加密存储，并将原指令替换为 VMP 入口指令 - 实现 VM，解释执行存储的等价指令。那么这样这样实现的VM可以在java层也可以在so层，一般来说是放在so层。</p>
-<p>（1）解析dex： 定位保护的方法，可以手动解析dex文件或者使用开源库dexlib2</p>
-<p>（2）将原指令翻译成等价指令 ： 这里就需要通过jni接口实现，这也是为什么dex-vmp加壳后有native标签，我们知道一条java指令对应可以用jni指令进行实现，那么我们需要的就是将对应的方法通过jni接口调用so层中c&#x2F;c++实现方法进行翻译。</p>
-<p>因为dex-vmp需要调用jni接口，所以一定会调用CallVoidMethod方法等，所以这也是为什么很多快速追踪vmp调用栈选择InvokeWithVarArgs的原因</p>
-<p>（3）实现VM: vm基于寄存器结构，我们需要初始化寄存器，然后对对应的Opcode进行翻译，这里调用一些jni接口</p>
-<p>（4）解决JNI兼容的问题</p>
-<p>arm-vmp原理：将so文件中的arm汇编的指令码转换为自定义的虚拟指令。核心是虚拟指令集和虚拟指令解释器</p>
-<p>（1）将Native化的java代码和原C++代码使用Capstone进行反编译，生成原生汇编码</p>
-<p>（2）使用随机生成的矩阵将原生指令码转换为虚拟指令码</p>
-<p>（3）通过虚拟指令解释器对虚拟指令码进行解释</p>
-<p>vmp是自己实现解释器，而dex2c还是用的原生的art来解释。</p>
-<p>对于字节码解密函数的定位 其实还可以用frida监控内存读写的方式得到。另外hook所有的jni函数 监控其字段读写 函数调用 解析参数返回值 在指定vmp函数进入时记录这些信息 指定vmp函数离开时输出这些信息 可以快捷精准地分析指定的vmp函数</p>
-<p>可以通过黑盒探测，如通过各种hook、修改源码等定制ART，实现对VMP保护的函数的执行轨迹的跟踪记录如基于frida实现的jnitrace，或者自行简单定制ART，输出关键的函数调用关系</p>
-<pre><code class=" mermaid">flowchart TD
-    subgraph 保护阶段[&quot;保护阶段（编译时）&quot;]
-        A[原始Dex字节码] --&gt; B[VMP编译器]
-        B --&gt; C[生成自定义指令]
-        C --&gt; D[加密指令流]
-        D --&gt; E[嵌入APK资源/so库]
-    end
-
-    style 保护阶段 fill:#f9f,stroke:#333
-</code></pre>
-
-<p><strong>Android DexVMP的实现原理就是对ART解释器进行自定义,壳代码运行在传统ART解释器下,被加固应用运行在自定义解释器下.对于这种情况,我们可以对其函数调用过程进行trace,通过分析某个函数内部调用的其他函数,然后借助Frida进行关键函数的Hook来帮助我们完成对VMP保护的函数进行快速分析,接下来将以Android13为例,进行ART的定制来完成函数调用关系的打印.</strong></p>
-<pre><code class=" mermaid">flowchart TD
-    subgraph Dalvik原生解释器
-        A[Dalvik加载Dex] --&gt; B[读取Dex字节码]
-        B --&gt; C&#123;解释执行&#125;
-        C --&gt;|aload/invoke| D[直接操作寄存器/调用方法]
-        C --&gt;|return| E[返回调用者]
-    end
-
-    subgraph Dalvik下的VMP壳
-        F[VMP壳初始化] --&gt; G[从资源/so加载加密指令]
-        G --&gt; H[内存解密指令流]
-        H --&gt; I&#123;VMP解释器switch-case&#125;
-        I --&gt;|VMP_LOAD| J[操作虚拟寄存器]
-        I --&gt;|VMP_INVOKE| K[通过JNI调用Dalvik方法]
-        I --&gt;|VMP_RETURN| L[返回Dalvik]
-        K --&gt;|依赖| M[Dalvik JNI接口]
-    end
-
-    style Dalvik原生解释器 fill:#bbf,stroke:#333
-    style Dalvik下的VMP壳 fill:#f9f,stroke:#333
-</code></pre>
-
-
-
-
-
+<h2 id="总结一下-1"><a href="#总结一下-1" class="headerlink" title="总结一下"></a>总结一下</h2><p>Android DexVMP的实现原理就是对ART解释器进行自定义,壳代码运行在传统ART解释器下,被加固应用运行在自定义解释器下。</p>
 <pre><code class=" mermaid">flowchart TD
     subgraph ART原生执行
         A[AOT编译机器码] --&gt; B[直接执行CPU指令]
@@ -588,15 +475,11 @@
     style ART下的VMP壳 fill:#f9f,stroke:#333
 </code></pre>
 
-
-
-<p>当壳代码需要执行 onCreate 时，会从之前保存的指令中取出属于 onCreate 的指令，解析出指令的 opcode &#x2F; operand ，通过一个巨大的 switch case （如下图）找到处理对应 opcode 的函数，然后执行。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-645e4580d41dc98206d53baa9935dbcd_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>这个执行的过程一般都是模防 Dalvik 虚拟机。稍微具体一点，对于一般的逻辑运算指令，如加、减、乘、除等，可以直接执行；对于像 invoke-direct &#x2F; invoke-virtual &#x2F; iget 等需要与系统交互的指令，就需要调用 <a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=172674288&content_type=Answer&match_order=1&q=JNI&zhida_source=entity">JNI</a> 接口来实现， 这也是 VMP 可能存在效率问题的原因之一。</p>
-<ul>
-<li>dex vmp的框架设计和运行原理跟我早起读过的dvm虚拟机的解释模式基本差不多。</li>
-<li>dex vmp的指令设计是跟davlik指令有着一对一的关系，可以说只是一个简单的对照关系，这导致如果对于davlik指令足够熟悉，相当于对于dex vmp的指令熟悉。</li>
-</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>ART（Android Runtime）虽然在应用安装时通过 <code>dex2oat</code> 将 Dex 字节码预编译为 OAT 文件（ELF 格式的本地机器码），但 <strong>仍然需要保留解释器</strong> 的原因涉及兼容性、动态行为和运行时灵活性等多方面因素。</p>
+<h2 id="处理动态代码和反射"><a href="#处理动态代码和反射" class="headerlink" title="处理动态代码和反射"></a><strong>处理动态代码和反射</strong></h2><p><strong>动态代码加载</strong>  ：某些场景下，应用会在运行时动态生成或加载 Dex 字节码（如插件化框架、热修复技术）。这些代码无法预先编译为 AOT 机器码，必须依赖解释器即时执行。</p>
+<p><strong>反射调用</strong>  ：反射（如 <code>Class.forName()</code>、<code>Method.invoke()</code>）的目标方法可能在运行时才确定，无法在 AOT 阶段静态编译。解释器可以动态处理这类调用。</p>
+<h2 id="兼容性与回退机制"><a href="#兼容性与回退机制" class="headerlink" title="兼容性与回退机制"></a>兼容性与回退机制</h2><p><strong>AOT 编译失败</strong>  ：部分 Dex 字节码可能因复杂性或兼容性问题无法编译为机器码（如使用了某些指令或未优化的第三方库）。此时解释器作为备用执行路径。</p>
+<p><strong>低性能设备优化</strong>  ：在内存或存储空间不足的设备上，系统可能选择 <strong>部分 AOT 编译</strong>（仅编译高频代码），剩余代码由解释器执行以节省空间。</p>
 <hr>
 <p>参考：</p>
 <p><a target="_blank" rel="noopener" href="https://1ens.github.io/2025/02/12/vmp/">vmp 初探 - 1ens’s blog</a></p>
@@ -612,10 +495,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14933920.html">android逆向奇技淫巧十二：dexVMP解释器原理及简易模拟实现 - 第七子007 - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-679354-1-1.html">某数字公司VMP脱壳简记 - 吾爱破解 - 52pojie.cn</a></p>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020437132">为什么说SO加固+无源码VMP是最佳的Android手游安全保护方案？ - 网易云易盾技术专栏 - SegmentFault 思否</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1564978-1-1.html">快速认识 VMP 3.x 第一部分 壳代码篇 - 吾爱破解 - 52pojie.cn</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LittleHann/p/3344261.html">VMP虚拟机加壳的原理学习 - 郑瀚 - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://book.crifan.org/books/android_app_security_crack/website/android_protect/harden_history/vmp.html">VMP · 安卓应用的安全和破解</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14224501.html">VMP加壳(一)：代码混淆原理 - 第七子007 - 博客园</a></p>
 <p>[<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-285212.htm">原创]app加固分析狗尾续貂之dex vmp还原-Android安全-看雪-安全社区|安全招聘|kanxue.com</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14952092.html">android逆向奇技淫巧十三：定制art内核（一）：跟踪jni函数注册和调用，绕过反调试 - 第七子007 - 博客园</a></p>
 
@@ -626,6 +506,55 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/" class="category-chain-item">逆向与风控</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/" class="category-chain-item">Android平台</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/" class="category-chain-item">逆向</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/" class="category-chain-item">壳的实现与脱取</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="category-chain-item">壳的实现</a>
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
 </div>
 
@@ -635,8 +564,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2025/05/26/逆向与风控/Android平台/DexVmp壳初探/</div>
+      <div>DexVmp思路初探</div>
+      <div>http://example.com/2025/05/26/逆向与风控/Android平台/逆向/壳的实现与脱取/壳的实现/DexVmp壳初探/</div>
     </div>
     <div class="license-meta">
       
