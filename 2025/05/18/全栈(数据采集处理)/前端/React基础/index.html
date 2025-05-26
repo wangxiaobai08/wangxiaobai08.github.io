@@ -24,7 +24,7 @@
 <meta property="og:description" content="开门见山React 是一个用于构建用户界面的 JavaScript 库，其核心开发思想是组件化和声明式编程。 React 将 UI 拆分为独立、可复用的组件，每个组件负责渲染自身的视图层，并通过 props 接收数据和回调函数进行通信，形成清晰的单向数据流。它采用虚拟 DOM（Virtual DOM）机制高效更新界面，开发者只需声明”UI 应该是什么状态”（声明式），而无需直接操作 DOM（命令式">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-18T06:03:48.931Z">
-<meta property="article:modified_time" content="2025-05-25T11:40:35.287Z">
+<meta property="article:modified_time" content="2025-05-25T14:19:51.843Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -216,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          5.3k 字
         
       </span>
     
@@ -227,7 +227,7 @@
         
         
         
-          39 分钟
+          45 分钟
         
       </span>
     
@@ -407,16 +407,56 @@
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tsx">&lt;<span class="hljs-title class_">Modal</span>&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>自定义标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>  &#123;<span class="hljs-comment">/* 作为children传递 */</span>&#125;<br>&lt;/<span class="hljs-title class_">Modal</span>&gt;<br></code></pre></td></tr></table></figure>
 
 <h2 id="组件状态"><a href="#组件状态" class="headerlink" title="组件状态"></a>组件状态</h2><p>React 的组件状态（State）是驱动组件动态交互和渲染的核心机制，它本质上是一个<strong>组件内部自维护的数据存储器</strong>，允许组件在生命周期中跟踪、更新并响应数据变化。</p>
+<ul>
+<li><strong>状态是 React 组件的核心数据来源</strong>，决定了组件的渲染和行为。</li>
+<li><strong>状态是可变的</strong>（不同于 <code>props</code>，它是只读的），用于实现动态交互。</li>
+<li><strong>状态变化会触发组件重新渲染</strong>，使 UI 保持同步。</li>
+</ul>
 <p>其状态的核心特性在于：</p>
 <ul>
 <li><strong>动态性</strong>：状态是组件内部可变的私有数据，通过 <code>useState</code>（函数组件）或 <code>this.state</code>（类组件）管理，变化时触发组件重新渲染。</li>
 <li><strong>响应式更新</strong>：状态更新自动触发 React 的协调（Reconciliation）过程，计算虚拟 DOM 差异并高效更新真实 DOM。</li>
 <li><strong>局部性</strong>：状态默认仅对所属组件可见，需通过 props 或状态管理工具（如 Redux）实现跨组件共享。</li>
 </ul>
-<h3 id="函数组件（Hooks）"><a href="#函数组件（Hooks）" class="headerlink" title="函数组件（Hooks）"></a>函数组件（Hooks）</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 初始化状态</span><br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">increment</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">setCount</span>(<span class="hljs-function"><span class="hljs-params">prevCount</span> =&gt;</span> prevCount + <span class="hljs-number">1</span>); <span class="hljs-comment">// 函数式更新</span><br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;increment&#125;</span>&gt;</span>&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>React 早期（2015 年前）只有类组件，函数组件仅用于无状态 UI（Stateless Components）。2019 年 React 16.8 引入 <strong>Hooks</strong>，函数组件可以管理状态和副作用，几乎能替代类组件。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">State（状态）</th>
+<th align="left">Props（属性）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>可变性</strong></td>
+<td align="left">可变的（组件内部管理）</td>
+<td align="left">不可变的（由父组件传入）</td>
+</tr>
+<tr>
+<td align="left"><strong>作用</strong></td>
+<td align="left">存储组件内部数据</td>
+<td align="left">用于父子组件通信</td>
+</tr>
+<tr>
+<td align="left"><strong>更新方式</strong></td>
+<td align="left"><code>setState</code>（类）或 <code>setXxx</code>（函数）</td>
+<td align="left">由父组件重新渲染时传入新值</td>
+</tr>
+<tr>
+<td align="left"><strong>默认值</strong></td>
+<td align="left">可在组件内初始化</td>
+<td align="left">可通过 <code>defaultProps</code> 设置</td>
+</tr>
+</tbody></table>
+<h3 id="函数组件（Hooks）"><a href="#函数组件（Hooks）" class="headerlink" title="函数组件（Hooks）"></a>函数组件（Hooks）</h3><p>使用普通 JavaScript 函数，直接返回 JSX。没有 <code>this</code>，直接通过参数获取 <code>props</code>。使用 <strong>Hooks（如 <code>useState</code>、<code>useEffect</code>）</strong> 管理状态和副作用。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Counter</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 初始化状态</span><br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">increment</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-title function_">setCount</span>(<span class="hljs-function"><span class="hljs-params">prevCount</span> =&gt;</span> prevCount + <span class="hljs-number">1</span>); <span class="hljs-comment">// 函数式更新</span><br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;increment&#125;</span>&gt;</span>&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="类组件"><a href="#类组件" class="headerlink" title="类组件"></a>类组件</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(props);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;; <span class="hljs-comment">// 初始化状态</span><br>  &#125;<br><br>  increment = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123; <span class="hljs-attr">count</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span>.<span class="hljs-property">count</span> + <span class="hljs-number">1</span> &#125;); <span class="hljs-comment">// 合并式更新</span><br>  &#125;;<br><br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.increment&#125;</span>&gt;</span>&#123;this.state.count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="类组件"><a href="#类组件" class="headerlink" title="类组件"></a>类组件</h3><p>使用 ES6 <code>class</code> 语法，继承 <code>React.Component</code>。必须包含 <code>render()</code> 方法，返回 JSX。使用 <code>this</code> 访问 <code>props</code> 和 <code>state</code>。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs tsx"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">props</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(props);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;; <span class="hljs-comment">// 初始化状态</span><br>  &#125;<br><br>  increment = <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setState</span>(&#123; <span class="hljs-attr">count</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span>.<span class="hljs-property">count</span> + <span class="hljs-number">1</span> &#125;); <span class="hljs-comment">// 合并式更新</span><br>  &#125;;<br><br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;this.increment&#125;</span>&gt;</span>&#123;this.state.count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<p>在 React 类组件中，<code>render()</code> 是唯一必需的方法，用于返回组件的 UI 描述（React 元素或 JSX）。它必须保持纯净，即不修改组件状态或产生副作用，且返回的 JSX 只能有一个根元素（如 <code>&lt;div&gt;</code> 或 <code>&lt;&gt;...&lt;/&gt;</code>）。函数组件通过直接返回 JSX 实现相同功能，无需 <code>render()</code> 方法。每次调用 <code>render()</code> 的结果应仅由当前 <code>props</code> 和 <code>state</code> 决定。</p>
 <h2 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h2><h3 id="组件内通信"><a href="#组件内通信" class="headerlink" title="组件内通信"></a>组件内通信</h3><p><strong>useState</strong>  ：函数组件的基础状态管理，适用于独立组件的私有数据：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 定义状态</span><br><span class="hljs-title function_">setCount</span>(<span class="hljs-function"><span class="hljs-params">prev</span> =&gt;</span> prev + <span class="hljs-number">1</span>); <span class="hljs-comment">// 更新状态</span><br></code></pre></td></tr></table></figure>
 
@@ -476,6 +516,22 @@
 <td>API 极简，学习成本低</td>
 </tr>
 </tbody></table>
+<h2 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a><strong>组件生命周期</strong></h2><p>React 组件的生命周期有三个不同的阶段：</p>
+<ol>
+<li><em>初始渲染阶段：</em>这是组件即将开始其生命之旅并进入 DOM 的阶段。</li>
+<li><em>更新阶段：</em>一旦组件被添加到 DOM，它只有在 prop 或状态发生变化时才可能更新和重新渲染。这些只发生在这个阶段。</li>
+<li><em>卸载阶段：</em>这是组件生命周期的最后阶段，组件被销毁并从 DOM 中删除。</li>
+</ol>
+<h3 id="生命周期方法。"><a href="#生命周期方法。" class="headerlink" title="生命周期方法。"></a><strong>生命周期方法。</strong></h3><p>一些最重要的生命周期方法是：</p>
+<ol>
+<li>componentWillMount()– 在渲染之前执行，在客户端和服务器端都会执行。</li>
+<li>componentDidMount() – 仅在第一次渲染后在客户端执行。</li>
+<li>componentWillReceiveProps*() – 当从父类接收到 props 并且在调用另一个渲染器之前调用。</li>
+<li><strong>shouldComponentUpdate()</strong> – 根据特定条件返回 true 或 false。如果你希望更新组件，请返回<strong>true</strong> 否则返回 <strong>false</strong>。默认情况下，它返回 false。</li>
+<li>componentWillUpdate()*– 在 DOM 中进行渲染之前调用。</li>
+<li>componentDidUpdate() – 在渲染发生后立即调用。</li>
+<li>componentWillUnmount() – 从 DOM 卸载组件后调用。用于清理内存空间。</li>
+</ol>
 <h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><p>React 中的事件处理机制是构建交互式界面的核心，它通过<strong>合成事件（SyntheticEvent）</strong>系统提供跨浏览器的一致事件接口，并与组件状态紧密结合。</p>
 <h2 id="基础事件绑定"><a href="#基础事件绑定" class="headerlink" title="基础事件绑定"></a>基础事件绑定</h2><p>采用驼峰命名（如 <code>onClick</code> 而非 <code>onclick</code>）,并且传入函数引用而非字符串</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Button</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleClick</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;按钮被点击&quot;</span>);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span>点击我<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
