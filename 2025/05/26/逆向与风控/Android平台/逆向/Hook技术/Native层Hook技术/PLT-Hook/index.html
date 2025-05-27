@@ -16,21 +16,17 @@
   <meta name="author" content="Ling">
   <meta name="keywords" content="">
   
-    <meta name="description" content="vmp壳基础原理 - 拂树若生花 - 博客园 VMP加壳(二)：VMP的虚拟化原理 - 第七子007 - 博客园 初探VMProtect 3.x虚拟保护壳原理（学习中。。。） - 思泉 | Jev0n VMP加壳(一)：代码混淆原理 - 第七子007 - 博客园 快速认识 VMP 3.x 第一部分 壳代码篇 - 吾爱破解 - 52pojie.cn VMP虚拟机加壳的原理学习 - 郑瀚 - 博">
+    <meta name="description" content="前情回顾在抽取壳实现的前置知识 - The Peak Tower的最后部分，我们简单了解到Android下的一些Native方案如：PLT和Inline Hook。本文及其下一篇文章将重点讲述这两中Hook方案。 How to hook system calls of my android app - Stack Overflow Understanding PLT, GOT and hookin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Peak Tower">
-<meta property="og:url" content="http://example.com/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/PC%E4%B8%8B%E7%9A%84VMP%E5%A3%B3/index.html">
+<meta property="og:url" content="http://example.com/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Native%E5%B1%82Hook%E6%8A%80%E6%9C%AF/PLT-Hook/index.html">
 <meta property="og:site_name" content="The Peak Tower">
-<meta property="og:description" content="vmp壳基础原理 - 拂树若生花 - 博客园 VMP加壳(二)：VMP的虚拟化原理 - 第七子007 - 博客园 初探VMProtect 3.x虚拟保护壳原理（学习中。。。） - 思泉 | Jev0n VMP加壳(一)：代码混淆原理 - 第七子007 - 博客园 快速认识 VMP 3.x 第一部分 壳代码篇 - 吾爱破解 - 52pojie.cn VMP虚拟机加壳的原理学习 - 郑瀚 - 博">
+<meta property="og:description" content="前情回顾在抽取壳实现的前置知识 - The Peak Tower的最后部分，我们简单了解到Android下的一些Native方案如：PLT和Inline Hook。本文及其下一篇文章将重点讲述这两中Hook方案。 How to hook system calls of my android app - Stack Overflow Understanding PLT, GOT and hookin">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2025/05/26/6DEmVanMA1kfpxy.png">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250526145344430.png">
-<meta property="og:image" content="c:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250526150834479.png">
-<meta property="article:published_time" content="2025-05-26T06:44:36.057Z">
-<meta property="article:modified_time" content="2025-05-26T11:35:12.114Z">
+<meta property="article:published_time" content="2025-05-26T01:51:34.695Z">
+<meta property="article:modified_time" content="2025-05-26T13:42:51.255Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2025/05/26/6DEmVanMA1kfpxy.png">
   
   
   
@@ -220,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          100 字
+          66 字
         
       </span>
     
@@ -281,15 +277,10 @@
             
               <div class="markdown-body">
                 
-                <p><img src="https://s2.loli.net/2025/05/26/6DEmVanMA1kfpxy.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250526145344430.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="C:/Users/11252/AppData/Roaming/Typora/typora-user-images/image-20250526150834479.png" srcset="/img/loading.gif" lazyload></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jingcaixf/p/13035849.html">vmp壳基础原理 - 拂树若生花 - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14240373.html">VMP加壳(二)：VMP的虚拟化原理 - 第七子007 - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jev0n.com/2022/01/03/vmp3.html">初探VMProtect 3.x虚拟保护壳原理（学习中。。。） - 思泉 | Jev0n</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14224501.html">VMP加壳(一)：代码混淆原理 - 第七子007 - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1564978-1-1.html">快速认识 VMP 3.x 第一部分 壳代码篇 - 吾爱破解 - 52pojie.cn</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LittleHann/p/3344261.html">VMP虚拟机加壳的原理学习 - 郑瀚 - 博客园</a></p>
+                <h1 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a>前情回顾</h1><p>在<a target="_blank" rel="noopener" href="https://restack3.github.io/2025/05/10/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/%E6%8A%BD%E5%8F%96%E5%8A%A0%E5%9B%BA%E5%AE%9E%E7%8E%B0%E5%85%B3%E9%94%AE%E7%82%B9/">抽取壳实现的前置知识 - The Peak Tower</a>的最后部分，我们简单了解到Android下的一些Native方案如：PLT和Inline Hook。本文及其下一篇文章将重点讲述这两中Hook方案。</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/27101984/how-to-hook-system-calls-of-my-android-app">How to hook system calls of my android app - Stack Overflow</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/77691188/understanding-plt-got-and-hooking-them-linux-and-android">Understanding PLT, GOT and hooking them (Linux and Android) - Stack Overflow</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58385764/how-to-hook-any-api-call-on-windows-x64-x86">dll - How to hook any API call on windows x64, x86? - Stack Overflow</a></p>
 
                 
               </div>
@@ -308,7 +299,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div></div>
-      <div>http://example.com/2025/05/26/逆向与风控/Android平台/PC下的VMP壳/</div>
+      <div>http://example.com/2025/05/26/逆向与风控/Android平台/逆向/Hook技术/Native层Hook技术/PLT-Hook/</div>
     </div>
     <div class="license-meta">
       
@@ -352,12 +343,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E8%99%9A%E6%8B%9F%E6%9C%BA/Dalvik%E8%A7%A3%E9%87%8A%E5%99%A8%E6%89%A7%E8%A1%8C/" title="Dalvik解释器执行流程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dalvik解释器执行流程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E5%86%85%E6%A0%B8/Android%E5%86%85%E6%A0%B8/%E8%99%9A%E6%8B%9F%E6%9C%BA/Android%E4%B8%8B%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%BC%94%E5%8F%98/" title="Android虚拟机演变历史">
-                        <span class="hidden-mobile">Android虚拟机演变历史</span>
+                      <a href="/2025/05/26/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E8%84%B1%E5%8F%96/%E5%A3%B3%E7%9A%84%E5%AE%9E%E7%8E%B0/DexVmp%E5%A3%B3%E5%88%9D%E6%8E%A2/" title="DexVmp思路初探">
+                        <span class="hidden-mobile">DexVmp思路初探</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
