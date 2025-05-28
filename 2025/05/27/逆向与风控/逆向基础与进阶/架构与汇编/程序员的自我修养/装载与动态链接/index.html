@@ -40,8 +40,11 @@
 <meta property="og:image" content="https://s2.loli.net/2025/05/27/dEimNJ64qOkCpwM.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/27/wDv6dnmHJSiVbT4.png">
 <meta property="og:image" content="https://s2.loli.net/2025/05/27/YUNoMreG2PDlRpF.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/27/CFirDHsZtxYoRAX.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/27/HIzPixfGcD4Ms8k.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/27/Pzcf9mTaHN85Xqk.png">
 <meta property="article:published_time" content="2025-05-27T01:34:52.693Z">
-<meta property="article:modified_time" content="2025-05-27T12:15:27.298Z">
+<meta property="article:modified_time" content="2025-05-27T12:39:05.232Z">
 <meta property="article:author" content="Ling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2025/05/27/yQXYEbkefNIli1m.png">
@@ -234,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          20k 字
         
       </span>
     
@@ -245,7 +248,7 @@
         
         
         
-          160 分钟
+          164 分钟
         
       </span>
     
@@ -692,8 +695,8 @@
 <p>那么我们可以假设 lookup 的原型为lookup (module, function),这两个参数的值在我们这个例子中分别为 liba.so 和bar()。在Glibc 中,我们这里的 lookup()函数真正的名字叫_dl_runtime_resolve()。</p>
 <p><img src="https://s2.loli.net/2025/05/27/wDv6dnmHJSiVbT4.png" srcset="/img/loading.gif" lazyload></p>
 <p>当我们调用某个外部模块的函数时,如果按照通常的做法应该是通过GOT 中相应的项 进行间接跳转。PLT 为了实现延迟绑定,在这个过程中间又增加了一层间接跳转。调用函数并不直接通过GOT 跳转,而是通过一个叫作 PLT项的结构来进行跳转。每个外部函数在PLT 中都有一个相应的项,比如bar()函数在PLT中的项的地址我们称之为bar@plt</p>
-<h3 id="PLT-GOT-的分工"><a href="#PLT-GOT-的分工" class="headerlink" title="PLT&#x2F;GOT 的分工"></a><strong>PLT&#x2F;GOT 的分工</strong></h3><h4 id="GOT（Global-Offset-Table）"><a href="#GOT（Global-Offset-Table）" class="headerlink" title="GOT（Global Offset Table）"></a><strong>GOT（Global Offset Table）</strong></h4><p>**<code>.got</code>**：存储全局变量的地址。</p>
-<p>**<code>.got.plt</code>**：存储外部函数的地址（专用于 PLT 的跳转目标）。</p>
+<h3 id="PLT-GOT-的分工"><a href="#PLT-GOT-的分工" class="headerlink" title="PLT&#x2F;GOT 的分工"></a><strong>PLT&#x2F;GOT 的分工</strong></h3><h4 id="GOT（Global-Offset-Table）"><a href="#GOT（Global-Offset-Table）" class="headerlink" title="GOT（Global Offset Table）"></a><strong>GOT（Global Offset Table）</strong></h4><p><code>.got</code>：存储全局变量的地址。</p>
+<p><code>.got.plt</code>：存储外部函数的地址（专用于 PLT 的跳转目标）。</p>
 <p><strong>前三项特殊用途</strong>：</p>
 <ol>
 <li><code>.dynamic</code> 段的地址（描述动态链接信息）。</li>
@@ -702,6 +705,22 @@
 </ol>
 <h4 id="PLT（Procedure-Linkage-Table）"><a href="#PLT（Procedure-Linkage-Table）" class="headerlink" title="PLT（Procedure Linkage Table）"></a><strong>PLT（Procedure Linkage Table）</strong></h4><p>位于 <strong><code>.plt</code> 段</strong>，是一段 <strong>地址无关的代码</strong>，用于间接跳转到目标函数。</p>
 <p><strong>PLT 的结构</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>PLT表项</strong></th>
+<th align="center"><strong>存储内容</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>PLT[0]</strong></td>
+<td align="center">跳转到动态链接器（<code>_dl_runtime_resolve</code>）的代码，用于首次解析函数地址。</td>
+</tr>
+<tr>
+<td align="center"><strong>PLT[n] (n≥1)</strong></td>
+<td align="center">1. 第一条指令：跳转到<strong>GOT表</strong>对应项（初始指向PLT项的下一条指令）。 2. 后续指令：压栈函数ID，跳转到PLT[0]触发解析。</td>
+</tr>
+</tbody></table>
 <p><strong>PLT[0]（PLT 的“入口”）</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">push *(GOT + 4)    ; 压入模块ID（GOT[1]）<br>jump *(GOT + 8)    ; 跳转到 _dl_runtime_resolve（GOT[2]）<br></code></pre></td></tr></table></figure>
 
@@ -737,6 +756,28 @@
 <p>不再执行 <code>push n</code> 和 <code>jump PLT0</code>，直接调用目标函数。</p>
 </li>
 </ul>
+<p>relocation 完成之后的函数调用关系如下：</p>
+<p><img src="https://s2.loli.net/2025/05/27/CFirDHsZtxYoRAX.png" srcset="/img/loading.gif" lazyload></p>
+<p>linker 在加载 ELF 时的最主要工作是 relocation（重定位），这个过程的目的是为当前 ELF 的每个“导入符号”找到对应的外部符号（函数或数据）的绝对地址。最终，这些地址会被写入以下几个地方：</p>
+<ul>
+<li><code>.got.plt</code>：保存外部函数的绝对地址。这就是我们经常会听到的 “GOT 表”。</li>
+<li><code>.data</code>，<code>.data.rel.ro</code>：保存外部数据（包括函数指针）的绝对地址。</li>
+</ul>
+<p>要完成 relocation 过程，需要依赖于 ELF 中的以下信息：</p>
+<ul>
+<li><code>.rel.plt</code>，<code>.rela.plt</code>：用于关联 <code>.dynsym</code> 和 <code>.got.plt</code>。这就是我们经常会听到的 “PLT 表”。</li>
+<li><code>.rel.dyn</code>，<code>.rela.dyn</code>，<code>.rel.dyn.aps2</code>，<code>.rela.dyn.aps2</code>：用于关联 <code>.dynsym</code> 和 <code>.data</code>，<code>.data.rel.ro</code>。</li>
+</ul>
+<h3 id="补充数据结构"><a href="#补充数据结构" class="headerlink" title="补充数据结构"></a>补充数据结构</h3><h4 id="hash-table（哈希表）"><a href="#hash-table（哈希表）" class="headerlink" title="hash table（哈希表）"></a>hash table（哈希表）</h4><p>为了加速“动态链接符号的字符串”的查找过程，ELF 中包含了这些字符串的哈希表，通过查哈希表，可以快速确认 ELF 中是否存在某个动态链接符号，以及这个符号对应的信息项在 <code>.dynsym</code> 中的偏移位置。</p>
+<p>历史原因，Android ELF 中会存在两种格式的哈希表：</p>
+<ul>
+<li><code>.hash</code>：SYSV hash。其中包含了所有的动态链接符号。</li>
+<li><code>.gnu.hash</code>：GNU hash。只包含动态链接符号中的导出符号。</li>
+</ul>
+<p>ELF 中可能同时包含 <code>.hash</code> 和 <code>.gnu.hash</code>，也可能只包含其中一个。具体看 ELF 编译时的静态链接参数 <code>-Wl,--hash-style</code>，可以设置为 <code>sysv</code> 或 <code>gnu</code> 或 <code>both</code>。从 Android 6.0 开始，linker 支持了 <code>.gnu.hash</code> 的解析。</p>
+<p><img src="https://s2.loli.net/2025/05/27/HIzPixfGcD4Ms8k.png" srcset="/img/loading.gif" lazyload alt="linker（动态链接器）"></p>
+<p>relocation 完成之后的数据引用关系如下：</p>
+<p><img src="https://s2.loli.net/2025/05/27/Pzcf9mTaHN85Xqk.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="关键点解析-1"><a href="#关键点解析-1" class="headerlink" title="关键点解析"></a><strong>关键点解析</strong></h3><h4 id="（1）GOT-的初始化"><a href="#（1）GOT-的初始化" class="headerlink" title="（1）GOT 的初始化"></a><strong>（1）GOT 的初始化</strong></h4><p><strong><code>.got.plt</code> 的前三项</strong>由动态链接器在加载时填充：</p>
 <ul>
 <li><code>GOT[1]</code>：模块ID（用于符号查找）。</li>
@@ -1111,6 +1152,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/05/28/%E9%80%86%E5%90%91%E4%B8%8E%E9%A3%8E%E6%8E%A7/Android%E5%B9%B3%E5%8F%B0/%E9%80%86%E5%90%91/Hook%E6%8A%80%E6%9C%AF/Frida/Frida-java-bridge%E7%A0%81%E9%98%85%E8%AF%BB/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
